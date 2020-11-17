@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:studyme/0_welcome.dart';
-import 'package:studyme/1_set_goal.dart';
+import 'package:provider/provider.dart';
+import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/ui/0_welcome.dart';
+import 'package:studyme/ui/1_set_outcome.dart';
+import 'package:studyme/ui/2_set_current_intervention.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider<AppState>(
+      create: (context) => AppState(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Study Me',
         theme: ThemeData(
           // This is the theme of your application.
           //
@@ -26,8 +34,9 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => WelcomePage(title: 'Flutter Demo Home Page'),
-          '/1_set_goal': (context) => SetGoalPage(),
+          '/': (context) => WelcomePage(),
+          '/1_set_outcome': (context) => SetOutcomePage(),
+          '/2_set_start': (context) => SetCurrentIntervention()
         });
   }
 }
