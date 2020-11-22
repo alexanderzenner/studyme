@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
-import 'package:studyme/ui/0_welcome.dart';
-import 'package:studyme/ui/1_set_outcome.dart';
-import 'package:studyme/ui/2_set_current_intervention.dart';
+import 'package:studyme/ui/creation_custom/measure_overview_screen.dart';
+import 'package:studyme/ui/creation_custom/set_a_screen.dart';
+import 'package:studyme/ui/creation_custom/set_b_screen.dart';
+import 'package:studyme/ui/creation_guided/1_set_outcome.dart';
+import 'package:studyme/ui/creation_guided/2_set_current_intervention.dart';
+import 'package:studyme/ui/welcome_screen.dart';
 
 void main() {
   runApp(
@@ -30,13 +33,16 @@ class MyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => WelcomePage(),
+          '/': (context) => WelcomeScreen(),
           '/1_set_outcome': (context) => SetOutcomePage(),
-          '/2_set_start': (context) => SetCurrentIntervention()
+          '/2_set_start': (context) => SetCurrentIntervention(),
+          '/set_a': (context) => SetAScreen(),
+          '/set_b': (context) => SetInterventionScreen(),
+          '/measure_overview': (context) => MeasureOverviewScreen(),
         });
   }
 }

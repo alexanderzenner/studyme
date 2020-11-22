@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +20,7 @@ class WelcomePage extends StatelessWidget {
               OutlineButton(
                 child: Text('Sounds good', style: TextStyle(fontSize: 20)),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/1_set_outcome');
+                  Navigator.pushNamed(context, '/measure_overview');
                 },
               ),
             ],

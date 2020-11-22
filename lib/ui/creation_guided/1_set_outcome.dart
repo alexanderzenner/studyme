@@ -9,17 +9,17 @@ class SetOutcomePage extends StatefulWidget {
 }
 
 class _SetOutcomePageState extends State<SetOutcomePage> {
-  final myController = TextEditingController();
+  final outcomeController = TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    myController.dispose();
+    outcomeController.dispose();
     super.dispose();
   }
 
   void setOutcomeAndGoToNextPage() {
-    Provider.of<AppState>(context, listen: false).createTrialWithOutcome(myController.text);
+    Provider.of<AppState>(context, listen: false).setOutcome(outcomeController.text);
     Navigator.pushNamed(context, '/2_set_start');
   }
 
@@ -37,8 +37,8 @@ class _SetOutcomePageState extends State<SetOutcomePage> {
               Text('What do you want to improve about your health or well-being?', style: TextStyle(fontSize: 40)),
               SizedBox(height: 20),
               TextField(
-                controller: myController,
-                decoration: InputDecoration(hintText: 'I want to change my...'),
+                controller: outcomeController,
+                decoration: InputDecoration(hintText: 'I want to...'),
               ),
               SizedBox(height: 20),
               OutlineButton(

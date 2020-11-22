@@ -1,4 +1,4 @@
-import 'package:studyme/models/intervention.dart';
+import 'package:studyme/models/intervention/intervention.dart';
 
 class NoIntervention extends Intervention {
   final name = 'No Intervention';
