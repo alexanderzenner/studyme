@@ -9,7 +9,7 @@ import 'package:studyme/widgets/choice_measure_widget.dart';
 import 'package:studyme/widgets/free_measure_widget.dart';
 import 'package:studyme/widgets/scale_measure_widget.dart';
 
-import 'choice_editor_screen.dart';
+import '../../widgets/choice_editor.dart';
 
 class MeasureEditorScreen extends StatefulWidget {
   final Measure measure;
@@ -80,7 +80,7 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
                   _measure.name = text;
                 });
               },
-              decoration: InputDecoration(hintText: 'Name'),
+              decoration: InputDecoration(labelText: 'Name'),
             ),
             TextFormField(
               initialValue: _measure.description,
@@ -91,7 +91,7 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
               },
               keyboardType: TextInputType.multiline,
               maxLines: null,
-              decoration: InputDecoration(hintText: 'Description'),
+              decoration: InputDecoration(labelText: 'Description'),
             ),
             if (_body != null) _body,
           ],
@@ -155,7 +155,7 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
             measure.min = double.parse(text);
           });
         },
-        decoration: InputDecoration(hintText: 'Min'),
+        decoration: InputDecoration(labelText: 'Min'),
       ),
       TextFormField(
         keyboardType: TextInputType.number,
@@ -165,14 +165,14 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
             measure.max = double.parse(text);
           });
         },
-        decoration: InputDecoration(hintText: 'Max'),
+        decoration: InputDecoration(labelText: 'Max'),
       ),
     ]);
   }
 
   _buildChoiceMeasureBody(ChoiceMeasure measure) {
     return Column(children: [
-      ...measure.choices.asMap().entries.map((entry) => ChoiceEditorScreen(
+      ...measure.choices.asMap().entries.map((entry) => ChoiceEditor(
           key: UniqueKey(),
           choice: entry.value,
           index: entry.key,

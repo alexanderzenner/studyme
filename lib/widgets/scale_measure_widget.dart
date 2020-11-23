@@ -2,14 +2,33 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 
-class ScaleMeasureWidget extends StatelessWidget {
+class ScaleMeasureWidget extends StatefulWidget {
   final ScaleMeasure measure;
 
   ScaleMeasureWidget(this.measure);
 
   @override
+  _ScaleMeasureWidgetState createState() => _ScaleMeasureWidgetState();
+}
+
+class _ScaleMeasureWidgetState extends State<ScaleMeasureWidget> {
+  double _state;
+
+  @override
+  void initState() {
+    _state = widget.measure.min;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Slider(
-        value: measure.min, min: measure.min, max: measure.max, divisions: (measure.max - measure.min).toInt());
+        onChanged: (x) => setState(() {
+              _state = x;
+            }),
+        value: _state,
+        min: widget.measure.min,
+        max: widget.measure.max,
+        divisions: (widget.measure.max - widget.measure.min).toInt());
   }
 }
