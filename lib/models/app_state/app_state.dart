@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
+import 'package:studyme/models/log/log.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/models/trial.dart';
+import 'package:uuid/uuid.dart';
 
 class AppState extends ChangeNotifier {
   String _outcome;
   Trial _trial;
+  List<TrialLog> _logs;
 
   String get outcome => _outcome;
   Trial get trial => _trial;
@@ -29,9 +32,32 @@ class AppState extends ChangeNotifier {
   }
 
   AppState() {
-    _trial = Trial();
-    _trial.measures = List();
-    _trial.measures.add(ScaleMeasure()..name = 'hi');
+    _logs = List();
+
+    // setup trial
+
+    final _interventionA = Intervention()
+      ..id = Uuid().v4()
+      ..name = 'Take medicine'
+      ..description = 'Take your bloody medicine right now';
+    final _interventionB = Intervention()
+      ..id = Uuid().v4()
+      ..name = 'Do sport'
+      ..description = '';
+
+    final _measure = ScaleMeasure()
+      ..id = Uuid().v4()
+      ..min = 0
+      ..max = 10
+      ..name = 'Rate your pain';
+
+    _trial = Trial()
+      ..a = _interventionA
+      ..b = _interventionB
+      ..measures = List.from([_measure])
+      ..phaseSequence = ['a', 'b', 'b', 'a', 'a', 'b']
+      ..phaseDuration = 7
+      ..startDate = DateTime.now();
   }
 
   void updateMeasure(int index, Measure measure) {

@@ -5,6 +5,7 @@ import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/creation_custom/measure_editor_screen.dart';
+import 'package:uuid/uuid.dart';
 
 class MeasureOverviewScreen extends StatelessWidget {
   @override
@@ -42,7 +43,7 @@ class MeasureOverviewScreen extends StatelessWidget {
               )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Measure newMeasure = FreeMeasure();
+          Measure newMeasure = FreeMeasure()..id = Uuid().v4();
           _navigateToEditor(context, newMeasure).then((result) {
             if (result != null) {
               Provider.of<AppState>(context, listen: false).addMeasure(result);

@@ -5,6 +5,7 @@ import 'choice_measure.dart';
 import 'free_measure.dart';
 
 abstract class Measure {
+  String id;
   String type;
   String name;
   String description;

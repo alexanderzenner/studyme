@@ -8,6 +8,7 @@ import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/widgets/choice_measure_widget.dart';
 import 'package:studyme/widgets/free_measure_widget.dart';
 import 'package:studyme/widgets/scale_measure_widget.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../widgets/choice_editor.dart';
 
@@ -124,6 +125,7 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
       } else if (type == ScaleMeasure.measureType) {
         _newMeasure = ScaleMeasure();
       }
+      _newMeasure.id = Uuid().v4();
       _newMeasure.name = _measure.name;
       _newMeasure.description = _measure.description;
       setState(() {
