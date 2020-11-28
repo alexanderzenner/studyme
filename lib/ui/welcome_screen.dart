@@ -20,7 +20,7 @@ class WelcomeScreen extends StatelessWidget {
               OutlineButton(
                 child: Text('Sounds good', style: TextStyle(fontSize: 20)),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/dashboard');
+                  Navigator.pushNamed(context, '/set_a');
                 },
               ),
             ],

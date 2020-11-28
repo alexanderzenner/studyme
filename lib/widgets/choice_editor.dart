@@ -28,7 +28,7 @@ class _ChoiceEditorState extends State<ChoiceEditor> {
       ),
       Expanded(
         flex: 3,
-        child: OutlineButton(child: Text('Delete'), onPressed: widget.remove),
+        child: OutlineButton(child: Icon(Icons.delete), onPressed: widget.remove),
       )
     ]);
   }

@@ -5,10 +5,20 @@ import 'package:studyme/models/measure/free_measure.dart';
 class FreeMeasureWidget extends StatelessWidget {
   final FreeMeasure measure;
 
-  FreeMeasureWidget(this.measure);
+  final void Function(double value) updateValue;
+
+  FreeMeasureWidget(this.measure, this.updateValue);
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: TextField());
+    return Container(
+      child: TextField(
+          keyboardType: TextInputType.number,
+          onChanged: (value) {
+            if (updateValue != null) {
+              updateValue(double.parse(value));
+            }
+          }),
+    );
   }
 }

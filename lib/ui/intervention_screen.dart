@@ -16,7 +16,9 @@ class InterventionScreen extends StatelessWidget {
           Text(intervention.description),
           OutlineButton(
             child: Text('Ok'),
-            onPressed: () => print('completed'),
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
           ),
         ])));
   }

@@ -20,8 +20,16 @@ class MeasureOverviewScreen extends StatelessWidget {
       ),
       body: Consumer<AppState>(
           builder: (context, model, child) => ListView.builder(
-                itemCount: model.trial.measures.length,
+                itemCount: model.trial.measures.length + 1,
                 itemBuilder: (context, index) {
+                  if (index == model.trial.measures.length) {
+                    return OutlineButton(
+                      child: Text('Sounds good', style: TextStyle(fontSize: 20)),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/dashboard');
+                      },
+                    );
+                  }
                   return Card(
                       child: ListTile(
                     title: Row(

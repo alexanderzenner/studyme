@@ -194,13 +194,13 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
     Widget _preview;
     switch (_measure.runtimeType) {
       case FreeMeasure:
-        _preview = FreeMeasureWidget(_measure);
+        _preview = FreeMeasureWidget(_measure, null);
         break;
       case ChoiceMeasure:
-        _preview = ChoiceMeasureWidget(_measure);
+        _preview = ChoiceMeasureWidget(_measure, null);
         break;
       case ScaleMeasure:
-        _preview = ScaleMeasureWidget(_measure);
+        _preview = ScaleMeasureWidget(_measure, null);
         break;
       default:
         return null;

@@ -5,7 +5,9 @@ import 'package:studyme/models/measure/scale_measure.dart';
 class ScaleMeasureWidget extends StatefulWidget {
   final ScaleMeasure measure;
 
-  ScaleMeasureWidget(this.measure);
+  final void Function(double value) updateValue;
+
+  ScaleMeasureWidget(this.measure, this.updateValue);
 
   @override
   _ScaleMeasureWidgetState createState() => _ScaleMeasureWidgetState();
@@ -25,6 +27,9 @@ class _ScaleMeasureWidgetState extends State<ScaleMeasureWidget> {
     return Slider(
         onChanged: (x) => setState(() {
               _state = x;
+              if (widget.updateValue != null) {
+                widget.updateValue(x);
+              }
             }),
         value: _state,
         min: widget.measure.min,
