@@ -7,7 +7,7 @@ import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/creation_custom/measure_editor_screen.dart';
 import 'package:uuid/uuid.dart';
 
-class MeasureOverviewScreen extends StatelessWidget {
+class MeasureLibraryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
