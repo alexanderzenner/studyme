@@ -10,11 +10,13 @@ abstract class Measure {
   String name;
   String description;
   IconData icon;
+  bool isDefault;
 
-  Measure(this.type);
+  Measure(this.type) : isDefault = false;
 
   Measure.clone(Measure measure)
       : type = measure.type,
+        isDefault = measure.isDefault,
         name = measure.name,
         description = measure.description;
 

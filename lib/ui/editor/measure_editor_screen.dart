@@ -6,15 +6,13 @@ import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/widgets/choice_editor.dart';
-import 'package:studyme/widgets/choice_measure_widget.dart';
-import 'package:studyme/widgets/free_measure_widget.dart';
-import 'package:studyme/widgets/scale_measure_widget.dart';
 import 'package:uuid/uuid.dart';
 
 class MeasureEditorScreen extends StatefulWidget {
+  final bool isCreator;
   final Measure measure;
 
-  const MeasureEditorScreen({@required this.measure});
+  const MeasureEditorScreen({@required this.isCreator, @required this.measure});
 
   @override
   _MeasureEditorScreenState createState() => _MeasureEditorScreenState();
@@ -37,20 +35,11 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
         appBar: AppBar(
           title: Row(
             children: [
-              Text("Create Measure"),
-            ],
-          ),
-          bottom: TabBar(
-            tabs: [
-              Tab(icon: Icon(Icons.edit)),
-              Tab(icon: Icon(Icons.preview)),
+              Text((widget.isCreator ? "Create" : "Edit") + " Measure"),
             ],
           ),
         ),
-        body: TabBarView(children: [
-          _buildEditView(),
-          _buildPreviewView(),
-        ]),
+        body: _buildEditView(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pop(context, _measure);
@@ -188,33 +177,5 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
                 measure.choices.add(Choice());
               }))
     ]);
-  }
-
-  _buildPreviewView() {
-    Widget _preview;
-    switch (_measure.runtimeType) {
-      case FreeMeasure:
-        _preview = FreeMeasureWidget(_measure, null);
-        break;
-      case ChoiceMeasure:
-        _preview = ChoiceMeasureWidget(_measure, null);
-        break;
-      case ScaleMeasure:
-        _preview = ScaleMeasureWidget(_measure, null);
-        break;
-      default:
-        return null;
-    }
-
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(children: [
-        if (_measure.name != null && _measure.name.length > 0)
-          Text(_measure.name),
-        if (_measure.description != null && _measure.description.length > 0)
-          Text(_measure.description),
-        if (_preview != null) _preview,
-      ]),
-    );
   }
 }

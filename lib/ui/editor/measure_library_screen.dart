@@ -5,6 +5,7 @@ import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/editor/measure_editor_screen.dart';
+import 'package:studyme/ui/editor/measure_preview_screen.dart';
 import 'package:uuid/uuid.dart';
 
 class MeasureLibraryScreen extends StatelessWidget {
@@ -14,34 +15,25 @@ class MeasureLibraryScreen extends StatelessWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Text("Choose Measures"),
+            Text("Add Measure"),
           ],
         ),
       ),
       body: Consumer<AppState>(
           builder: (context, model, child) => ListView.builder(
-                itemCount: model.trial.measures.length + 1,
+                itemCount: model.measures.length,
                 itemBuilder: (context, index) {
-                  if (index == model.trial.measures.length) {
-                    return OutlineButton(
-                      child:
-                          Text('Sounds good', style: TextStyle(fontSize: 20)),
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/dashboard');
-                      },
-                    );
-                  }
                   return Card(
                       child: ListTile(
                     title: Row(
                       children: [
-                        Icon(model.trial.measures[index].icon),
+                        Icon(model.measures[index].icon),
                         SizedBox(width: 10),
-                        Text(model.trial.measures[index].name),
+                        Text(model.measures[index].name),
                       ],
                     ),
                     onTap: () {
-                      _editMeasure(context, model, index);
+                      _previewMeasure(context, model, index);
                     },
                   ));
                 },
@@ -56,29 +48,39 @@ class MeasureLibraryScreen extends StatelessWidget {
     );
   }
 
-  _editMeasure(context, model, index) {
-    _navigateToEditor(context, model.trial.measures[index]).then((result) {
+  _previewMeasure(context, model, index) {
+    _navigateToPreview(context, model.measures[index]).then((result) {
       if (result != null) {
-        Provider.of<AppState>(context, listen: false)
-            .updateMeasure(index, result);
+        Provider.of<AppState>(context, listen: false).addMeasureToTrial(result);
+        Navigator.pop(context);
       }
     });
+  }
+
+  Future _navigateToPreview(context, measure) async {
+    return await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MeasurePreviewScreen(measure: measure),
+      ),
+    );
   }
 
   _createMeasure(context) {
     Measure newMeasure = FreeMeasure()..id = Uuid().v4();
-    _navigateToEditor(context, newMeasure).then((result) {
+    _navigateToCreator(context, newMeasure).then((result) {
       if (result != null) {
-        Provider.of<AppState>(context, listen: false).addMeasure(result);
+        Provider.of<AppState>(context, listen: false).createMeasure(result);
       }
     });
   }
 
-  Future _navigateToEditor(context, measure) async {
+  Future _navigateToCreator(context, measure) async {
     return await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MeasureEditorScreen(measure: measure),
+        builder: (context) =>
+            MeasureEditorScreen(isCreator: true, measure: measure),
       ),
     );
   }

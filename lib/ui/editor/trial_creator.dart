@@ -19,32 +19,73 @@ class _TrialCreatorState extends State<TrialCreator> {
             padding: const EdgeInsets.all(8.0),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('Interventions', style: TextStyle(fontSize: 20)),
-              Card(
-                  child: ListTile(
-                      title: Text(model.trial.a.name),
-                      onTap: () {
-                        _editInterventionA(context, model);
-                      })),
-              Card(
-                  child: ListTile(
-                      title: Text(model.trial.b.name),
-                      onTap: () {
-                        _editInterventionB(context, model);
-                      })),
-              Text('Measures', style: TextStyle(fontSize: 20)),
-              Center(
-                child: RaisedButton(
-                  child: Icon(Icons.add),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/measure_library');
-                  },
-                ),
-              ),
-              Text('Schedule', style: TextStyle(fontSize: 20)),
+              ..._buildInterventionSection(model),
+              SizedBox(height: 10),
+              ..._buildMeasuresSection(model),
+              SizedBox(height: 10),
+              _buildScheduleSection(),
+              OutlineButton(
+                child: Text('Sounds good', style: TextStyle(fontSize: 20)),
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/dashboard');
+                },
+              )
             ]),
           ));
     });
+  }
+
+  _buildInterventionSection(model) {
+    return [
+      Text('Interventions', style: TextStyle(fontSize: 20)),
+      Card(
+          child: ListTile(
+              title: Text(model.trial.a.name),
+              onTap: () {
+                _editInterventionA(context, model);
+              })),
+      Card(
+          child: ListTile(
+              title: Text(model.trial.b.name),
+              onTap: () {
+                _editInterventionB(context, model);
+              })),
+    ];
+  }
+
+  _buildMeasuresSection(model) {
+    return [
+      Text('Measures', style: TextStyle(fontSize: 20)),
+      ListView.builder(
+        shrinkWrap: true,
+        itemCount: model.trial.measures.length,
+        itemBuilder: (context, index) {
+          return Card(
+              child: ListTile(
+            title: Row(
+              children: [
+                Icon(model.trial.measures[index].icon),
+                SizedBox(width: 10),
+                Text(model.trial.measures[index].name),
+              ],
+            ),
+            onTap: () {},
+          ));
+        },
+      ),
+      Center(
+        child: RaisedButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            Navigator.pushNamed(context, '/measure_library');
+          },
+        ),
+      ),
+    ];
+  }
+
+  _buildScheduleSection() {
+    return Text('Schedule', style: TextStyle(fontSize: 20));
   }
 
   _editInterventionA(context, model) {

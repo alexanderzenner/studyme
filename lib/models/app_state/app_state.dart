@@ -11,10 +11,12 @@ import 'package:uuid/uuid.dart';
 class AppState extends ChangeNotifier {
   String _outcome;
   Trial _trial;
+  List<Measure> _measures;
   List<TrialLog> _logs;
 
   String get outcome => _outcome;
   Trial get trial => _trial;
+  List<Measure> get measures => _measures;
 
   void setOutcome(String outcome) {
     _outcome = outcome;
@@ -45,6 +47,14 @@ class AppState extends ChangeNotifier {
       ..name = 'Do sport'
       ..description = '';
 
+    _trial = Trial()
+      ..a = _interventionA
+      ..b = _interventionB
+      ..measures = []
+      ..phaseSequence = ['a', 'b', 'b', 'a', 'a', 'b']
+      ..phaseDuration = 7
+      ..startDate = DateTime.now();
+
     /*
     final _measure = ScaleMeasure()
       ..id = Uuid().v4()
@@ -56,17 +66,12 @@ class AppState extends ChangeNotifier {
     final choice2 = Choice()..value = 'Medium';
     final choice3 = Choice()..value = 'High';
     final _measure = ChoiceMeasure()
+      ..isDefault = true
       ..id = Uuid().v4()
       ..name = 'Rate your pain'
       ..choices = [choice1, choice2, choice3];
 
-    _trial = Trial()
-      ..a = _interventionA
-      ..b = _interventionB
-      ..measures = List.from([_measure])
-      ..phaseSequence = ['a', 'b', 'b', 'a', 'a', 'b']
-      ..phaseDuration = 7
-      ..startDate = DateTime.now();
+    _measures = List.from([_measure]);
   }
 
   void updateMeasure(int index, Measure measure) {
@@ -74,7 +79,12 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addMeasure(Measure measure) {
+  void createMeasure(Measure measure) {
+    _measures.add(measure);
+    notifyListeners();
+  }
+
+  void addMeasureToTrial(Measure measure) {
     _trial.measures.add(measure);
     notifyListeners();
   }
