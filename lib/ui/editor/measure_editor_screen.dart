@@ -59,7 +59,7 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
       child: Container(
         child: Column(
           children: [
-            _buildDropDown(),
+            if (widget.isCreator) _buildDropDown(),
             TextFormField(
               initialValue: _measure.name,
               onChanged: (text) {

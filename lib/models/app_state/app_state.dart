@@ -18,6 +18,13 @@ class AppState extends ChangeNotifier {
   Trial get trial => _trial;
   List<Measure> get measures => _measures;
 
+  List<Measure> unaddedMeasures() {
+    List<Measure> _measures = measures;
+    _measures.removeWhere(
+        (i) => _trial.measures.map((x) => x.id).toList().contains(i.id));
+    return _measures;
+  }
+
   void setOutcome(String outcome) {
     _outcome = outcome;
   }
@@ -74,9 +81,20 @@ class AppState extends ChangeNotifier {
     _measures = List.from([_measure]);
   }
 
-  void updateMeasure(int index, Measure measure) {
-    _trial.measures[index] = measure;
-    notifyListeners();
+  int getTrialIndexForMeasureId(String id) {
+    return _trial.measures.indexWhere((i) => i.id == id);
+  }
+
+  void updateMeasure(Measure measure, Measure newMeasure) {
+    print(_trial.measures.map((i) => i.id).toList());
+    print(measure.id);
+    var index = getTrialIndexForMeasureId(measure.id);
+    print('HI');
+    print(index);
+    if (index != null) {
+      _trial.measures[index] = newMeasure;
+      notifyListeners();
+    }
   }
 
   void createMeasure(Measure measure) {

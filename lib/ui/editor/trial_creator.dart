@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/ui/editor/intervention_editor_screen.dart';
+import 'package:studyme/ui/editor/measure_preview_screen.dart';
 
 class TrialCreator extends StatefulWidget {
   @override
@@ -69,7 +70,9 @@ class _TrialCreatorState extends State<TrialCreator> {
                 Text(model.trial.measures[index].name),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+              _previewMeasure(context, model.trial.measures[index]);
+            },
           ));
         },
       ),
@@ -89,7 +92,7 @@ class _TrialCreatorState extends State<TrialCreator> {
   }
 
   _editInterventionA(context, model) {
-    _navigateToEditor(context, true, model.trial.a).then((result) {
+    _navigateToInterventionEditor(context, true, model.trial.a).then((result) {
       if (result != null) {
         Provider.of<AppState>(context, listen: false).setInterventionA(result);
       }
@@ -97,19 +100,39 @@ class _TrialCreatorState extends State<TrialCreator> {
   }
 
   _editInterventionB(context, model) {
-    _navigateToEditor(context, false, model.trial.b).then((result) {
+    _navigateToInterventionEditor(context, false, model.trial.b).then((result) {
       if (result != null) {
         Provider.of<AppState>(context, listen: false).setInterventionB(result);
       }
     });
   }
 
-  Future _navigateToEditor(context, isA, intervention) async {
+  Future _navigateToInterventionEditor(context, isA, intervention) async {
     return await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) =>
             InterventionEditorScreen(isA: isA, intervention: intervention),
+      ),
+    );
+  }
+
+  _previewMeasure(context, measure) {
+    _navigateToPreview(context, measure).then((result) {
+      if (result != null) {
+        Provider.of<AppState>(context, listen: false)
+            .updateMeasure(measure, result);
+        Navigator.pop(context);
+      }
+    });
+  }
+
+  Future _navigateToPreview(context, measure) async {
+    return await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            MeasurePreviewScreen(measure: measure, isAdded: true),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
+import 'package:uuid/uuid.dart';
 
 import 'choice_measure.dart';
 import 'free_measure.dart';
@@ -12,10 +13,13 @@ abstract class Measure {
   IconData icon;
   bool isDefault;
 
-  Measure(this.type) : isDefault = false;
+  Measure(this.type)
+      : id = Uuid().v4(),
+        isDefault = false;
 
   Measure.clone(Measure measure)
-      : type = measure.type,
+      : id = Uuid().v4(),
+        type = measure.type,
         isDefault = measure.isDefault,
         name = measure.name,
         description = measure.description;

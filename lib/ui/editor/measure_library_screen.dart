@@ -21,19 +21,19 @@ class MeasureLibraryScreen extends StatelessWidget {
       ),
       body: Consumer<AppState>(
           builder: (context, model, child) => ListView.builder(
-                itemCount: model.measures.length,
+                itemCount: model.unaddedMeasures().length,
                 itemBuilder: (context, index) {
                   return Card(
                       child: ListTile(
                     title: Row(
                       children: [
-                        Icon(model.measures[index].icon),
+                        Icon(model.unaddedMeasures()[index].icon),
                         SizedBox(width: 10),
-                        Text(model.measures[index].name),
+                        Text(model.unaddedMeasures()[index].name),
                       ],
                     ),
                     onTap: () {
-                      _previewMeasure(context, model, index);
+                      _previewMeasure(context, model.unaddedMeasures()[index]);
                     },
                   ));
                 },
@@ -48,8 +48,8 @@ class MeasureLibraryScreen extends StatelessWidget {
     );
   }
 
-  _previewMeasure(context, model, index) {
-    _navigateToPreview(context, model.measures[index]).then((result) {
+  _previewMeasure(context, measure) {
+    _navigateToPreview(context, measure).then((result) {
       if (result != null) {
         Provider.of<AppState>(context, listen: false).addMeasureToTrial(result);
         Navigator.pop(context);
@@ -61,7 +61,8 @@ class MeasureLibraryScreen extends StatelessWidget {
     return await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MeasurePreviewScreen(measure: measure),
+        builder: (context) =>
+            MeasurePreviewScreen(measure: measure, isAdded: false),
       ),
     );
   }
