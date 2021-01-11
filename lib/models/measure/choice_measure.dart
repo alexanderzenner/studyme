@@ -9,7 +9,7 @@ class ChoiceMeasure extends Measure {
   List<Choice> choices;
 
   ChoiceMeasure()
-      : choices = List(),
+      : choices = [],
         super(measureType);
 
   ChoiceMeasure.clone(ChoiceMeasure measure)

@@ -26,25 +26,31 @@ class _DashboardState extends State<Dashboard> {
           Text('Intervention'),
           Card(
               child: ListTile(
-            title: Text(_currentIntervention.name, style: TextStyle(color: false ? Colors.grey : Colors.black)),
+            title: Text(_currentIntervention.name,
+                style: TextStyle(color: false ? Colors.grey : Colors.black)),
             onTap: () => _navigateToInterventionScreen(_currentIntervention),
           )),
           Text('Measures'),
           ...trial.measures
-              .map((measure) =>
-                  Card(child: ListTile(title: Text(measure.name), onTap: () => _navigateToMeasureScreen(measure))))
+              .map((measure) => Card(
+                  child: ListTile(
+                      title: Text(measure.name),
+                      onTap: () => _navigateToMeasureScreen(measure))))
               .toList()
         ])));
   }
 
   _navigateToInterventionScreen(intervention) async {
-    final completed =
-        await Navigator.push(context, MaterialPageRoute(builder: (context) => InterventionScreen(intervention)));
+    final completed = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => InterventionScreen(intervention)));
     print(completed);
   }
 
   _navigateToMeasureScreen(measure) async {
-    final completed = await Navigator.push(context, MaterialPageRoute(builder: (context) => MeasureScreen(measure)));
+    final completed = await Navigator.push(context,
+        MaterialPageRoute(builder: (context) => MeasureScreen(measure)));
     if (completed != null) {
       final log = MeasureLog()..value = completed;
       print(log);

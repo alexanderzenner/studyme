@@ -5,19 +5,16 @@ import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
+import 'package:studyme/widgets/choice_editor.dart';
 import 'package:studyme/widgets/choice_measure_widget.dart';
 import 'package:studyme/widgets/free_measure_widget.dart';
 import 'package:studyme/widgets/scale_measure_widget.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../widgets/choice_editor.dart';
-
 class MeasureEditorScreen extends StatefulWidget {
   final Measure measure;
 
   const MeasureEditorScreen({@required this.measure});
-
-  Measure get measureCopy => measure;
 
   @override
   _MeasureEditorScreenState createState() => _MeasureEditorScreenState();
@@ -105,8 +102,11 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
     return DropdownButton<String>(
       value: _measure.type,
       onChanged: _changeMeasureType,
-      items: [FreeMeasure.measureType, ChoiceMeasure.measureType, ScaleMeasure.measureType]
-          .map<DropdownMenuItem<String>>((value) {
+      items: [
+        FreeMeasure.measureType,
+        ChoiceMeasure.measureType,
+        ScaleMeasure.measureType
+      ].map<DropdownMenuItem<String>>((value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text('${value[0].toUpperCase()}${value.substring(1)}'),
@@ -209,8 +209,10 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(children: [
-        if (_measure.name != null && _measure.name.length > 0) Text(_measure.name),
-        if (_measure.description != null && _measure.description.length > 0) Text(_measure.description),
+        if (_measure.name != null && _measure.name.length > 0)
+          Text(_measure.name),
+        if (_measure.description != null && _measure.description.length > 0)
+          Text(_measure.description),
         if (_preview != null) _preview,
       ]),
     );

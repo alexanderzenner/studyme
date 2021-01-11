@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
-import 'package:studyme/ui/creation_custom/journey_overview_screen.dart';
-import 'package:studyme/ui/creation_custom/measure_library_screen.dart';
-import 'package:studyme/ui/creation_custom/set_a_screen.dart';
-import 'package:studyme/ui/creation_custom/set_b_screen.dart';
-import 'package:studyme/ui/creation_guided/1_set_outcome.dart';
-import 'package:studyme/ui/creation_guided/2_set_current_intervention.dart';
 import 'package:studyme/ui/dashboard.dart';
-import 'package:studyme/ui/trial_creator.dart';
-import 'package:studyme/ui/welcome_screen.dart';
+import 'package:studyme/ui/editor/measure_library_screen.dart';
+import 'package:studyme/ui/editor/trial_creator.dart';
 
 void main() {
   runApp(
@@ -41,12 +35,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => TrialCreator(),
-          '/1_set_outcome': (context) => SetOutcomePage(),
-          '/2_set_start': (context) => SetCurrentIntervention(),
-          '/set_a': (context) => SetAScreen(),
-          '/set_b': (context) => SetInterventionScreen(),
           '/measure_library': (context) => MeasureLibraryScreen(),
-          '/journey_overview': (context) => JourneyOverviewScreen(),
           '/dashboard': (context) => Dashboard(),
         });
   }

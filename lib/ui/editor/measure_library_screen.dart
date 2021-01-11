@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/ui/creation_custom/measure_editor_screen.dart';
+import 'package:studyme/ui/editor/measure_editor_screen.dart';
 import 'package:uuid/uuid.dart';
 
 class MeasureLibraryScreen extends StatelessWidget {
@@ -24,7 +24,8 @@ class MeasureLibraryScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   if (index == model.trial.measures.length) {
                     return OutlineButton(
-                      child: Text('Sounds good', style: TextStyle(fontSize: 20)),
+                      child:
+                          Text('Sounds good', style: TextStyle(fontSize: 20)),
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/dashboard');
                       },
@@ -40,28 +41,37 @@ class MeasureLibraryScreen extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
-                      _navigateToEditor(context, model.trial.measures[index]).then((result) {
-                        if (result != null) {
-                          Provider.of<AppState>(context, listen: false).updateMeasure(index, result);
-                        }
-                      });
+                      _editMeasure(context, model, index);
                     },
                   ));
                 },
               )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Measure newMeasure = FreeMeasure()..id = Uuid().v4();
-          _navigateToEditor(context, newMeasure).then((result) {
-            if (result != null) {
-              Provider.of<AppState>(context, listen: false).addMeasure(result);
-            }
-          });
+          _createMeasure(context);
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.green,
       ),
     );
+  }
+
+  _editMeasure(context, model, index) {
+    _navigateToEditor(context, model.trial.measures[index]).then((result) {
+      if (result != null) {
+        Provider.of<AppState>(context, listen: false)
+            .updateMeasure(index, result);
+      }
+    });
+  }
+
+  _createMeasure(context) {
+    Measure newMeasure = FreeMeasure()..id = Uuid().v4();
+    _navigateToEditor(context, newMeasure).then((result) {
+      if (result != null) {
+        Provider.of<AppState>(context, listen: false).addMeasure(result);
+      }
+    });
   }
 
   Future _navigateToEditor(context, measure) async {

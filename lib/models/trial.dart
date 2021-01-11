@@ -1,20 +1,23 @@
+import 'package:studyme/models/intervention/abstract_intervention.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
 
 class Trial {
-  Intervention a;
-  Intervention b;
+  AbstractIntervention a;
+  AbstractIntervention b;
   List<Measure> measures;
 
   int phaseDuration;
   List<String> phaseSequence;
   DateTime startDate;
 
-  List<Intervention> get interventionsInOrder {
-    return phaseSequence.map((letter) => getInterventionForLetter(letter)).toList();
+  List<AbstractIntervention> get interventionsInOrder {
+    return phaseSequence
+        .map((letter) => getInterventionForLetter(letter))
+        .toList();
   }
 
-  Intervention getInterventionForLetter(String letter) {
+  AbstractIntervention getInterventionForLetter(String letter) {
     if (letter == 'a')
       return a;
     else if (letter == 'b')
@@ -28,7 +31,7 @@ class Trial {
     return test ~/ phaseDuration;
   }
 
-  Intervention getInterventionForDate(DateTime date) {
+  AbstractIntervention getInterventionForDate(DateTime date) {
     final index = _getInterventionIndexForDate(date);
     if (index < 0 || index >= phaseSequence.length) {
       print('Study is over or has not begun.');

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:studyme/models/intervention/abstract_intervention.dart';
 import 'package:studyme/models/intervention/intervention.dart';
-import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/models/log/log.dart';
 import 'package:studyme/models/measure/choice.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
@@ -20,20 +20,19 @@ class AppState extends ChangeNotifier {
     _outcome = outcome;
   }
 
-  void setInterventionAToNoIntervention() {
-    this.setInterventionA(NoIntervention());
-  }
-
-  void setInterventionA(Intervention intervention) {
+  void setInterventionA(AbstractIntervention intervention) {
     _trial.a = intervention;
+    notifyListeners();
   }
 
-  void setInterventionB(Intervention intervention) {
+  void setInterventionB(AbstractIntervention intervention) {
+    print(intervention.runtimeType);
     _trial.b = intervention;
+    notifyListeners();
   }
 
   AppState() {
-    _logs = List();
+    _logs = [];
 
     // setup trial
 
