@@ -71,7 +71,8 @@ class MeasureLibraryScreen extends StatelessWidget {
     Measure newMeasure = FreeMeasure()..id = Uuid().v4();
     _navigateToCreator(context, newMeasure).then((result) {
       if (result != null) {
-        Provider.of<AppState>(context, listen: false).createMeasure(result);
+        Provider.of<AppState>(context, listen: false).addMeasureToTrial(result);
+        Navigator.pop(context);
       }
     });
   }

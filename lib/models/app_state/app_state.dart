@@ -89,17 +89,10 @@ class AppState extends ChangeNotifier {
     print(_trial.measures.map((i) => i.id).toList());
     print(measure.id);
     var index = getTrialIndexForMeasureId(measure.id);
-    print('HI');
-    print(index);
-    if (index != null) {
+    if (index >= 0) {
       _trial.measures[index] = newMeasure;
       notifyListeners();
     }
-  }
-
-  void createMeasure(Measure measure) {
-    _measures.add(measure);
-    notifyListeners();
   }
 
   void addMeasureToTrial(Measure measure) {

@@ -22,14 +22,6 @@ class MeasurePreviewScreen extends StatefulWidget {
 }
 
 class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
-  Measure _measure;
-
-  @override
-  initState() {
-    _measure = widget.measure.clone();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,16 +35,16 @@ class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
         body: Column(
           children: [
             SizedBox(height: 10),
-            if (_measure.isDefault) Text("(Default Measure)"),
+            if (widget.measure.isDefault) Text("(Default Measure)"),
             Card(child: _buildPreviewView()),
             if (!widget.isAdded)
               OutlineButton.icon(
                   icon: Icon(Icons.add),
                   label: Text("Add to trial"),
                   onPressed: () {
-                    Navigator.pop(context, _measure);
+                    Navigator.pop(context, widget.measure);
                   }),
-            if (!_measure.isDefault)
+            if (!widget.measure.isDefault)
               OutlineButton.icon(
                   icon: Icon(Icons.edit),
                   label: Text("Edit"),
@@ -65,15 +57,15 @@ class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
 
   _buildPreviewView() {
     Widget _preview;
-    switch (_measure.runtimeType) {
+    switch (widget.measure.runtimeType) {
       case FreeMeasure:
-        _preview = FreeMeasureWidget(_measure, null);
+        _preview = FreeMeasureWidget(widget.measure, null);
         break;
       case ChoiceMeasure:
-        _preview = ChoiceMeasureWidget(_measure, null);
+        _preview = ChoiceMeasureWidget(widget.measure, null);
         break;
       case ScaleMeasure:
-        _preview = ScaleMeasureWidget(_measure, null);
+        _preview = ScaleMeasureWidget(widget.measure, null);
         break;
       default:
         return null;
@@ -82,10 +74,11 @@ class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(children: [
-        if (_measure.name != null && _measure.name.length > 0)
-          Text(_measure.name),
-        if (_measure.description != null && _measure.description.length > 0)
-          Text(_measure.description),
+        if (widget.measure.name != null && widget.measure.name.length > 0)
+          Text(widget.measure.name),
+        if (widget.measure.description != null &&
+            widget.measure.description.length > 0)
+          Text(widget.measure.description),
         if (_preview != null) _preview,
       ]),
     );
@@ -106,7 +99,7 @@ class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            MeasureEditorScreen(isCreator: false, measure: _measure),
+            MeasureEditorScreen(isCreator: false, measure: widget.measure),
       ),
     );
   }

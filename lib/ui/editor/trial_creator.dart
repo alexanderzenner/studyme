@@ -57,30 +57,35 @@ class _TrialCreatorState extends State<TrialCreator> {
   _buildMeasuresSection(model) {
     return [
       Text('Measures', style: TextStyle(fontSize: 20)),
-      ListView.builder(
-        shrinkWrap: true,
-        itemCount: model.trial.measures.length,
-        itemBuilder: (context, index) {
-          return Card(
-              child: ListTile(
-            title: Row(
-              children: [
-                Icon(model.trial.measures[index].icon),
-                SizedBox(width: 10),
-                Text(model.trial.measures[index].name),
-              ],
-            ),
-            onTap: () {
-              _previewMeasure(context, model.trial.measures[index]);
-            },
-          ));
-        },
-      ),
-      Center(
-        child: RaisedButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Navigator.pushNamed(context, '/measure_library');
+      Expanded(
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: model.trial.measures.length + 1,
+          itemBuilder: (context, index) {
+            if (index == model.trial.measures.length) {
+              return Center(
+                child: RaisedButton(
+                  child: Icon(Icons.add),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/measure_library');
+                  },
+                ),
+              );
+            } else {
+              return Card(
+                  child: ListTile(
+                title: Row(
+                  children: [
+                    Icon(model.trial.measures[index].icon),
+                    SizedBox(width: 10),
+                    Text(model.trial.measures[index].name),
+                  ],
+                ),
+                onTap: () {
+                  _previewMeasure(context, model.trial.measures[index]);
+                },
+              ));
+            }
           },
         ),
       ),
