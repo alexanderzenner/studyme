@@ -38,7 +38,8 @@ class _TrialCreatorState extends State<TrialCreator> {
 
   _buildInterventionSection(model) {
     return [
-      Text('Interventions', style: TextStyle(fontSize: 20)),
+      Text('Interventions',
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
       Card(
           child: ListTile(
               title: Text(model.trial.a.name),
@@ -56,7 +57,8 @@ class _TrialCreatorState extends State<TrialCreator> {
 
   _buildMeasuresSection(model) {
     return [
-      Text('Measures', style: TextStyle(fontSize: 20)),
+      Text('Measures',
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
       Expanded(
         child: ListView.builder(
           shrinkWrap: true,
@@ -93,7 +95,8 @@ class _TrialCreatorState extends State<TrialCreator> {
   }
 
   _buildScheduleSection() {
-    return Text('Schedule', style: TextStyle(fontSize: 20));
+    return Text('Schedule',
+        style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold));
   }
 
   _editInterventionA(context, model) {

@@ -40,7 +40,7 @@ class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
     }
 
     return Scaffold(
-        appBar: AppBar(title: Text(widget.measure.name)),
+        appBar: AppBar(title: Text(widget.measure.name + " (Preview)")),
         body: Column(
           children: [
             if (widget.measure.description != null &&

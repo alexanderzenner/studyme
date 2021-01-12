@@ -29,60 +29,53 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Row(
+    final _body = _buildMeasureBody();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Text((widget.isCreator ? "Create" : "Edit") + " Measure"),
+          ],
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
             children: [
-              Text((widget.isCreator ? "Create" : "Edit") + " Measure"),
+              if (widget.isCreator) _buildDropDown(),
+              TextFormField(
+                initialValue: _measure.name,
+                onChanged: (text) {
+                  setState(() {
+                    _measure.name = text;
+                  });
+                },
+                decoration: InputDecoration(labelText: 'Name'),
+              ),
+              TextFormField(
+                initialValue: _measure.description,
+                onChanged: (text) {
+                  setState(() {
+                    _measure.description = text;
+                  });
+                },
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                decoration: InputDecoration(labelText: 'Description'),
+              ),
+              if (_body != null) _body,
             ],
           ),
         ),
-        body: _buildEditView(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pop(context, _measure);
-          },
-          child: Icon(Icons.check),
-          backgroundColor: Colors.green,
-        ),
       ),
-    );
-  }
-
-  _buildEditView() {
-    final _body = _buildMeasureBody();
-
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Container(
-        child: Column(
-          children: [
-            if (widget.isCreator) _buildDropDown(),
-            TextFormField(
-              initialValue: _measure.name,
-              onChanged: (text) {
-                setState(() {
-                  _measure.name = text;
-                });
-              },
-              decoration: InputDecoration(labelText: 'Name'),
-            ),
-            TextFormField(
-              initialValue: _measure.description,
-              onChanged: (text) {
-                setState(() {
-                  _measure.description = text;
-                });
-              },
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              decoration: InputDecoration(labelText: 'Description'),
-            ),
-            if (_body != null) _body,
-          ],
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pop(context, _measure);
+        },
+        child: Icon(Icons.check),
+        backgroundColor: Colors.green,
       ),
     );
   }
@@ -163,13 +156,19 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
 
   _buildChoiceMeasureBody(ChoiceMeasure measure) {
     return Column(children: [
-      ...measure.choices.asMap().entries.map((entry) => ChoiceEditor(
-          key: UniqueKey(),
-          choice: entry.value,
-          index: entry.key,
-          remove: () => setState(() {
-                measure.choices.removeAt(entry.key);
-              }))),
+      ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: measure.choices.length,
+          itemBuilder: (content, index) {
+            return ChoiceEditor(
+                key: UniqueKey(),
+                choice: measure.choices[index],
+                index: index,
+                remove: () => setState(() {
+                      measure.choices.removeAt(index);
+                    }));
+          }),
       SizedBox(height: 20),
       OutlineButton(
           child: Text('Add Choice'),
