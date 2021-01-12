@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/abstract_intervention.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/null_intervention.dart';
-import 'package:studyme/widgets/intervention_editor.dart';
 
 class InterventionEditorScreen extends StatefulWidget {
   final bool isA;
@@ -57,7 +56,26 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
                     isSelected: [_isNullIntervention(), !_isNullIntervention()],
                   ),
                 if (!_isNullIntervention())
-                  InterventionEditor(intervention: _intervention),
+                  Column(
+                    children: [
+                      TextFormField(
+                        initialValue: _intervention.name,
+                        onChanged: (text) {
+                          _intervention.name = text;
+                        },
+                        decoration: InputDecoration(labelText: 'Name'),
+                      ),
+                      TextFormField(
+                        initialValue: _intervention.description,
+                        onChanged: (text) {
+                          _intervention.description = text;
+                        },
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: InputDecoration(labelText: 'Description'),
+                      ),
+                    ],
+                  ),
                 OutlineButton(
                   child: Text('Ok'),
                   onPressed: () => Navigator.pop(context, _intervention),
