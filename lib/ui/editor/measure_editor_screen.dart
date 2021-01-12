@@ -41,7 +41,7 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
               if (widget.isCreator) _buildDropDown(),

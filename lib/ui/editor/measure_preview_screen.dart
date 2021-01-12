@@ -41,27 +41,32 @@ class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
 
     return Scaffold(
         appBar: AppBar(title: Text(widget.measure.name + " (Preview)")),
-        body: Column(
-          children: [
-            if (widget.measure.description != null &&
-                widget.measure.description.length > 0)
-              Text(widget.measure.description),
-            if (_preview != null) Expanded(child: _preview),
-            if (!widget.isAdded)
-              OutlineButton.icon(
-                  icon: Icon(Icons.add),
-                  label: Text("Add to trial"),
-                  onPressed: () {
-                    Navigator.pop(context, widget.measure);
-                  }),
-            if (widget.isAdded)
-              OutlineButton.icon(
-                  icon: Icon(Icons.edit),
-                  label: Text("Edit"),
-                  onPressed: () {
-                    _editMeasure(context);
-                  })
-          ],
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                if (widget.measure.description != null &&
+                    widget.measure.description.length > 0)
+                  Text(widget.measure.description),
+                if (_preview != null) _preview,
+                if (!widget.isAdded)
+                  OutlineButton.icon(
+                      icon: Icon(Icons.add),
+                      label: Text("Add to trial"),
+                      onPressed: () {
+                        Navigator.pop(context, widget.measure);
+                      }),
+                if (widget.isAdded)
+                  OutlineButton.icon(
+                      icon: Icon(Icons.edit),
+                      label: Text("Edit"),
+                      onPressed: () {
+                        _editMeasure(context);
+                      })
+              ],
+            ),
+          ),
         ));
   }
 

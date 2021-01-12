@@ -16,22 +16,26 @@ class _TrialCreatorState extends State<TrialCreator> {
     return Consumer<AppState>(builder: (context, model, child) {
       return Scaffold(
           appBar: AppBar(title: Text('Trial Creator')),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              ..._buildInterventionSection(model),
-              SizedBox(height: 10),
-              ..._buildMeasuresSection(model),
-              SizedBox(height: 10),
-              _buildScheduleSection(),
-              OutlineButton(
-                child: Text('Sounds good', style: TextStyle(fontSize: 20)),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/dashboard');
-                },
-              )
-            ]),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ..._buildInterventionSection(model),
+                    SizedBox(height: 10),
+                    ..._buildMeasuresSection(model),
+                    SizedBox(height: 10),
+                    _buildScheduleSection(),
+                    OutlineButton(
+                      child:
+                          Text('Sounds good', style: TextStyle(fontSize: 20)),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/dashboard');
+                      },
+                    )
+                  ]),
+            ),
           ));
     });
   }
@@ -41,12 +45,14 @@ class _TrialCreatorState extends State<TrialCreator> {
       Text('Interventions',
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
       Card(
+          margin: EdgeInsets.symmetric(vertical: 2),
           child: ListTile(
               title: Text(model.trial.a.name),
               onTap: () {
                 _editInterventionA(context, model);
               })),
       Card(
+          margin: EdgeInsets.symmetric(vertical: 2),
           child: ListTile(
               title: Text(model.trial.b.name),
               onTap: () {
@@ -59,37 +65,37 @@ class _TrialCreatorState extends State<TrialCreator> {
     return [
       Text('Measures',
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
-      Expanded(
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: model.trial.measures.length + 1,
-          itemBuilder: (context, index) {
-            if (index == model.trial.measures.length) {
-              return Center(
-                child: RaisedButton(
-                  child: Icon(Icons.add),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/measure_library');
-                  },
-                ),
-              );
-            } else {
-              return Card(
-                  child: ListTile(
-                title: Row(
-                  children: [
-                    Icon(model.trial.measures[index].icon),
-                    SizedBox(width: 10),
-                    Text(model.trial.measures[index].name),
-                  ],
-                ),
-                onTap: () {
-                  _previewMeasure(context, model.trial.measures[index]);
+      ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: model.trial.measures.length + 1,
+        itemBuilder: (context, index) {
+          if (index == model.trial.measures.length) {
+            return Center(
+              child: RaisedButton(
+                child: Icon(Icons.add),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/measure_library');
                 },
-              ));
-            }
-          },
-        ),
+              ),
+            );
+          } else {
+            return Card(
+                margin: EdgeInsets.symmetric(vertical: 2),
+                child: ListTile(
+                  title: Row(
+                    children: [
+                      Icon(model.trial.measures[index].icon),
+                      SizedBox(width: 10),
+                      Text(model.trial.measures[index].name),
+                    ],
+                  ),
+                  onTap: () {
+                    _previewMeasure(context, model.trial.measures[index]);
+                  },
+                ));
+          }
+        },
       ),
     ];
   }

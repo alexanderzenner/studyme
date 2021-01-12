@@ -26,6 +26,7 @@ class _ChoiceMeasureWidgetState extends State<ChoiceMeasureWidget> {
   Widget build(BuildContext context) {
     return ListView.builder(
         shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         itemCount: widget.measure.choices.length,
         itemBuilder: (context, index) {
           return Card(
