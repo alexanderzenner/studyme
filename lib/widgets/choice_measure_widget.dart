@@ -14,7 +14,7 @@ class ChoiceMeasureWidget extends StatefulWidget {
 }
 
 class _ChoiceMeasureWidgetState extends State<ChoiceMeasureWidget> {
-  double _state;
+  int _state;
 
   @override
   void initState() {
@@ -24,22 +24,27 @@ class _ChoiceMeasureWidgetState extends State<ChoiceMeasureWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ...widget.measure.choices.asMap().entries.map((entry) => Card(
-          key: UniqueKey(),
-          child: Ink(
-            color: _state == (entry.key).toDouble() ? Theme.of(context).primaryColor : Colors.transparent,
-            child: ListTile(
-                title: Text('${entry.value.value}'),
-                onTap: () {
-                  setState(() {
-                    _state = (entry.key).toDouble();
-                  });
-                  if (widget.updateValue != null) {
-                    widget.updateValue(_state);
-                  }
-                }),
-          )))
-    ]);
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: widget.measure.choices.length,
+        itemBuilder: (context, index) {
+          return Card(
+              key: UniqueKey(),
+              child: Ink(
+                color: _state == index
+                    ? Theme.of(context).primaryColor
+                    : Colors.transparent,
+                child: ListTile(
+                    title: Text('${widget.measure.choices[index].value}'),
+                    onTap: () {
+                      setState(() {
+                        _state = index;
+                      });
+                      if (widget.updateValue != null) {
+                        widget.updateValue(_state.toDouble());
+                      }
+                    }),
+              ));
+        });
   }
 }

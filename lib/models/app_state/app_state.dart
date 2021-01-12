@@ -20,8 +20,6 @@ class AppState extends ChangeNotifier {
 
   List<Measure> unaddedMeasures() {
     List<Measure> _measuresCopy = List.from(_measures);
-    print(_measuresCopy.map((i) => i.id).toList());
-    print(_trial.measures.map((i) => i.id).toList());
     _measuresCopy.removeWhere(
         (i) => _trial.measures.map((x) => x.id).toList().contains(i.id));
     return _measuresCopy;

@@ -24,18 +24,29 @@ class MeasurePreviewScreen extends StatefulWidget {
 class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
   @override
   Widget build(BuildContext context) {
+    Widget _preview;
+    switch (widget.measure.runtimeType) {
+      case FreeMeasure:
+        _preview = FreeMeasureWidget(widget.measure, null);
+        break;
+      case ChoiceMeasure:
+        _preview = ChoiceMeasureWidget(widget.measure, null);
+        break;
+      case ScaleMeasure:
+        _preview = ScaleMeasureWidget(widget.measure, null);
+        break;
+      default:
+        return null;
+    }
+
     return Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              Text("Preview Measure"),
-            ],
-          ),
-        ),
+        appBar: AppBar(title: Text(widget.measure.name)),
         body: Column(
           children: [
-            SizedBox(height: 10),
-            Card(child: _buildPreviewView()),
+            if (widget.measure.description != null &&
+                widget.measure.description.length > 0)
+              Text(widget.measure.description),
+            if (_preview != null) Expanded(child: _preview),
             if (!widget.isAdded)
               OutlineButton.icon(
                   icon: Icon(Icons.add),
@@ -52,35 +63,6 @@ class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
                   })
           ],
         ));
-  }
-
-  _buildPreviewView() {
-    Widget _preview;
-    switch (widget.measure.runtimeType) {
-      case FreeMeasure:
-        _preview = FreeMeasureWidget(widget.measure, null);
-        break;
-      case ChoiceMeasure:
-        _preview = ChoiceMeasureWidget(widget.measure, null);
-        break;
-      case ScaleMeasure:
-        _preview = ScaleMeasureWidget(widget.measure, null);
-        break;
-      default:
-        return null;
-    }
-
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(children: [
-        if (widget.measure.name != null && widget.measure.name.length > 0)
-          Text(widget.measure.name),
-        if (widget.measure.description != null &&
-            widget.measure.description.length > 0)
-          Text(widget.measure.description),
-        if (_preview != null) _preview,
-      ]),
-    );
   }
 
   _editMeasure(context) {
