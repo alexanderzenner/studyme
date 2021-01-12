@@ -22,7 +22,7 @@ class _InterventionEditorState extends State<InterventionEditor> {
             onChanged: (text) {
               widget.intervention.name = text;
             },
-            decoration: InputDecoration(hintText: 'Name'),
+            decoration: InputDecoration(labelText: 'Name'),
           ),
           TextFormField(
             initialValue: widget.intervention.description,
@@ -31,7 +31,7 @@ class _InterventionEditorState extends State<InterventionEditor> {
             },
             keyboardType: TextInputType.multiline,
             maxLines: null,
-            decoration: InputDecoration(hintText: 'Description'),
+            decoration: InputDecoration(labelText: 'Description'),
           ),
         ],
       ),

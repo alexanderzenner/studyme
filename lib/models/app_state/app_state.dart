@@ -35,7 +35,6 @@ class AppState extends ChangeNotifier {
   }
 
   void setInterventionB(AbstractIntervention intervention) {
-    print(intervention.runtimeType);
     _trial.b = intervention;
     notifyListeners();
   }
@@ -85,8 +84,6 @@ class AppState extends ChangeNotifier {
   }
 
   void updateMeasure(Measure measure, Measure newMeasure) {
-    print(_trial.measures.map((i) => i.id).toList());
-    print(measure.id);
     var index = getTrialIndexForMeasureId(measure.id);
     if (index >= 0) {
       _trial.measures[index] = newMeasure;

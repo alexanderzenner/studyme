@@ -27,12 +27,14 @@ class _TrialCreatorState extends State<TrialCreator> {
                     ..._buildMeasuresSection(model),
                     SizedBox(height: 10),
                     _buildScheduleSection(),
-                    OutlineButton(
-                      child:
-                          Text('Sounds good', style: TextStyle(fontSize: 20)),
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/dashboard');
-                      },
+                    SizedBox(height: 200),
+                    Center(
+                      child: OutlineButton(
+                        child: Text('Sounds good'),
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, '/dashboard');
+                        },
+                      ),
                     )
                   ]),
             ),

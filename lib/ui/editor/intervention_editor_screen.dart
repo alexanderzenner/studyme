@@ -34,33 +34,36 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
           title: Text(widget.isA ? "Set A" : "Set B"),
         ),
         body: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              if (!widget.isA)
-                ToggleButtons(
-                  children: <Widget>[
-                    Padding(
-                      child: Text("No Intervention"),
-                      padding: const EdgeInsets.all(10.0),
-                    ),
-                    Padding(
-                      child: Text("Intervention"),
-                      padding: const EdgeInsets.all(10.0),
-                    ),
-                  ],
-                  onPressed: _changeInterventionType,
-                  isSelected: [_isNullIntervention(), !_isNullIntervention()],
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 10,
                 ),
-              if (!_isNullIntervention())
-                InterventionEditor(intervention: _intervention),
-              OutlineButton(
-                child: Text('Ok'),
-                onPressed: () => Navigator.pop(context, _intervention),
-              ),
-            ],
+                if (!widget.isA)
+                  ToggleButtons(
+                    children: <Widget>[
+                      Padding(
+                        child: Text("No Intervention"),
+                        padding: const EdgeInsets.all(10.0),
+                      ),
+                      Padding(
+                        child: Text("Intervention"),
+                        padding: const EdgeInsets.all(10.0),
+                      ),
+                    ],
+                    onPressed: _changeInterventionType,
+                    isSelected: [_isNullIntervention(), !_isNullIntervention()],
+                  ),
+                if (!_isNullIntervention())
+                  InterventionEditor(intervention: _intervention),
+                OutlineButton(
+                  child: Text('Ok'),
+                  onPressed: () => Navigator.pop(context, _intervention),
+                ),
+              ],
+            ),
           ),
         ));
   }

@@ -18,26 +18,54 @@ class _DashboardState extends State<Dashboard> {
     final _currentIntervention = trial.getInterventionForDate(DateTime.now());
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Today\'s Schedule'),
-        ),
-        body: Center(
-            child: Column(children: [
-          Text('Intervention'),
+      appBar: AppBar(
+        title: Text('Today\'s Schedule'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text('Intervention',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
           Card(
+              margin: EdgeInsets.symmetric(vertical: 2),
               child: ListTile(
-            title: Text(_currentIntervention.name,
-                style: TextStyle(color: false ? Colors.grey : Colors.black)),
-            onTap: () => _navigateToInterventionScreen(_currentIntervention),
-          )),
-          Text('Measures'),
+                title: Text(_currentIntervention.name,
+                    style:
+                        TextStyle(color: false ? Colors.grey : Colors.black)),
+                onTap: () =>
+                    _navigateToInterventionScreen(_currentIntervention),
+              )),
+          SizedBox(height: 10),
+          Text('Measures',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
           ...trial.measures
               .map((measure) => Card(
+                  margin: EdgeInsets.symmetric(vertical: 2),
                   child: ListTile(
                       title: Text(measure.name),
                       onTap: () => _navigateToMeasureScreen(measure))))
               .toList()
-        ])));
+        ]),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: 0,
+          onTap: (index) {
+            if (index > 0) {
+              Navigator.pushReplacementNamed(context, '/');
+            }
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: new Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: new Icon(Icons.insert_chart),
+              label: 'Results',
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')
+          ]),
+    );
   }
 
   _navigateToInterventionScreen(intervention) async {
@@ -53,7 +81,7 @@ class _DashboardState extends State<Dashboard> {
         MaterialPageRoute(builder: (context) => MeasureScreen(measure)));
     if (completed != null) {
       final log = MeasureLog()..value = completed;
-      print(log);
+      print(log.value);
     }
   }
 }
