@@ -58,16 +58,33 @@ class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
                         Navigator.pop(context, widget.measure);
                       }),
                 if (widget.isAdded)
-                  OutlineButton.icon(
-                      icon: Icon(Icons.edit),
-                      label: Text("Edit"),
-                      onPressed: () {
-                        _editMeasure(context);
-                      })
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      OutlineButton.icon(
+                          icon: Icon(Icons.delete),
+                          label: Text("Remove"),
+                          onPressed: () {
+                            _removeMeasure(context);
+                          }),
+                      OutlineButton.icon(
+                          icon: Icon(Icons.edit),
+                          label: Text("Edit"),
+                          onPressed: () {
+                            _editMeasure(context);
+                          }),
+                    ],
+                  )
               ],
             ),
           ),
         ));
+  }
+
+  _removeMeasure(context) {
+    Provider.of<AppState>(context, listen: false)
+        .removeMeasureFromTrial(widget.measure);
+    Navigator.pop(context);
   }
 
   _editMeasure(context) {

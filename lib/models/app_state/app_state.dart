@@ -98,4 +98,12 @@ class AppState extends ChangeNotifier {
     _trial.measures.add(measure);
     notifyListeners();
   }
+
+  void removeMeasureFromTrial(Measure measure) {
+    var index = getTrialIndexForMeasureId(measure.id);
+    if (index >= 0) {
+      _trial.measures.removeAt(index);
+      notifyListeners();
+    }
+  }
 }
