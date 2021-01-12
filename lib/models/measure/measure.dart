@@ -11,16 +11,11 @@ abstract class Measure {
   String name;
   String description;
   IconData icon;
-  bool isDefault;
-
-  Measure(this.type)
-      : id = Uuid().v4(),
-        isDefault = false;
+  Measure(this.type) : id = Uuid().v4();
 
   Measure.clone(Measure measure)
       : id = Uuid().v4(),
         type = measure.type,
-        isDefault = measure.isDefault,
         name = measure.name,
         description = measure.description;
 

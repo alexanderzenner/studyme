@@ -19,10 +19,12 @@ class AppState extends ChangeNotifier {
   List<Measure> get measures => _measures;
 
   List<Measure> unaddedMeasures() {
-    List<Measure> _measures = measures;
-    _measures.removeWhere(
+    List<Measure> _measuresCopy = List.from(_measures);
+    print(_measuresCopy.map((i) => i.id).toList());
+    print(_trial.measures.map((i) => i.id).toList());
+    _measuresCopy.removeWhere(
         (i) => _trial.measures.map((x) => x.id).toList().contains(i.id));
-    return _measures;
+    return _measuresCopy;
   }
 
   void setOutcome(String outcome) {
@@ -73,7 +75,6 @@ class AppState extends ChangeNotifier {
     final choice2 = Choice()..value = 'Medium';
     final choice3 = Choice()..value = 'High';
     final _measure = ChoiceMeasure()
-      ..isDefault = true
       ..id = Uuid().v4()
       ..name = 'Rate your pain'
       ..choices = [choice1, choice2, choice3];

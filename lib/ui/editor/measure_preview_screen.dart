@@ -35,7 +35,6 @@ class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
         body: Column(
           children: [
             SizedBox(height: 10),
-            if (widget.measure.isDefault) Text("(Default Measure)"),
             Card(child: _buildPreviewView()),
             if (!widget.isAdded)
               OutlineButton.icon(
@@ -44,7 +43,7 @@ class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
                   onPressed: () {
                     Navigator.pop(context, widget.measure);
                   }),
-            if (!widget.measure.isDefault)
+            if (widget.isAdded)
               OutlineButton.icon(
                   icon: Icon(Icons.edit),
                   label: Text("Edit"),
