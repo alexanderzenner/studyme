@@ -17,6 +17,7 @@ class AppState extends ChangeNotifier {
   String get outcome => _outcome;
   Trial get trial => _trial;
   List<Measure> get measures => _measures;
+  List<TrialLog> get logs => _logs;
 
   List<Measure> unaddedMeasures() {
     List<Measure> _measuresCopy = List.from(_measures);
@@ -102,5 +103,10 @@ class AppState extends ChangeNotifier {
       _trial.measures.removeAt(index);
       notifyListeners();
     }
+  }
+
+  void addLog(TrialLog log) {
+    _logs.add(log);
+    notifyListeners();
   }
 }

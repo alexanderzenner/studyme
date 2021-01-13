@@ -44,7 +44,7 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              if (widget.isCreator) _buildDropDown(),
+              if (widget.isCreator) _buildToggle(),
               TextFormField(
                 initialValue: _measure.name,
                 onChanged: (text) {
@@ -80,7 +80,7 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
     );
   }
 
-  _buildDropDown() {
+  _buildToggle() {
     return DropdownButton<String>(
       value: _measure.type,
       onChanged: _changeMeasureType,

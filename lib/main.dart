@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
-import 'package:studyme/ui/dashboard.dart';
+import 'package:studyme/ui/dashboard/dashboard.dart';
 import 'package:studyme/ui/editor/measure_library_screen.dart';
 import 'package:studyme/ui/editor/trial_creator.dart';
 

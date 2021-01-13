@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/log/measure_log.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
@@ -35,9 +38,7 @@ class _MeasureScreenState extends State<MeasureScreen> {
           _buildMeasureWidget(),
           OutlineButton(
             child: Text('Ok'),
-            onPressed: () {
-              Navigator.pop(context, _value);
-            },
+            onPressed: _logValue,
           ),
         ])));
   }
@@ -45,11 +46,14 @@ class _MeasureScreenState extends State<MeasureScreen> {
   _buildMeasureWidget() {
     switch (widget.measure.runtimeType) {
       case (FreeMeasure):
-        return FreeMeasureWidget(widget.measure, (value) => _updateValue(value));
+        return FreeMeasureWidget(
+            widget.measure, (value) => _updateValue(value));
       case (ScaleMeasure):
-        return ScaleMeasureWidget(widget.measure, (value) => _updateValue(value));
+        return ScaleMeasureWidget(
+            widget.measure, (value) => _updateValue(value));
       case (ChoiceMeasure):
-        return ChoiceMeasureWidget(widget.measure, (value) => _updateValue(value));
+        return ChoiceMeasureWidget(
+            widget.measure, (value) => _updateValue(value));
     }
   }
 
@@ -57,5 +61,15 @@ class _MeasureScreenState extends State<MeasureScreen> {
     setState(() {
       _value = value;
     });
+  }
+
+  _logValue() {
+    var log = MeasureLog(widget.measure.id, _value);
+    Provider.of<AppState>(context, listen: false).addLog(log);
+    print(Provider.of<AppState>(context, listen: false)
+        .logs
+        .map((i) => i.value)
+        .toList());
+    Navigator.pop(context);
   }
 }
