@@ -1,8 +1,8 @@
 abstract class TrialLog {
   String type;
   String loggedItemId;
-  DateTime date;
+  DateTime dateTime;
   double value;
 
-  TrialLog(this.type, this.loggedItemId, this.value);
+  TrialLog(this.type, this.loggedItemId, this.dateTime, this.value);
 }

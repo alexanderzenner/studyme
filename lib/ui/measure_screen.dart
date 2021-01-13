@@ -64,7 +64,7 @@ class _MeasureScreenState extends State<MeasureScreen> {
   }
 
   _logValue() {
-    var log = MeasureLog(widget.measure.id, _value);
+    var log = MeasureLog(widget.measure.id, DateTime.now(), _value);
     Provider.of<AppState>(context, listen: false).addLog(log);
     print(Provider.of<AppState>(context, listen: false)
         .logs
