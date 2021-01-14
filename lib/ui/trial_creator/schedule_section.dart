@@ -14,12 +14,26 @@ class ScheduleSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Schedule',
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
-        GestureDetector(
-            onTap: () => _navigateToScheduleEditor(context),
-            child: ScheduleWidget(
-                model.trial.phaseDuration, model.trial.phaseSequence))
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Schedule',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+            Container(
+              width: 40,
+              height: 20,
+              child: OutlineButton(
+                padding: EdgeInsets.zero,
+                child: Icon(Icons.edit, size: 20),
+                onPressed: () {
+                  _navigateToScheduleEditor(context);
+                },
+              ),
+            )
+          ],
+        ),
+        ScheduleWidget(model.trial.phaseDuration, model.trial.phaseSequence),
       ],
     );
   }

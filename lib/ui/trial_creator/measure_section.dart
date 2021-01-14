@@ -23,7 +23,7 @@ class MeasureSection extends StatelessWidget {
           itemBuilder: (context, index) {
             if (index == model.trial.measures.length) {
               return Center(
-                child: RaisedButton(
+                child: OutlineButton(
                   child: Icon(Icons.add),
                   onPressed: () {
                     Navigator.pushNamed(context, '/measure_library');

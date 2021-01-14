@@ -19,8 +19,11 @@ class ScheduleWidget extends StatelessWidget {
             if (index == phaseSequence.length) {
               return _buildStackedCard(
                   Icon(Icons.flag),
-                  Text('= ${phaseDuration * phaseSequence.length}d',
-                      style: TextStyle(fontWeight: FontWeight.bold)));
+                  Text(
+                    '= ${phaseDuration * phaseSequence.length}d',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis,
+                  ));
             } else {
               return _buildStackedCard(
                   Text(phaseSequence[index].toUpperCase(),
@@ -31,7 +34,8 @@ class ScheduleWidget extends StatelessWidget {
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center),
-                  Text(phaseDuration.toString() + 'd'));
+                  Text((phaseDuration.toString() + 'd'),
+                      overflow: TextOverflow.ellipsis));
             }
           },
         ),

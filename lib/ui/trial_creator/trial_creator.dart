@@ -26,13 +26,17 @@ class _TrialCreatorState extends State<TrialCreator> {
                 MeasureSection(model),
                 SizedBox(height: 10),
                 ScheduleSection(model),
-                SizedBox(height: 10),
+                SizedBox(height: 50),
                 Center(
-                  child: OutlineButton(
-                    child: Text('Start trial'),
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/dashboard');
-                    },
+                  child: Container(
+                    width: 200,
+                    height: 50,
+                    child: OutlineButton(
+                      child: Text('Start trial'),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/dashboard');
+                      },
+                    ),
                   ),
                 )
               ]),
