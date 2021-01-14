@@ -12,6 +12,7 @@ class InterventionSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Interventions',
             style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
@@ -20,7 +21,11 @@ class InterventionSection extends StatelessWidget {
             child: ListTile(
                 title: Row(
                   children: [
-                    Text('A', style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text('A',
+                        style: TextStyle(
+                            color: Colors.lightBlue,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
                     SizedBox(width: 10),
                     Text(model.trial.a.name)
                   ],
@@ -33,7 +38,11 @@ class InterventionSection extends StatelessWidget {
             child: ListTile(
                 title: Row(
                   children: [
-                    Text('B', style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text('B',
+                        style: TextStyle(
+                            color: Colors.lightGreen,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
                     SizedBox(width: 10),
                     Text(model.trial.b.name),
                   ],

@@ -7,8 +7,10 @@ class Trial {
   AbstractIntervention b;
   List<Measure> measures;
 
+  PhaseOrder phaseOrder;
   int phaseDuration;
   List<String> phaseSequence;
+  int numberOfCycles;
   DateTime startDate;
 
   List<AbstractIntervention> get interventionsInOrder {
@@ -50,3 +52,5 @@ extension DateOnlyCompare on DateTime {
     return currentZero.difference(otherZero);
   }
 }
+
+enum PhaseOrder { paired, counterbalanced }

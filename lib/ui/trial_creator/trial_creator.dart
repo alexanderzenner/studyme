@@ -16,28 +16,26 @@ class _TrialCreatorState extends State<TrialCreator> {
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, model, child) {
       return Scaffold(
-          appBar: AppBar(title: Text('Trial Creator')),
+          appBar: AppBar(title: Text('Create Trial')),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    InterventionSection(model),
-                    SizedBox(height: 10),
-                    MeasureSection(model),
-                    SizedBox(height: 10),
-                    ScheduleSection(model),
-                    SizedBox(height: 10),
-                    Center(
-                      child: OutlineButton(
-                        child: Text('Sounds good'),
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/dashboard');
-                        },
-                      ),
-                    )
-                  ]),
+              child: Column(children: [
+                InterventionSection(model),
+                SizedBox(height: 10),
+                MeasureSection(model),
+                SizedBox(height: 10),
+                ScheduleSection(model),
+                SizedBox(height: 10),
+                Center(
+                  child: OutlineButton(
+                    child: Text('Start trial'),
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/dashboard');
+                    },
+                  ),
+                )
+              ]),
             ),
           ));
     });

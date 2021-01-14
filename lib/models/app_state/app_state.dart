@@ -6,6 +6,7 @@ import 'package:studyme/models/measure/choice.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/trial.dart';
+import 'package:studyme/models/trial_schedule.dart';
 import 'package:uuid/uuid.dart';
 
 class AppState extends ChangeNotifier {
@@ -58,8 +59,10 @@ class AppState extends ChangeNotifier {
       ..a = _interventionA
       ..b = _interventionB
       ..measures = []
-      ..phaseSequence = ['a', 'b', 'b', 'a', 'a', 'b']
       ..phaseDuration = 7
+      ..numberOfCycles = 3
+      ..phaseOrder = PhaseOrder.counterbalanced
+      ..phaseSequence = ['a', 'b', 'b', 'a', 'a', 'b']
       ..startDate = DateTime.now();
 
     /*
