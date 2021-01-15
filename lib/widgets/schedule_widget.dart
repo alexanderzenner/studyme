@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:studyme/models/trial_schedule.dart';
 
 class ScheduleWidget extends StatelessWidget {
-  final int phaseDuration;
-  final List<String> phaseSequence;
+  final TrialSchedule schedule;
 
-  ScheduleWidget(this.phaseDuration, this.phaseSequence);
+  ScheduleWidget(this.schedule);
 
   @override
   Widget build(BuildContext context) {
@@ -14,27 +14,27 @@ class ScheduleWidget extends StatelessWidget {
       child: Scrollbar(
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: phaseSequence.length + 1,
+          itemCount: schedule.phaseSequence.length + 1,
           itemBuilder: (context, index) {
-            if (index == phaseSequence.length) {
+            if (index == schedule.phaseSequence.length) {
               return _buildStackedCard(
                   Icon(Icons.flag),
                   Text(
-                    '= ${phaseDuration * phaseSequence.length}d',
+                    '= ${schedule.phaseDuration * schedule.phaseSequence.length}d',
                     style: TextStyle(fontWeight: FontWeight.bold),
                     overflow: TextOverflow.ellipsis,
                   ));
             } else {
               return _buildStackedCard(
-                  Text(phaseSequence[index].toUpperCase(),
+                  Text(schedule.phaseSequence[index].toUpperCase(),
                       style: TextStyle(
-                          color: phaseSequence[index] == 'a'
+                          color: schedule.phaseSequence[index] == 'a'
                               ? Colors.lightBlue
                               : Colors.lightGreen,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center),
-                  Text((phaseDuration.toString() + 'd'),
+                  Text((schedule.phaseDuration.toString() + 'd'),
                       overflow: TextOverflow.ellipsis));
             }
           },

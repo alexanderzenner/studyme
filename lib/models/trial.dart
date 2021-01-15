@@ -1,20 +1,17 @@
 import 'package:studyme/models/intervention/abstract_intervention.dart';
-import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
+import 'package:studyme/models/trial_schedule.dart';
 
 class Trial {
   AbstractIntervention a;
   AbstractIntervention b;
   List<Measure> measures;
 
-  PhaseOrder phaseOrder;
-  int phaseDuration;
-  List<String> phaseSequence;
-  int numberOfCycles;
+  TrialSchedule schedule;
   DateTime startDate;
 
   List<AbstractIntervention> get interventionsInOrder {
-    return phaseSequence
+    return schedule.phaseSequence
         .map((letter) => getInterventionForLetter(letter))
         .toList();
   }
@@ -30,16 +27,16 @@ class Trial {
 
   int _getInterventionIndexForDate(DateTime date) {
     final test = date.differenceInDays(startDate).inDays;
-    return test ~/ phaseDuration;
+    return test ~/ schedule.phaseDuration;
   }
 
   AbstractIntervention getInterventionForDate(DateTime date) {
     final index = _getInterventionIndexForDate(date);
-    if (index < 0 || index >= phaseSequence.length) {
+    if (index < 0 || index >= schedule.phaseSequence.length) {
       print('Study is over or has not begun.');
       return null;
     }
-    final interventionLetter = phaseSequence[index];
+    final interventionLetter = schedule.phaseSequence[index];
     return getInterventionForLetter(interventionLetter);
   }
 }
@@ -52,5 +49,3 @@ extension DateOnlyCompare on DateTime {
     return currentZero.difference(otherZero);
   }
 }
-
-enum PhaseOrder { paired, counterbalanced }

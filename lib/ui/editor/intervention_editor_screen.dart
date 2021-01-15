@@ -31,6 +31,17 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.isA ? "Set A" : "Set B"),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.check,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context, _intervention);
+              },
+            )
+          ],
         ),
         body: Center(
           child: Padding(
@@ -75,11 +86,7 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
                         decoration: InputDecoration(labelText: 'Description'),
                       ),
                     ],
-                  ),
-                OutlineButton(
-                  child: Text('Ok'),
-                  onPressed: () => Navigator.pop(context, _intervention),
-                ),
+                  )
               ],
             ),
           ),

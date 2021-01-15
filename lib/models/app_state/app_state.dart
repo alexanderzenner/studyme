@@ -55,14 +55,16 @@ class AppState extends ChangeNotifier {
       ..name = 'Do sport'
       ..description = '';
 
+    final _trialSchedule = TrialSchedule()
+      ..phaseDuration = 7
+      ..numberOfCycles = 3;
+    _trialSchedule.updatePhaseOrder(PhaseOrder.alternating);
+
     _trial = Trial()
       ..a = _interventionA
       ..b = _interventionB
       ..measures = []
-      ..phaseDuration = 7
-      ..numberOfCycles = 3
-      ..phaseOrder = PhaseOrder.counterbalanced
-      ..phaseSequence = ['a', 'b', 'b', 'a', 'a', 'b']
+      ..schedule = _trialSchedule
       ..startDate = DateTime.now();
 
     /*
@@ -106,6 +108,11 @@ class AppState extends ChangeNotifier {
       _trial.measures.removeAt(index);
       notifyListeners();
     }
+  }
+
+  void updateSchedule(TrialSchedule schedule) {
+    _trial.schedule = schedule;
+    notifyListeners();
   }
 
   void addLog(TrialLog log) {

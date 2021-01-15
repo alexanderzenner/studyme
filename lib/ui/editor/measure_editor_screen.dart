@@ -32,56 +32,55 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
     final _body = _buildMeasureBody();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Text((widget.isCreator ? "Create" : "Edit") + " Measure"),
+        appBar: AppBar(
+          title: Text((widget.isCreator ? "Create" : "Edit") + " Measure"),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.check,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context, _measure);
+              },
+            )
           ],
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              if (widget.isCreator) _buildToggle(),
-              TextFormField(
-                initialValue: _measure.name,
-                onChanged: (text) {
-                  setState(() {
-                    _measure.name = text;
-                  });
-                },
-                decoration: InputDecoration(labelText: 'Name'),
-              ),
-              TextFormField(
-                initialValue: _measure.description,
-                onChanged: (text) {
-                  setState(() {
-                    _measure.description = text;
-                  });
-                },
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                decoration: InputDecoration(labelText: 'Description'),
-              ),
-              if (_body != null) _body,
-            ],
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                if (widget.isCreator) _buildDropdown(),
+                TextFormField(
+                  initialValue: _measure.name,
+                  onChanged: (text) {
+                    setState(() {
+                      _measure.name = text;
+                    });
+                  },
+                  decoration: InputDecoration(labelText: 'Name'),
+                ),
+                TextFormField(
+                  initialValue: _measure.description,
+                  onChanged: (text) {
+                    setState(() {
+                      _measure.description = text;
+                    });
+                  },
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  decoration: InputDecoration(labelText: 'Description'),
+                ),
+                if (_body != null) _body,
+              ],
+            ),
           ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context, _measure);
-        },
-        child: Icon(Icons.check),
-        backgroundColor: Colors.green,
-      ),
-    );
+        ));
   }
 
-  _buildToggle() {
-    return DropdownButton<String>(
+  _buildDropdown() {
+    return DropdownButtonFormField<String>(
       value: _measure.type,
       onChanged: _changeMeasureType,
       items: [
@@ -94,6 +93,7 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
           child: Text('${value[0].toUpperCase()}${value.substring(1)}'),
         );
       }).toList(),
+      decoration: InputDecoration(labelText: 'Type'),
     );
   }
 

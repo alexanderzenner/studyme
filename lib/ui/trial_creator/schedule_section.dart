@@ -33,7 +33,7 @@ class ScheduleSection extends StatelessWidget {
             )
           ],
         ),
-        ScheduleWidget(model.trial.phaseDuration, model.trial.phaseSequence),
+        ScheduleWidget(model.trial.schedule),
       ],
     );
   }
