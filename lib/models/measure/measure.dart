@@ -19,6 +19,8 @@ abstract class Measure {
         name = measure.name,
         description = measure.description;
 
+  dynamic get tickProvider => null;
+
   clone() {
     switch (this.runtimeType) {
       case FreeMeasure:

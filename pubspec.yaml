@@ -28,6 +28,7 @@ dependencies:
   timeline_tile: ^1.0.0
   uuid: ^2.2.2
   intl: ^0.16.1
+  charts_flutter: ^0.9.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
