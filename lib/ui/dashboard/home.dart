@@ -21,7 +21,7 @@ class Home extends StatelessWidget {
             margin: EdgeInsets.symmetric(vertical: 2),
             child: ListTile(
               title: Text(_currentIntervention.name,
-                  style: TextStyle(color: false ? Colors.grey : Colors.black)),
+                  style: TextStyle(color: Colors.black)),
               onTap: () =>
                   _navigateToInterventionScreen(context, _currentIntervention),
             )),

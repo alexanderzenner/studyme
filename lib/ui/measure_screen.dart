@@ -32,14 +32,20 @@ class _MeasureScreenState extends State<MeasureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(widget.measure.name)),
+        appBar: AppBar(
+          title: Text(widget.measure.name),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(
+                  Icons.check,
+                  color: Colors.white,
+                ),
+                onPressed: _logValue)
+          ],
+        ),
         body: Center(
             child: Column(children: [
           _buildMeasureWidget(),
-          OutlineButton(
-            child: Text('Ok'),
-            onPressed: _logValue,
-          ),
         ])));
   }
 

@@ -51,6 +51,8 @@ extension PhaseOrderExtension on PhaseOrder {
         return 'Alternating';
       case PhaseOrder.counterbalanced:
         return 'Counterbalanced';
+      default:
+        return '';
     }
   }
 }
