@@ -40,13 +40,13 @@ class _DashboardState extends State<Dashboard> {
           items: [
             BottomNavigationBarItem(
               icon: new Icon(Icons.home),
-              label: 'Home',
+              label: _titles[0],
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.insert_chart),
-              label: 'Results',
+              label: _titles[1],
             ),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: _titles[2])
           ]),
     );
   }
