@@ -57,7 +57,7 @@ class InterventionSection extends StatelessWidget {
   _editInterventionA(context, model) {
     _navigateToInterventionEditor(context, true, model.trial.a).then((result) {
       if (result != null) {
-        Provider.of<AppState>(context, listen: false).setInterventionA(result);
+        model.setInterventionA(result);
       }
     });
   }
@@ -65,7 +65,7 @@ class InterventionSection extends StatelessWidget {
   _editInterventionB(context, model) {
     _navigateToInterventionEditor(context, false, model.trial.b).then((result) {
       if (result != null) {
-        Provider.of<AppState>(context, listen: false).setInterventionB(result);
+        model.setInterventionB(result);
       }
     });
   }

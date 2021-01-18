@@ -11,53 +11,48 @@ import 'package:studyme/ui/widgets/choice_measure_widget.dart';
 import 'package:studyme/ui/widgets/free_measure_widget.dart';
 import 'package:studyme/ui/widgets/scale_measure_widget.dart';
 
-class MeasurePreviewScreen extends StatefulWidget {
+class MeasurePreviewScreen extends StatelessWidget {
   final Measure measure;
   final bool isAdded;
 
   const MeasurePreviewScreen({@required this.measure, @required this.isAdded});
 
   @override
-  _MeasurePreviewScreenState createState() => _MeasurePreviewScreenState();
-}
-
-class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
-  @override
   Widget build(BuildContext context) {
     Widget _preview;
-    switch (widget.measure.runtimeType) {
+    switch (measure.runtimeType) {
       case FreeMeasure:
-        _preview = FreeMeasureWidget(widget.measure, null);
+        _preview = FreeMeasureWidget(measure, null);
         break;
       case ChoiceMeasure:
-        _preview = ChoiceMeasureWidget(widget.measure, null);
+        _preview = ChoiceMeasureWidget(measure, null);
         break;
       case ScaleMeasure:
-        _preview = ScaleMeasureWidget(widget.measure, null);
+        _preview = ScaleMeasureWidget(measure, null);
         break;
       default:
         return null;
     }
 
     return Scaffold(
-        appBar: AppBar(title: Text(widget.measure.name + " (Preview)")),
+        appBar: AppBar(title: Text(measure.name + " (Preview)")),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                if (widget.measure.description != null &&
-                    widget.measure.description.length > 0)
-                  Text(widget.measure.description),
+                if (measure.description != null &&
+                    measure.description.length > 0)
+                  Text(measure.description),
                 if (_preview != null) _preview,
-                if (!widget.isAdded)
+                if (!isAdded)
                   OutlineButton.icon(
                       icon: Icon(Icons.add),
                       label: Text("Add to trial"),
                       onPressed: () {
-                        Navigator.pop(context, widget.measure);
+                        Navigator.pop(context, measure);
                       }),
-                if (widget.isAdded)
+                if (isAdded)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -83,7 +78,7 @@ class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
 
   _removeMeasure(context) {
     Provider.of<AppState>(context, listen: false)
-        .removeMeasureFromTrial(widget.measure);
+        .removeMeasureFromTrial(measure);
     Navigator.pop(context);
   }
 
@@ -91,7 +86,7 @@ class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
     _navigateToEditor(context).then((result) {
       if (result != null) {
         Provider.of<AppState>(context, listen: false)
-            .updateMeasure(widget.measure, result);
+            .updateMeasure(measure, result);
         Navigator.pop(context);
       }
     });
@@ -102,7 +97,7 @@ class _MeasurePreviewScreenState extends State<MeasurePreviewScreen> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            MeasureEditorScreen(isCreator: false, measure: widget.measure),
+            MeasureEditorScreen(isCreator: false, measure: measure),
       ),
     );
   }

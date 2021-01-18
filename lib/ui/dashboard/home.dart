@@ -9,7 +9,7 @@ import '../measure_screen.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final trial = Provider.of<AppState>(context, listen: false).trial;
+    final trial = Provider.of<AppState>(context).trial;
     final _currentIntervention = trial.getInterventionForDate(DateTime.now());
 
     return Padding(

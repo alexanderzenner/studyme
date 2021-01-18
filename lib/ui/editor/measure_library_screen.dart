@@ -11,16 +11,16 @@ import 'package:uuid/uuid.dart';
 class MeasureLibraryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Text("Add Measure"),
-          ],
-        ),
-      ),
-      body: Consumer<AppState>(
-          builder: (context, model, child) => ListView.builder(
+    return Consumer<AppState>(
+        builder: (context, model, child) => Scaffold(
+              appBar: AppBar(
+                title: Row(
+                  children: [
+                    Text("Add Measure"),
+                  ],
+                ),
+              ),
+              body: ListView.builder(
                 itemCount: model.unaddedMeasures().length,
                 itemBuilder: (context, index) {
                   return Card(
@@ -33,25 +33,26 @@ class MeasureLibraryScreen extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
-                      _previewMeasure(context, model.unaddedMeasures()[index]);
+                      _previewMeasure(
+                          context, model, model.unaddedMeasures()[index]);
                     },
                   ));
                 },
-              )),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _createMeasure(context);
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.green,
-      ),
-    );
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  _createMeasure(context, model);
+                },
+                child: Icon(Icons.add),
+                backgroundColor: Colors.green,
+              ),
+            ));
   }
 
-  _previewMeasure(context, measure) {
+  _previewMeasure(context, model, measure) {
     _navigateToPreview(context, measure).then((result) {
       if (result != null) {
-        Provider.of<AppState>(context, listen: false).addMeasureToTrial(result);
+        model.addMeasureToTrial(result);
         Navigator.pop(context);
       }
     });
@@ -67,11 +68,11 @@ class MeasureLibraryScreen extends StatelessWidget {
     );
   }
 
-  _createMeasure(context) {
+  _createMeasure(context, model) {
     Measure newMeasure = FreeMeasure()..id = Uuid().v4();
     _navigateToCreator(context, newMeasure).then((result) {
       if (result != null) {
-        Provider.of<AppState>(context, listen: false).addMeasureToTrial(result);
+        model.addMeasureToTrial(result);
         Navigator.pop(context);
       }
     });

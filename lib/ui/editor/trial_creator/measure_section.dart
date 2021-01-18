@@ -55,8 +55,7 @@ class MeasureSection extends StatelessWidget {
   _previewMeasure(context, measure) {
     _navigateToPreview(context, measure).then((result) {
       if (result != null) {
-        Provider.of<AppState>(context, listen: false)
-            .updateMeasure(measure, result);
+        model.updateMeasure(measure, result);
         Navigator.pop(context);
       }
     });

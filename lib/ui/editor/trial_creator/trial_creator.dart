@@ -6,12 +6,7 @@ import 'package:studyme/ui/editor/trial_creator/intervention_section.dart';
 import 'package:studyme/ui/editor/trial_creator/measure_section.dart';
 import 'package:studyme/ui/editor/trial_creator/schedule_section.dart';
 
-class TrialCreator extends StatefulWidget {
-  @override
-  _TrialCreatorState createState() => _TrialCreatorState();
-}
-
-class _TrialCreatorState extends State<TrialCreator> {
+class TrialCreator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, model, child) {

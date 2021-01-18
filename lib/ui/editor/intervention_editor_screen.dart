@@ -70,12 +70,12 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
                     children: [
                       TextFormField(
                         initialValue: _intervention.name,
-                        onFieldSubmitted: _updateName,
+                        onFieldSubmitted: _changeName,
                         decoration: InputDecoration(labelText: 'Name'),
                       ),
                       TextFormField(
                         initialValue: _intervention.description,
-                        onFieldSubmitted: _updateDescription,
+                        onFieldSubmitted: _changeDescription,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         decoration: InputDecoration(labelText: 'Description'),
@@ -88,13 +88,13 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
         ));
   }
 
-  _updateName(text) {
+  _changeName(text) {
     setState(() {
       _intervention.name = text;
     });
   }
 
-  _updateDescription(text) {
+  _changeDescription(text) {
     setState(() {
       _intervention.description = text;
     });
