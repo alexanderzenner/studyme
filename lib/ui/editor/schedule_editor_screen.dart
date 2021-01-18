@@ -31,11 +31,7 @@ class _ScheduleEditorScreenState extends State<ScheduleEditorScreen> {
                 Icons.check,
                 color: Colors.white,
               ),
-              onPressed: () {
-                Provider.of<AppState>(context, listen: false)
-                    .updateSchedule(_schedule);
-                Navigator.pop(context);
-              },
+              onPressed: _save,
             )
           ],
         ),
@@ -49,34 +45,19 @@ class _ScheduleEditorScreenState extends State<ScheduleEditorScreen> {
                 TextFormField(
                   initialValue: _schedule.phaseDuration.toString(),
                   keyboardType: TextInputType.number,
-                  onChanged: (text) {
-                    int value = int.parse(text);
-                    if (value != null && value > 0) {
-                      setState(() {
-                        _schedule.phaseDuration = value;
-                      });
-                    }
-                  },
+                  onFieldSubmitted: _updatePhaseDuration,
                   decoration: InputDecoration(labelText: 'Phase Duration'),
                 ),
                 TextFormField(
                   initialValue: _schedule.numberOfCycles.toString(),
                   keyboardType: TextInputType.number,
-                  onChanged: (text) {
-                    setState(() {
-                      _schedule.updateNumberOfCycles(int.parse(text));
-                    });
-                  },
+                  onFieldSubmitted: _updateNumberOfCycles,
                   decoration: InputDecoration(labelText: 'Number of Cycles'),
                 ),
                 DropdownButtonFormField<PhaseOrder>(
                   decoration: InputDecoration(labelText: 'Phase Order'),
                   value: _schedule.phaseOrder,
-                  onChanged: (phaseOrder) {
-                    setState(() {
-                      _schedule.updatePhaseOrder(phaseOrder);
-                    });
-                  },
+                  onChanged: _updatePhaseOrder,
                   items: [PhaseOrder.alternating, PhaseOrder.counterbalanced]
                       .map<DropdownMenuItem<PhaseOrder>>((value) {
                     return DropdownMenuItem<PhaseOrder>(
@@ -89,5 +70,31 @@ class _ScheduleEditorScreenState extends State<ScheduleEditorScreen> {
             );
           }),
         ));
+  }
+
+  _updateNumberOfCycles(text) {
+    setState(() {
+      _schedule.updateNumberOfCycles(int.parse(text));
+    });
+  }
+
+  _updatePhaseDuration(text) {
+    int value = int.parse(text);
+    if (value != null && value > 0) {
+      setState(() {
+        _schedule.phaseDuration = value;
+      });
+    }
+  }
+
+  _updatePhaseOrder(phaseOrder) {
+    setState(() {
+      _schedule.updatePhaseOrder(phaseOrder);
+    });
+  }
+
+  _save() {
+    Provider.of<AppState>(context, listen: false).updateSchedule(_schedule);
+    Navigator.pop(context);
   }
 }

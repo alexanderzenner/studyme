@@ -22,7 +22,6 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
   @override
   initState() {
     _intervention = widget.intervention.clone();
-    print(_intervention.runtimeType);
     super.initState();
   }
 
@@ -71,16 +70,12 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
                     children: [
                       TextFormField(
                         initialValue: _intervention.name,
-                        onChanged: (text) {
-                          _intervention.name = text;
-                        },
+                        onFieldSubmitted: _updateName,
                         decoration: InputDecoration(labelText: 'Name'),
                       ),
                       TextFormField(
                         initialValue: _intervention.description,
-                        onChanged: (text) {
-                          _intervention.description = text;
-                        },
+                        onFieldSubmitted: _updateDescription,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         decoration: InputDecoration(labelText: 'Description'),
@@ -91,6 +86,18 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
             ),
           ),
         ));
+  }
+
+  _updateName(text) {
+    setState(() {
+      _intervention.name = text;
+    });
+  }
+
+  _updateDescription(text) {
+    setState(() {
+      _intervention.description = text;
+    });
   }
 
   _changeInterventionType(int index) {

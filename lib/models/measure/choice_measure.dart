@@ -10,9 +10,8 @@ class ChoiceMeasure extends Measure {
 
   List<Choice> choices;
 
-  ChoiceMeasure()
-      : choices = [],
-        super(measureType);
+  ChoiceMeasure({id, name, description, this.choices})
+      : super(id: id, type: measureType, name: name, description: description);
 
   ChoiceMeasure.clone(ChoiceMeasure measure)
       : choices = List.of(measure.choices),

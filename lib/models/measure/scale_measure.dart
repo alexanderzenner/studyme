@@ -8,10 +8,8 @@ class ScaleMeasure extends Measure {
   double max;
   double initial;
 
-  ScaleMeasure()
-      : this.min = 0,
-        this.max = 1,
-        super(measureType);
+  ScaleMeasure({id, name, description, this.min, this.max})
+      : super(id: id, type: measureType, name: name, description: description);
 
   ScaleMeasure.clone(ScaleMeasure measure)
       : min = measure.min,

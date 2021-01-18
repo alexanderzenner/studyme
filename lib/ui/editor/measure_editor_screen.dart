@@ -54,20 +54,12 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
                 if (widget.isCreator) _buildDropdown(),
                 TextFormField(
                   initialValue: _measure.name,
-                  onChanged: (text) {
-                    setState(() {
-                      _measure.name = text;
-                    });
-                  },
+                  onFieldSubmitted: _changeName,
                   decoration: InputDecoration(labelText: 'Name'),
                 ),
                 TextFormField(
                   initialValue: _measure.description,
-                  onChanged: (text) {
-                    setState(() {
-                      _measure.description = text;
-                    });
-                  },
+                  onFieldSubmitted: _changeDescription,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   decoration: InputDecoration(labelText: 'Description'),
@@ -95,6 +87,18 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
       }).toList(),
       decoration: InputDecoration(labelText: 'Type'),
     );
+  }
+
+  _changeName(text) {
+    setState(() {
+      _measure.name = text;
+    });
+  }
+
+  _changeDescription(text) {
+    setState(() {
+      _measure.description = text;
+    });
   }
 
   _changeMeasureType(String type) {

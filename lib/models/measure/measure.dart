@@ -11,15 +11,15 @@ abstract class Measure {
   String name;
   String description;
   IconData icon;
-  Measure(this.type) : id = Uuid().v4();
+
+  Measure({id, this.type, this.name, this.description})
+      : id = id != null ? id : Uuid().v4();
 
   Measure.clone(Measure measure)
       : id = Uuid().v4(),
         type = measure.type,
         name = measure.name,
         description = measure.description;
-
-  dynamic get tickProvider => null;
 
   clone() {
     switch (this.runtimeType) {
@@ -31,4 +31,6 @@ abstract class Measure {
         return ScaleMeasure.clone(this);
     }
   }
+
+  dynamic get tickProvider => null;
 }

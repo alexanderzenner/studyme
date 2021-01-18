@@ -49,10 +49,10 @@ class AppState extends ChangeNotifier {
       ..name = 'Do sport'
       ..description = '';
 
-    final _trialSchedule = TrialSchedule()
-      ..phaseDuration = 7
-      ..numberOfCycles = 3;
-    _trialSchedule.updatePhaseOrder(PhaseOrder.alternating);
+    final _trialSchedule = TrialSchedule(
+        phaseDuration: 7,
+        numberOfCycles: 3,
+        phaseOrder: PhaseOrder.alternating);
 
     _trial = Trial()
       ..a = _interventionA
@@ -68,14 +68,11 @@ class AppState extends ChangeNotifier {
       ..max = 10
       ..name = 'Rate your pain'; */
 
-    final choice1 = Choice()..value = 'Low';
-    final choice2 = Choice()..value = 'Medium';
-    final choice3 = Choice()..value = 'High';
-    final _measure = ChoiceMeasure()
-      ..id = Uuid().v4()
-      ..name = 'Rate your pain'
-      ..choices = [choice1, choice2, choice3];
-
+    final choice1 = Choice(value: 'Low');
+    final choice2 = Choice(value: 'Medium');
+    final choice3 = Choice(value: 'High');
+    final _measure = ChoiceMeasure(
+        name: 'Rate your pain', choices: [choice1, choice2, choice3]);
     _measures = List.from([_measure]);
   }
 

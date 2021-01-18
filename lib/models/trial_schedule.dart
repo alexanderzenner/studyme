@@ -4,7 +4,9 @@ class TrialSchedule {
   List<String> phaseSequence;
   int numberOfCycles;
 
-  TrialSchedule();
+  TrialSchedule({this.phaseOrder, this.phaseDuration, this.numberOfCycles}) {
+    _updatePhaseSequence();
+  }
 
   TrialSchedule.clone(TrialSchedule schedule)
       : phaseOrder = schedule.phaseOrder,
