@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/trial_schedule.dart';
-import 'package:studyme/widgets/schedule_widget.dart';
+import 'package:studyme/ui/widgets/schedule_widget.dart';
 
 class ScheduleEditorScreen extends StatefulWidget {
   @override

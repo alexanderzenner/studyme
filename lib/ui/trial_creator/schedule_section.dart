@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/ui/editor/schedule_editor_screen.dart';
-import 'package:studyme/widgets/schedule_widget.dart';
+import 'package:studyme/ui/widgets/schedule_widget.dart';
 
 class ScheduleSection extends StatelessWidget {
   final AppState model;

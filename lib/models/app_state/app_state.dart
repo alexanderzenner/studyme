@@ -10,12 +10,10 @@ import 'package:studyme/models/trial_schedule.dart';
 import 'package:uuid/uuid.dart';
 
 class AppState extends ChangeNotifier {
-  String _outcome;
   Trial _trial;
   List<Measure> _measures;
   List<TrialLog> _logs;
 
-  String get outcome => _outcome;
   Trial get trial => _trial;
   List<Measure> get measures => _measures;
   List<TrialLog> get logs => _logs;
@@ -25,10 +23,6 @@ class AppState extends ChangeNotifier {
     _measuresCopy.removeWhere(
         (i) => _trial.measures.map((x) => x.id).toList().contains(i.id));
     return _measuresCopy;
-  }
-
-  void setOutcome(String outcome) {
-    _outcome = outcome;
   }
 
   void setInterventionA(AbstractIntervention intervention) {
