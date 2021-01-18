@@ -5,7 +5,7 @@ import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/widgets/choice_editor.dart';
+import 'package:studyme/ui/widgets/choice_editor.dart';
 import 'package:uuid/uuid.dart';
 
 class MeasureEditorScreen extends StatefulWidget {
