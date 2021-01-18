@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
-import 'package:studyme/ui/trial_creator/intervention_section.dart';
-import 'package:studyme/ui/trial_creator/measure_section.dart';
-import 'package:studyme/ui/trial_creator/schedule_section.dart';
+import 'package:studyme/ui/editor/trial_creator/intervention_section.dart';
+import 'package:studyme/ui/editor/trial_creator/measure_section.dart';
+import 'package:studyme/ui/editor/trial_creator/schedule_section.dart';
 
 class TrialCreator extends StatefulWidget {
   @override
