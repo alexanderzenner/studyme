@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:studyme/models/app_state/default_measures.dart';
 import 'package:studyme/models/intervention/abstract_intervention.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/log/log.dart';
-import 'package:studyme/models/measure/choice.dart';
-import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/models/trial_schedule.dart';
@@ -19,10 +18,14 @@ class AppState extends ChangeNotifier {
   List<TrialLog> get logs => _logs;
 
   List<Measure> unaddedMeasures() {
-    List<Measure> _measuresCopy = List.from(_measures);
-    _measuresCopy.removeWhere(
+    List<Measure> measures = defaultMeasures;
+    measures.removeWhere(
         (i) => _trial.measures.map((x) => x.id).toList().contains(i.id));
-    return _measuresCopy;
+    return measures;
+  }
+
+  Trial getTrial() {
+    return _trial;
   }
 
   void setInterventionA(AbstractIntervention intervention) {
@@ -60,28 +63,14 @@ class AppState extends ChangeNotifier {
       ..measures = []
       ..schedule = _trialSchedule
       ..startDate = DateTime.now();
-
-    /*
-    final _measure = ScaleMeasure()
-      ..id = Uuid().v4()
-      ..min = 0
-      ..max = 10
-      ..name = 'Rate your pain'; */
-
-    final choice1 = Choice(value: 'Low');
-    final choice2 = Choice(value: 'Medium');
-    final choice3 = Choice(value: 'High');
-    final _measure = ChoiceMeasure(
-        name: 'Rate your pain', choices: [choice1, choice2, choice3]);
-    _measures = List.from([_measure]);
   }
 
-  int getTrialIndexForMeasureId(String id) {
+  int _getTrialIndexForMeasureId(String id) {
     return _trial.measures.indexWhere((i) => i.id == id);
   }
 
   void updateMeasure(Measure measure, Measure newMeasure) {
-    var index = getTrialIndexForMeasureId(measure.id);
+    var index = _getTrialIndexForMeasureId(measure.id);
     if (index >= 0) {
       _trial.measures[index] = newMeasure;
       notifyListeners();
@@ -94,7 +83,7 @@ class AppState extends ChangeNotifier {
   }
 
   void removeMeasureFromTrial(Measure measure) {
-    var index = getTrialIndexForMeasureId(measure.id);
+    var index = _getTrialIndexForMeasureId(measure.id);
     if (index >= 0) {
       _trial.measures.removeAt(index);
       notifyListeners();
