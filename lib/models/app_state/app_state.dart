@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
 import 'package:studyme/models/intervention/abstract_intervention.dart';
 import 'package:studyme/models/intervention/intervention.dart';
-import 'package:studyme/models/log/log.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/models/trial_schedule.dart';
@@ -11,21 +10,15 @@ import 'package:uuid/uuid.dart';
 class AppState extends ChangeNotifier {
   Trial _trial;
   List<Measure> _measures;
-  List<TrialLog> _logs;
 
   Trial get trial => _trial;
   List<Measure> get measures => _measures;
-  List<TrialLog> get logs => _logs;
 
   List<Measure> unaddedMeasures() {
     List<Measure> measures = defaultMeasures;
     measures.removeWhere(
         (i) => _trial.measures.map((x) => x.id).toList().contains(i.id));
     return measures;
-  }
-
-  Trial getTrial() {
-    return _trial;
   }
 
   void setInterventionA(AbstractIntervention intervention) {
@@ -39,10 +32,7 @@ class AppState extends ChangeNotifier {
   }
 
   AppState() {
-    _logs = [];
-
     // setup trial
-
     final _interventionA = Intervention()
       ..id = Uuid().v4()
       ..name = 'Take medicine'
@@ -92,11 +82,6 @@ class AppState extends ChangeNotifier {
 
   void updateSchedule(TrialSchedule schedule) {
     _trial.schedule = schedule;
-    notifyListeners();
-  }
-
-  void addLog(TrialLog log) {
-    _logs.add(log);
     notifyListeners();
   }
 }

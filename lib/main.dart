@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/app_state/log_state.dart';
 import 'package:studyme/ui/dashboard/dashboard.dart';
 import 'package:studyme/ui/editor/measure_library_screen.dart';
 import 'package:studyme/ui/editor/trial_creator/trial_creator.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
 
 void main() async {
-  _initHive();
-  runApp(
+  await Hive.initFlutter();
+  var logsBox = await Hive.openBox('logs');
+  runApp(MultiProvider(providers: [
     ChangeNotifierProvider<AppState>(
       create: (context) => AppState(),
-      child: MyApp(),
     ),
-  );
-}
-
-Future _initHive() async {
-  final dir = await path_provider.getApplicationDocumentsDirectory();
-  Hive.init(dir.path);
+    ChangeNotifierProvider<LogState>(
+      create: (context) => LogState(box: logsBox),
+    )
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
