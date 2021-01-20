@@ -27,21 +27,6 @@ class AppState extends ChangeNotifier {
     return measures;
   }
 
-  loadAppState() async {
-    box = await Hive.openBox('app_data');
-    _trial = box.get(activeTrialKey);
-    if (_trial == null) {
-      // first time app is started
-      _trial = setupNewTrial();
-      box.put(activeTrialKey, _trial);
-      box.put(isEditingKey, true);
-    }
-  }
-
-  saveIsEditing(bool isEditing) {
-    box.put(isEditingKey, isEditing);
-  }
-
   void setInterventionA(AbstractIntervention intervention) {
     _trial.a = intervention;
     _trial.save();
@@ -109,5 +94,20 @@ class AppState extends ChangeNotifier {
     _trial.schedule = schedule;
     _trial.save();
     notifyListeners();
+  }
+
+  loadAppState() async {
+    box = await Hive.openBox('app_data');
+    _trial = box.get(activeTrialKey);
+    if (_trial == null) {
+      // first time app is started
+      _trial = setupNewTrial();
+      box.put(activeTrialKey, _trial);
+      box.put(isEditingKey, true);
+    }
+  }
+
+  saveIsEditing(bool isEditing) {
+    box.put(isEditingKey, isEditing);
   }
 }
