@@ -2,10 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
 
-part 'abstract_intervention.g.dart';
-
-@HiveType(typeId: 100)
-class AbstractIntervention extends HiveObject {
+abstract class AbstractIntervention {
   @HiveField(0)
   String type;
 

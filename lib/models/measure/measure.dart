@@ -6,10 +6,7 @@ import 'package:uuid/uuid.dart';
 import 'choice_measure.dart';
 import 'free_measure.dart';
 
-part 'measure.g.dart';
-
-@HiveType(typeId: 0)
-class Measure extends HiveObject {
+abstract class Measure {
   @HiveField(0)
   String id;
   @HiveField(1)
