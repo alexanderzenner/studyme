@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:studyme/models/measure/measure.dart';
 
+part 'scale_measure.g.dart';
+
+@HiveType(typeId: 2)
 class ScaleMeasure extends Measure {
   static const String measureType = 'scale';
   final IconData icon = Icons.linear_scale;
+
+  @HiveField(4)
   double min;
+
+  @HiveField(5)
   double max;
+
+  @HiveField(6)
   double initial;
 
   ScaleMeasure({id, name, description, this.min, this.max})

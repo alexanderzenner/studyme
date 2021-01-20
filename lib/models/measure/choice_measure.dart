@@ -1,13 +1,18 @@
 import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:studyme/models/measure/choice.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
+part 'choice_measure.g.dart';
+
+@HiveType(typeId: 3)
 class ChoiceMeasure extends Measure {
   static const String measureType = 'choice';
   final IconData icon = Icons.list;
 
+  @HiveField(4)
   List<Choice> choices;
 
   ChoiceMeasure({id, name, description, this.choices})

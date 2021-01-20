@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hive/hive.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
 import 'package:studyme/models/intervention/abstract_intervention.dart';
 import 'package:studyme/models/intervention/intervention.dart';
@@ -8,6 +9,7 @@ import 'package:studyme/models/trial_schedule.dart';
 import 'package:uuid/uuid.dart';
 
 class AppState extends ChangeNotifier {
+  final Box box;
   Trial _trial;
   List<Measure> _measures;
 
@@ -31,7 +33,8 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  AppState() {
+  AppState({this.box}) {
+    print(box.values.toList()[0].b.name);
     // setup trial
     final _interventionA = Intervention()
       ..id = Uuid().v4()
@@ -53,6 +56,7 @@ class AppState extends ChangeNotifier {
       ..measures = []
       ..schedule = _trialSchedule
       ..startDate = DateTime.now();
+    box.add(trial);
   }
 
   int _getTrialIndexForMeasureId(String id) {

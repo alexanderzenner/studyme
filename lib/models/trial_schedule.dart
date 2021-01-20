@@ -1,7 +1,19 @@
-class TrialSchedule {
+import 'package:hive/hive.dart';
+
+part 'trial_schedule.g.dart';
+
+@HiveType(typeId: 201)
+class TrialSchedule extends HiveObject {
+  @HiveField(0)
   PhaseOrder phaseOrder;
+
+  @HiveField(1)
   int phaseDuration;
+
+  @HiveField(2)
   List<String> phaseSequence;
+
+  @HiveField(3)
   int numberOfCycles;
 
   TrialSchedule({this.phaseOrder, this.phaseDuration, this.numberOfCycles}) {
@@ -44,7 +56,13 @@ class TrialSchedule {
   }
 }
 
-enum PhaseOrder { alternating, counterbalanced }
+@HiveType(typeId: 202)
+enum PhaseOrder {
+  @HiveField(0)
+  alternating,
+  @HiveField(1)
+  counterbalanced
+}
 
 extension PhaseOrderExtension on PhaseOrder {
   String get humanReadable {

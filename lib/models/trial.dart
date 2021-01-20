@@ -1,13 +1,25 @@
-import 'package:studyme/models/intervention/abstract_intervention.dart';
-import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/models/trial_schedule.dart';
+import 'package:hive/hive.dart';
+import './intervention/abstract_intervention.dart';
+import './measure/measure.dart';
+import 'trial_schedule.dart';
 
-class Trial {
+part 'trial.g.dart';
+
+@HiveType(typeId: 200)
+class Trial extends HiveObject {
+  @HiveField(0)
   AbstractIntervention a;
+
+  @HiveField(1)
   AbstractIntervention b;
+
+  @HiveField(2)
   List<Measure> measures;
 
+  @HiveField(3)
   TrialSchedule schedule;
+
+  @HiveField(4)
   DateTime startDate;
 
   List<AbstractIntervention> get interventionsInOrder {

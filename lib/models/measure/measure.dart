@@ -1,15 +1,24 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hive/hive.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:uuid/uuid.dart';
 
 import 'choice_measure.dart';
 import 'free_measure.dart';
 
-abstract class Measure {
+part 'measure.g.dart';
+
+@HiveType(typeId: 0)
+class Measure extends HiveObject {
+  @HiveField(0)
   String id;
+  @HiveField(1)
   String type;
+  @HiveField(2)
   String name;
+  @HiveField(3)
   String description;
+
   IconData icon;
 
   Measure({id, this.type, this.name, this.description})

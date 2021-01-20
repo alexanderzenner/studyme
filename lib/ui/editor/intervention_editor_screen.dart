@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/abstract_intervention.dart';
 import 'package:studyme/models/intervention/intervention.dart';
-import 'package:studyme/models/intervention/null_intervention.dart';
+import 'package:studyme/models/intervention/no_intervention.dart';
 
 class InterventionEditorScreen extends StatefulWidget {
   final bool isA;
@@ -103,7 +103,7 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
   _changeInterventionType(int index) {
     setState(() {
       if (index == 0) {
-        _intervention = NullIntervention();
+        _intervention = NoIntervention();
       } else if (index != 0) {
         _intervention = Intervention();
       }
@@ -111,6 +111,6 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
   }
 
   _isNullIntervention() {
-    return _intervention is NullIntervention;
+    return _intervention is NoIntervention;
   }
 }
