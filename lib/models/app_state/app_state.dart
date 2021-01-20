@@ -27,16 +27,6 @@ class AppState extends ChangeNotifier {
     return measures;
   }
 
-  void setInterventionA(AbstractIntervention intervention) {
-    _trial.a = intervention;
-    notifyListeners();
-  }
-
-  void setInterventionB(AbstractIntervention intervention) {
-    _trial.b = intervention;
-    notifyListeners();
-  }
-
   loadAppState() async {
     box = await Hive.openBox('app_data');
     _trial = box.get(activeTrialKey);
@@ -50,6 +40,18 @@ class AppState extends ChangeNotifier {
 
   saveIsEditing(bool isEditing) {
     box.put(isEditingKey, isEditing);
+  }
+
+  void setInterventionA(AbstractIntervention intervention) {
+    _trial.a = intervention;
+    _trial.save();
+    notifyListeners();
+  }
+
+  void setInterventionB(AbstractIntervention intervention) {
+    _trial.b = intervention;
+    _trial.save();
+    notifyListeners();
   }
 
   Trial setupNewTrial() {
@@ -83,12 +85,14 @@ class AppState extends ChangeNotifier {
     var index = _getTrialIndexForMeasureId(measure.id);
     if (index >= 0) {
       _trial.measures[index] = newMeasure;
+      _trial.save();
       notifyListeners();
     }
   }
 
   void addMeasureToTrial(Measure measure) {
     _trial.measures.add(measure);
+    _trial.save();
     notifyListeners();
   }
 
@@ -96,12 +100,14 @@ class AppState extends ChangeNotifier {
     var index = _getTrialIndexForMeasureId(measure.id);
     if (index >= 0) {
       _trial.measures.removeAt(index);
+      _trial.save();
       notifyListeners();
     }
   }
 
   void updateSchedule(TrialSchedule schedule) {
     _trial.schedule = schedule;
+    _trial.save();
     notifyListeners();
   }
 }
