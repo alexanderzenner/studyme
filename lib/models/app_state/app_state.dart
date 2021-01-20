@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
 import 'package:studyme/models/intervention/abstract_intervention.dart';
@@ -9,9 +9,13 @@ import 'package:studyme/models/trial_schedule.dart';
 import 'package:uuid/uuid.dart';
 
 class AppState extends ChangeNotifier {
-  final Box box;
+  static const activeTrialKey = 'trial';
+  static const isEditingKey = 'is_editing';
+
+  Box box;
   Trial _trial;
   List<Measure> _measures;
+  bool get isEditing => box.get(isEditingKey);
 
   Trial get trial => _trial;
   List<Measure> get measures => _measures;
@@ -33,9 +37,22 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  AppState({this.box}) {
-    print(box.values.toList()[0].b.name);
-    // setup trial
+  loadAppState() async {
+    box = await Hive.openBox('app_data');
+    _trial = box.get(activeTrialKey);
+    if (_trial == null) {
+      // first time app is started
+      _trial = setupNewTrial();
+      box.put(activeTrialKey, _trial);
+      box.put(isEditingKey, true);
+    }
+  }
+
+  saveIsEditing(bool isEditing) {
+    box.put(isEditingKey, isEditing);
+  }
+
+  Trial setupNewTrial() {
     final _interventionA = Intervention()
       ..id = Uuid().v4()
       ..name = 'Take medicine'
@@ -50,13 +67,12 @@ class AppState extends ChangeNotifier {
         numberOfCycles: 3,
         phaseOrder: PhaseOrder.alternating);
 
-    _trial = Trial()
+    return Trial()
       ..a = _interventionA
       ..b = _interventionB
       ..measures = []
       ..schedule = _trialSchedule
       ..startDate = DateTime.now();
-    box.add(trial);
   }
 
   int _getTrialIndexForMeasureId(String id) {

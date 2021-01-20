@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/routes.dart';
 
 import 'intervention_section.dart';
 import 'measure_section.dart';
@@ -30,7 +31,9 @@ class TrialCreator extends StatelessWidget {
                     child: OutlineButton(
                       child: Text('Start trial'),
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/dashboard');
+                        model.saveIsEditing(false);
+                        Navigator.pushReplacementNamed(
+                            context, Routes.dashboard);
                       },
                     ),
                   ),

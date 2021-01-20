@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/routes.dart';
 import 'package:studyme/ui/editor/measure_preview_screen.dart';
 
 class MeasureSection extends StatelessWidget {
@@ -26,7 +26,7 @@ class MeasureSection extends StatelessWidget {
                 child: OutlineButton(
                   child: Icon(Icons.add),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/measure_library');
+                    Navigator.pushNamed(context, Routes.measure_library);
                   },
                 ),
               );

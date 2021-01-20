@@ -11,19 +11,20 @@ import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/models/trial_schedule.dart';
+import 'package:studyme/routes.dart';
 import 'package:studyme/ui/dashboard/dashboard.dart';
 import 'package:studyme/ui/editor/measure_library_screen.dart';
 import 'package:studyme/ui/editor/trial_creator/trial_creator.dart';
+import 'package:studyme/ui/welcome_loading_screen.dart';
 
 import 'models/measure/choice_measure.dart';
 
 void main() async {
   await Hive.initFlutter();
   _registerHiveAdapters();
-  var app_data_box = await Hive.openBox('app_data');
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<AppState>(
-      create: (context) => AppState(box: app_data_box),
+      create: (context) => AppState(),
     ),
     ChangeNotifierProvider<LogState>(
       create: (context) => LogState(),
@@ -53,11 +54,12 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
-        initialRoute: '/',
+        initialRoute: Routes.welcome,
         routes: {
-          '/': (context) => TrialCreator(),
-          '/measure_library': (context) => MeasureLibraryScreen(),
-          '/dashboard': (context) => Dashboard(),
+          Routes.welcome: (context) => WelcomeLoadingScreen(),
+          Routes.creator: (context) => TrialCreator(),
+          Routes.measure_library: (context) => MeasureLibraryScreen(),
+          Routes.dashboard: (context) => Dashboard(),
         });
   }
 }
