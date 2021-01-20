@@ -6,6 +6,7 @@ import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/app_state/log_state.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
+import 'package:studyme/models/log/measure_log.dart';
 import 'package:studyme/models/measure/choice.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
@@ -44,6 +45,8 @@ _registerHiveAdapters() {
   Hive.registerAdapter<Choice>(ChoiceAdapter());
   Hive.registerAdapter<ChoiceMeasure>(ChoiceMeasureAdapter());
   Hive.registerAdapter<ScaleMeasure>(ScaleMeasureAdapter());
+
+  Hive.registerAdapter<MeasureLog>(MeasureLogAdapter());
 }
 
 class MyApp extends StatelessWidget {
