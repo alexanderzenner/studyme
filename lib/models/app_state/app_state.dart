@@ -20,7 +20,7 @@ class AppState extends ChangeNotifier {
   Trial get trial => _trial;
   List<Measure> get measures => _measures;
 
-  List<Measure> unaddedMeasures() {
+  List<Measure> get unaddedMeasures {
     List<Measure> measures = defaultMeasures;
     measures.removeWhere(
         (i) => _trial.measures.map((x) => x.id).toList().contains(i.id));

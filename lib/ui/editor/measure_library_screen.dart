@@ -11,42 +11,43 @@ import 'package:uuid/uuid.dart';
 class MeasureLibraryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppState>(
-        builder: (context, model, child) => Scaffold(
-              appBar: AppBar(
-                title: Row(
-                  children: [
-                    Text("Add Measure"),
-                  ],
-                ),
+    return Consumer<AppState>(builder: (context, model, child) {
+      List<Measure> _unaddedMeasures = model.unaddedMeasures;
+      return Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: [
+              Text("Add Measure"),
+            ],
+          ),
+        ),
+        body: ListView.builder(
+          itemCount: _unaddedMeasures.length,
+          itemBuilder: (context, index) {
+            return Card(
+                child: ListTile(
+              title: Row(
+                children: [
+                  Icon(_unaddedMeasures[index].icon),
+                  SizedBox(width: 10),
+                  Text(_unaddedMeasures[index].name),
+                ],
               ),
-              body: ListView.builder(
-                itemCount: model.unaddedMeasures().length,
-                itemBuilder: (context, index) {
-                  return Card(
-                      child: ListTile(
-                    title: Row(
-                      children: [
-                        Icon(model.unaddedMeasures()[index].icon),
-                        SizedBox(width: 10),
-                        Text(model.unaddedMeasures()[index].name),
-                      ],
-                    ),
-                    onTap: () {
-                      _previewMeasure(
-                          context, model, model.unaddedMeasures()[index]);
-                    },
-                  ));
-                },
-              ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  _createMeasure(context, model);
-                },
-                child: Icon(Icons.add),
-                backgroundColor: Colors.green,
-              ),
+              onTap: () {
+                _previewMeasure(context, model, _unaddedMeasures[index]);
+              },
             ));
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _createMeasure(context, model);
+          },
+          child: Icon(Icons.add),
+          backgroundColor: Colors.green,
+        ),
+      );
+    });
   }
 
   _previewMeasure(context, model, measure) {
