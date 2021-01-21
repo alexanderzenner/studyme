@@ -14,8 +14,7 @@ class InterventionSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Interventions',
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+        Text('Interventions', style: TextStyle(fontWeight: FontWeight.bold)),
         Card(
             margin: EdgeInsets.symmetric(vertical: 2),
             child: ListTile(

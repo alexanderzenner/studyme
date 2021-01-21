@@ -18,8 +18,7 @@ class ScheduleSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Schedule',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+            Text('Schedule', style: TextStyle(fontWeight: FontWeight.bold)),
             Container(
               width: 40,
               height: 20,

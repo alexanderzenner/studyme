@@ -12,13 +12,12 @@ class History extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-            OutlineButton(
-              child: Text('change'),
-              onPressed: () {
-                print('HI');
-              },
-            ),
-            MeasureGraph(measure: appState.trial.measures[0]),
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: appState.trial.measures.length,
+                itemBuilder: (context, index) {
+                  return MeasureGraph(measure: appState.trial.measures[index]);
+                }),
           ],
         ),
       );

@@ -30,6 +30,10 @@ class _MeasureScreenState extends State<MeasureScreen> {
     super.initState();
   }
 
+  _hasSelectedValue() {
+    return _value != null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,11 +41,9 @@ class _MeasureScreenState extends State<MeasureScreen> {
           title: Text(widget.measure.name),
           actions: <Widget>[
             IconButton(
-                icon: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                ),
-                onPressed: _logValue)
+                icon: Icon(Icons.check,
+                    color: _hasSelectedValue() ? Colors.white : null),
+                onPressed: _hasSelectedValue() ? _logValue : null)
           ],
         ),
         body: Center(

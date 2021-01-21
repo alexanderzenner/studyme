@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_state.dart';
@@ -17,7 +18,10 @@ class MeasureGraph extends StatefulWidget {
 class _MeasureGraphState extends State<MeasureGraph> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(widget.measure.name, style: TextStyle(fontWeight: FontWeight.bold)),
+      Container(
+        height: MediaQuery.of(context).size.height / 3,
         child: FutureBuilder<List<TrialLog>>(
             future: Provider.of<LogState>(context).getLogsFor(widget.measure),
             builder: (context, AsyncSnapshot<List<TrialLog>> snapshot) {
@@ -29,10 +33,12 @@ class _MeasureGraphState extends State<MeasureGraph> {
                     defaultInteractions: false,
                     primaryMeasureAxis: widget.measure.tickProvider);
               } else {
-                child = Text('Loading');
+                child = CircularProgressIndicator();
               }
               return child;
-            }));
+            }),
+      ),
+    ]);
   }
 
   List<charts.Series<TrialLog, DateTime>> _createSampleData(

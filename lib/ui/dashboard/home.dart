@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 
-import '../intervention_screen.dart';
-import '../measure_screen.dart';
+import 'intervention_screen.dart';
+import 'measure_screen.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -15,8 +15,7 @@ class Home extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text('Intervention',
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+        Text('Intervention', style: TextStyle(fontWeight: FontWeight.bold)),
         Card(
             margin: EdgeInsets.symmetric(vertical: 2),
             child: ListTile(
@@ -26,8 +25,7 @@ class Home extends StatelessWidget {
                   _navigateToInterventionScreen(context, _currentIntervention),
             )),
         SizedBox(height: 10),
-        Text('Measures',
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+        Text('Measures', style: TextStyle(fontWeight: FontWeight.bold)),
         ...trial.measures
             .map((measure) => Card(
                 margin: EdgeInsets.symmetric(vertical: 2),

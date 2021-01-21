@@ -14,8 +14,7 @@ class MeasureSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Measures',
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+        Text('Measures', style: TextStyle(fontWeight: FontWeight.bold)),
         ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
