@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/routes.dart';
 
+import 'package:health/health.dart';
+
 class WelcomeLoadingScreen extends StatefulWidget {
   @override
   _WelcomeLoadingScreenState createState() => _WelcomeLoadingScreenState();
@@ -19,9 +21,20 @@ class _WelcomeLoadingScreenState extends State<WelcomeLoadingScreen> {
     }
   }
 
+  Future<void> fetchData() async {
+    /// Get everything from midnight until now
+
+    HealthFactory health = HealthFactory();
+
+    /// You MUST request access to the data types before reading them
+    bool accessWasGranted = await health
+        .requestAuthorization([HealthDataType.ACTIVE_ENERGY_BURNED]);
+    print(accessWasGranted);
+  }
+
   @override
   Widget build(BuildContext context) {
-    initAppState();
+    fetchData();
     return Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }
