@@ -15,40 +15,12 @@ class InterventionSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Interventions', style: TextStyle(fontWeight: FontWeight.bold)),
-        Card(
-            margin: EdgeInsets.symmetric(vertical: 2),
-            child: ListTile(
-                title: Row(
-                  children: [
-                    Text('A',
-                        style: TextStyle(
-                            color: Colors.lightBlue,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
-                    SizedBox(width: 10),
-                    Text(model.trial.a.name)
-                  ],
-                ),
-                onTap: () {
-                  _editInterventionA(context, model);
-                })),
-        Card(
-            margin: EdgeInsets.symmetric(vertical: 2),
-            child: ListTile(
-                title: Row(
-                  children: [
-                    Text('B',
-                        style: TextStyle(
-                            color: Colors.lightGreen,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
-                    SizedBox(width: 10),
-                    Text(model.trial.b.name),
-                  ],
-                ),
-                onTap: () {
-                  _editInterventionB(context, model);
-                })),
+        _buildInterventionCard('A', Colors.lightBlue, model.trial.a, () {
+          _editInterventionA(context, model);
+        }),
+        _buildInterventionCard('B', Colors.lightGreen, model.trial.b, () {
+          _editInterventionB(context, model);
+        }),
       ],
     );
   }
@@ -77,5 +49,24 @@ class InterventionSection extends StatelessWidget {
             InterventionEditorScreen(isA: isA, intervention: intervention),
       ),
     );
+  }
+
+  Widget _buildInterventionCard(title, color, intervention, onTap) {
+    return Card(
+        margin: EdgeInsets.symmetric(vertical: 2),
+        child: ListTile(
+            title: Row(
+              children: [
+                Text(title,
+                    style: TextStyle(
+                        color: color,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+                SizedBox(width: 10),
+                Text(intervention.name),
+              ],
+            ),
+            trailing: Icon(Icons.chevron_right),
+            onTap: onTap));
   }
 }

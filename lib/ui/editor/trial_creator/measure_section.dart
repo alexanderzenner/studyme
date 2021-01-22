@@ -30,20 +30,7 @@ class MeasureSection extends StatelessWidget {
                 ),
               );
             } else {
-              return Card(
-                  margin: EdgeInsets.symmetric(vertical: 2),
-                  child: ListTile(
-                    title: Row(
-                      children: [
-                        Icon(model.trial.measures[index].icon),
-                        SizedBox(width: 10),
-                        Text(model.trial.measures[index].name),
-                      ],
-                    ),
-                    onTap: () {
-                      _previewMeasure(context, model.trial.measures[index]);
-                    },
-                  ));
+              return _buildMeasureCard(context, model.trial.measures[index]);
             }
           },
         ),
@@ -68,5 +55,23 @@ class MeasureSection extends StatelessWidget {
             MeasurePreviewScreen(measure: measure, isAdded: true),
       ),
     );
+  }
+
+  Widget _buildMeasureCard(context, measure) {
+    return Card(
+        margin: EdgeInsets.symmetric(vertical: 2),
+        child: ListTile(
+          title: Row(
+            children: [
+              Icon(measure.icon),
+              SizedBox(width: 10),
+              Text(measure.name),
+            ],
+          ),
+          trailing: Icon(Icons.chevron_right),
+          onTap: () {
+            _previewMeasure(context, measure);
+          },
+        ));
   }
 }

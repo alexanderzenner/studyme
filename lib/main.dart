@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Study Me',
         theme: ThemeData(
-          primarySwatch: Colors.green,
+          primarySwatch: Colors.blueGrey,
         ),
         initialRoute: Routes.welcome,
         routes: {

@@ -14,25 +14,17 @@ class ScheduleSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Schedule', style: TextStyle(fontWeight: FontWeight.bold)),
-            Container(
-              width: 40,
-              height: 20,
-              child: OutlineButton(
-                padding: EdgeInsets.zero,
-                child: Icon(Icons.edit, size: 20),
-                onPressed: () {
-                  _navigateToScheduleEditor(context);
-                },
-              ),
-            )
-          ],
-        ),
+        Text('Schedule', style: TextStyle(fontWeight: FontWeight.bold)),
         ScheduleWidget(model.trial.schedule),
+        Center(
+          child: OutlineButton(
+            padding: EdgeInsets.zero,
+            child: Icon(Icons.edit, size: 20),
+            onPressed: () {
+              _navigateToScheduleEditor(context);
+            },
+          ),
+        )
       ],
     );
   }
