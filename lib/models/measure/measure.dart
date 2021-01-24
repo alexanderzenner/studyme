@@ -38,6 +38,8 @@ abstract class Measure {
     }
   }
 
+  Future<bool> get canAdd => Future.value(true);
+
   bool get canEdit => true;
 
   dynamic get tickProvider => null;
