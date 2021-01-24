@@ -6,6 +6,7 @@ import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/ui/widgets/choice_editor.dart';
+import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:uuid/uuid.dart';
 
 class MeasureEditorScreen extends StatefulWidget {
@@ -35,11 +36,8 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
         appBar: AppBar(
           title: Text((widget.isCreator ? "Create" : "Edit") + " Measure"),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.check,
-                color: Colors.white,
-              ),
+            SaveButton(
+              canPress: _canSubmit(),
               onPressed: () {
                 Navigator.pop(context, _measure);
               },
@@ -87,6 +85,10 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
       }).toList(),
       decoration: InputDecoration(labelText: 'Type'),
     );
+  }
+
+  _canSubmit() {
+    return _measure.name != null;
   }
 
   _changeName(text) {

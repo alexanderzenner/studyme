@@ -19,21 +19,6 @@ class MeasurePreviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget _preview;
-    switch (measure.runtimeType) {
-      case FreeMeasure:
-        _preview = FreeMeasureWidget(measure, null);
-        break;
-      case ChoiceMeasure:
-        _preview = ChoiceMeasureWidget(measure, null);
-        break;
-      case ScaleMeasure:
-        _preview = ScaleMeasureWidget(measure, null);
-        break;
-      default:
-        _preview = Text('HI');
-    }
-
     return Scaffold(
         appBar: AppBar(title: Text(measure.name + " (Preview)")),
         body: SingleChildScrollView(
@@ -44,7 +29,7 @@ class MeasurePreviewScreen extends StatelessWidget {
                 if (measure.description != null &&
                     measure.description.length > 0)
                   Text(measure.description),
-                if (_preview != null) _preview,
+                _buildPreview(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -53,7 +38,7 @@ class MeasurePreviewScreen extends StatelessWidget {
                           icon: Icon(Icons.add),
                           label: Text("Add to trial"),
                           onPressed: () {
-                            Navigator.pop(context, measure);
+                            _addMeasure(context);
                           }),
                     if (isAdded)
                       OutlineButton.icon(
@@ -75,6 +60,30 @@ class MeasurePreviewScreen extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  _buildPreview() {
+    switch (measure.runtimeType) {
+      case FreeMeasure:
+        return FreeMeasureWidget(measure, null);
+        break;
+      case ChoiceMeasure:
+        return ChoiceMeasureWidget(measure, null);
+      case ScaleMeasure:
+        return ScaleMeasureWidget(measure, null);
+      default:
+        return Text('HI');
+    }
+  }
+
+  _addMeasure(context) {
+    measure.canAdd.then((value) {
+      if (value) {
+        Navigator.pop(context, measure);
+      } else {
+        print("No Access Granted");
+      }
+    });
   }
 
   _removeMeasure(context) {

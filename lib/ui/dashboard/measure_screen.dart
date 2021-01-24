@@ -9,6 +9,7 @@ import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/ui/widgets/choice_measure_widget.dart';
 import 'package:studyme/ui/widgets/free_measure_widget.dart';
+import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:studyme/ui/widgets/scale_measure_widget.dart';
 
 class MeasureScreen extends StatefulWidget {
@@ -39,10 +40,7 @@ class _MeasureScreenState extends State<MeasureScreen> {
         appBar: AppBar(
           title: Text(widget.measure.name),
           actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.check,
-                    color: _hasSelectedValue() ? Colors.white : null),
-                onPressed: _hasSelectedValue() ? _logValue : null)
+            SaveButton(canPress: _hasSelectedValue(), onPressed: _logValue)
           ],
         ),
         body: Center(

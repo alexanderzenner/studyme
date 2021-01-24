@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/abstract_intervention.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
+import 'package:studyme/ui/widgets/save_button.dart';
 
 class InterventionEditorScreen extends StatefulWidget {
   final bool isA;
@@ -31,15 +32,11 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
         appBar: AppBar(
           title: Text(widget.isA ? "Set A" : "Set B"),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.check,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.pop(context, _intervention);
-              },
-            )
+            SaveButton(
+                canPress: _canSubmit(),
+                onPressed: () {
+                  Navigator.pop(context, _intervention);
+                })
           ],
         ),
         body: Center(
@@ -86,6 +83,10 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
             ),
           ),
         ));
+  }
+
+  _canSubmit() {
+    return _intervention.name != null;
   }
 
   _changeName(text) {
