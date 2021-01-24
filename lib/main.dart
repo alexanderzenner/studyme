@@ -10,6 +10,7 @@ import 'package:studyme/models/log/measure_log.dart';
 import 'package:studyme/models/measure/choice.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
+import 'package:studyme/models/measure/synced_measure.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/routes.dart';
@@ -45,6 +46,7 @@ _registerHiveAdapters() {
   Hive.registerAdapter<Choice>(ChoiceAdapter());
   Hive.registerAdapter<ChoiceMeasure>(ChoiceMeasureAdapter());
   Hive.registerAdapter<ScaleMeasure>(ScaleMeasureAdapter());
+  Hive.registerAdapter<SyncedMeasure>(SyncedMeasureAdapter());
 
   Hive.registerAdapter<MeasureLog>(MeasureLogAdapter());
 }

@@ -38,5 +38,7 @@ abstract class Measure {
     }
   }
 
+  bool get canEdit => true;
+
   dynamic get tickProvider => null;
 }

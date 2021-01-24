@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/app_state/log_state.dart';
 import 'package:studyme/models/log/measure_log.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
@@ -63,6 +62,8 @@ class _MeasureScreenState extends State<MeasureScreen> {
       case (ChoiceMeasure):
         return ChoiceMeasureWidget(
             widget.measure, (value) => _updateValue(value));
+      default:
+        return Text("Hi");
     }
   }
 

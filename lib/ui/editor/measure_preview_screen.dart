@@ -31,7 +31,7 @@ class MeasurePreviewScreen extends StatelessWidget {
         _preview = ScaleMeasureWidget(measure, null);
         break;
       default:
-        return null;
+        _preview = Text('HI');
     }
 
     return Scaffold(
@@ -45,31 +45,32 @@ class MeasurePreviewScreen extends StatelessWidget {
                     measure.description.length > 0)
                   Text(measure.description),
                 if (_preview != null) _preview,
-                if (!isAdded)
-                  OutlineButton.icon(
-                      icon: Icon(Icons.add),
-                      label: Text("Add to trial"),
-                      onPressed: () {
-                        Navigator.pop(context, measure);
-                      }),
-                if (isAdded)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    if (!isAdded)
+                      OutlineButton.icon(
+                          icon: Icon(Icons.add),
+                          label: Text("Add to trial"),
+                          onPressed: () {
+                            Navigator.pop(context, measure);
+                          }),
+                    if (isAdded)
                       OutlineButton.icon(
                           icon: Icon(Icons.delete),
                           label: Text("Remove"),
                           onPressed: () {
                             _removeMeasure(context);
                           }),
+                    if (isAdded && measure.canEdit)
                       OutlineButton.icon(
                           icon: Icon(Icons.edit),
                           label: Text("Edit"),
                           onPressed: () {
                             _editMeasure(context);
                           }),
-                    ],
-                  )
+                  ],
+                )
               ],
             ),
           ),
