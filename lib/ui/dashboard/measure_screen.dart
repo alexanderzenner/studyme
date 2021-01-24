@@ -43,23 +43,20 @@ class _MeasureScreenState extends State<MeasureScreen> {
             SaveButton(canPress: _hasSelectedValue(), onPressed: _logValue)
           ],
         ),
-        body: Center(
-            child: Column(children: [
-          _buildMeasureWidget(),
-        ])));
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: _buildMeasureWidget(),
+        ));
   }
 
   _buildMeasureWidget() {
     switch (widget.measure.runtimeType) {
       case (FreeMeasure):
-        return FreeMeasureWidget(
-            widget.measure, (value) => _updateValue(value));
+        return FreeMeasureWidget(widget.measure, _updateValue);
       case (ScaleMeasure):
-        return ScaleMeasureWidget(
-            widget.measure, (value) => _updateValue(value));
+        return ScaleMeasureWidget(widget.measure, _updateValue);
       case (ChoiceMeasure):
-        return ChoiceMeasureWidget(
-            widget.measure, (value) => _updateValue(value));
+        return ChoiceMeasureWidget(widget.measure, _updateValue);
       default:
         return Text("Hi");
     }
