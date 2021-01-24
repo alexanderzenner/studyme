@@ -12,9 +12,9 @@ class FreeMeasureWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: TextField(
+      child: TextFormField(
           keyboardType: TextInputType.number,
-          onChanged: (value) {
+          onFieldSubmitted: (value) {
             if (updateValue != null) {
               updateValue(double.parse(value));
             }
