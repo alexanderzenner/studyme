@@ -12,12 +12,15 @@ class History extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: appState.trial.measures.length,
-                itemBuilder: (context, index) {
-                  return MeasureGraph(measure: appState.trial.measures[index]);
-                }),
+            Expanded(
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: appState.trial.measures.length,
+                  itemBuilder: (context, index) {
+                    return MeasureGraph(
+                        measure: appState.trial.measures[index]);
+                  }),
+            ),
           ],
         ),
       );
