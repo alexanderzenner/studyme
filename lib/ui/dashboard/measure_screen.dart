@@ -7,10 +7,12 @@ import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
+import 'package:studyme/models/measure/synced_measure.dart';
 import 'package:studyme/ui/widgets/choice_measure_widget.dart';
 import 'package:studyme/ui/widgets/free_measure_widget.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:studyme/ui/widgets/scale_measure_widget.dart';
+import 'package:studyme/ui/widgets/synced_measure_widget.dart';
 
 class MeasureScreen extends StatefulWidget {
   final Measure measure;
@@ -57,6 +59,9 @@ class _MeasureScreenState extends State<MeasureScreen> {
         return ScaleMeasureWidget(widget.measure, _updateValue);
       case (ChoiceMeasure):
         return ChoiceMeasureWidget(widget.measure, _updateValue);
+      case (SyncedMeasure):
+        return SyncedMeasureWidget(
+            measure: widget.measure, updateValue: _updateValue);
       default:
         return Text("Hi");
     }
