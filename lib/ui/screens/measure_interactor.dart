@@ -14,16 +14,16 @@ import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:studyme/ui/widgets/scale_measure_widget.dart';
 import 'package:studyme/ui/widgets/synced_measure_widget.dart';
 
-class MeasureScreen extends StatefulWidget {
+class MeasureInteract extends StatefulWidget {
   final Measure measure;
 
-  MeasureScreen(this.measure);
+  MeasureInteract(this.measure);
 
   @override
-  _MeasureScreenState createState() => _MeasureScreenState();
+  _MeasureInteractState createState() => _MeasureInteractState();
 }
 
-class _MeasureScreenState extends State<MeasureScreen> {
+class _MeasureInteractState extends State<MeasureInteract> {
   double _value;
 
   @override

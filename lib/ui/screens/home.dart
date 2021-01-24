@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 
-import 'intervention_screen.dart';
-import 'measure_screen.dart';
+import 'intervention_interactor.dart';
+import 'measure_interactor.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -41,12 +41,12 @@ class Home extends StatelessWidget {
     final completed = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => InterventionScreen(intervention)));
+            builder: (context) => InterventionInteractor(intervention)));
     print(completed);
   }
 
   _navigateToMeasureScreen(context, measure) async {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => MeasureScreen(measure)));
+        MaterialPageRoute(builder: (context) => MeasureInteract(measure)));
   }
 }

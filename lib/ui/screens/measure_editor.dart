@@ -9,17 +9,17 @@ import 'package:studyme/ui/widgets/choice_editor.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:uuid/uuid.dart';
 
-class MeasureEditorScreen extends StatefulWidget {
+class MeasureEditor extends StatefulWidget {
   final bool isCreator;
   final Measure measure;
 
-  const MeasureEditorScreen({@required this.isCreator, @required this.measure});
+  const MeasureEditor({@required this.isCreator, @required this.measure});
 
   @override
-  _MeasureEditorScreenState createState() => _MeasureEditorScreenState();
+  _MeasureEditorState createState() => _MeasureEditorState();
 }
 
-class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
+class _MeasureEditorState extends State<MeasureEditor> {
   Measure _measure;
 
   @override

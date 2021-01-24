@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/routes.dart';
 
-import 'intervention_section.dart';
-import 'measure_section.dart';
-import 'schedule_section.dart';
+import '../widgets/intervention_section.dart';
+import '../widgets/measure_section.dart';
+import '../widgets/schedule_section.dart';
 
 class TrialCreator extends StatelessWidget {
   @override

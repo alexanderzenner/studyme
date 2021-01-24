@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/routes.dart';
 
-class WelcomeLoadingScreen extends StatefulWidget {
+class InitialLoading extends StatefulWidget {
   @override
-  _WelcomeLoadingScreenState createState() => _WelcomeLoadingScreenState();
+  _InitialLoadingState createState() => _InitialLoadingState();
 }
 
-class _WelcomeLoadingScreenState extends State<WelcomeLoadingScreen> {
+class _InitialLoadingState extends State<InitialLoading> {
   initAppState() async {
     await Provider.of<AppState>(context, listen: false).loadAppState();
     if (Provider.of<AppState>(context, listen: false).isEditing) {

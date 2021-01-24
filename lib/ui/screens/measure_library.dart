@@ -4,11 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/ui/editor/measure_editor_screen.dart';
-import 'package:studyme/ui/editor/measure_preview_screen.dart';
 import 'package:uuid/uuid.dart';
 
-class MeasureLibraryScreen extends StatelessWidget {
+import 'measure_editor.dart';
+import 'measure_preview.dart';
+
+class MeasureLibrary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, model, child) {
@@ -63,8 +64,7 @@ class MeasureLibraryScreen extends StatelessWidget {
     return await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            MeasurePreviewScreen(measure: measure, isAdded: false),
+        builder: (context) => MeasurePreview(measure: measure, isAdded: false),
       ),
     );
   }
@@ -83,8 +83,7 @@ class MeasureLibraryScreen extends StatelessWidget {
     return await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            MeasureEditorScreen(isCreator: true, measure: measure),
+        builder: (context) => MeasureEditor(isCreator: true, measure: measure),
       ),
     );
   }

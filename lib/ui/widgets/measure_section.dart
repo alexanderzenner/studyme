@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/routes.dart';
-import 'package:studyme/ui/editor/measure_preview_screen.dart';
+
+import '../screens/measure_preview.dart';
 
 class MeasureSection extends StatelessWidget {
   final AppState model;
@@ -51,8 +52,7 @@ class MeasureSection extends StatelessWidget {
     return await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            MeasurePreviewScreen(measure: measure, isAdded: true),
+        builder: (context) => MeasurePreview(measure: measure, isAdded: true),
       ),
     );
   }

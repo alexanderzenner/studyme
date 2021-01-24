@@ -14,9 +14,10 @@ import 'package:studyme/models/measure/synced_measure.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/routes.dart';
-import 'package:studyme/ui/dashboard/dashboard.dart';
-import 'package:studyme/ui/editor/measure_library_screen.dart';
-import 'package:studyme/ui/editor/trial_creator/trial_creator.dart';
+
+import 'ui/screens/dashboard.dart';
+import 'ui/screens/measure_library.dart';
+import 'ui/screens/trial_creator.dart';
 import 'package:studyme/ui/welcome_loading_screen.dart';
 
 import 'models/measure/choice_measure.dart';
@@ -61,9 +62,9 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: Routes.welcome,
         routes: {
-          Routes.welcome: (context) => WelcomeLoadingScreen(),
+          Routes.welcome: (context) => InitialLoading(),
           Routes.creator: (context) => TrialCreator(),
-          Routes.measure_library: (context) => MeasureLibraryScreen(),
+          Routes.measure_library: (context) => MeasureLibrary(),
           Routes.dashboard: (context) => Dashboard(),
         });
   }

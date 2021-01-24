@@ -5,19 +5,17 @@ import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 
-class InterventionEditorScreen extends StatefulWidget {
+class InterventionEditor extends StatefulWidget {
   final bool isA;
   final AbstractIntervention intervention;
 
-  const InterventionEditorScreen(
-      {@required this.isA, @required this.intervention});
+  const InterventionEditor({@required this.isA, @required this.intervention});
 
   @override
-  _InterventionEditorScreenState createState() =>
-      _InterventionEditorScreenState();
+  _InterventionEditorState createState() => _InterventionEditorState();
 }
 
-class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
+class _InterventionEditorState extends State<InterventionEditor> {
   AbstractIntervention _intervention;
 
   @override

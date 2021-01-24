@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import 'package:studyme/models/app_state/app_state.dart';
-import 'package:studyme/ui/editor/intervention_editor_screen.dart';
+
+import '../screens/intervention_editor.dart';
 
 class InterventionSection extends StatelessWidget {
   final AppState model;
@@ -46,7 +47,7 @@ class InterventionSection extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            InterventionEditorScreen(isA: isA, intervention: intervention),
+            InterventionEditor(isA: isA, intervention: intervention),
       ),
     );
   }

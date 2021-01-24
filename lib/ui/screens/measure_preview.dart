@@ -6,16 +6,18 @@ import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/ui/editor/measure_editor_screen.dart';
-import 'package:studyme/ui/widgets/choice_measure_widget.dart';
-import 'package:studyme/ui/widgets/free_measure_widget.dart';
-import 'package:studyme/ui/widgets/scale_measure_widget.dart';
 
-class MeasurePreviewScreen extends StatelessWidget {
+import '../widgets/choice_measure_widget.dart';
+import '../widgets/free_measure_widget.dart';
+import '../widgets/scale_measure_widget.dart';
+
+import 'measure_editor.dart';
+
+class MeasurePreview extends StatelessWidget {
   final Measure measure;
   final bool isAdded;
 
-  const MeasurePreviewScreen({@required this.measure, @required this.isAdded});
+  const MeasurePreview({@required this.measure, @required this.isAdded});
 
   @override
   Widget build(BuildContext context) {
@@ -106,8 +108,7 @@ class MeasurePreviewScreen extends StatelessWidget {
     return await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            MeasureEditorScreen(isCreator: false, measure: measure),
+        builder: (context) => MeasureEditor(isCreator: false, measure: measure),
       ),
     );
   }

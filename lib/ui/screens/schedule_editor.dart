@@ -6,12 +6,12 @@ import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:studyme/ui/widgets/schedule_widget.dart';
 
-class ScheduleEditorScreen extends StatefulWidget {
+class ScheduleEditor extends StatefulWidget {
   @override
-  _ScheduleEditorScreenState createState() => _ScheduleEditorScreenState();
+  _ScheduleEditorState createState() => _ScheduleEditorState();
 }
 
-class _ScheduleEditorScreenState extends State<ScheduleEditorScreen> {
+class _ScheduleEditorState extends State<ScheduleEditor> {
   TrialSchedule _schedule;
 
   @override

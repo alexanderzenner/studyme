@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/ui/dashboard/history.dart';
-import 'package:studyme/ui/dashboard/profile.dart';
 
+import 'history.dart';
 import 'home.dart';
+import 'profile.dart';
 
 class Dashboard extends StatefulWidget {
   @override

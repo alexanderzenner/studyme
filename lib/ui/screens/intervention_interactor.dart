@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 
-class InterventionScreen extends StatelessWidget {
+class InterventionInteractor extends StatelessWidget {
   final Intervention intervention;
 
-  InterventionScreen(this.intervention);
+  InterventionInteractor(this.intervention);
 
   @override
   Widget build(BuildContext context) {
