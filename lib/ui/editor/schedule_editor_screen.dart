@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/trial_schedule.dart';
+import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:studyme/ui/widgets/schedule_widget.dart';
 
 class ScheduleEditorScreen extends StatefulWidget {
@@ -26,13 +27,7 @@ class _ScheduleEditorScreenState extends State<ScheduleEditorScreen> {
         appBar: AppBar(
           title: Text('Edit Schedule'),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.check,
-                color: Colors.white,
-              ),
-              onPressed: _save,
-            )
+            SaveButton(canPress: _canSubmit(), onPressed: _save)
           ],
         ),
         body: Padding(
@@ -72,6 +67,10 @@ class _ScheduleEditorScreenState extends State<ScheduleEditorScreen> {
         ));
   }
 
+  _canSubmit() {
+    return _schedule.duration != 0;
+  }
+
   _updateNumberOfCycles(text) {
     setState(() {
       _schedule.updateNumberOfCycles(int.parse(text));
@@ -79,12 +78,9 @@ class _ScheduleEditorScreenState extends State<ScheduleEditorScreen> {
   }
 
   _updatePhaseDuration(text) {
-    int value = int.parse(text);
-    if (value != null && value > 0) {
-      setState(() {
-        _schedule.phaseDuration = value;
-      });
-    }
+    setState(() {
+      _schedule.phaseDuration = int.parse(text);
+    });
   }
 
   _updatePhaseOrder(phaseOrder) {

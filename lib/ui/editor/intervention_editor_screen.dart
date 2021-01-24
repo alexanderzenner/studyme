@@ -86,7 +86,7 @@ class _InterventionEditorScreenState extends State<InterventionEditorScreen> {
   }
 
   _canSubmit() {
-    return _intervention.name != null;
+    return _intervention.name != null && _intervention.name.length > 0;
   }
 
   _changeName(text) {

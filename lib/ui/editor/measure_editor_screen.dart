@@ -88,7 +88,7 @@ class _MeasureEditorScreenState extends State<MeasureEditorScreen> {
   }
 
   _canSubmit() {
-    return _measure.name != null;
+    return _measure.name != null && _measure.name.length > 0;
   }
 
   _changeName(text) {
