@@ -15,8 +15,9 @@ class ChoiceMeasure extends Measure {
   @HiveField(4)
   List<Choice> choices;
 
-  ChoiceMeasure({id, name, description, this.choices})
-      : super(id: id, type: measureType, name: name, description: description);
+  ChoiceMeasure({id, name, description, choices})
+      : this.choices = choices != null ? choices : [],
+        super(id: id, type: measureType, name: name, description: description);
 
   ChoiceMeasure.clone(ChoiceMeasure measure)
       : choices = List.of(measure.choices),
