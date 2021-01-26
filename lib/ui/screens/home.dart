@@ -14,13 +14,17 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final trial = Provider.of<AppState>(context).trial;
-    final _currentIntervention = trial.getInterventionForDate(DateTime.now());
+    final date = DateTime.now();
+    final _currentIntervention = trial.getInterventionForDate(date);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        ScheduleWidget(schedule: trial.schedule),
         SizedBox(height: 10),
+        ScheduleWidget(
+            schedule: trial.schedule,
+            activeIndex: trial.getInterventionIndexForDate(date)),
+        SizedBox(height: 20),
         Text('Intervention', style: TextStyle(fontWeight: FontWeight.bold)),
         InterventionCard(
             isA: _currentIntervention.isA,

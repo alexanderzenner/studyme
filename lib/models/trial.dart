@@ -23,7 +23,7 @@ class Trial extends HiveObject {
   DateTime startDate;
 
   InterventionWithContext getInterventionForDate(DateTime date) {
-    final index = _getInterventionIndexForDate(date);
+    final index = getInterventionIndexForDate(date);
     if (index < 0 || index >= schedule.phaseSequence.length) {
       print('Study is over or has not begun.');
       return null;
@@ -43,7 +43,7 @@ class Trial extends HiveObject {
       return null;
   }
 
-  int _getInterventionIndexForDate(DateTime date) {
+  int getInterventionIndexForDate(DateTime date) {
     final test = date.differenceInDays(startDate).inDays;
     return test ~/ schedule.phaseDuration;
   }
