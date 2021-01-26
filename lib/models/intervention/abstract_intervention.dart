@@ -31,3 +31,10 @@ abstract class AbstractIntervention {
     }
   }
 }
+
+class InterventionWithContext {
+  final bool isA;
+  final AbstractIntervention intervention;
+
+  InterventionWithContext({this.isA, this.intervention});
+}

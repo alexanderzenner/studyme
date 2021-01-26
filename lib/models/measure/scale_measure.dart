@@ -19,8 +19,8 @@ class ScaleMeasure extends Measure {
   num initial;
 
   ScaleMeasure({id, name, description, min, max})
-      : this.min = min != null ? min : 0,
-        this.max = max != null ? max : 10,
+      : this.min = min != null ? min : 0.0,
+        this.max = max != null ? max : 10.0,
         super(id: id, type: measureType, name: name, description: description);
 
   ScaleMeasure.clone(ScaleMeasure measure)

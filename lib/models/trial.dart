@@ -22,13 +22,19 @@ class Trial extends HiveObject {
   @HiveField(4)
   DateTime startDate;
 
-  List<AbstractIntervention> get interventionsInOrder {
-    return schedule.phaseSequence
-        .map((letter) => getInterventionForLetter(letter))
-        .toList();
+  InterventionWithContext getInterventionForDate(DateTime date) {
+    final index = _getInterventionIndexForDate(date);
+    if (index < 0 || index >= schedule.phaseSequence.length) {
+      print('Study is over or has not begun.');
+      return null;
+    }
+    final interventionLetter = schedule.phaseSequence[index];
+    return InterventionWithContext(
+        isA: interventionLetter == 'a',
+        intervention: _getInterventionForLetter(interventionLetter));
   }
 
-  AbstractIntervention getInterventionForLetter(String letter) {
+  AbstractIntervention _getInterventionForLetter(String letter) {
     if (letter == 'a')
       return a;
     else if (letter == 'b')
@@ -40,16 +46,6 @@ class Trial extends HiveObject {
   int _getInterventionIndexForDate(DateTime date) {
     final test = date.differenceInDays(startDate).inDays;
     return test ~/ schedule.phaseDuration;
-  }
-
-  AbstractIntervention getInterventionForDate(DateTime date) {
-    final index = _getInterventionIndexForDate(date);
-    if (index < 0 || index >= schedule.phaseSequence.length) {
-      print('Study is over or has not begun.');
-      return null;
-    }
-    final interventionLetter = schedule.phaseSequence[index];
-    return getInterventionForLetter(interventionLetter);
   }
 }
 

@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/routes.dart';
 
-import '../widgets/intervention_section.dart';
-import '../widgets/measure_section.dart';
-import '../widgets/schedule_section.dart';
+import '../widgets/trial_creator_intervention_section.dart';
+import '../widgets/trial_creator_measure_section.dart';
+import '../widgets/trial_creator_schedule_section.dart';
 
 class TrialCreator extends StatelessWidget {
   @override
@@ -18,11 +18,11 @@ class TrialCreator extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(children: [
-                InterventionSection(model),
+                TrialCreatorInterventionSection(model),
                 SizedBox(height: 10),
-                MeasureSection(model),
+                TrialCreatorMeasureSection(model),
                 SizedBox(height: 10),
-                ScheduleSection(model),
+                TrialCreatorScheduleSection(model),
                 SizedBox(height: 50),
                 Center(
                   child: Container(

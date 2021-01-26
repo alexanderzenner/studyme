@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/ui/widgets/intervention_card.dart';
 
 import '../screens/intervention_editor.dart';
 
-class InterventionSection extends StatelessWidget {
+class TrialCreatorInterventionSection extends StatelessWidget {
   final AppState model;
 
-  InterventionSection(this.model);
+  TrialCreatorInterventionSection(this.model);
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +17,18 @@ class InterventionSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Interventions', style: TextStyle(fontWeight: FontWeight.bold)),
-        _buildInterventionCard('A', Colors.lightBlue, model.trial.a, () {
-          _editInterventionA(context, model);
-        }),
-        _buildInterventionCard('B', Colors.lightGreen, model.trial.b, () {
-          _editInterventionB(context, model);
-        }),
+        InterventionCard(
+            isA: true,
+            intervention: model.trial.a,
+            onTap: () {
+              _editInterventionA(context, model);
+            }),
+        InterventionCard(
+            isA: false,
+            intervention: model.trial.b,
+            onTap: () {
+              _editInterventionB(context, model);
+            }),
       ],
     );
   }
@@ -50,24 +57,5 @@ class InterventionSection extends StatelessWidget {
             InterventionEditor(isA: isA, intervention: intervention),
       ),
     );
-  }
-
-  Widget _buildInterventionCard(title, color, intervention, onTap) {
-    return Card(
-        margin: EdgeInsets.symmetric(vertical: 2),
-        child: ListTile(
-            title: Row(
-              children: [
-                Text(title,
-                    style: TextStyle(
-                        color: color,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold)),
-                SizedBox(width: 10),
-                Text(intervention.name),
-              ],
-            ),
-            trailing: Icon(Icons.chevron_right),
-            onTap: onTap));
   }
 }

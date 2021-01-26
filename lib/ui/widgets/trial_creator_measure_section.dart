@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/routes.dart';
+import 'package:studyme/ui/widgets/measure_card.dart';
 
 import '../screens/measure_preview.dart';
 
-class MeasureSection extends StatelessWidget {
+class TrialCreatorMeasureSection extends StatelessWidget {
   final AppState model;
 
-  MeasureSection(this.model);
+  TrialCreatorMeasureSection(this.model);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,12 @@ class MeasureSection extends StatelessWidget {
                 ),
               );
             } else {
-              return _buildMeasureCard(context, model.trial.measures[index]);
+              Measure measure = model.trial.measures[index];
+              return MeasureCard(
+                  measure: measure,
+                  onTap: () {
+                    _previewMeasure(context, measure);
+                  });
             }
           },
         ),
@@ -55,23 +62,5 @@ class MeasureSection extends StatelessWidget {
         builder: (context) => MeasurePreview(measure: measure, isAdded: true),
       ),
     );
-  }
-
-  Widget _buildMeasureCard(context, measure) {
-    return Card(
-        margin: EdgeInsets.symmetric(vertical: 2),
-        child: ListTile(
-          title: Row(
-            children: [
-              Icon(measure.icon),
-              SizedBox(width: 10),
-              Text(measure.name),
-            ],
-          ),
-          trailing: Icon(Icons.chevron_right),
-          onTap: () {
-            _previewMeasure(context, measure);
-          },
-        ));
   }
 }

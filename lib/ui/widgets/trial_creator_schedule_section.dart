@@ -5,10 +5,10 @@ import 'package:studyme/ui/widgets/schedule_widget.dart';
 
 import '../screens/schedule_editor.dart';
 
-class ScheduleSection extends StatelessWidget {
+class TrialCreatorScheduleSection extends StatelessWidget {
   final AppState model;
 
-  ScheduleSection(this.model);
+  TrialCreatorScheduleSection(this.model);
 
   @override
   Widget build(BuildContext context) {
