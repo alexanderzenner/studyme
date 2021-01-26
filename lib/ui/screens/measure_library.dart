@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
+import 'package:studyme/ui/widgets/measure_card.dart';
 import 'package:uuid/uuid.dart';
 
 import 'measure_editor.dart';
@@ -25,19 +26,10 @@ class MeasureLibrary extends StatelessWidget {
         body: ListView.builder(
           itemCount: _unaddedMeasures.length,
           itemBuilder: (context, index) {
-            return Card(
-                child: ListTile(
-              title: Row(
-                children: [
-                  Icon(_unaddedMeasures[index].icon),
-                  SizedBox(width: 10),
-                  Text(_unaddedMeasures[index].name),
-                ],
-              ),
-              onTap: () {
-                _previewMeasure(context, model, _unaddedMeasures[index]);
-              },
-            ));
+            Measure _measure = _unaddedMeasures[index];
+            return MeasureCard(
+                measure: _measure,
+                onTap: () => _previewMeasure(context, model, _measure));
           },
         ),
         floatingActionButton: FloatingActionButton(
