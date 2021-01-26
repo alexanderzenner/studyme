@@ -35,7 +35,7 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
           child: Consumer<AppState>(builder: (context, model, child) {
             return Column(
               children: [
-                ScheduleWidget(_schedule),
+                ScheduleWidget(schedule: _schedule, showDuration: true),
                 SizedBox(height: 20),
                 TextFormField(
                   initialValue: _schedule.phaseDuration.toString(),

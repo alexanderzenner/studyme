@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/abstract_intervention.dart';
+import 'package:studyme/ui/widgets/intervention_letter.dart';
 
 class InterventionCard extends StatelessWidget {
   final bool isA;
@@ -13,11 +14,7 @@ class InterventionCard extends StatelessWidget {
     return Card(
         margin: EdgeInsets.symmetric(vertical: 2),
         child: ListTile(
-            leading: Text(isA ? 'A' : 'B',
-                style: TextStyle(
-                    color: isA ? Colors.lightBlue : Colors.lightGreen,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold)),
+            leading: InterventionLetter(isA: isA),
             title: Text(intervention.name),
             trailing: Icon(Icons.chevron_right),
             onTap: onTap));

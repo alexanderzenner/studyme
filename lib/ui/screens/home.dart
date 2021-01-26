@@ -5,6 +5,7 @@ import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
+import 'package:studyme/ui/widgets/schedule_widget.dart';
 
 import 'intervention_interactor.dart';
 import 'measure_interactor.dart';
@@ -18,6 +19,8 @@ class Home extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        ScheduleWidget(schedule: trial.schedule),
+        SizedBox(height: 10),
         Text('Intervention', style: TextStyle(fontWeight: FontWeight.bold)),
         InterventionCard(
             isA: _currentIntervention.isA,
