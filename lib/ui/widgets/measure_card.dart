@@ -13,13 +13,8 @@ class MeasureCard extends StatelessWidget {
     return Card(
         margin: EdgeInsets.symmetric(vertical: 2),
         child: ListTile(
-          title: Row(
-            children: [
-              Icon(measure.icon),
-              SizedBox(width: 10),
-              Text(measure.name),
-            ],
-          ),
+          leading: Icon(measure.icon),
+          title: Text(measure.name),
           trailing: Icon(Icons.chevron_right),
           onTap: onTap,
         ));
