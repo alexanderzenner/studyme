@@ -24,7 +24,7 @@ class MeasureInteract extends StatefulWidget {
 }
 
 class _MeasureInteractState extends State<MeasureInteract> {
-  double _value;
+  num _value;
 
   @override
   void initState() {
@@ -47,7 +47,9 @@ class _MeasureInteractState extends State<MeasureInteract> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: _buildMeasureWidget(),
+          child: Column(
+            children: [_buildMeasureWidget()],
+          ),
         ));
   }
 

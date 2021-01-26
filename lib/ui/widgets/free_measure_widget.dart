@@ -5,7 +5,7 @@ import 'package:studyme/models/measure/free_measure.dart';
 class FreeMeasureWidget extends StatelessWidget {
   final FreeMeasure measure;
 
-  final void Function(double value) updateValue;
+  final void Function(num value) updateValue;
 
   FreeMeasureWidget(this.measure, this.updateValue);
 
@@ -16,7 +16,7 @@ class FreeMeasureWidget extends StatelessWidget {
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
             if (updateValue != null) {
-              updateValue(double.parse(value));
+              updateValue(num.parse(value));
             }
           }),
     );

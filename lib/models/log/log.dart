@@ -11,7 +11,7 @@ abstract class TrialLog {
   DateTime dateTime;
 
   @HiveField(3)
-  double value;
+  num value;
 
   TrialLog(this.type, this.loggedItemId, this.dateTime, this.value);
 }

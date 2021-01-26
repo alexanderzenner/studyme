@@ -5,7 +5,7 @@ import 'package:studyme/models/measure/choice_measure.dart';
 class ChoiceMeasureWidget extends StatefulWidget {
   final ChoiceMeasure measure;
 
-  final void Function(double value) updateValue;
+  final void Function(num value) updateValue;
 
   ChoiceMeasureWidget(this.measure, this.updateValue);
 
@@ -14,7 +14,7 @@ class ChoiceMeasureWidget extends StatefulWidget {
 }
 
 class _ChoiceMeasureWidgetState extends State<ChoiceMeasureWidget> {
-  int _state;
+  num _state;
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _ChoiceMeasureWidgetState extends State<ChoiceMeasureWidget> {
                         _state = index;
                       });
                       if (widget.updateValue != null) {
-                        widget.updateValue(_state.toDouble());
+                        widget.updateValue(_state);
                       }
                     }),
               ));

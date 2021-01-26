@@ -10,13 +10,13 @@ class ScaleMeasure extends Measure {
   final IconData icon = Icons.linear_scale;
 
   @HiveField(4)
-  double min;
+  num min;
 
   @HiveField(5)
-  double max;
+  num max;
 
   @HiveField(6)
-  double initial;
+  num initial;
 
   ScaleMeasure({id, name, description, min, max})
       : this.min = min != null ? min : 0,

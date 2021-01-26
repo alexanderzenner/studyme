@@ -142,7 +142,7 @@ class _MeasureEditorState extends State<MeasureEditor> {
         initialValue: measure.min.toInt().toString(),
         onChanged: (text) {
           setState(() {
-            measure.min = double.parse(text);
+            measure.min = num.parse(text);
           });
         },
         decoration: InputDecoration(labelText: 'Min'),
@@ -152,7 +152,7 @@ class _MeasureEditorState extends State<MeasureEditor> {
         initialValue: measure.max.toInt().toString(),
         onChanged: (text) {
           setState(() {
-            measure.max = double.parse(text);
+            measure.max = num.parse(text);
           });
         },
         decoration: InputDecoration(labelText: 'Max'),
