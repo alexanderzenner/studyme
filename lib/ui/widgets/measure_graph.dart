@@ -20,25 +20,29 @@ class _MeasureGraphState extends State<MeasureGraph> {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(widget.measure.name, style: TextStyle(fontWeight: FontWeight.bold)),
-      Container(
-        height: MediaQuery.of(context).size.height / 3,
-        child: FutureBuilder<List<TrialLog>>(
-            future: Provider.of<LogState>(context).getLogsFor(widget.measure),
-            builder: (context, AsyncSnapshot<List<TrialLog>> snapshot) {
-              Widget child;
-              if (snapshot.hasData) {
-                child = charts.TimeSeriesChart(_createSampleData(snapshot.data),
-                    animate: false,
-                    defaultRenderer: new charts.BarRendererConfig<DateTime>(),
-                    defaultInteractions: false,
-                    primaryMeasureAxis: widget.measure.tickProvider);
-              } else {
-                child = CircularProgressIndicator();
-              }
-              return child;
-            }),
-      ),
+      FutureBuilder<List<TrialLog>>(
+          future: Provider.of<LogState>(context).getLogsFor(widget.measure),
+          builder: (context, AsyncSnapshot<List<TrialLog>> snapshot) {
+            Widget child;
+            if (snapshot.hasData) {
+              child = _createGraph(snapshot.data);
+            } else {
+              child = CircularProgressIndicator();
+            }
+            return child;
+          }),
     ]);
+  }
+
+  Widget _createGraph(List<TrialLog> logs) {
+    return Container(
+      height: MediaQuery.of(context).size.height / 3,
+      child: charts.TimeSeriesChart(_createSampleData(logs),
+          animate: false,
+          defaultRenderer: new charts.BarRendererConfig<DateTime>(),
+          defaultInteractions: false,
+          primaryMeasureAxis: widget.measure.tickProvider),
+    );
   }
 
   List<charts.Series<TrialLog, DateTime>> _createSampleData(
