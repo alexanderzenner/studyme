@@ -30,11 +30,13 @@ class TrialCreator extends StatelessWidget {
                     height: 50,
                     child: OutlineButton(
                       child: Text('Start trial'),
-                      onPressed: () {
-                        model.saveIsEditing(false);
-                        Navigator.pushReplacementNamed(
-                            context, Routes.dashboard);
-                      },
+                      onPressed: model.trial.isReady
+                          ? () {
+                              model.saveIsEditing(false);
+                              Navigator.pushReplacementNamed(
+                                  context, Routes.dashboard);
+                            }
+                          : null,
                     ),
                   ),
                 )

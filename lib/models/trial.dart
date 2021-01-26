@@ -47,6 +47,10 @@ class Trial extends HiveObject {
     final test = date.differenceInDays(startDate).inDays;
     return test ~/ schedule.phaseDuration;
   }
+
+  bool get isReady {
+    return this.a != null && this.b != null && this.measures.length > 0;
+  }
 }
 
 extension DateOnlyCompare on DateTime {
