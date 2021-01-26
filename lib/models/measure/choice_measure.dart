@@ -15,7 +15,7 @@ class ChoiceMeasure extends Measure {
   @HiveField(4)
   List<Choice> choices;
 
-  ChoiceMeasure({id, name, description, choices})
+  ChoiceMeasure({id, name, description, List<Choice> choices})
       : this.choices = choices != null ? choices : [],
         super(id: id, type: measureType, name: name, description: description);
 

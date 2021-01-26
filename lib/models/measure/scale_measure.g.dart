@@ -20,10 +20,10 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       id: fields[0] as dynamic,
       name: fields[2] as dynamic,
       description: fields[3] as dynamic,
-      min: fields[4] as double,
-      max: fields[5] as double,
+      min: fields[4] as dynamic,
+      max: fields[5] as dynamic,
     )
-      ..initial = fields[6] as double
+      ..initial = fields[6] as num
       ..type = fields[1] as String;
   }
 
