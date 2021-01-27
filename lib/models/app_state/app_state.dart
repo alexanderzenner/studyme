@@ -58,8 +58,7 @@ class AppState extends ChangeNotifier {
       ..a = _interventionA
       ..b = _interventionB
       ..measures = []
-      ..schedule = _trialSchedule
-      ..startDate = DateTime.now();
+      ..schedule = _trialSchedule;
   }
 
   int _getTrialIndexForMeasureId(String id) {
@@ -105,6 +104,12 @@ class AppState extends ChangeNotifier {
       box.put(activeTrialKey, _trial);
       box.put(isEditingKey, true);
     }
+  }
+
+  startTrial() {
+    saveIsEditing(true);
+    _trial.startDate = DateTime.now();
+    _trial.save();
   }
 
   saveIsEditing(bool isEditing) {

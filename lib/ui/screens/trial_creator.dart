@@ -32,7 +32,7 @@ class TrialCreator extends StatelessWidget {
                       child: Text('Start trial'),
                       onPressed: model.trial.isReady
                           ? () {
-                              model.saveIsEditing(false);
+                              model.startTrial();
                               Navigator.pushReplacementNamed(
                                   context, Routes.dashboard);
                             }

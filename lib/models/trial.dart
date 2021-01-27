@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:hive/hive.dart';
 import './intervention/abstract_intervention.dart';
 import './measure/measure.dart';
@@ -21,6 +23,10 @@ class Trial extends HiveObject {
 
   @HiveField(4)
   DateTime startDate;
+
+  DateTime getEndDate() {
+    return startDate.add(Duration(days: this.schedule.duration - 1));
+  }
 
   InterventionWithContext getInterventionForDate(DateTime date) {
     final index = getInterventionIndexForDate(date);
