@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:studyme/models/intervention/abstract_intervention.dart';
+import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/ui/widgets/intervention_letter.dart';
 
 class InterventionCard extends StatelessWidget {
   final bool isA;
-  final AbstractIntervention intervention;
+  final Intervention intervention;
   final void Function() onTap;
 
   InterventionCard({this.isA, this.intervention, this.onTap});

@@ -17,8 +17,8 @@ class TrialAdapter extends TypeAdapter<Trial> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Trial()
-      ..a = fields[0] as AbstractIntervention
-      ..b = fields[1] as AbstractIntervention
+      ..a = fields[0] as Intervention
+      ..b = fields[1] as Intervention
       ..measures = (fields[2] as List)?.cast<Measure>()
       ..schedule = fields[3] as TrialSchedule
       ..startDate = fields[4] as DateTime;

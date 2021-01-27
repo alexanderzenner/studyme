@@ -15,7 +15,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Trial _trial = Provider.of<AppState>(context).trial;
-    final _dateToday = DateTime(2021, 1, 27);
+    final _dateToday = DateTime.now();
 
     print(_trial.endDate);
 

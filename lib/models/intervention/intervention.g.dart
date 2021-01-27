@@ -16,8 +16,9 @@ class InterventionAdapter extends TypeAdapter<Intervention> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Intervention()
-      ..type = fields[0] as String
+    return Intervention(
+      type: fields[0] as dynamic,
+    )
       ..id = fields[1] as String
       ..name = fields[2] as String
       ..description = fields[3] as String;

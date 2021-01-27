@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/intervention/abstract_intervention.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 
 class InterventionEditor extends StatefulWidget {
   final bool isA;
-  final AbstractIntervention intervention;
+  final Intervention intervention;
 
   const InterventionEditor({@required this.isA, @required this.intervention});
 
@@ -16,7 +15,7 @@ class InterventionEditor extends StatefulWidget {
 }
 
 class _InterventionEditorState extends State<InterventionEditor> {
-  AbstractIntervention _intervention;
+  Intervention _intervention;
 
   @override
   initState() {

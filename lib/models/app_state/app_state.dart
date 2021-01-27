@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
-import 'package:studyme/models/intervention/abstract_intervention.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/trial.dart';
@@ -27,13 +26,13 @@ class AppState extends ChangeNotifier {
     return measures;
   }
 
-  void setInterventionA(AbstractIntervention intervention) {
+  void setInterventionA(Intervention intervention) {
     _trial.a = intervention;
     _trial.save();
     notifyListeners();
   }
 
-  void setInterventionB(AbstractIntervention intervention) {
+  void setInterventionB(Intervention intervention) {
     _trial.b = intervention;
     _trial.save();
     notifyListeners();
@@ -50,8 +49,8 @@ class AppState extends ChangeNotifier {
       ..description = '';
 
     final _trialSchedule = TrialSchedule(
-        phaseDuration: 7,
-        numberOfCycles: 3,
+        phaseDuration: 1,
+        numberOfCycles: 1,
         phaseOrder: PhaseOrder.alternating);
 
     return Trial()

@@ -1,14 +1,45 @@
 import 'package:hive/hive.dart';
 
-import 'abstract_intervention.dart';
+import 'no_intervention.dart';
 
 part 'intervention.g.dart';
 
 @HiveType(typeId: 101)
-class Intervention extends AbstractIntervention {
-  static const String interventionType = 'real';
+class Intervention {
+  static const String interventionType = 'intervention';
 
-  Intervention() : super(interventionType);
+  @HiveField(0)
+  String type;
 
-  Intervention.clone(Intervention intervention) : super.clone(intervention);
+  @HiveField(1)
+  String id;
+
+  @HiveField(2)
+  String name;
+
+  @HiveField(3)
+  String description;
+
+  Intervention({type}) : this.type = type == null ? interventionType : type;
+
+  Intervention.clone(Intervention intervention)
+      : type = intervention.type,
+        name = intervention.name,
+        description = intervention.description;
+
+  clone() {
+    switch (this.runtimeType) {
+      case NoIntervention:
+        return NoIntervention.clone(this);
+      default:
+        return Intervention.clone(this);
+    }
+  }
+}
+
+class InterventionWithContext {
+  final bool isA;
+  final Intervention intervention;
+
+  InterventionWithContext({this.isA, this.intervention});
 }

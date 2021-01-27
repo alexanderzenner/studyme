@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:hive/hive.dart';
-import './intervention/abstract_intervention.dart';
 import './measure/measure.dart';
+import 'intervention/intervention.dart';
 import 'trial_schedule.dart';
 
 part 'trial.g.dart';
@@ -10,10 +8,10 @@ part 'trial.g.dart';
 @HiveType(typeId: 200)
 class Trial extends HiveObject {
   @HiveField(0)
-  AbstractIntervention a;
+  Intervention a;
 
   @HiveField(1)
-  AbstractIntervention b;
+  Intervention b;
 
   @HiveField(2)
   List<Measure> measures;
@@ -46,7 +44,7 @@ class Trial extends HiveObject {
         intervention: _getInterventionForLetter(interventionLetter));
   }
 
-  AbstractIntervention _getInterventionForLetter(String letter) {
+  Intervention _getInterventionForLetter(String letter) {
     if (letter == 'a')
       return a;
     else if (letter == 'b')

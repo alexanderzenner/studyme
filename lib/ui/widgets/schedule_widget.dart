@@ -25,8 +25,8 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
   void initState() {
     super.initState();
     if (widget.activeIndex > 0) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _scrollController
-          .scrollTo(index: widget.activeIndex, duration: Duration(seconds: 1)));
+      WidgetsBinding.instance.addPostFrameCallback(
+          (_) => _scrollController.jumpTo(index: widget.activeIndex));
     }
   }
 
