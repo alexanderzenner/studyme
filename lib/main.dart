@@ -23,8 +23,7 @@ import 'package:studyme/ui/welcome_loading_screen.dart';
 import 'models/measure/choice_measure.dart';
 
 void main() async {
-  await Hive.initFlutter();
-  _registerHiveAdapters();
+  await _setupFlutter();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<AppState>(
       create: (context) => AppState(),
@@ -35,7 +34,8 @@ void main() async {
   ], child: MyApp()));
 }
 
-_registerHiveAdapters() {
+_setupFlutter() async {
+  await Hive.initFlutter();
   Hive.registerAdapter<Trial>(TrialAdapter());
   Hive.registerAdapter<TrialSchedule>(TrialScheduleAdapter());
   Hive.registerAdapter<PhaseOrder>(PhaseOrderAdapter());
