@@ -108,7 +108,8 @@ class AppState extends ChangeNotifier {
 
   startTrial() {
     saveIsEditing(true);
-    _trial.startDate = DateTime.now();
+    DateTime now = DateTime.now();
+    _trial.startDate = DateTime(now.year, now.month, now.day);
     _trial.save();
   }
 

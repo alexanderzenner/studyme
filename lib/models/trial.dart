@@ -24,8 +24,14 @@ class Trial extends HiveObject {
   @HiveField(4)
   DateTime startDate;
 
-  DateTime getEndDate() {
-    return startDate.add(Duration(days: this.schedule.duration - 1));
+  DateTime get endDate {
+    return startDate
+        .add(Duration(days: this.schedule.duration))
+        .subtract(Duration(seconds: 1));
+  }
+
+  bool isInStudyTimeframe(DateTime date) {
+    return date.isAfter(startDate) && date.isBefore(endDate);
   }
 
   InterventionWithContext getInterventionForDate(DateTime date) {

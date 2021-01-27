@@ -15,18 +15,23 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Trial _trial = Provider.of<AppState>(context).trial;
-    final _dateToday = DateTime.now();
+    final _dateToday = DateTime(2021, 1, 27);
+
+    print(_trial.endDate);
 
     List<Widget> _body;
     int _activeIndex;
 
-    if (_dateToday.isBefore(_trial.getEndDate())) {
+    if (_dateToday.isBefore(_trial.startDate)) {
+      _body = _buildBodyWithTrialHasNotStartedMessage();
+      _activeIndex = -1;
+    } else if (_dateToday.isAfter(_trial.endDate)) {
+      _body = _buildBodyWithTrialIsEndedMessage();
+      _activeIndex = _trial.schedule.duration;
+    } else {
       final _currentIntervention = _trial.getInterventionForDate(_dateToday);
       _body = _buildBodyWithTodaysTasks(context, _trial, _currentIntervention);
       _activeIndex = _trial.getInterventionIndexForDate(_dateToday);
-    } else {
-      _body = _buildBodyWithTrialIsEndedMessage();
-      _activeIndex = _trial.schedule.duration;
     }
 
     return Padding(
@@ -64,6 +69,10 @@ class Home extends StatelessWidget {
         },
       ),
     ];
+  }
+
+  _buildBodyWithTrialHasNotStartedMessage() {
+    return [Text("Trial hasn't started yet")];
   }
 
   _buildBodyWithTrialIsEndedMessage() {
