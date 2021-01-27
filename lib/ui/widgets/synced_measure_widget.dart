@@ -39,7 +39,7 @@ class SyncedMeasureWidget extends StatelessWidget {
         ],
       );
     } else {
-      Column(
+      return Column(
         children: [
           Text("Value couldn't be loaded, please enter it manually"),
         ],
