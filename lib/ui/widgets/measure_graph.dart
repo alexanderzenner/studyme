@@ -1,10 +1,10 @@
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_state.dart';
 import 'package:studyme/models/log/log.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 class MeasureGraph extends StatefulWidget {
   final Measure measure;

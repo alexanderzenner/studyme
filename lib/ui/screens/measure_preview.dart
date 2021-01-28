@@ -10,7 +10,6 @@ import 'package:studyme/models/measure/scale_measure.dart';
 import '../widgets/choice_measure_widget.dart';
 import '../widgets/free_measure_widget.dart';
 import '../widgets/scale_measure_widget.dart';
-
 import 'measure_editor.dart';
 
 class MeasurePreview extends StatelessWidget {

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
 

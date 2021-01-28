@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -16,13 +14,12 @@ import 'package:studyme/models/measure/synced_measure.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/routes.dart';
-
-import 'ui/screens/dashboard.dart';
-import 'ui/screens/measure_library.dart';
-import 'ui/screens/trial_creator.dart';
 import 'package:studyme/ui/welcome_loading_screen.dart';
 
 import 'models/measure/choice_measure.dart';
+import 'ui/screens/dashboard.dart';
+import 'ui/screens/measure_library.dart';
+import 'ui/screens/trial_creator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
