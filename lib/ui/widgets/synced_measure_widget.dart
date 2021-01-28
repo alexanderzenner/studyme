@@ -11,7 +11,6 @@ class SyncedMeasureWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("rebuild");
     return FutureBuilder<Widget>(
         future: _loadData(),
         builder: (context, AsyncSnapshot<Widget> snapshot) {
@@ -25,6 +24,7 @@ class SyncedMeasureWidget extends StatelessWidget {
 
   Future<Widget> _loadData() async {
     List<HealthDataPoint> data = await measure.getValue();
+    print(data);
     if (data.length > 0) {
       num value = data[0].value;
       updateValue(value);
