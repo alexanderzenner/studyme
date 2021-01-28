@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +25,10 @@ import 'package:studyme/ui/welcome_loading_screen.dart';
 import 'models/measure/choice_measure.dart';
 
 void main() async {
-  await _setupFlutter();
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await _setupHive();
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<AppState>(
       create: (context) => AppState(),
@@ -34,7 +39,7 @@ void main() async {
   ], child: MyApp()));
 }
 
-_setupFlutter() async {
+_setupHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter<Trial>(TrialAdapter());
   Hive.registerAdapter<TrialSchedule>(TrialScheduleAdapter());
