@@ -34,14 +34,16 @@ class Home extends StatelessWidget {
       _activeIndex = _trial.getInterventionIndexForDate(_dateToday);
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        SizedBox(height: 10),
-        ScheduleWidget(schedule: _trial.schedule, activeIndex: _activeIndex),
-        SizedBox(height: 20),
-        ..._body
-      ]),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          SizedBox(height: 10),
+          ScheduleWidget(schedule: _trial.schedule, activeIndex: _activeIndex),
+          SizedBox(height: 20),
+          ..._body
+        ]),
+      ),
     );
   }
 
