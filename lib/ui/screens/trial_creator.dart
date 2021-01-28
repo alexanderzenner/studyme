@@ -14,33 +14,35 @@ class TrialCreator extends StatelessWidget {
     return Consumer<AppState>(builder: (context, model, child) {
       return Scaffold(
           appBar: AppBar(title: Text('Create Trial')),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(children: [
-                TrialCreatorInterventionSection(model),
-                SizedBox(height: 10),
-                TrialCreatorMeasureSection(model),
-                SizedBox(height: 10),
-                TrialCreatorScheduleSection(model),
-                SizedBox(height: 50),
-                Center(
-                  child: Container(
-                    width: 200,
-                    height: 50,
-                    child: OutlineButton(
-                      child: Text('Start trial'),
-                      onPressed: model.trial.isReady
-                          ? () {
-                              model.startTrial();
-                              Navigator.pushReplacementNamed(
-                                  context, Routes.dashboard);
-                            }
-                          : null,
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(children: [
+                  TrialCreatorInterventionSection(model),
+                  SizedBox(height: 10),
+                  TrialCreatorMeasureSection(model),
+                  SizedBox(height: 10),
+                  TrialCreatorScheduleSection(model),
+                  SizedBox(height: 50),
+                  Center(
+                    child: Container(
+                      width: 200,
+                      height: 50,
+                      child: OutlineButton(
+                        child: Text('Start trial'),
+                        onPressed: model.trial.isReady
+                            ? () {
+                                model.startTrial();
+                                Navigator.pushReplacementNamed(
+                                    context, Routes.dashboard);
+                              }
+                            : null,
+                      ),
                     ),
-                  ),
-                )
-              ]),
+                  )
+                ]),
+              ),
             ),
           ));
     });

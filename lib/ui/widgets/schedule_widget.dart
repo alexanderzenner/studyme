@@ -32,40 +32,38 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        height: widget.showDuration ? 70 : 50,
-        child: Scrollbar(
-          child: ScrollablePositionedList.builder(
-            scrollDirection: Axis.horizontal,
-            itemScrollController: _scrollController,
-            itemCount: widget.schedule.phaseSequence.length + 1,
-            itemBuilder: (context, index) {
-              Widget _cardContent;
-              Widget _textBelowCard;
-              Color _cardColor = Colors.white;
+    return Container(
+      height: widget.showDuration ? 70 : 50,
+      child: Scrollbar(
+        child: ScrollablePositionedList.builder(
+          scrollDirection: Axis.horizontal,
+          itemScrollController: _scrollController,
+          itemCount: widget.schedule.phaseSequence.length + 1,
+          itemBuilder: (context, index) {
+            Widget _cardContent;
+            Widget _textBelowCard;
+            Color _cardColor = Colors.white;
 
-              if (index == widget.schedule.phaseSequence.length) {
-                _cardContent = Icon(Icons.flag);
-                if (widget.showDuration) {
-                  _textBelowCard = _buildTotalDurationText();
-                }
-              } else {
-                bool _isA = widget.schedule.phaseSequence[index] == 'a';
-                _cardContent = InterventionLetter(
-                    isInverted: index < widget.activeIndex, isA: _isA);
-                if (widget.showDuration) {
-                  _textBelowCard = _buildPhaseDurationText();
-                }
-                if (index < widget.activeIndex) {
-                  _cardColor = _isA ? Colors.lightBlue : Colors.lightGreen;
-                }
+            if (index == widget.schedule.phaseSequence.length) {
+              _cardContent = Icon(Icons.flag);
+              if (widget.showDuration) {
+                _textBelowCard = _buildTotalDurationText();
               }
+            } else {
+              bool _isA = widget.schedule.phaseSequence[index] == 'a';
+              _cardContent = InterventionLetter(
+                  isInverted: index < widget.activeIndex, isA: _isA);
+              if (widget.showDuration) {
+                _textBelowCard = _buildPhaseDurationText();
+              }
+              if (index < widget.activeIndex) {
+                _cardColor = _isA ? Colors.lightBlue : Colors.lightGreen;
+              }
+            }
 
-              return _buildStackedCard(index == widget.activeIndex,
-                  _cardContent, _cardColor, _textBelowCard);
-            },
-          ),
+            return _buildStackedCard(index == widget.activeIndex, _cardContent,
+                _cardColor, _textBelowCard);
+          },
         ),
       ),
     );
