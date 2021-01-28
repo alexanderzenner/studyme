@@ -19,7 +19,6 @@ class TrialCreatorScheduleSection extends StatelessWidget {
         ScheduleWidget(schedule: model.trial.schedule, showDuration: true),
         Center(
           child: OutlineButton(
-            padding: EdgeInsets.zero,
             child: Icon(Icons.edit, size: 20),
             onPressed: () {
               _navigateToScheduleEditor(context);
