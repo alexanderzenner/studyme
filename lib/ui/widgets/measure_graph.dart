@@ -36,7 +36,7 @@ class _MeasureGraphState extends State<MeasureGraph> {
 
   Widget _createGraph(List<TrialLog> logs) {
     return Container(
-      height: MediaQuery.of(context).size.height / 3,
+      height: MediaQuery.of(context).size.height / 4,
       child: charts.TimeSeriesChart(_createSampleData(logs),
           animate: false,
           defaultRenderer: new charts.BarRendererConfig<DateTime>(),
