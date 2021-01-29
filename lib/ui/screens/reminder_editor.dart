@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/reminder.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
-import 'package:weekday_selector/weekday_selector.dart';
 
 class ReminderEditor extends StatefulWidget {
   final bool isCreator;
