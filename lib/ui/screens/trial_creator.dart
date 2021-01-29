@@ -21,19 +21,24 @@ class TrialCreator extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Column(children: [
                   TrialCreatorInterventionSection(model),
-                  Divider(height: 40),
-                  TrialCreatorMeasureSection(model),
-                  Divider(height: 40),
+                  Divider(height: 20),
                   TrialCreatorScheduleSection(model),
-                  Divider(height: 40),
+                  Divider(height: 20),
+                  TrialCreatorMeasureSection(model),
+                  Divider(height: 20),
                   TrialCreatorReminderSection(model),
-                  Divider(height: 40),
+                  Divider(height: 20),
                   Center(
                     child: Container(
                       width: 200,
                       height: 50,
-                      child: OutlineButton(
-                        child: Text('Start trial'),
+                      child: RaisedButton(
+                        color: Colors.blueGrey,
+                        child: Text('Start trial',
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
                         onPressed: model.trial.isReady
                             ? () {
                                 model.startTrial();
