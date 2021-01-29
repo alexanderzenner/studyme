@@ -50,7 +50,6 @@ class TrialCreatorMeasureSection extends StatelessWidget {
     _navigateToPreview(context, measure).then((result) {
       if (result != null) {
         model.updateMeasure(measure, result);
-        Navigator.pop(context);
       }
     });
   }

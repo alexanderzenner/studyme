@@ -46,7 +46,7 @@ class MeasureLibrary extends StatelessWidget {
   _previewMeasure(context, model, measure) {
     _navigateToPreview(context, measure).then((result) {
       if (result != null) {
-        model.addMeasureToTrial(result);
+        model.addMeasure(result);
         Navigator.pop(context);
       }
     });
@@ -65,7 +65,7 @@ class MeasureLibrary extends StatelessWidget {
     Measure newMeasure = FreeMeasure()..id = Uuid().v4();
     _navigateToCreator(context, newMeasure).then((result) {
       if (result != null) {
-        model.addMeasureToTrial(result);
+        model.addMeasure(result);
         Navigator.pop(context);
       }
     });

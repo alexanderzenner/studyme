@@ -6,6 +6,7 @@ import 'package:studyme/routes.dart';
 
 import '../widgets/trial_creator_intervention_section.dart';
 import '../widgets/trial_creator_measure_section.dart';
+import '../widgets/trial_creator_reminder_section.dart';
 import '../widgets/trial_creator_schedule_section.dart';
 
 class TrialCreator extends StatelessWidget {
@@ -20,11 +21,13 @@ class TrialCreator extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Column(children: [
                   TrialCreatorInterventionSection(model),
-                  SizedBox(height: 10),
+                  Divider(height: 40),
                   TrialCreatorMeasureSection(model),
-                  SizedBox(height: 10),
+                  Divider(height: 40),
                   TrialCreatorScheduleSection(model),
-                  SizedBox(height: 50),
+                  Divider(height: 40),
+                  TrialCreatorReminderSection(model),
+                  Divider(height: 40),
                   Center(
                     child: Container(
                       width: 200,

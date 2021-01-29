@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
+import 'package:studyme/models/reminder.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/models/trial_schedule.dart';
 import 'package:uuid/uuid.dart';
@@ -57,15 +58,22 @@ class AppState extends ChangeNotifier {
       ..a = _interventionA
       ..b = _interventionB
       ..measures = []
-      ..schedule = _trialSchedule;
+      ..schedule = _trialSchedule
+      ..reminders = [];
   }
 
-  int _getTrialIndexForMeasureId(String id) {
-    return _trial.measures.indexWhere((i) => i.id == id);
+  int _getIndexForId(List list, String id) {
+    return list.indexWhere((i) => i.id == id);
+  }
+
+  void addMeasure(Measure measure) {
+    _trial.measures.add(measure);
+    _trial.save();
+    notifyListeners();
   }
 
   void updateMeasure(Measure measure, Measure newMeasure) {
-    var index = _getTrialIndexForMeasureId(measure.id);
+    var index = _getIndexForId(_trial.measures, measure.id);
     if (index >= 0) {
       _trial.measures[index] = newMeasure;
       _trial.save();
@@ -73,14 +81,8 @@ class AppState extends ChangeNotifier {
     }
   }
 
-  void addMeasureToTrial(Measure measure) {
-    _trial.measures.add(measure);
-    _trial.save();
-    notifyListeners();
-  }
-
-  void removeMeasureFromTrial(Measure measure) {
-    var index = _getTrialIndexForMeasureId(measure.id);
+  void removeMeasure(Measure measure) {
+    var index = _getIndexForId(_trial.measures, measure.id);
     if (index >= 0) {
       _trial.measures.removeAt(index);
       _trial.save();
@@ -90,6 +92,30 @@ class AppState extends ChangeNotifier {
 
   void updateSchedule(TrialSchedule schedule) {
     _trial.schedule = schedule;
+    _trial.save();
+    notifyListeners();
+  }
+
+  void updateReminder(Reminder reminder, Reminder newReminder) {
+    var index = _getIndexForId(_trial.reminders, reminder.id);
+    if (index >= 0) {
+      _trial.reminders[index] = newReminder;
+      _trial.save();
+      notifyListeners();
+    }
+  }
+
+  void removeReminder(Reminder reminder) {
+    var index = _getIndexForId(_trial.reminders, reminder.id);
+    if (index >= 0) {
+      _trial.reminders.removeAt(index);
+      _trial.save();
+      notifyListeners();
+    }
+  }
+
+  void addReminder(Reminder reminder) {
+    _trial.reminders.add(reminder);
     _trial.save();
     notifyListeners();
   }

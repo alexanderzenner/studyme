@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:studyme/models/reminder.dart';
 import './measure/measure.dart';
 import 'intervention/intervention.dart';
 import 'trial_schedule.dart';
@@ -21,6 +22,9 @@ class Trial extends HiveObject {
 
   @HiveField(4)
   DateTime startDate;
+
+  @HiveField(5)
+  List<Reminder> reminders;
 
   DateTime get endDate {
     return startDate

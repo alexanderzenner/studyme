@@ -29,24 +29,11 @@ class _InitialLoadingState extends State<InitialLoading> {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    /// Note: permissions aren't requested here just to demonstrate that can be
-    /// done later
-    final IOSInitializationSettings initializationSettingsIOS =
-        IOSInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-    );
-    const MacOSInitializationSettings initializationSettingsMacOS =
-        MacOSInitializationSettings(
-            requestAlertPermission: false,
-            requestBadgePermission: false,
-            requestSoundPermission: false);
     final InitializationSettings initializationSettings =
         InitializationSettings(
             android: initializationSettingsAndroid,
-            iOS: initializationSettingsIOS,
-            macOS: initializationSettingsMacOS);
+            iOS: IOSInitializationSettings(),
+            macOS: MacOSInitializationSettings());
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 

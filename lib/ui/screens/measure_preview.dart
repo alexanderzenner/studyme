@@ -88,8 +88,7 @@ class MeasurePreview extends StatelessWidget {
   }
 
   _removeMeasure(context) {
-    Provider.of<AppState>(context, listen: false)
-        .removeMeasureFromTrial(measure);
+    Provider.of<AppState>(context, listen: false).removeMeasure(measure);
     Navigator.pop(context);
   }
 
