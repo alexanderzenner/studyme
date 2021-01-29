@@ -49,28 +49,6 @@ class _ReminderEditorState extends State<ReminderEditor> {
                 timeLabelText: "Time",
                 type: DateTimePickerType.time,
                 onChanged: _changeTime),
-            SwitchListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Text('Every day'),
-                value: _reminder.days.every((_) => _),
-                onChanged: (v) {
-                  setState(() {
-                    if (v) {
-                      _reminder.setAll(true);
-                    } else {
-                      _reminder.setAll(false);
-                    }
-                  });
-                }),
-            WeekdaySelector(
-              onChanged: (v) {
-                print(v);
-                setState(() {
-                  _reminder.days[v % 7] = !_reminder.days[v % 7];
-                });
-              },
-              values: _reminder.days,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
