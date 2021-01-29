@@ -17,8 +17,6 @@ class Home extends StatelessWidget {
     final Trial _trial = Provider.of<AppState>(context).trial;
     final _dateToday = DateTime.now();
 
-    print(_trial.endDate);
-
     List<Widget> _body;
     int _activeIndex;
 

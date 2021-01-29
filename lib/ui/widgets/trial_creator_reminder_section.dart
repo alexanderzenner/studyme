@@ -12,8 +12,6 @@ class TrialCreatorReminderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(model.trial.reminders);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

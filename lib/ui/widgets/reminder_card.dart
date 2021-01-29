@@ -12,7 +12,8 @@ class ReminderCard extends StatelessWidget {
     return Card(
         margin: EdgeInsets.symmetric(vertical: 2),
         child: ListTile(
-            title: Text(reminder.time.format(context)),
+            title: Text(DefaultMaterialLocalizations()
+                .formatTimeOfDay(reminder.time, alwaysUse24HourFormat: true)),
             trailing: Icon(Icons.chevron_right),
             onTap: onTap));
   }

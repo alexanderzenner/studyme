@@ -16,10 +16,10 @@ class ReminderAdapter extends TypeAdapter<Reminder> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Reminder()
-      ..id = fields[0] as String
-      ..days = (fields[1] as List)?.cast<bool>()
-      .._time = fields[2] as DateTime;
+    return Reminder(
+      id: fields[0] as String,
+      days: (fields[1] as List)?.cast<bool>(),
+    ).._time = fields[2] as DateTime;
   }
 
   @override

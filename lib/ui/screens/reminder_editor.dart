@@ -44,7 +44,9 @@ class _ReminderEditorState extends State<ReminderEditor> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DateTimePicker(
-                initialValue: _reminder.time.format(context),
+                initialValue: DefaultMaterialLocalizations().formatTimeOfDay(
+                    _reminder.time,
+                    alwaysUse24HourFormat: true),
                 timeLabelText: "Time",
                 type: DateTimePickerType.time,
                 onChanged: _changeTime),
