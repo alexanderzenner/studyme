@@ -82,7 +82,9 @@ class MeasurePreview extends StatelessWidget {
       if (value) {
         Navigator.pop(context, measure);
       } else {
-        print("No Access Granted");
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+                "Access denied. In order for StudyMe to track your ${measure.name} automatically you need to grant permissions.")));
       }
     });
   }
