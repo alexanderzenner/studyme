@@ -52,15 +52,8 @@ class _MeasureEditorState extends State<MeasureEditor> {
                 if (widget.isCreator) _buildDropdown(),
                 TextFormField(
                   initialValue: _measure.name,
-                  onFieldSubmitted: _changeName,
+                  onChanged: _changeName,
                   decoration: InputDecoration(labelText: 'Name'),
-                ),
-                TextFormField(
-                  initialValue: _measure.description,
-                  onFieldSubmitted: _changeDescription,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  decoration: InputDecoration(labelText: 'Description'),
                 ),
                 if (_body != null) _body,
               ],
@@ -94,12 +87,6 @@ class _MeasureEditorState extends State<MeasureEditor> {
   _changeName(text) {
     setState(() {
       _measure.name = text;
-    });
-  }
-
-  _changeDescription(text) {
-    setState(() {
-      _measure.description = text;
     });
   }
 

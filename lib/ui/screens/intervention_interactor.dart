@@ -10,23 +10,20 @@ class InterventionInteractor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(intervention.name),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.check,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.pop(context, true);
-              },
-            )
-          ],
-        ),
-        body: Center(
-            child: Column(children: [
-          Text(intervention.description),
-        ])));
+      appBar: AppBar(
+        title: Text(intervention.name),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
+          )
+        ],
+      ),
+    );
   }
 }

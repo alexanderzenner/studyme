@@ -67,13 +67,6 @@ class _InterventionEditorState extends State<InterventionEditor> {
                         onChanged: _changeName,
                         decoration: InputDecoration(labelText: 'Name'),
                       ),
-                      TextFormField(
-                        initialValue: _intervention.description,
-                        onChanged: _changeDescription,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        decoration: InputDecoration(labelText: 'Description'),
-                      ),
                     ],
                   )
               ],
@@ -89,12 +82,6 @@ class _InterventionEditorState extends State<InterventionEditor> {
   _changeName(text) {
     setState(() {
       _intervention.name = text;
-    });
-  }
-
-  _changeDescription(text) {
-    setState(() {
-      _intervention.description = text;
     });
   }
 
