@@ -7,6 +7,7 @@ import 'package:studyme/models/trial.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 import 'package:studyme/ui/widgets/schedule_widget.dart';
+import 'package:studyme/ui/widgets/title_text.dart';
 import 'package:studyme/util/util.dart';
 
 import 'intervention_interactor.dart';
@@ -48,14 +49,14 @@ class Home extends StatelessWidget {
 
   _buildBodyWithTodaysTasks(context, trial, currentIntervention) {
     return [
-      Text('Intervention', style: TextStyle(fontWeight: FontWeight.bold)),
+      TitleText('Intervention'),
       InterventionCard(
           isA: currentIntervention.isA,
           intervention: currentIntervention.intervention,
           onTap: () => _navigateToInterventionScreen(
               context, currentIntervention.intervention)),
       SizedBox(height: 10),
-      Text('Measures', style: TextStyle(fontWeight: FontWeight.bold)),
+      TitleText('Measures'),
       ListView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),

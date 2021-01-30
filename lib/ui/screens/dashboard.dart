@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/util/util.dart';
 
 import '../../routes.dart';
 import 'history.dart';
@@ -78,11 +79,4 @@ class _DashboardState extends State<Dashboard> {
           ]),
     );
   }
-}
-
-class Option {
-  String name;
-  void Function() callback;
-
-  Option({this.name, this.callback});
 }

@@ -4,6 +4,7 @@ import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/routes.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
+import 'package:studyme/ui/widgets/title_text.dart';
 
 import '../screens/measure_preview.dart';
 
@@ -17,7 +18,7 @@ class TrialCreatorMeasureSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Measures', style: TextStyle(fontWeight: FontWeight.bold)),
+        TitleText('Measures'),
         ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),

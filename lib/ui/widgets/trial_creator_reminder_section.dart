@@ -4,6 +4,7 @@ import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/reminder.dart';
 import 'package:studyme/ui/screens/reminder_editor.dart';
 import 'package:studyme/ui/widgets/reminder_card.dart';
+import 'package:studyme/ui/widgets/title_text.dart';
 import 'package:studyme/util/notifications.dart';
 
 class TrialCreatorReminderSection extends StatelessWidget {
@@ -16,7 +17,7 @@ class TrialCreatorReminderSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Reminders', style: TextStyle(fontWeight: FontWeight.bold)),
+        TitleText('Reminders'),
         ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
