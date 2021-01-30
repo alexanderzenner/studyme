@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
+import 'package:studyme/models/app_state/notifications.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/reminder.dart';
@@ -136,6 +137,9 @@ class AppState extends ChangeNotifier {
     DateTime now = DateTime.now();
     _trial.startDate = DateTime(now.year, now.month, now.day);
     _trial.save();
+    _trial.reminders.asMap().forEach((index, reminder) {
+      Notifications().scheduleNotificationFor(reminder, index);
+    });
   }
 
   saveIsEditing(bool isEditing) {
