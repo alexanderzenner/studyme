@@ -68,7 +68,7 @@ class Notifications {
         );
   }
 
-  showPendingRequests() async {
+  debugShowPendingRequests() async {
     final List<PendingNotificationRequest> pendingNotificationRequests =
         await _flutterLocalNotificationsPlugin.pendingNotificationRequests();
 
@@ -80,7 +80,7 @@ class Notifications {
     }
   }
 
-  clearAll() async {
+  debugClearAll() async {
     _flutterLocalNotificationsPlugin.cancelAll();
   }
 }

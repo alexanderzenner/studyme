@@ -40,13 +40,7 @@ class TrialCreatorReminderSection extends StatelessWidget {
                   });
             }
           },
-        ),
-        OutlineButton(onPressed: () {
-          Notifications().showPendingRequests();
-        }),
-        OutlineButton(onPressed: () {
-          Notifications().clearAll();
-        })
+        )
       ],
     );
   }
