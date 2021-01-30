@@ -16,7 +16,12 @@ class TrialSchedule extends HiveObject {
   @HiveField(3)
   int numberOfCycles;
 
-  TrialSchedule({this.phaseOrder, this.phaseDuration, this.numberOfCycles}) {
+  TrialSchedule();
+
+  TrialSchedule.createDefault() {
+    this.phaseOrder = PhaseOrder.alternating;
+    this.phaseDuration = 7;
+    this.numberOfCycles = 2;
     _updatePhaseSequence();
   }
 

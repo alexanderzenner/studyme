@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:uuid/uuid.dart';
 
 import 'no_intervention.dart';
 
@@ -20,7 +21,9 @@ class Intervention {
   @HiveField(3)
   String description;
 
-  Intervention({type}) : this.type = type == null ? interventionType : type;
+  Intervention({id, type, this.name, this.description})
+      : this.id = id ?? Uuid().v4(),
+        this.type = type ?? interventionType;
 
   Intervention.clone(Intervention intervention)
       : type = intervention.type,

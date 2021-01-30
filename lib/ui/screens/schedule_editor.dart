@@ -17,7 +17,11 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
   @override
   void initState() {
     final trial = Provider.of<AppState>(context, listen: false).trial;
-    _schedule = trial.schedule.clone();
+    if (trial.schedule != null) {
+      _schedule = trial.schedule.clone();
+    } else {
+      _schedule = TrialSchedule.createDefault();
+    }
     super.initState();
   }
 

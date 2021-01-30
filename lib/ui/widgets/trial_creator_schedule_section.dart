@@ -16,7 +16,8 @@ class TrialCreatorScheduleSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Schedule', style: TextStyle(fontWeight: FontWeight.bold)),
-        ScheduleWidget(schedule: model.trial.schedule, showDuration: true),
+        if (model.trial.schedule != null)
+          ScheduleWidget(schedule: model.trial.schedule, showDuration: true),
         Center(
           child: OutlineButton(
             child: Icon(Icons.edit, size: 20),

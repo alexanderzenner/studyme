@@ -17,11 +17,11 @@ class InterventionAdapter extends TypeAdapter<Intervention> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Intervention(
+      id: fields[1] as dynamic,
       type: fields[0] as dynamic,
-    )
-      ..id = fields[1] as String
-      ..name = fields[2] as String
-      ..description = fields[3] as String;
+      name: fields[2] as String,
+      description: fields[3] as String,
+    );
   }
 
   @override

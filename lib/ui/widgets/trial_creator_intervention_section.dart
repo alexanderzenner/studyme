@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
+import 'package:studyme/ui/widgets/intervention_letter.dart';
 
 import '../screens/intervention_editor.dart';
 
@@ -16,34 +19,60 @@ class TrialCreatorInterventionSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Interventions', style: TextStyle(fontWeight: FontWeight.bold)),
-        InterventionCard(
-            isA: true,
-            intervention: model.trial.a,
-            onTap: () {
-              _editInterventionA(context, model);
-            }),
-        InterventionCard(
-            isA: false,
-            intervention: model.trial.b,
-            onTap: () {
-              _editInterventionB(context, model);
-            }),
+        if (model.trial.a != null)
+          InterventionCard(
+              isA: true,
+              intervention: model.trial.a,
+              onTap: () {
+                _editIntervention(
+                    context, true, model.trial.a, model.setInterventionA);
+              }),
+        if (model.trial.a == null)
+          Center(
+            child: OutlineButton.icon(
+              onPressed: () {
+                _addIntervention(
+                    context, true, Intervention(), model.setInterventionA);
+              },
+              icon: Icon(Icons.add),
+              label: InterventionLetter(isA: true),
+            ),
+          ),
+        if (model.trial.b != null)
+          InterventionCard(
+              isA: false,
+              intervention: model.trial.b,
+              onTap: () {
+                _editIntervention(
+                    context, false, model.trial.b, model.setInterventionB);
+              }),
+        if (model.trial.b == null)
+          Center(
+            child: OutlineButton.icon(
+              onPressed: () {
+                _addIntervention(
+                    context, false, NoIntervention(), model.setInterventionB);
+              },
+              icon: Icon(Icons.add),
+              label: InterventionLetter(isA: false),
+            ),
+          ),
       ],
     );
   }
 
-  _editInterventionA(context, model) {
-    _navigateToInterventionEditor(context, true, model.trial.a).then((result) {
+  _addIntervention(context, isA, newIntervention, setIntervention) {
+    _navigateToInterventionEditor(context, isA, newIntervention).then((result) {
       if (result != null) {
-        model.setInterventionA(result);
+        setIntervention(result);
       }
     });
   }
 
-  _editInterventionB(context, model) {
-    _navigateToInterventionEditor(context, false, model.trial.b).then((result) {
+  _editIntervention(context, isA, intervention, setIntervention) {
+    _navigateToInterventionEditor(context, isA, intervention).then((result) {
       if (result != null) {
-        model.setInterventionB(result);
+        setIntervention(result);
       }
     });
   }

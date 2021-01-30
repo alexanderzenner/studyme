@@ -7,7 +7,6 @@ import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/reminder.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/models/trial_schedule.dart';
-import 'package:uuid/uuid.dart';
 
 class AppState extends ChangeNotifier {
   static const activeTrialKey = 'trial';
@@ -38,29 +37,6 @@ class AppState extends ChangeNotifier {
     _trial.b = intervention;
     _trial.save();
     notifyListeners();
-  }
-
-  Trial setupNewTrial() {
-    final _interventionA = Intervention()
-      ..id = Uuid().v4()
-      ..name = 'Take medicine'
-      ..description = 'Take your bloody medicine right now';
-    final _interventionB = Intervention()
-      ..id = Uuid().v4()
-      ..name = 'Do sport'
-      ..description = '';
-
-    final _trialSchedule = TrialSchedule(
-        phaseDuration: 1,
-        numberOfCycles: 1,
-        phaseOrder: PhaseOrder.alternating);
-
-    return Trial()
-      ..a = _interventionA
-      ..b = _interventionB
-      ..measures = []
-      ..schedule = _trialSchedule
-      ..reminders = [];
   }
 
   int _getIndexForId(List list, String id) {
@@ -122,11 +98,12 @@ class AppState extends ChangeNotifier {
   }
 
   loadAppState() async {
+    print("hi");
     box = await Hive.openBox('app_data');
     _trial = box.get(activeTrialKey);
-    if (true || _trial == null) {
+    if (_trial == null) {
       // first time app is started
-      _trial = setupNewTrial();
+      _trial = Trial();
       box.put(activeTrialKey, _trial);
       box.put(isEditingKey, true);
     }

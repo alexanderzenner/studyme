@@ -55,11 +55,11 @@ class TrialScheduleAdapter extends TypeAdapter<TrialSchedule> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return TrialSchedule(
-      phaseOrder: fields[0] as PhaseOrder,
-      phaseDuration: fields[1] as int,
-      numberOfCycles: fields[3] as int,
-    )..phaseSequence = (fields[2] as List)?.cast<String>();
+    return TrialSchedule()
+      ..phaseOrder = fields[0] as PhaseOrder
+      ..phaseDuration = fields[1] as int
+      ..phaseSequence = (fields[2] as List)?.cast<String>()
+      ..numberOfCycles = fields[3] as int;
   }
 
   @override

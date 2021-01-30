@@ -26,6 +26,10 @@ class Trial extends HiveObject {
   @HiveField(5)
   List<Reminder> reminders;
 
+  Trial()
+      : this.measures = [],
+        this.reminders = [];
+
   DateTime get endDate {
     return startDate
         .add(Duration(days: this.schedule.duration))
@@ -63,7 +67,10 @@ class Trial extends HiveObject {
   }
 
   bool get isReady {
-    return this.a != null && this.b != null && this.measures.length > 0;
+    return this.a != null &&
+        this.b != null &&
+        this.schedule != null &&
+        this.measures.length > 0;
   }
 }
 

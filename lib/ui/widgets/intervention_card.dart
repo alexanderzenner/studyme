@@ -15,7 +15,7 @@ class InterventionCard extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 2),
         child: ListTile(
             leading: InterventionLetter(isA: isA),
-            title: Text(intervention.name),
+            title: intervention != null ? Text(intervention.name) : null,
             trailing: Icon(Icons.chevron_right),
             onTap: onTap));
   }
