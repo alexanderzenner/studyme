@@ -64,12 +64,12 @@ class _InterventionEditorState extends State<InterventionEditor> {
                     children: [
                       TextFormField(
                         initialValue: _intervention.name,
-                        onFieldSubmitted: _changeName,
+                        onChanged: _changeName,
                         decoration: InputDecoration(labelText: 'Name'),
                       ),
                       TextFormField(
                         initialValue: _intervention.description,
-                        onFieldSubmitted: _changeDescription,
+                        onChanged: _changeDescription,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         decoration: InputDecoration(labelText: 'Description'),

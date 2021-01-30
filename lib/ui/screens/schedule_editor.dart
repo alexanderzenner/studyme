@@ -44,13 +44,13 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
                 TextFormField(
                   initialValue: _schedule.phaseDuration.toString(),
                   keyboardType: TextInputType.number,
-                  onFieldSubmitted: _updatePhaseDuration,
+                  onChanged: _updatePhaseDuration,
                   decoration: InputDecoration(labelText: 'Phase Duration'),
                 ),
                 TextFormField(
                   initialValue: _schedule.numberOfCycles.toString(),
                   keyboardType: TextInputType.number,
-                  onFieldSubmitted: _updateNumberOfCycles,
+                  onChanged: _updateNumberOfCycles,
                   decoration: InputDecoration(labelText: 'Number of Cycles'),
                 ),
                 DropdownButtonFormField<PhaseOrder>(
@@ -76,15 +76,28 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
   }
 
   _updateNumberOfCycles(text) {
-    setState(() {
-      _schedule.updateNumberOfCycles(int.parse(text));
+    _update(text, (int number) {
+      setState(() {
+        _schedule.updateNumberOfCycles(number);
+      });
     });
   }
 
   _updatePhaseDuration(text) {
-    setState(() {
-      _schedule.phaseDuration = int.parse(text);
+    _update(text, (int number) {
+      setState(() {
+        _schedule.phaseDuration = number;
+      });
     });
+  }
+
+  _update(text, setterFunction) {
+    try {
+      int value = text.length > 0 ? int.parse(text) : 0;
+      setterFunction(value);
+    } on Exception catch (_) {
+      print("Invalid number");
+    }
   }
 
   _updatePhaseOrder(phaseOrder) {
