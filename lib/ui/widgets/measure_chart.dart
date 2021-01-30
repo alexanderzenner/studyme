@@ -39,7 +39,6 @@ class _MeasureChartState extends State<MeasureChart> {
   Widget _buildChart(List<TrialLog> logs) {
     return charts.TimeSeriesChart(_getTimeSeries(logs),
         animate: false,
-        defaultRenderer: new charts.BarRendererConfig<DateTime>(),
         defaultInteractions: false,
         primaryMeasureAxis: widget.measure.tickProvider);
   }
