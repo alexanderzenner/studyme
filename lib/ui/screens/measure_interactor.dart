@@ -78,6 +78,6 @@ class _MeasureInteractState extends State<MeasureInteract> {
   _logValue() {
     var log = MeasureLog(widget.measure.id, DateTime.now(), _value);
     Provider.of<LogState>(context, listen: false).addLog(log);
-    Navigator.pop(context);
+    Navigator.pop(context, true);
   }
 }

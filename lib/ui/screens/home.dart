@@ -80,15 +80,25 @@ class Home extends StatelessWidget {
   }
 
   _navigateToInterventionScreen(context, intervention) async {
-    final completed = await Navigator.push(
+    bool completed = await Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => InterventionInteractor(intervention)));
-    print(completed);
+    if (completed) {
+      _confirm(context, "Saved");
+    }
   }
 
   _navigateToMeasureScreen(context, measure) async {
-    Navigator.push(context,
+    bool didLog = await Navigator.push(context,
         MaterialPageRoute(builder: (context) => MeasureInteract(measure)));
+    if (didLog) {
+      _confirm(context, "Saved");
+    }
+  }
+
+  _confirm(context, message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 }
