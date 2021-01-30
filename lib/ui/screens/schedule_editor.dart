@@ -108,6 +108,6 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
 
   _save() {
     Provider.of<AppState>(context, listen: false).updateSchedule(_schedule);
-    Navigator.pop(context);
+    Navigator.pop(context, true);
   }
 }

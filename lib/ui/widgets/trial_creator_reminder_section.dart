@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studyme/models/app_state/app_state.dart';
-import 'package:studyme/models/app_state/notifications.dart';
 import 'package:studyme/models/reminder.dart';
 import 'package:studyme/ui/screens/reminder_editor.dart';
 import 'package:studyme/ui/widgets/reminder_card.dart';
+import 'package:studyme/util/notifications.dart';
 
 class TrialCreatorReminderSection extends StatelessWidget {
   final AppState model;

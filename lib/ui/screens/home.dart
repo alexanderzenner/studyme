@@ -7,6 +7,7 @@ import 'package:studyme/models/trial.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 import 'package:studyme/ui/widgets/schedule_widget.dart';
+import 'package:studyme/util/util.dart';
 
 import 'intervention_interactor.dart';
 import 'measure_interactor.dart';
@@ -85,7 +86,7 @@ class Home extends StatelessWidget {
         MaterialPageRoute(
             builder: (context) => InterventionInteractor(intervention)));
     if (completed) {
-      _confirm(context, "Saved");
+      Util.toast(context, "Saved");
     }
   }
 
@@ -93,12 +94,7 @@ class Home extends StatelessWidget {
     bool didLog = await Navigator.push(context,
         MaterialPageRoute(builder: (context) => MeasureInteract(measure)));
     if (didLog) {
-      _confirm(context, "Saved");
+      Util.toast(context, "Saved");
     }
-  }
-
-  _confirm(context, message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
   }
 }
