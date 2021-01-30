@@ -14,45 +14,35 @@ class TrialCreator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, model, child) {
       return Scaffold(
-          appBar: AppBar(title: Text('Create Trial')),
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(children: [
-                  TrialCreatorInterventionSection(model),
-                  Divider(height: 20),
-                  TrialCreatorScheduleSection(model),
-                  Divider(height: 20),
-                  TrialCreatorMeasureSection(model),
-                  Divider(height: 20),
-                  TrialCreatorReminderSection(model),
-                  Divider(height: 20),
-                  Center(
-                    child: Container(
-                      width: 200,
-                      height: 50,
-                      child: RaisedButton(
-                        color: Colors.blueGrey,
-                        child: Text('Start trial',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
-                        onPressed: model.trial.isReady
-                            ? () {
-                                model.startTrial();
-                                Navigator.pushReplacementNamed(
-                                    context, Routes.dashboard);
-                              }
-                            : null,
-                      ),
-                    ),
-                  )
-                ]),
-              ),
+        appBar: AppBar(title: Text('Create Trial')),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(children: [
+                TrialCreatorInterventionSection(model),
+                Divider(height: 20),
+                TrialCreatorScheduleSection(model),
+                Divider(height: 20),
+                TrialCreatorMeasureSection(model),
+                Divider(height: 20),
+                TrialCreatorReminderSection(model),
+              ]),
             ),
-          ));
+          ),
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: model.trial.isReady
+              ? () {
+                  model.startTrial();
+                  Navigator.pushReplacementNamed(context, Routes.dashboard);
+                }
+              : null,
+          icon: model.trial.isReady ? Icon(Icons.check) : null,
+          label: Text('Start trial'),
+          backgroundColor: model.trial.isReady ? Colors.green : Colors.grey,
+        ),
+      );
     });
   }
 }
