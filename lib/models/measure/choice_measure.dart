@@ -16,7 +16,7 @@ class ChoiceMeasure extends Measure {
   List<Choice> choices;
 
   ChoiceMeasure({id, name, description, List<Choice> choices})
-      : this.choices = choices != null ? choices : [],
+      : this.choices = choices ?? [],
         super(id: id, type: measureType, name: name, description: description);
 
   ChoiceMeasure.clone(ChoiceMeasure measure)

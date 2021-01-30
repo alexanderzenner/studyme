@@ -14,9 +14,9 @@ class Reminder extends HiveObject {
   DateTime _time;
 
   Reminder({String id, List<bool> days, DateTime time})
-      : this.days = days != null ? days : List.filled(7, true),
-        this._time = time != null ? time : DateTime.now(),
-        this.id = id != null ? id : Uuid().v4();
+      : this.days = days ?? List.filled(7, true),
+        this._time = time ?? DateTime.now(),
+        this.id = id ?? Uuid().v4();
 
   setAll(bool value) {
     this.days = List.filled(7, value);

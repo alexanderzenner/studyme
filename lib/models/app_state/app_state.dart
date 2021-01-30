@@ -124,7 +124,7 @@ class AppState extends ChangeNotifier {
   loadAppState() async {
     box = await Hive.openBox('app_data');
     _trial = box.get(activeTrialKey);
-    if (_trial == null) {
+    if (true || _trial == null) {
       // first time app is started
       _trial = setupNewTrial();
       box.put(activeTrialKey, _trial);

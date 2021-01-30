@@ -19,7 +19,7 @@ abstract class Measure {
   IconData icon;
 
   Measure({id, this.type, this.name, this.description})
-      : this.id = id != null ? id : Uuid().v4();
+      : this.id = id ?? Uuid().v4();
 
   Measure.clone(Measure measure)
       : id = Uuid().v4(),
