@@ -40,6 +40,7 @@ class _MeasureChartState extends State<MeasureChart> {
     return charts.TimeSeriesChart(_getTimeSeries(logs),
         animate: false,
         defaultInteractions: false,
+        defaultRenderer: charts.PointRendererConfig<DateTime>(radiusPx: 5),
         primaryMeasureAxis: widget.measure.tickProvider);
   }
 
