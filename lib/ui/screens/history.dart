@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
-import 'package:studyme/ui/widgets/measure_graph.dart';
+import 'package:studyme/ui/widgets/measure_chart.dart';
 
 class History extends StatelessWidget {
   @override
@@ -14,7 +14,7 @@ class History extends StatelessWidget {
             shrinkWrap: true,
             itemCount: appState.trial.measures.length,
             itemBuilder: (context, index) {
-              return MeasureGraph(measure: appState.trial.measures[index]);
+              return MeasureChart(measure: appState.trial.measures[index]);
             }),
       );
     });

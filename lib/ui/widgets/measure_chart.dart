@@ -6,16 +6,16 @@ import 'package:studyme/models/app_state/log_state.dart';
 import 'package:studyme/models/log/log.dart';
 import 'package:studyme/models/measure/measure.dart';
 
-class MeasureGraph extends StatefulWidget {
+class MeasureChart extends StatefulWidget {
   final Measure measure;
 
-  MeasureGraph({@required this.measure});
+  MeasureChart({@required this.measure});
 
   @override
-  _MeasureGraphState createState() => _MeasureGraphState();
+  _MeasureChartState createState() => _MeasureChartState();
 }
 
-class _MeasureGraphState extends State<MeasureGraph> {
+class _MeasureChartState extends State<MeasureChart> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -25,7 +25,9 @@ class _MeasureGraphState extends State<MeasureGraph> {
           builder: (context, AsyncSnapshot<List<TrialLog>> snapshot) {
             Widget child;
             if (snapshot.hasData) {
-              child = _createGraph(snapshot.data);
+              child = Container(
+                  height: MediaQuery.of(context).size.height / 4,
+                  child: _buildChart(snapshot.data));
             } else {
               child = CircularProgressIndicator();
             }
@@ -34,19 +36,15 @@ class _MeasureGraphState extends State<MeasureGraph> {
     ]);
   }
 
-  Widget _createGraph(List<TrialLog> logs) {
-    return Container(
-      height: MediaQuery.of(context).size.height / 4,
-      child: charts.TimeSeriesChart(_createSampleData(logs),
-          animate: false,
-          defaultRenderer: new charts.BarRendererConfig<DateTime>(),
-          defaultInteractions: false,
-          primaryMeasureAxis: widget.measure.tickProvider),
-    );
+  Widget _buildChart(List<TrialLog> logs) {
+    return charts.TimeSeriesChart(_getTimeSeries(logs),
+        animate: false,
+        defaultRenderer: new charts.BarRendererConfig<DateTime>(),
+        defaultInteractions: false,
+        primaryMeasureAxis: widget.measure.tickProvider);
   }
 
-  List<charts.Series<TrialLog, DateTime>> _createSampleData(
-      List<TrialLog> logs) {
+  List<charts.Series<TrialLog, DateTime>> _getTimeSeries(List<TrialLog> logs) {
     return [
       new charts.Series<TrialLog, DateTime>(
         id: 'measurements',
