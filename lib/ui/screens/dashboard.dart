@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studyme/models/app_state/app_state.dart';
 
+import '../../routes.dart';
 import 'history.dart';
 import 'home.dart';
-import 'profile.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -13,9 +15,9 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   int _currentIndex;
 
-  List<String> _titles = ['Home', 'History', 'Profile'];
+  List<String> _titles = ['Home', 'History'];
 
-  List<Function> _body = [() => Home(), () => History(), () => Profile()];
+  List<Function> _body = [() => Home(), () => History()];
 
   @override
   void initState() {
@@ -28,6 +30,33 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_titles[_currentIndex]),
+        actions: [
+          PopupMenuButton<Option>(
+              onSelected: (Option option) {
+                option.callback();
+              },
+              itemBuilder: (context) => [
+                    Option(
+                        name: 'Edit trial (Debug)',
+                        callback: () {
+                          Provider.of<AppState>(context, listen: false)
+                              .saveIsEditing(true);
+                          Navigator.pushReplacementNamed(
+                              context, Routes.creator);
+                        }),
+                    Option(
+                        name: 'Cancel trial',
+                        callback: () {
+                          Provider.of<AppState>(context, listen: false)
+                              .createNewTrial();
+                          Navigator.pushReplacementNamed(
+                              context, Routes.creator);
+                        })
+                  ]
+                      .map((option) => PopupMenuItem<Option>(
+                          value: option, child: Text(option.name)))
+                      .toList())
+        ],
       ),
       body: _body[_currentIndex](),
       bottomNavigationBar: BottomNavigationBar(
@@ -45,9 +74,15 @@ class _DashboardState extends State<Dashboard> {
             BottomNavigationBarItem(
               icon: new Icon(Icons.insert_chart),
               label: _titles[1],
-            ),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: _titles[2])
+            )
           ]),
     );
   }
+}
+
+class Option {
+  String name;
+  void Function() callback;
+
+  Option({this.name, this.callback});
 }

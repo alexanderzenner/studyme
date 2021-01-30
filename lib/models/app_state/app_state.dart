@@ -98,14 +98,11 @@ class AppState extends ChangeNotifier {
   }
 
   loadAppState() async {
-    print("hi");
     box = await Hive.openBox('app_data');
     _trial = box.get(activeTrialKey);
     if (_trial == null) {
       // first time app is started
-      _trial = Trial();
-      box.put(activeTrialKey, _trial);
-      box.put(isEditingKey, true);
+      createNewTrial();
     }
   }
 
@@ -117,6 +114,12 @@ class AppState extends ChangeNotifier {
     _trial.reminders.asMap().forEach((index, reminder) {
       Notifications().scheduleNotificationFor(reminder, index);
     });
+  }
+
+  createNewTrial() {
+    _trial = Trial();
+    box.put(activeTrialKey, _trial);
+    box.put(isEditingKey, true);
   }
 
   saveIsEditing(bool isEditing) {
