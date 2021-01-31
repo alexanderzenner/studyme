@@ -9,23 +9,22 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+    return Container(
+      height: 43,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              TitleText(text),
+            ],
+          ),
+          if (action != null)
             Row(
-              children: [
-                TitleText(text),
-              ],
-            ),
-            if (action != null)
-              Row(
-                children: [action],
-              )
-          ],
-        ),
-      ],
+              children: [action],
+            )
+        ],
+      ),
     );
   }
 }
