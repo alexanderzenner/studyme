@@ -4,7 +4,7 @@ import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/routes.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
-import 'package:studyme/ui/widgets/title_text.dart';
+import 'package:studyme/ui/widgets/section_title.dart';
 
 import '../screens/measure_preview.dart';
 
@@ -18,29 +18,24 @@ class TrialCreatorMeasureSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TitleText('Measures'),
+        SectionTitle('Measures',
+            action: IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.measure_library);
+              },
+            )),
         ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          itemCount: model.trial.measures.length + 1,
+          itemCount: model.trial.measures.length,
           itemBuilder: (context, index) {
-            if (index == model.trial.measures.length) {
-              return Center(
-                child: OutlineButton(
-                  child: Icon(Icons.add),
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.measure_library);
-                  },
-                ),
-              );
-            } else {
-              Measure measure = model.trial.measures[index];
-              return MeasureCard(
-                  measure: measure,
-                  onTap: () {
-                    _previewMeasure(context, measure);
-                  });
-            }
+            Measure measure = model.trial.measures[index];
+            return MeasureCard(
+                measure: measure,
+                onTap: () {
+                  _previewMeasure(context, measure);
+                });
           },
         ),
       ],

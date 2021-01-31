@@ -4,7 +4,7 @@ import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/reminder.dart';
 import 'package:studyme/ui/screens/reminder_editor.dart';
 import 'package:studyme/ui/widgets/reminder_card.dart';
-import 'package:studyme/ui/widgets/title_text.dart';
+import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/util/notifications.dart';
 
 class TrialCreatorReminderSection extends StatelessWidget {
@@ -17,29 +17,24 @@ class TrialCreatorReminderSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TitleText('Reminders'),
+        SectionTitle('Reminders',
+            action: IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                _createReminder(context, model);
+              },
+            )),
         ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          itemCount: model.trial.reminders.length + 1,
+          itemCount: model.trial.reminders.length,
           itemBuilder: (context, index) {
-            if (index == model.trial.reminders.length) {
-              return Center(
-                child: OutlineButton(
-                  child: Icon(Icons.add),
-                  onPressed: () {
-                    _createReminder(context, model);
-                  },
-                ),
-              );
-            } else {
-              Reminder reminder = model.trial.reminders[index];
-              return ReminderCard(
-                  reminder: reminder,
-                  onTap: () {
-                    _editReminder(context, model, reminder);
-                  });
-            }
+            Reminder reminder = model.trial.reminders[index];
+            return ReminderCard(
+                reminder: reminder,
+                onTap: () {
+                  _editReminder(context, model, reminder);
+                });
           },
         )
       ],

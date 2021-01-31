@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/ui/widgets/schedule_widget.dart';
-import 'package:studyme/ui/widgets/title_text.dart';
+import 'package:studyme/ui/widgets/section_title.dart';
 
 import '../screens/schedule_editor.dart';
 
@@ -16,17 +16,15 @@ class TrialCreatorScheduleSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TitleText('Schedule'),
+        SectionTitle('Schedule',
+            action: IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                _navigateToScheduleEditor(context);
+              },
+            )),
         if (model.trial.schedule != null)
           ScheduleWidget(schedule: model.trial.schedule, showDuration: true),
-        Center(
-          child: OutlineButton(
-            child: Icon(Icons.edit, size: 20),
-            onPressed: () {
-              _navigateToScheduleEditor(context);
-            },
-          ),
-        )
       ],
     );
   }

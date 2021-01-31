@@ -5,7 +5,7 @@ import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
 import 'package:studyme/ui/widgets/intervention_letter.dart';
-import 'package:studyme/ui/widgets/title_text.dart';
+import 'package:studyme/ui/widgets/section_title.dart';
 
 import '../screens/intervention_editor.dart';
 
@@ -19,7 +19,9 @@ class TrialCreatorInterventionSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TitleText('Interventions'),
+        SectionTitle(
+          'Interventions',
+        ),
         if (model.trial.a != null)
           InterventionCard(
               isA: true,
