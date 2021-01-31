@@ -20,7 +20,7 @@ import 'package:studyme/ui/welcome_loading_screen.dart';
 import 'models/measure/choice_measure.dart';
 import 'ui/screens/dashboard.dart';
 import 'ui/screens/measure_library.dart';
-import 'ui/screens/trial_creator.dart';
+import 'ui/screens/creator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
         initialRoute: Routes.welcome,
         routes: {
           Routes.welcome: (context) => InitialLoading(),
-          Routes.creator: (context) => TrialCreator(),
+          Routes.creator: (context) => Creator(),
           Routes.measure_library: (context) => MeasureLibrary(),
           Routes.dashboard: (context) => Dashboard(),
         });

@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/routes.dart';
 
-import '../widgets/trial_creator_intervention_section.dart';
-import '../widgets/trial_creator_measure_section.dart';
-import '../widgets/trial_creator_reminder_section.dart';
-import '../widgets/trial_creator_schedule_section.dart';
+import '../widgets/creator_intervention_section.dart';
+import '../widgets/creator_measure_section.dart';
+import '../widgets/creator_reminder_section.dart';
+import '../widgets/creator_schedule_section.dart';
 
-class TrialCreator extends StatelessWidget {
+class Creator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, model, child) {
@@ -20,13 +20,13 @@ class TrialCreator extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(children: [
-                TrialCreatorInterventionSection(model),
+                CreatorInterventionSection(model),
                 Divider(height: 30),
-                TrialCreatorScheduleSection(model),
+                CreatorScheduleSection(model),
                 Divider(height: 30),
-                TrialCreatorMeasureSection(model),
+                CreatorMeasureSection(model),
                 Divider(height: 30),
-                TrialCreatorReminderSection(model),
+                CreatorReminderSection(model),
                 SizedBox(height: 80),
               ]),
             ),
