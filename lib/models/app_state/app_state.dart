@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
-import 'package:studyme/models/app_state/notifications.dart';
+import 'package:studyme/util/notifications.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/reminder.dart';
