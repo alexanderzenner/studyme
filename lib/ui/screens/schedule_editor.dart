@@ -13,13 +13,16 @@ class ScheduleEditor extends StatefulWidget {
 
 class _ScheduleEditorState extends State<ScheduleEditor> {
   TrialSchedule _schedule;
+  bool _isCreator;
 
   @override
   void initState() {
     final trial = Provider.of<AppState>(context, listen: false).trial;
     if (trial.schedule != null) {
+      _isCreator = false;
       _schedule = trial.schedule.clone();
     } else {
+      _isCreator = true;
       _schedule = TrialSchedule.createDefault();
     }
     super.initState();
@@ -29,7 +32,7 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Edit Schedule'),
+          title: Text((_isCreator ? 'Add' : 'Edit') + ' Schedule'),
           actions: <Widget>[
             SaveButton(canPress: _canSubmit(), onPressed: _save)
           ],

@@ -18,7 +18,7 @@ class TrialCreatorScheduleSection extends StatelessWidget {
       children: [
         SectionTitle('Schedule',
             action: IconButton(
-              icon: Icon(Icons.edit),
+              icon: Icon(model.trial.schedule != null ? Icons.edit : Icons.add),
               onPressed: () {
                 _navigateToScheduleEditor(context);
               },

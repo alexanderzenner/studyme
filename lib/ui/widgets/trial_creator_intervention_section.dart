@@ -4,7 +4,6 @@ import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
-import 'package:studyme/ui/widgets/intervention_letter.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 
 import '../screens/intervention_editor.dart';
@@ -21,6 +20,7 @@ class TrialCreatorInterventionSection extends StatelessWidget {
       children: [
         SectionTitle(
           'Interventions',
+          action: _buildNextAction(context),
         ),
         if (model.trial.a != null)
           InterventionCard(
@@ -30,17 +30,6 @@ class TrialCreatorInterventionSection extends StatelessWidget {
                 _editIntervention(
                     context, true, model.trial.a, model.setInterventionA);
               }),
-        if (model.trial.a == null)
-          Center(
-            child: OutlineButton.icon(
-              onPressed: () {
-                _addIntervention(
-                    context, true, Intervention(), model.setInterventionA);
-              },
-              icon: Icon(Icons.add),
-              label: InterventionLetter(isA: true),
-            ),
-          ),
         if (model.trial.b != null)
           InterventionCard(
               isA: false,
@@ -49,17 +38,6 @@ class TrialCreatorInterventionSection extends StatelessWidget {
                 _editIntervention(
                     context, false, model.trial.b, model.setInterventionB);
               }),
-        if (model.trial.b == null)
-          Center(
-            child: OutlineButton.icon(
-              onPressed: () {
-                _addIntervention(
-                    context, false, NoIntervention(), model.setInterventionB);
-              },
-              icon: Icon(Icons.add),
-              label: InterventionLetter(isA: false),
-            ),
-          ),
       ],
     );
   }
@@ -78,6 +56,30 @@ class TrialCreatorInterventionSection extends StatelessWidget {
         setIntervention(result);
       }
     });
+  }
+
+  Widget _buildNextAction(context) {
+    if (model.trial.a == null) {
+      return IconButton(
+        icon: Icon(
+          Icons.add,
+        ),
+        onPressed: () {
+          _addIntervention(
+              context, true, Intervention(), model.setInterventionA);
+        },
+      );
+    } else if (model.trial.b == null) {
+      return IconButton(
+        icon: Icon(Icons.add),
+        onPressed: () {
+          _addIntervention(
+              context, false, NoIntervention(), model.setInterventionB);
+        },
+      );
+    } else {
+      return null;
+    }
   }
 
   Future _navigateToInterventionEditor(context, isA, intervention) async {

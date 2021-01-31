@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_state.dart';
 import 'package:studyme/models/log/log.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/ui/widgets/title_text.dart';
+import 'package:studyme/ui/widgets/section_title.dart';
 
 class MeasureChart extends StatefulWidget {
   final Measure measure;
@@ -20,7 +20,7 @@ class _MeasureChartState extends State<MeasureChart> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      TitleText(widget.measure.name),
+      SectionTitle(widget.measure.name),
       FutureBuilder<List<TrialLog>>(
           future: Provider.of<LogState>(context).getLogsFor(widget.measure),
           builder: (context, AsyncSnapshot<List<TrialLog>> snapshot) {
