@@ -8,10 +8,10 @@ import 'package:studyme/ui/widgets/section_title.dart';
 
 import '../screens/intervention_editor.dart';
 
-class TrialCreatorInterventionSection extends StatelessWidget {
+class CreatorInterventionSection extends StatelessWidget {
   final AppState model;
 
-  TrialCreatorInterventionSection(this.model);
+  CreatorInterventionSection(this.model);
 
   @override
   Widget build(BuildContext context) {

@@ -7,10 +7,10 @@ import 'package:studyme/ui/widgets/reminder_card.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/util/notifications.dart';
 
-class TrialCreatorReminderSection extends StatelessWidget {
+class CreatorReminderSection extends StatelessWidget {
   final AppState model;
 
-  TrialCreatorReminderSection(this.model);
+  CreatorReminderSection(this.model);
 
   @override
   Widget build(BuildContext context) {

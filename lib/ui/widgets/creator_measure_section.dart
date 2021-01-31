@@ -8,10 +8,10 @@ import 'package:studyme/ui/widgets/section_title.dart';
 
 import '../screens/measure_preview.dart';
 
-class TrialCreatorMeasureSection extends StatelessWidget {
+class CreatorMeasureSection extends StatelessWidget {
   final AppState model;
 
-  TrialCreatorMeasureSection(this.model);
+  CreatorMeasureSection(this.model);
 
   @override
   Widget build(BuildContext context) {
