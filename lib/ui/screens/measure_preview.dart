@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
@@ -90,14 +90,14 @@ class MeasurePreview extends StatelessWidget {
   }
 
   _removeMeasure(context) {
-    Provider.of<AppState>(context, listen: false).removeMeasure(measure);
+    Provider.of<AppData>(context, listen: false).removeMeasure(measure);
     Navigator.pop(context);
   }
 
   _editMeasure(context) {
     _navigateToEditor(context).then((result) {
       if (result != null) {
-        Provider.of<AppState>(context, listen: false)
+        Provider.of<AppData>(context, listen: false)
             .updateMeasure(measure, result);
         Navigator.pop(context);
       }

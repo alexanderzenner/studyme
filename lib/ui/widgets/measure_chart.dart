@@ -2,7 +2,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:studyme/models/app_state/log_state.dart';
+import 'package:studyme/models/app_state/log_data.dart';
 import 'package:studyme/models/log/log.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
@@ -22,7 +22,7 @@ class _MeasureChartState extends State<MeasureChart> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SectionTitle(widget.measure.name),
       FutureBuilder<List<TrialLog>>(
-          future: Provider.of<LogState>(context).getLogsFor(widget.measure),
+          future: Provider.of<LogData>(context).getLogsFor(widget.measure),
           builder: (context, AsyncSnapshot<List<TrialLog>> snapshot) {
             Widget child;
             if (snapshot.hasData) {

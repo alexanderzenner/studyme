@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:studyme/models/app_state/app_state.dart';
-import 'package:studyme/models/app_state/log_state.dart';
+import 'package:studyme/models/app_state/app_data.dart';
+import 'package:studyme/models/app_state/log_data.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/models/log/measure_log.dart';
@@ -28,11 +28,11 @@ void main() async {
   await _setupHive();
 
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider<AppState>(
-      create: (context) => AppState(),
+    ChangeNotifierProvider<AppData>(
+      create: (context) => AppData(),
     ),
-    ChangeNotifierProvider<LogState>(
-      create: (context) => LogState(),
+    ChangeNotifierProvider<LogData>(
+      create: (context) => LogData(),
     )
   ], child: MyApp()));
 }

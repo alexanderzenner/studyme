@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:studyme/ui/widgets/schedule_widget.dart';
@@ -17,7 +17,7 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
 
   @override
   void initState() {
-    final trial = Provider.of<AppState>(context, listen: false).trial;
+    final trial = Provider.of<AppData>(context, listen: false).trial;
     if (trial.schedule != null) {
       _isCreator = false;
       _schedule = trial.schedule.clone();
@@ -39,7 +39,7 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Consumer<AppState>(builder: (context, model, child) {
+          child: Consumer<AppData>(builder: (context, model, child) {
             return Column(
               children: [
                 ScheduleWidget(schedule: _schedule, showDuration: true),
@@ -110,7 +110,7 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
   }
 
   _save() {
-    Provider.of<AppState>(context, listen: false).updateSchedule(_schedule);
+    Provider.of<AppData>(context, listen: false).updateSchedule(_schedule);
     Navigator.pop(context, true);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/routes.dart';
 
 import '../widgets/creator_intervention_section.dart';
@@ -12,7 +12,7 @@ import '../widgets/creator_schedule_section.dart';
 class Creator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppState>(builder: (context, model, child) {
+    return Consumer<AppData>(builder: (context, model, child) {
       return Scaffold(
         appBar: AppBar(title: Text('Create Trial')),
         body: SafeArea(
@@ -20,8 +20,20 @@ class Creator extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(children: [
+                MaterialBanner(content: Text("HI"), actions: [
+                  FlatButton(
+                    child: const Text('ACTION 1'),
+                    onPressed: () {},
+                  ),
+                ]),
                 CreatorInterventionSection(model),
                 Divider(height: 30),
+                MaterialBanner(content: Text("HI"), actions: [
+                  FlatButton(
+                    child: const Text('ACTION 1'),
+                    onPressed: () {},
+                  ),
+                ]),
                 CreatorScheduleSection(model),
                 Divider(height: 30),
                 CreatorMeasureSection(model),

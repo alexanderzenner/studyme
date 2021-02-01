@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 import 'package:studyme/ui/widgets/schedule_widget.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
-import 'package:studyme/ui/widgets/title_text.dart';
 import 'package:studyme/util/util.dart';
 
 import 'intervention_interactor.dart';
@@ -17,7 +16,7 @@ import 'measure_interactor.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Trial _trial = Provider.of<AppState>(context).trial;
+    final Trial _trial = Provider.of<AppData>(context).trial;
     final _dateToday = DateTime.now();
 
     List<Widget> _body;

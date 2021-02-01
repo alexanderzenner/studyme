@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/routes.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
@@ -9,7 +9,7 @@ import 'package:studyme/ui/widgets/section_title.dart';
 import '../screens/measure_preview.dart';
 
 class CreatorMeasureSection extends StatelessWidget {
-  final AppState model;
+  final AppData model;
 
   CreatorMeasureSection(this.model);
 

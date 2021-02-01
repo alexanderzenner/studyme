@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studyme/models/app_state/log_state.dart';
+import 'package:studyme/models/app_state/log_data.dart';
 import 'package:studyme/models/log/measure_log.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
@@ -77,7 +77,7 @@ class _MeasureInteractState extends State<MeasureInteract> {
 
   _logValue() {
     var log = MeasureLog(widget.measure.id, DateTime.now(), _value);
-    Provider.of<LogState>(context, listen: false).addLog(log);
+    Provider.of<LogData>(context, listen: false).addLog(log);
     Navigator.pop(context, true);
   }
 }

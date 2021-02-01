@@ -1,7 +1,7 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/reminder.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 
@@ -81,7 +81,7 @@ class _ReminderEditorState extends State<ReminderEditor> {
   }
 
   _removeReminder(context) {
-    Provider.of<AppState>(context, listen: false)
+    Provider.of<AppData>(context, listen: false)
         .removeReminder(widget.reminder);
     Navigator.pop(context);
   }

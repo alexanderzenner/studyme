@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/widgets/schedule_widget.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 
 import '../screens/schedule_editor.dart';
 
 class CreatorScheduleSection extends StatelessWidget {
-  final AppState model;
+  final AppData model;
 
   CreatorScheduleSection(this.model);
 

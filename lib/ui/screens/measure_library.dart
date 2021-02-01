@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
@@ -13,7 +13,7 @@ import 'measure_preview.dart';
 class MeasureLibrary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppState>(builder: (context, model, child) {
+    return Consumer<AppData>(builder: (context, model, child) {
       List<Measure> _unaddedMeasures = model.unaddedMeasures;
       return Scaffold(
         appBar: AppBar(

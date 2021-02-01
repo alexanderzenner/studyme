@@ -80,7 +80,7 @@ class Notifications {
     }
   }
 
-  debugClearAll() async {
+  clearAll() async {
     _flutterLocalNotificationsPlugin.cancelAll();
   }
 }
