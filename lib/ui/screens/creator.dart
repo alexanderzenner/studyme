@@ -20,20 +20,8 @@ class Creator extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(children: [
-                MaterialBanner(content: Text("HI"), actions: [
-                  FlatButton(
-                    child: const Text('ACTION 1'),
-                    onPressed: () {},
-                  ),
-                ]),
                 CreatorInterventionSection(model),
                 Divider(height: 30),
-                MaterialBanner(content: Text("HI"), actions: [
-                  FlatButton(
-                    child: const Text('ACTION 1'),
-                    onPressed: () {},
-                  ),
-                ]),
                 CreatorScheduleSection(model),
                 Divider(height: 30),
                 CreatorMeasureSection(model),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
+import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/util/notifications.dart';
 import 'package:studyme/util/util.dart';
 
@@ -42,7 +43,7 @@ class _DashboardState extends State<Dashboard> {
                         name: 'Edit trial (Debug)',
                         callback: () {
                           Provider.of<AppData>(context, listen: false)
-                              .saveIsEditing(true);
+                              .saveAppState(AppState.CREATING);
                           Notifications().clearAll();
                           Navigator.pushReplacementNamed(
                               context, Routes.creator);

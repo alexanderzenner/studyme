@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
+import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
 import 'package:studyme/util/notifications.dart';
 import 'package:studyme/models/intervention/intervention.dart';
@@ -8,14 +9,14 @@ import 'package:studyme/models/reminder.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/models/trial_schedule.dart';
 
-class AppState extends ChangeNotifier {
+class AppData extends ChangeNotifier {
   static const activeTrialKey = 'trial';
-  static const isEditingKey = 'is_editing';
+  static const stateKey = 'state';
 
   Box box;
   Trial _trial;
   List<Measure> _measures;
-  bool get isEditing => box.get(isEditingKey);
+  AppState get state => box.get(stateKey);
 
   Trial get trial => _trial;
   List<Measure> get measures => _measures;
@@ -100,14 +101,18 @@ class AppState extends ChangeNotifier {
   loadAppState() async {
     box = await Hive.openBox('app_data');
     _trial = box.get(activeTrialKey);
+
+    // first time app is started, initialize state and trial
+    if (state == null) {
+      saveAppState(AppState.ONBOARDING);
+    }
     if (_trial == null) {
-      // first time app is started
       createNewTrial();
     }
   }
 
   startTrial() {
-    saveIsEditing(false);
+    saveAppState(AppState.DOING);
     DateTime now = DateTime.now();
     _trial.startDate = DateTime(now.year, now.month, now.day);
     _trial.save();
@@ -116,13 +121,12 @@ class AppState extends ChangeNotifier {
     });
   }
 
+  saveAppState(AppState state) {
+    box.put(stateKey, state);
+  }
+
   createNewTrial() {
     _trial = Trial();
     box.put(activeTrialKey, _trial);
-    box.put(isEditingKey, true);
-  }
-
-  saveIsEditing(bool isEditing) {
-    box.put(isEditingKey, isEditing);
   }
 }
