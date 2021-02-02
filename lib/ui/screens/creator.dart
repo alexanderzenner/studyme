@@ -36,7 +36,7 @@ class Creator extends StatelessWidget {
                   Divider(height: 30),
                   CreatorReminderSection(model,
                       isActive: model.canAddReminders()),
-                  SizedBox(height: 800),
+                  SizedBox(height: 60),
                 ]),
               ),
             ),
