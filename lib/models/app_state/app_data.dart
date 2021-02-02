@@ -103,7 +103,7 @@ class AppData extends ChangeNotifier {
     _trial = box.get(activeTrialKey);
 
     // first time app is started, initialize state and trial
-    if (state == null) {
+    if (true || state == null) {
       saveAppState(AppState.ONBOARDING);
     }
     if (_trial == null) {
@@ -128,5 +128,21 @@ class AppData extends ChangeNotifier {
   createNewTrial() {
     _trial = Trial();
     box.put(activeTrialKey, _trial);
+  }
+
+  bool canAddSchedule() {
+    return _trial.a != null && _trial.b != null;
+  }
+
+  bool canAddMeasures() {
+    return canAddSchedule() && _trial.schedule != null;
+  }
+
+  bool canAddReminders() {
+    return canAddMeasures() && _trial.measures.length > 0;
+  }
+
+  bool canStartTrial() {
+    return canAddReminders();
   }
 }

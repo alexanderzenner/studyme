@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/routes.dart';
+import 'package:studyme/ui/widgets/hint_card.dart';
 
 import '../widgets/creator_intervention_section.dart';
 import '../widgets/creator_measure_section.dart';
@@ -14,35 +15,44 @@ class Creator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppData>(builder: (context, model, child) {
       return Scaffold(
-        appBar: AppBar(title: Text('Create Trial')),
+        appBar: AppBar(
+          title: Text('Create Trial'),
+          brightness: Brightness.dark,
+        ),
         body: SafeArea(
           child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(children: [
-                CreatorInterventionSection(model),
-                Divider(height: 30),
-                CreatorScheduleSection(model),
-                Divider(height: 30),
-                CreatorMeasureSection(model),
-                Divider(height: 30),
-                CreatorReminderSection(model),
-                SizedBox(height: 80),
-              ]),
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(children: [
+                  HintCard(),
+                  CreatorInterventionSection(model),
+                  Divider(height: 30),
+                  CreatorScheduleSection(model,
+                      isActive: model.canAddSchedule()),
+                  Divider(height: 30),
+                  CreatorMeasureSection(model,
+                      isActive: model.canAddMeasures()),
+                  Divider(height: 30),
+                  CreatorReminderSection(model,
+                      isActive: model.canAddReminders()),
+                  SizedBox(height: 800),
+                ]),
+              ),
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: model.trial.isReady
-              ? () {
+        floatingActionButton: model.canStartTrial()
+            ? FloatingActionButton.extended(
+                onPressed: () {
                   model.startTrial();
                   Navigator.pushReplacementNamed(context, Routes.dashboard);
-                }
-              : null,
-          icon: model.trial.isReady ? Icon(Icons.check) : null,
-          label: Text('Start trial'),
-          backgroundColor: model.trial.isReady ? Colors.green : Colors.grey,
-        ),
+                },
+                icon: Icon(Icons.check),
+                label: Text('Start trial'),
+                backgroundColor: Colors.green,
+              )
+            : null,
       );
     });
   }

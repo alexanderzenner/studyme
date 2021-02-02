@@ -9,23 +9,31 @@ import '../screens/schedule_editor.dart';
 class CreatorScheduleSection extends StatelessWidget {
   final AppData model;
 
-  CreatorScheduleSection(this.model);
+  final bool isActive;
+
+  CreatorScheduleSection(this.model, {@required this.isActive});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SectionTitle('Schedule',
-            action: IconButton(
-              icon: Icon(model.trial.schedule != null ? Icons.edit : Icons.add),
-              onPressed: () {
-                _navigateToScheduleEditor(context);
-              },
-            )),
-        if (model.trial.schedule != null)
-          ScheduleWidget(schedule: model.trial.schedule, showDuration: true),
-      ],
+    return Opacity(
+      opacity: this.isActive ? 1.0 : 0.3,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SectionTitle('Schedule',
+              action: IconButton(
+                icon:
+                    Icon(model.trial.schedule != null ? Icons.edit : Icons.add),
+                onPressed: isActive
+                    ? () {
+                        _navigateToScheduleEditor(context);
+                      }
+                    : null,
+              )),
+          if (model.trial.schedule != null)
+            ScheduleWidget(schedule: model.trial.schedule, showDuration: true),
+        ],
+      ),
     );
   }
 

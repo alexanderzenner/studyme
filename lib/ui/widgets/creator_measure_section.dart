@@ -11,34 +11,41 @@ import '../screens/measure_preview.dart';
 class CreatorMeasureSection extends StatelessWidget {
   final AppData model;
 
-  CreatorMeasureSection(this.model);
+  final bool isActive;
+
+  CreatorMeasureSection(this.model, {@required this.isActive});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SectionTitle('Measures',
-            action: IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Navigator.pushNamed(context, Routes.measure_library);
-              },
-            )),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: model.trial.measures.length,
-          itemBuilder: (context, index) {
-            Measure measure = model.trial.measures[index];
-            return MeasureCard(
-                measure: measure,
-                onTap: () {
-                  _previewMeasure(context, measure);
-                });
-          },
-        ),
-      ],
+    return Opacity(
+      opacity: isActive ? 1.0 : 0.3,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SectionTitle('Measures',
+              action: IconButton(
+                icon: Icon(Icons.add),
+                onPressed: isActive
+                    ? () {
+                        Navigator.pushNamed(context, Routes.measure_library);
+                      }
+                    : null,
+              )),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: model.trial.measures.length,
+            itemBuilder: (context, index) {
+              Measure measure = model.trial.measures[index];
+              return MeasureCard(
+                  measure: measure,
+                  onTap: () {
+                    _previewMeasure(context, measure);
+                  });
+            },
+          ),
+        ],
+      ),
     );
   }
 

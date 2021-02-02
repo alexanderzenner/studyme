@@ -10,34 +10,41 @@ import 'package:studyme/util/notifications.dart';
 class CreatorReminderSection extends StatelessWidget {
   final AppData model;
 
-  CreatorReminderSection(this.model);
+  final bool isActive;
+
+  CreatorReminderSection(this.model, {@required this.isActive});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SectionTitle('Reminders',
-            action: IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                _createReminder(context, model);
-              },
-            )),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: model.trial.reminders.length,
-          itemBuilder: (context, index) {
-            Reminder reminder = model.trial.reminders[index];
-            return ReminderCard(
-                reminder: reminder,
-                onTap: () {
-                  _editReminder(context, model, reminder);
-                });
-          },
-        )
-      ],
+    return Opacity(
+      opacity: isActive ? 1.0 : 0.3,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SectionTitle('Reminders',
+              action: IconButton(
+                icon: Icon(Icons.add),
+                onPressed: isActive
+                    ? () {
+                        _createReminder(context, model);
+                      }
+                    : null,
+              )),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: model.trial.reminders.length,
+            itemBuilder: (context, index) {
+              Reminder reminder = model.trial.reminders[index];
+              return ReminderCard(
+                  reminder: reminder,
+                  onTap: () {
+                    _editReminder(context, model, reminder);
+                  });
+            },
+          )
+        ],
+      ),
     );
   }
 

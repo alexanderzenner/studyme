@@ -33,7 +33,7 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.showDuration ? 70 : 50,
+      height: widget.showDuration ? 71 : 50,
       child: Scrollbar(
         child: ScrollablePositionedList.builder(
           scrollDirection: Axis.horizontal,
