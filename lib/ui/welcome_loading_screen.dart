@@ -21,7 +21,6 @@ class _InitialLoadingState extends State<InitialLoading> {
     } else if (state == AppState.ONBOARDING) {
       Navigator.pushReplacementNamed(context, Routes.onboarding);
     }
-    print(state);
   }
 
   @override

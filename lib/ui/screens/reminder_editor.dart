@@ -28,6 +28,7 @@ class _ReminderEditorState extends State<ReminderEditor> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        brightness: Brightness.dark,
         title: Text((widget.isCreator ? "Create" : "Edit") + " Reminder"),
         actions: <Widget>[
           SaveButton(

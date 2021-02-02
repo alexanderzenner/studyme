@@ -40,6 +40,7 @@ class _MeasureInteractState extends State<MeasureInteract> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          brightness: Brightness.dark,
           title: Text(widget.measure.name),
           actions: <Widget>[
             SaveButton(canPress: _hasSelectedValue(), onPressed: _logValue)

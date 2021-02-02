@@ -32,6 +32,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        brightness: Brightness.dark,
         title: Text(_titles[_currentIndex]),
         actions: [
           PopupMenuButton<Option>(

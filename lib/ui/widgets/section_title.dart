@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:studyme/ui/widgets/title_text.dart';
 
 class SectionTitle extends StatelessWidget {
   final String text;
@@ -16,7 +15,11 @@ class SectionTitle extends StatelessWidget {
         children: [
           Row(
             children: [
-              TitleText(text),
+              Text(text,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Theme.of(context).primaryColor)),
             ],
           ),
           if (action != null)

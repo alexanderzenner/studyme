@@ -21,7 +21,9 @@ class MeasurePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(measure.name + " (Preview)")),
+        appBar: AppBar(
+            brightness: Brightness.dark,
+            title: Text(measure.name + " (Preview)")),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),

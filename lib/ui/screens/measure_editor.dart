@@ -34,6 +34,7 @@ class _MeasureEditorState extends State<MeasureEditor> {
 
     return Scaffold(
         appBar: AppBar(
+          brightness: Brightness.dark,
           title: Text((widget.isCreator ? "Create" : "Edit") + " Measure"),
           actions: <Widget>[
             SaveButton(

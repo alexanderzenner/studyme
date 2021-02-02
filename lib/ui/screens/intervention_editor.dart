@@ -27,6 +27,7 @@ class _InterventionEditorState extends State<InterventionEditor> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          brightness: Brightness.dark,
           title: Text(widget.isA ? "Set A" : "Set B"),
           actions: <Widget>[
             SaveButton(

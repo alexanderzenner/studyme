@@ -32,6 +32,7 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          brightness: Brightness.dark,
           title: Text((_isCreator ? 'Add' : 'Edit') + ' Schedule'),
           actions: <Widget>[
             SaveButton(canPress: _canSubmit(), onPressed: _save)

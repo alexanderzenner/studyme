@@ -17,11 +17,8 @@ class MeasureLibrary extends StatelessWidget {
       List<Measure> _unaddedMeasures = model.unaddedMeasures;
       return Scaffold(
         appBar: AppBar(
-          title: Row(
-            children: [
-              Text("Add Measure"),
-            ],
-          ),
+          brightness: Brightness.dark,
+          title: Text("Add Measure"),
         ),
         body: ListView.builder(
           itemCount: _unaddedMeasures.length,

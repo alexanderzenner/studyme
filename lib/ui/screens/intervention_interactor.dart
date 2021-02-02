@@ -11,6 +11,7 @@ class InterventionInteractor extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        brightness: Brightness.dark,
         title: Text(intervention.name),
         actions: <Widget>[
           IconButton(
