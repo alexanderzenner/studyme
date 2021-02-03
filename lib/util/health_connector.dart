@@ -1,4 +1,8 @@
+import "package:collection/collection.dart";
 import 'package:health/health.dart';
+import 'package:studyme/models/log/measure_log.dart';
+import 'package:studyme/models/measure/synced_measure.dart';
+import 'package:studyme/models/trial.dart';
 
 class HealthConnector {
   static HealthConnector _instance;
@@ -23,5 +27,25 @@ class HealthConnector {
 
   Future<bool> requestAuthorization(List<HealthDataType> dataTypes) {
     return _healthFactory.requestAuthorization(dataTypes);
+  }
+
+  syncMeasures(Trial trial, Function saveCallback) async {
+    Map<HealthDataType, SyncedMeasure> dataTypeToMeasureMap = {};
+
+    trial.syncedMeasures.forEach((SyncedMeasure measure) {
+      dataTypeToMeasureMap.putIfAbsent(
+          measure.trackedHealthDataType, () => measure);
+    });
+
+    List<HealthDataPoint> dataPoints = await HealthConnector().fetchValuesFor(
+        trial.startDate, trial.endDate, dataTypeToMeasureMap.keys.toList());
+    await Future.delayed(Duration(seconds: 10));
+    groupBy(dataPoints, (HealthDataPoint point) => point.type)
+        .forEach((dataType, healthPoints) {
+      SyncedMeasure _measure = dataTypeToMeasureMap[dataType];
+      List<MeasureLog> _measureLogs =
+          healthPoints.map((_point) => _measure.createLogFrom(_point)).toList();
+      saveCallback(_measureLogs, _measure);
+    });
   }
 }
