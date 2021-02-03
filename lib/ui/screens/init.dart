@@ -1,10 +1,16 @@
+import "package:collection/collection.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:health/health.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/app_state/log_data.dart';
+import 'package:studyme/models/log/measure_log.dart';
+import 'package:studyme/models/measure/synced_measure.dart';
+import 'package:studyme/models/trial.dart';
 import 'package:studyme/routes.dart';
+import 'package:studyme/util/health_connector.dart';
 
 class Init extends StatefulWidget {
   @override
@@ -33,15 +39,23 @@ class _InitState extends State<Init> {
     }
   }
 
-  _syncMeasures(trial) async {
-    Function callBack =
-        Provider.of<LogData>(context, listen: false).checkForDuplicatesAndAdd;
-    var fetchingFutures = <Future>[];
-    trial.syncedMeasures.forEach((syncedMeasure) => fetchingFutures.add(
-        syncedMeasure.fetchAndSaveTo(
-            start: trial.startDate,
-            end: trial.endDate,
-            saveFunctionCallback: callBack)));
-    await Future.wait(fetchingFutures);
+  _syncMeasures(Trial trial) async {
+    Map<HealthDataType, SyncedMeasure> dataTypeToMeasureMap = {};
+
+    trial.syncedMeasures.forEach((SyncedMeasure measure) {
+      dataTypeToMeasureMap.putIfAbsent(
+          measure.trackedHealthDataType, () => measure);
+    });
+
+    List<HealthDataPoint> dataPoints = await HealthConnector().fetchValuesFor(
+        trial.startDate, trial.endDate, dataTypeToMeasureMap.keys.toList());
+    groupBy(dataPoints, (HealthDataPoint point) => point.type)
+        .forEach((dataType, healthPoints) {
+      SyncedMeasure _measure = dataTypeToMeasureMap[dataType];
+      List<MeasureLog> _measureLogs =
+          healthPoints.map((_point) => _measure.createLogFrom(_point)).toList();
+      Provider.of<LogData>(context, listen: false)
+          .checkForDuplicatesAndAdd(_measureLogs, _measure);
+    });
   }
 }

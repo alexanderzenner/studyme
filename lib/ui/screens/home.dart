@@ -16,6 +16,7 @@ import 'measure_interactor.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("Hi");
     final Trial _trial = Provider.of<AppData>(context).trial;
     final _dateToday = DateTime.now();
 

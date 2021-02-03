@@ -27,6 +27,7 @@ class LogData extends ChangeNotifier {
         uniqueNewLogs.add(log);
       }
     });
+    print(uniqueNewLogs);
     this.addLogsForMeasure(uniqueNewLogs, measure);
   }
 }

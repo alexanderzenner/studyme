@@ -25,22 +25,13 @@ class SyncedMeasure extends Measure {
 
   @override
   Future<bool> get canAdd {
-    return HealthConnector().requestAuthorization(this.trackedHealthDataType);
+    return HealthConnector().requestAuthorization([this.trackedHealthDataType]);
   }
 
   @override
   bool get canEdit => false;
 
-  Future<void> fetchAndSaveTo(
-      {DateTime start, DateTime end, Function saveFunctionCallback}) async {
-    debugPrint("fetching");
-
-    List<HealthDataPoint> _dataPoints = await HealthConnector()
-        .fetchValuesFor(start, end, this.trackedHealthDataType);
-    List<MeasureLog> _logs = _dataPoints
-        .map((dataPoint) =>
-            MeasureLog(this.id, dataPoint.dateTo, dataPoint.value))
-        .toList();
-    saveFunctionCallback(_logs, this);
+  MeasureLog createLogFrom(HealthDataPoint dataPoint) {
+    return MeasureLog(this.id, dataPoint.dateTo, dataPoint.value);
   }
 }
