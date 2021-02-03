@@ -39,7 +39,6 @@ class HealthConnector {
 
     List<HealthDataPoint> dataPoints = await HealthConnector().fetchValuesFor(
         trial.startDate, trial.endDate, dataTypeToMeasureMap.keys.toList());
-    await Future.delayed(Duration(seconds: 10));
     groupBy(dataPoints, (HealthDataPoint point) => point.type)
         .forEach((dataType, healthPoints) {
       SyncedMeasure _measure = dataTypeToMeasureMap[dataType];
