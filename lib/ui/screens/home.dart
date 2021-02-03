@@ -86,7 +86,7 @@ class Home extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => InterventionInteractor(intervention)));
-    if (completed) {
+    if (completed != null && completed) {
       Util.toast(context, "Saved");
     }
   }
@@ -94,7 +94,7 @@ class Home extends StatelessWidget {
   _navigateToMeasureScreen(context, measure) async {
     bool didLog = await Navigator.push(context,
         MaterialPageRoute(builder: (context) => MeasureInteract(measure)));
-    if (didLog) {
+    if (didLog != null && didLog) {
       Util.toast(context, "Saved");
     }
   }

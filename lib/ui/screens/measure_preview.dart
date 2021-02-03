@@ -76,7 +76,7 @@ class MeasurePreview extends StatelessWidget {
       case ScaleMeasure:
         return ScaleMeasureWidget(measure, null);
       case SyncedMeasure:
-        return SyncedMeasureWidget(measure: measure, updateValue: null);
+        return SyncedMeasureWidget(measure: measure);
       default:
         return Text('HI');
     }

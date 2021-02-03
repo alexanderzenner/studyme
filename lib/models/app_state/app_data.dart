@@ -103,7 +103,7 @@ class AppData extends ChangeNotifier {
     _trial = box.get(activeTrialKey);
 
     // first time app is started, initialize state and trial
-    if (true || state == null) {
+    if (state == null) {
       saveAppState(AppState.ONBOARDING);
     }
     if (_trial == null) {

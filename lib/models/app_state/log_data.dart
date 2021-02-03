@@ -9,9 +9,24 @@ class LogData extends ChangeNotifier {
     return box.values.toList().cast<TrialLog>();
   }
 
-  void addLog(TrialLog log) async {
-    Box box = await Hive.openBox(log.loggedItemId);
-    box.add(log);
+  void addLogsForMeasure(List<TrialLog> logs, Measure measure) async {
+    Box box = await Hive.openBox(measure.id);
+    logs.forEach((log) {
+      box.add(log);
+    });
+
     notifyListeners();
+  }
+
+  void checkForDuplicatesAndAdd(List<TrialLog> newLogs, Measure measure) async {
+    List<TrialLog> existingLogs = await getLogsFor(measure);
+    List<String> existingLogIds = existingLogs.map((log) => log.id).toList();
+    List<TrialLog> uniqueNewLogs = [];
+    newLogs.forEach((log) {
+      if (!existingLogIds.contains(log.id)) {
+        uniqueNewLogs.add(log);
+      }
+    });
+    this.addLogsForMeasure(uniqueNewLogs, measure);
   }
 }

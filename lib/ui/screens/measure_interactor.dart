@@ -63,8 +63,7 @@ class _MeasureInteractState extends State<MeasureInteract> {
       case (ChoiceMeasure):
         return ChoiceMeasureWidget(widget.measure, _updateValue);
       case (SyncedMeasure):
-        return SyncedMeasureWidget(
-            measure: widget.measure, updateValue: _updateValue);
+        return SyncedMeasureWidget(measure: widget.measure);
       default:
         return Text("Hi");
     }
@@ -78,7 +77,8 @@ class _MeasureInteractState extends State<MeasureInteract> {
 
   _logValue() {
     var log = MeasureLog(widget.measure.id, DateTime.now(), _value);
-    Provider.of<LogData>(context, listen: false).addLog(log);
+    Provider.of<LogData>(context, listen: false)
+        .addLogsForMeasure([log], widget.measure);
     Navigator.pop(context, true);
   }
 }

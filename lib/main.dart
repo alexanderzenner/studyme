@@ -16,7 +16,7 @@ import 'package:studyme/models/trial.dart';
 import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/routes.dart';
 import 'package:studyme/ui/screens/onboarding.dart';
-import 'package:studyme/ui/welcome_loading_screen.dart';
+import 'package:studyme/ui/screens/init.dart';
 
 import 'models/app_state/app_state.dart';
 import 'models/measure/choice_measure.dart';
@@ -69,9 +69,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
         ),
-        initialRoute: Routes.welcome,
+        initialRoute: Routes.init,
         routes: {
-          Routes.welcome: (context) => InitialLoading(),
+          Routes.init: (context) => Init(),
           Routes.onboarding: (context) => Onboarding(),
           Routes.creator: (context) => Creator(),
           Routes.measure_library: (context) => MeasureLibrary(),

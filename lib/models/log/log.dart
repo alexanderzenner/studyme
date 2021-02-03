@@ -14,4 +14,7 @@ abstract class TrialLog {
   num value;
 
   TrialLog(this.type, this.loggedItemId, this.dateTime, this.value);
+
+  String get id =>
+      this.loggedItemId + this.dateTime.toString() + this.value.toString();
 }

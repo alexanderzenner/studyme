@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:studyme/models/reminder.dart';
 import './measure/measure.dart';
 import 'intervention/intervention.dart';
+import 'measure/synced_measure.dart';
 import 'trial_schedule.dart';
 
 part 'trial.g.dart';
@@ -25,6 +26,10 @@ class Trial extends HiveObject {
 
   @HiveField(5)
   List<Reminder> reminders;
+
+  List<SyncedMeasure> get syncedMeasures {
+    return measures.whereType<SyncedMeasure>().toList();
+  }
 
   Trial()
       : this.measures = [],

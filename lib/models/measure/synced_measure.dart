@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:health/health.dart';
 import 'package:hive/hive.dart';
+import 'package:studyme/models/log/measure_log.dart';
 import 'package:studyme/models/measure/measure.dart';
+import 'package:studyme/util/health_connector.dart';
 
 part 'synced_measure.g.dart';
 
@@ -23,26 +25,22 @@ class SyncedMeasure extends Measure {
 
   @override
   Future<bool> get canAdd {
-    return requestAuthorization(HealthFactory());
-  }
-
-  Future<bool> requestAuthorization(healthFactory) {
-    return healthFactory.requestAuthorization([
-      this.trackedHealthDataType,
-    ]);
-  }
-
-  Future<List<HealthDataPoint>> getValue() async {
-    HealthFactory healthFactory = HealthFactory();
-    await requestAuthorization(healthFactory);
-    final now = DateTime.now();
-    DateTime startDate = DateTime(now.year, now.month, now.day, 0, 0);
-    DateTime endDate = DateTime(now.year, now.month, now.day, 23, 59);
-
-    return healthFactory.getHealthDataFromTypes(
-        startDate, endDate, [this.trackedHealthDataType]);
+    return HealthConnector().requestAuthorization(this.trackedHealthDataType);
   }
 
   @override
   bool get canEdit => false;
+
+  Future<void> fetchAndSaveTo(
+      {DateTime start, DateTime end, Function saveFunctionCallback}) async {
+    debugPrint("fetching");
+
+    List<HealthDataPoint> _dataPoints = await HealthConnector()
+        .fetchValuesFor(start, end, this.trackedHealthDataType);
+    List<MeasureLog> _logs = _dataPoints
+        .map((dataPoint) =>
+            MeasureLog(this.id, dataPoint.dateTo, dataPoint.value))
+        .toList();
+    saveFunctionCallback(_logs, this);
+  }
 }
