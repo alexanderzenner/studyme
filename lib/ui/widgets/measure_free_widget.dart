@@ -14,9 +14,16 @@ class FreeMeasureWidget extends StatelessWidget {
     return Container(
       child: TextFormField(
           keyboardType: TextInputType.number,
-          onFieldSubmitted: (value) {
+          onChanged: (text) {
+            int value;
             if (updateValue != null) {
-              updateValue(num.parse(value));
+              try {
+                value = text.length > 0 ? num.parse(text) : null;
+              } on Exception catch (_) {
+                value = null;
+              }
+
+              updateValue(value);
             }
           }),
     );

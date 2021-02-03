@@ -8,11 +8,11 @@ import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/models/measure/synced_measure.dart';
-import 'package:studyme/ui/widgets/choice_measure_widget.dart';
-import 'package:studyme/ui/widgets/free_measure_widget.dart';
+import 'package:studyme/ui/widgets/measure_choice_widget.dart';
+import 'package:studyme/ui/widgets/measure_free_widget.dart';
+import 'package:studyme/ui/widgets/measure_scale_widget.dart';
+import 'package:studyme/ui/widgets/measure_synced_widget.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
-import 'package:studyme/ui/widgets/scale_measure_widget.dart';
-import 'package:studyme/ui/widgets/synced_measure_widget.dart';
 
 class MeasureInteract extends StatefulWidget {
   final Measure measure;

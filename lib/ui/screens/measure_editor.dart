@@ -164,11 +164,16 @@ class _MeasureEditorState extends State<MeasureEditor> {
                     }));
           }),
       SizedBox(height: 20),
-      OutlineButton(
-          child: Text('Add Choice'),
-          onPressed: () => setState(() {
-                measure.choices.add(Choice());
-              }))
+      ButtonBar(
+        children: [
+          OutlineButton.icon(
+              icon: Icon(Icons.add),
+              label: Text('Add Choice'),
+              onPressed: () => setState(() {
+                    measure.choices.add(Choice());
+                  }))
+        ],
+      )
     ]);
   }
 }

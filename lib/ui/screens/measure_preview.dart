@@ -6,10 +6,12 @@ import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
+import 'package:studyme/models/measure/synced_measure.dart';
+import 'package:studyme/ui/widgets/measure_choice_widget.dart';
+import 'package:studyme/ui/widgets/measure_free_widget.dart';
+import 'package:studyme/ui/widgets/measure_scale_widget.dart';
+import 'package:studyme/ui/widgets/measure_synced_widget.dart';
 
-import '../widgets/choice_measure_widget.dart';
-import '../widgets/free_measure_widget.dart';
-import '../widgets/scale_measure_widget.dart';
 import 'measure_editor.dart';
 
 class MeasurePreview extends StatelessWidget {
@@ -33,8 +35,7 @@ class MeasurePreview extends StatelessWidget {
                     measure.description.length > 0)
                   Text(measure.description),
                 _buildPreview(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                ButtonBar(
                   children: [
                     if (!isAdded)
                       OutlineButton.icon(
@@ -74,6 +75,8 @@ class MeasurePreview extends StatelessWidget {
         return ChoiceMeasureWidget(measure, null);
       case ScaleMeasure:
         return ScaleMeasureWidget(measure, null);
+      case SyncedMeasure:
+        return SyncedMeasureWidget(measure: measure, updateValue: null);
       default:
         return Text('HI');
     }

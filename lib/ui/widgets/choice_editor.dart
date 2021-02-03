@@ -7,7 +7,12 @@ class ChoiceEditor extends StatefulWidget {
   final int index;
   final void Function() remove;
 
-  ChoiceEditor({@required this.choice, @required this.index, @required this.remove, Key key}) : super(key: key);
+  ChoiceEditor(
+      {@required this.choice,
+      @required this.index,
+      @required this.remove,
+      Key key})
+      : super(key: key);
 
   @override
   _ChoiceEditorState createState() => _ChoiceEditorState();
@@ -28,7 +33,7 @@ class _ChoiceEditorState extends State<ChoiceEditor> {
       ),
       Expanded(
         flex: 3,
-        child: OutlineButton(child: Icon(Icons.delete), onPressed: widget.remove),
+        child: FlatButton(child: Icon(Icons.delete), onPressed: widget.remove),
       )
     ]);
   }
