@@ -47,7 +47,7 @@ class _DashboardState extends State<Dashboard> {
                               .saveAppState(AppState.CREATING);
                           Notifications().clearAll();
                           Navigator.pushReplacementNamed(
-                              context, Routes.creator);
+                              context, Routes.onboarding);
                         }),
                     Option(
                         name: 'Cancel trial',
@@ -56,7 +56,7 @@ class _DashboardState extends State<Dashboard> {
                               .createNewTrial();
                           Notifications().clearAll();
                           Navigator.pushReplacementNamed(
-                              context, Routes.creator);
+                              context, Routes.onboarding);
                         })
                   ]
                       .map((option) => PopupMenuItem<Option>(
