@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:studyme/util/string_extension.dart';
 
 part 'phase_order.g.dart';
 
@@ -11,14 +12,5 @@ enum PhaseOrder {
 }
 
 extension PhaseOrderExtension on PhaseOrder {
-  String get humanReadable {
-    switch (this) {
-      case PhaseOrder.alternating:
-        return 'Alternating';
-      case PhaseOrder.counterbalanced:
-        return 'Counterbalanced';
-      default:
-        return '';
-    }
-  }
+  String get readable => this.toString().split('.').last.capitalize();
 }

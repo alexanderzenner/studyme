@@ -66,7 +66,7 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
                       .map<DropdownMenuItem<PhaseOrder>>((value) {
                     return DropdownMenuItem<PhaseOrder>(
                       value: value,
-                      child: Text(value.humanReadable),
+                      child: Text(value.readable),
                     );
                   }).toList(),
                 )

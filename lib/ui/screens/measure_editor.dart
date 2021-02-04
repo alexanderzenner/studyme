@@ -50,20 +50,31 @@ class _MeasureEditorState extends State<MeasureEditor> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                if (widget.isCreator) _buildDropdown(),
+                if (widget.isCreator) _buildTypeDropdown(),
                 TextFormField(
                   initialValue: _measure.name,
                   onChanged: _changeName,
                   decoration: InputDecoration(labelText: 'Name'),
                 ),
                 if (_body != null) _body,
+                _buildAggregationDropdown()
               ],
             ),
           ),
         ));
   }
 
-  _buildDropdown() {
+  _canSubmit() {
+    return _measure.name != null && _measure.name.length > 0;
+  }
+
+  _changeName(text) {
+    setState(() {
+      _measure.name = text;
+    });
+  }
+
+  _buildTypeDropdown() {
     return DropdownButtonFormField<String>(
       autofocus: true,
       value: _measure.type,
@@ -78,18 +89,8 @@ class _MeasureEditorState extends State<MeasureEditor> {
           child: Text('${value[0].toUpperCase()}${value.substring(1)}'),
         );
       }).toList(),
-      decoration: InputDecoration(labelText: 'Type'),
+      decoration: InputDecoration(labelText: 'Measure Type'),
     );
-  }
-
-  _canSubmit() {
-    return _measure.name != null && _measure.name.length > 0;
-  }
-
-  _changeName(text) {
-    setState(() {
-      _measure.name = text;
-    });
   }
 
   _changeMeasureType(String type) {
@@ -111,10 +112,28 @@ class _MeasureEditorState extends State<MeasureEditor> {
     }
   }
 
+  _buildAggregationDropdown() {
+    return DropdownButtonFormField<Aggregation>(
+      decoration: InputDecoration(labelText: 'Aggregation Type'),
+      onChanged: _changeAggregationType,
+      value: _measure.aggregation,
+      items: Aggregation.values
+          .map((aggregation) => DropdownMenuItem<Aggregation>(
+              value: aggregation, child: Text(aggregation.readable)))
+          .toList(),
+    );
+  }
+
+  _changeAggregationType(Aggregation aggregation) {
+    if (aggregation != _measure.aggregation) {
+      setState(() {
+        _measure.aggregation = aggregation;
+      });
+    }
+  }
+
   _buildMeasureBody() {
     switch (_measure.runtimeType) {
-      case FreeMeasure:
-        return null;
       case ChoiceMeasure:
         return _buildChoiceMeasureBody(_measure);
       case ScaleMeasure:
