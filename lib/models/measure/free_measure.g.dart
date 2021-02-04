@@ -20,9 +20,8 @@ class FreeMeasureAdapter extends TypeAdapter<FreeMeasure> {
       id: fields[0] as dynamic,
       name: fields[2] as dynamic,
       description: fields[3] as dynamic,
-    )
-      ..type = fields[1] as String
-      ..aggregation = fields[4] as Aggregation;
+      aggregation: fields[4] as dynamic,
+    )..type = fields[1] as String;
   }
 
   @override

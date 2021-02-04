@@ -9,8 +9,13 @@ class FreeMeasure extends Measure {
   static const String measureType = 'free';
   final IconData icon = Icons.dialpad;
 
-  FreeMeasure({id, name, description})
-      : super(id: id, type: measureType, name: name, description: description);
+  FreeMeasure({id, name, description, aggregation})
+      : super(
+            id: id,
+            type: measureType,
+            name: name,
+            description: description,
+            aggregation: aggregation);
 
   FreeMeasure.clone(FreeMeasure measure) : super.clone(measure);
 }
