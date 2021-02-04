@@ -9,7 +9,8 @@ class FreeMeasure extends Measure {
   static const String measureType = 'free';
   final IconData icon = Icons.dialpad;
 
-  FreeMeasure({id, name, description, aggregation})
+  FreeMeasure(
+      {String id, String name, String description, Aggregation aggregation})
       : super(
             id: id,
             type: measureType,

@@ -15,9 +15,19 @@ class ChoiceMeasure extends Measure {
   @HiveField(5)
   List<Choice> choices;
 
-  ChoiceMeasure({id, name, description, List<Choice> choices})
+  ChoiceMeasure(
+      {String id,
+      String name,
+      String description,
+      List<Choice> choices,
+      Aggregation aggregation})
       : this.choices = choices ?? [],
-        super(id: id, type: measureType, name: name, description: description);
+        super(
+            id: id,
+            type: measureType,
+            name: name,
+            description: description,
+            aggregation: aggregation);
 
   ChoiceMeasure.clone(ChoiceMeasure measure)
       : choices = List.of(measure.choices),

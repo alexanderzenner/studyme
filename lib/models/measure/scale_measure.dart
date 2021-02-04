@@ -18,10 +18,21 @@ class ScaleMeasure extends Measure {
   @HiveField(7)
   num initial;
 
-  ScaleMeasure({id, name, description, min, max})
+  ScaleMeasure(
+      {String id,
+      String name,
+      String description,
+      num min,
+      num max,
+      Aggregation aggregation})
       : this.min = min ?? 0.0,
         this.max = max ?? 10.0,
-        super(id: id, type: measureType, name: name, description: description);
+        super(
+            id: id,
+            type: measureType,
+            name: name,
+            description: description,
+            aggregation: aggregation);
 
   ScaleMeasure.clone(ScaleMeasure measure)
       : min = measure.min,

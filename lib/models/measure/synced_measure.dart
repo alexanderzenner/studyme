@@ -19,9 +19,19 @@ class SyncedMeasure extends Measure {
   HealthDataType get trackedHealthDataType => HealthDataType.values
       .firstWhere((t) => t.toString() == this.trackedHealthDataTypeName);
 
-  SyncedMeasure({id, name, HealthDataType healthDataType, description})
+  SyncedMeasure(
+      {String id,
+      String name,
+      HealthDataType healthDataType,
+      String description,
+      Aggregation aggregation})
       : trackedHealthDataTypeName = healthDataType.toString(),
-        super(id: id, type: measureType, name: name, description: description);
+        super(
+            id: id,
+            type: measureType,
+            name: name,
+            description: description,
+            aggregation: aggregation);
 
   @override
   Future<bool> get canAdd {
