@@ -13,7 +13,9 @@ class FreeMeasureWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
+          autofocus: this.updateValue != null ? true : false,
           keyboardType: TextInputType.number,
+          decoration: InputDecoration(labelText: 'Value'),
           onChanged: (text) {
             int value;
             if (updateValue != null) {

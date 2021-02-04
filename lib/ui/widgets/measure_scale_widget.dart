@@ -27,16 +27,27 @@ class _ScaleMeasureWidgetState extends State<ScaleMeasureWidget> {
     return Column(
       children: [
         Slider(
-            onChanged: (x) => setState(() {
-                  _state = x;
-                  if (widget.updateValue != null) {
-                    widget.updateValue(x);
-                  }
-                }),
-            value: _state,
-            min: widget.measure.min,
-            max: widget.measure.max,
-            divisions: (widget.measure.max - widget.measure.min).toInt()),
+          onChanged: (x) => setState(() {
+            _state = x;
+            if (widget.updateValue != null) {
+              widget.updateValue(x);
+            }
+          }),
+          value: _state,
+          min: widget.measure.min,
+          max: widget.measure.max,
+          label: _state.round().toString(),
+          divisions: (widget.measure.max - widget.measure.min).toInt(),
+        ),
+        Row(
+          children: [
+            SizedBox(width: 20),
+            Text("0", style: Theme.of(context).textTheme.headline6),
+            Spacer(),
+            Text("1", style: Theme.of(context).textTheme.headline6),
+            SizedBox(width: 20),
+          ],
+        ),
       ],
     );
   }
