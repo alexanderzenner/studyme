@@ -7,7 +7,7 @@ import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/reminder.dart';
 import 'package:studyme/models/trial.dart';
-import 'package:studyme/models/trial_schedule.dart';
+import 'package:studyme/models/schedule/trial_schedule.dart';
 
 class AppData extends ChangeNotifier {
   static const activeTrialKey = 'trial';

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/phase_order.dart';
-import 'package:studyme/models/trial_schedule.dart';
+import 'package:studyme/models/schedule/phase_order.dart';
+import 'package:studyme/models/schedule/trial_schedule.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:studyme/ui/widgets/schedule_widget.dart';
 

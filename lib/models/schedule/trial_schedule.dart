@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:studyme/models/phase_order.dart';
+import 'package:studyme/models/schedule/phase_order.dart';
 
 part 'trial_schedule.g.dart';
 

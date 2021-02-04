@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:studyme/models/trial_schedule.dart';
+import 'package:studyme/models/schedule/trial_schedule.dart';
 import 'package:studyme/ui/widgets/intervention_letter.dart';
 
 class ScheduleWidget extends StatefulWidget {
