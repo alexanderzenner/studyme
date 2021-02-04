@@ -23,7 +23,7 @@ class ChoiceMeasureAdapter extends TypeAdapter<ChoiceMeasure> {
       choices: (fields[5] as List)?.cast<Choice>(),
     )
       ..type = fields[1] as String
-      ..aggregation = fields[4] as Aggregation;
+      ..aggregationString = fields[4] as String;
   }
 
   @override
@@ -41,7 +41,7 @@ class ChoiceMeasureAdapter extends TypeAdapter<ChoiceMeasure> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.aggregation);
+      ..write(obj.aggregationString);
   }
 
   @override

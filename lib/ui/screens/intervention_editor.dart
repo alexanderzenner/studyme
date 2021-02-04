@@ -64,6 +64,7 @@ class _InterventionEditorState extends State<InterventionEditor> {
                   Column(
                     children: [
                       TextFormField(
+                        autofocus: true,
                         initialValue: _intervention.name,
                         onChanged: _changeName,
                         decoration: InputDecoration(labelText: 'Name'),

@@ -25,7 +25,7 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
     )
       ..initial = fields[7] as num
       ..type = fields[1] as String
-      ..aggregation = fields[4] as Aggregation;
+      ..aggregationString = fields[4] as String;
   }
 
   @override
@@ -47,7 +47,7 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.aggregation);
+      ..write(obj.aggregationString);
   }
 
   @override

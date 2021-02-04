@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
-import 'package:studyme/models/measure/aggregation.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:uuid/uuid.dart';
 
@@ -17,17 +16,16 @@ abstract class Measure {
   @HiveField(3)
   String description;
   @HiveField(4)
-  Aggregation aggregation;
+  String aggregationString;
+
+  Aggregation get aggregation => Aggregation.values
+      .firstWhere((t) => t.toString() == this.aggregationString);
 
   IconData icon;
 
-  Measure(
-      {id,
-      this.type,
-      this.name,
-      this.description,
-      this.aggregation = Aggregation.Average})
-      : this.id = id ?? Uuid().v4();
+  Measure({id, this.type, this.name, this.description, aggregation})
+      : this.id = id ?? Uuid().v4(),
+        this.aggregationString = aggregation.toString();
 
   Measure.clone(Measure measure)
       : id = Uuid().v4(),
@@ -52,3 +50,5 @@ abstract class Measure {
 
   dynamic get tickProvider => null;
 }
+
+enum Aggregation { Average, Sum }

@@ -65,6 +65,7 @@ class _MeasureEditorState extends State<MeasureEditor> {
 
   _buildDropdown() {
     return DropdownButtonFormField<String>(
+      autofocus: true,
       value: _measure.type,
       onChanged: _changeMeasureType,
       items: [

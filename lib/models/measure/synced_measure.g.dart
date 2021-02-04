@@ -23,7 +23,7 @@ class SyncedMeasureAdapter extends TypeAdapter<SyncedMeasure> {
     )
       ..trackedHealthDataTypeName = fields[5] as String
       ..type = fields[1] as String
-      ..aggregation = fields[4] as Aggregation;
+      ..aggregationString = fields[4] as String;
   }
 
   @override
@@ -41,7 +41,7 @@ class SyncedMeasureAdapter extends TypeAdapter<SyncedMeasure> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.aggregation);
+      ..write(obj.aggregationString);
   }
 
   @override
