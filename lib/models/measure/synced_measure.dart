@@ -13,7 +13,7 @@ class SyncedMeasure extends Measure {
   static const String measureType = 'synced';
   final IconData icon = Icons.devices_other;
 
-  @HiveField(4)
+  @HiveField(5)
   String trackedHealthDataTypeName;
 
   HealthDataType get trackedHealthDataType => HealthDataType.values

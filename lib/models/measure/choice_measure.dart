@@ -12,7 +12,7 @@ class ChoiceMeasure extends Measure {
   static const String measureType = 'choice';
   final IconData icon = Icons.list;
 
-  @HiveField(4)
+  @HiveField(5)
   List<Choice> choices;
 
   ChoiceMeasure({id, name, description, List<Choice> choices})

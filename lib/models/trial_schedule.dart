@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:studyme/models/phase_order.dart';
 
 part 'trial_schedule.g.dart';
 
@@ -58,26 +59,5 @@ class TrialSchedule extends HiveObject {
       }
     }
     phaseSequence = newPhaseSequence;
-  }
-}
-
-@HiveType(typeId: 202)
-enum PhaseOrder {
-  @HiveField(0)
-  alternating,
-  @HiveField(1)
-  counterbalanced
-}
-
-extension PhaseOrderExtension on PhaseOrder {
-  String get humanReadable {
-    switch (this) {
-      case PhaseOrder.alternating:
-        return 'Alternating';
-      case PhaseOrder.counterbalanced:
-        return 'Counterbalanced';
-      default:
-        return '';
-    }
   }
 }

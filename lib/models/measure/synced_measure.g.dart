@@ -21,15 +21,16 @@ class SyncedMeasureAdapter extends TypeAdapter<SyncedMeasure> {
       name: fields[2] as dynamic,
       description: fields[3] as dynamic,
     )
-      ..trackedHealthDataTypeName = fields[4] as String
-      ..type = fields[1] as String;
+      ..trackedHealthDataTypeName = fields[5] as String
+      ..type = fields[1] as String
+      ..aggregation = fields[4] as Aggregation;
   }
 
   @override
   void write(BinaryWriter writer, SyncedMeasure obj) {
     writer
+      ..writeByte(6)
       ..writeByte(5)
-      ..writeByte(4)
       ..write(obj.trackedHealthDataTypeName)
       ..writeByte(0)
       ..write(obj.id)
@@ -38,7 +39,9 @@ class SyncedMeasureAdapter extends TypeAdapter<SyncedMeasure> {
       ..writeByte(2)
       ..write(obj.name)
       ..writeByte(3)
-      ..write(obj.description);
+      ..write(obj.description)
+      ..writeByte(4)
+      ..write(obj.aggregation);
   }
 
   @override

@@ -20,22 +20,23 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       id: fields[0] as dynamic,
       name: fields[2] as dynamic,
       description: fields[3] as dynamic,
-      min: fields[4] as dynamic,
-      max: fields[5] as dynamic,
+      min: fields[5] as dynamic,
+      max: fields[6] as dynamic,
     )
-      ..initial = fields[6] as num
-      ..type = fields[1] as String;
+      ..initial = fields[7] as num
+      ..type = fields[1] as String
+      ..aggregation = fields[4] as Aggregation;
   }
 
   @override
   void write(BinaryWriter writer, ScaleMeasure obj) {
     writer
-      ..writeByte(7)
-      ..writeByte(4)
-      ..write(obj.min)
+      ..writeByte(8)
       ..writeByte(5)
-      ..write(obj.max)
+      ..write(obj.min)
       ..writeByte(6)
+      ..write(obj.max)
+      ..writeByte(7)
       ..write(obj.initial)
       ..writeByte(0)
       ..write(obj.id)
@@ -44,7 +45,9 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       ..writeByte(2)
       ..write(obj.name)
       ..writeByte(3)
-      ..write(obj.description);
+      ..write(obj.description)
+      ..writeByte(4)
+      ..write(obj.aggregation);
   }
 
   @override

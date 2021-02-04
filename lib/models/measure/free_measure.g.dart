@@ -20,13 +20,15 @@ class FreeMeasureAdapter extends TypeAdapter<FreeMeasure> {
       id: fields[0] as dynamic,
       name: fields[2] as dynamic,
       description: fields[3] as dynamic,
-    )..type = fields[1] as String;
+    )
+      ..type = fields[1] as String
+      ..aggregation = fields[4] as Aggregation;
   }
 
   @override
   void write(BinaryWriter writer, FreeMeasure obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -34,7 +36,9 @@ class FreeMeasureAdapter extends TypeAdapter<FreeMeasure> {
       ..writeByte(2)
       ..write(obj.name)
       ..writeByte(3)
-      ..write(obj.description);
+      ..write(obj.description)
+      ..writeByte(4)
+      ..write(obj.aggregation);
   }
 
   @override

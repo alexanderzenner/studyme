@@ -9,13 +9,13 @@ class ScaleMeasure extends Measure {
   static const String measureType = 'scale';
   final IconData icon = Icons.linear_scale;
 
-  @HiveField(4)
+  @HiveField(5)
   num min;
 
-  @HiveField(5)
+  @HiveField(6)
   num max;
 
-  @HiveField(6)
+  @HiveField(7)
   num initial;
 
   ScaleMeasure({id, name, description, min, max})

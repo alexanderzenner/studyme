@@ -19,7 +19,9 @@ import 'package:studyme/ui/screens/onboarding.dart';
 import 'package:studyme/ui/screens/init.dart';
 
 import 'models/app_state/app_state.dart';
+import 'models/measure/aggregation.dart';
 import 'models/measure/choice_measure.dart';
+import 'models/phase_order.dart';
 import 'ui/screens/dashboard.dart';
 import 'ui/screens/measure_library.dart';
 import 'ui/screens/creator.dart';
@@ -50,6 +52,7 @@ _setupHive() async {
   Hive.registerAdapter<NoIntervention>(NoInterventionAdapter());
   Hive.registerAdapter<Intervention>(InterventionAdapter());
 
+  Hive.registerAdapter<Aggregation>(AggregationAdapter());
   Hive.registerAdapter<FreeMeasure>(FreeMeasureAdapter());
   Hive.registerAdapter<Choice>(ChoiceAdapter());
   Hive.registerAdapter<ChoiceMeasure>(ChoiceMeasureAdapter());
