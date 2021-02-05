@@ -6,6 +6,7 @@ import 'package:studyme/models/app_state/log_data.dart';
 import 'package:studyme/models/log/log.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
+import "package:collection/collection.dart";
 
 class MeasureChart extends StatefulWidget {
   final Measure measure;
@@ -62,15 +63,48 @@ class _MeasureChartState extends State<MeasureChart> {
         primaryMeasureAxis: widget.measure.tickProvider);
   }
 
-  List<charts.Series<TrialLog, DateTime>> _getTimeSeries() {
+  List<charts.Series<_ChartValue, DateTime>> _getTimeSeries() {
     return [
-      new charts.Series<TrialLog, DateTime>(
+      new charts.Series<_ChartValue, DateTime>(
         id: 'measurements',
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (TrialLog log, _) => log.dateTime,
-        measureFn: (TrialLog log, _) => log.value,
-        data: _logs,
+        domainFn: (_ChartValue value, _) => value.timestamp,
+        measureFn: (_ChartValue value, _) => value.value,
+        data: _getAggregatedValues(),
       )
     ];
   }
+
+  List<_ChartValue> _getAggregatedValues() {
+    final _logsGroupedByDate = groupBy(
+        _logs,
+        (TrialLog log) =>
+            DateTime(log.dateTime.year, log.dateTime.month, log.dateTime.day));
+
+    return _logsGroupedByDate.entries.map((e) {
+      List<num> _values = e.value.map((log) => log.value).toList();
+      num _aggregatedValue;
+
+      if (widget.measure.aggregation == Aggregation.Average) {
+        _aggregatedValue = _calculateMean(_values);
+      } else if (widget.measure.aggregation == Aggregation.Sum) {
+        _aggregatedValue = _calculateSum(_values);
+      }
+
+      DateTime _datetime = DateTime(e.key.year, e.key.month, e.key.day);
+      return _ChartValue(e.key.day, _datetime, _aggregatedValue);
+    }).toList();
+  }
+
+  _calculateSum(List<num> values) => values.reduce((a, b) => a + b);
+
+  _calculateMean(List<num> values) => _calculateSum(values) / values.length;
+}
+
+class _ChartValue {
+  num unit;
+  DateTime timestamp;
+  num value;
+
+  _ChartValue(this.unit, this.timestamp, this.value);
 }
