@@ -102,9 +102,9 @@ class _MeasureChartState extends State<MeasureChart> {
 }
 
 class _ChartValue {
-  num unit;
+  num aggregationUnit;
   DateTime timestamp;
   num value;
 
-  _ChartValue(this.unit, this.timestamp, this.value);
+  _ChartValue(this.aggregationUnit, this.timestamp, this.value);
 }
