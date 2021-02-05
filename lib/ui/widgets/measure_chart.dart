@@ -17,42 +17,59 @@ class MeasureChart extends StatefulWidget {
 }
 
 class _MeasureChartState extends State<MeasureChart> {
+  bool _isLoading;
+
+  List<TrialLog> _logs;
+
+  @override
+  void initState() {
+    _isLoading = true;
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    loadLogs();
+  }
+
+  loadLogs() async {
+    List<TrialLog> _data =
+        await Provider.of<LogData>(context).getLogsFor(widget.measure);
+    setState(() {
+      _logs = _data;
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SectionTitle(widget.measure.name),
-      FutureBuilder<List<TrialLog>>(
-          future: Provider.of<LogData>(context).getLogsFor(widget.measure),
-          builder: (context, AsyncSnapshot<List<TrialLog>> snapshot) {
-            Widget child;
-            if (snapshot.hasData) {
-              child = Container(
-                  height: MediaQuery.of(context).size.height / 4,
-                  child: _buildChart(snapshot.data));
-            } else {
-              child = CircularProgressIndicator();
-            }
-            return child;
-          }),
+      if (_isLoading) CircularProgressIndicator(),
+      if (!_isLoading)
+        Container(
+            height: MediaQuery.of(context).size.height / 4,
+            child: _buildChart())
     ]);
   }
 
-  Widget _buildChart(List<TrialLog> logs) {
-    return charts.TimeSeriesChart(_getTimeSeries(logs),
+  Widget _buildChart() {
+    return charts.TimeSeriesChart(_getTimeSeries(),
         animate: false,
         defaultInteractions: false,
         defaultRenderer: charts.PointRendererConfig<DateTime>(radiusPx: 5),
         primaryMeasureAxis: widget.measure.tickProvider);
   }
 
-  List<charts.Series<TrialLog, DateTime>> _getTimeSeries(List<TrialLog> logs) {
+  List<charts.Series<TrialLog, DateTime>> _getTimeSeries() {
     return [
       new charts.Series<TrialLog, DateTime>(
         id: 'measurements',
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
         domainFn: (TrialLog log, _) => log.dateTime,
         measureFn: (TrialLog log, _) => log.value,
-        data: logs,
+        data: _logs,
       )
     ];
   }
