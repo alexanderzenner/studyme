@@ -78,7 +78,7 @@ class _MeasureInteractState extends State<MeasureInteract> {
   _logValue() {
     var log = TrialLog(widget.measure.id, DateTime.now(), _value);
     Provider.of<LogData>(context, listen: false)
-        .addLogsForMeasure([log], widget.measure);
+        .addMeasureLogs([log], widget.measure);
     Navigator.pop(context, true);
   }
 }

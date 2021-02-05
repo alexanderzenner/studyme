@@ -36,7 +36,7 @@ class _MeasureChartState extends State<MeasureChart> {
 
   loadLogs() async {
     List<TrialLog> _data =
-        await Provider.of<LogData>(context).getLogsFor(widget.measure);
+        await Provider.of<LogData>(context).getMeasureLogs(widget.measure);
     setState(() {
       _logs = _data;
       _isLoading = false;
