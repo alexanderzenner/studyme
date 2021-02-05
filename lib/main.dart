@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:studyme/models/log/trial_log.dart';
 
 import 'models/app_state/app_data.dart';
 import 'models/app_state/app_state.dart';
 import 'models/app_state/log_data.dart';
 import 'models/intervention/intervention.dart';
 import 'models/intervention/no_intervention.dart';
-import 'models/log/measure_log.dart';
 import 'models/measure/choice.dart';
 import 'models/measure/choice_measure.dart';
 import 'models/measure/free_measure.dart';
@@ -59,7 +59,7 @@ _setupHive() async {
 
   Hive.registerAdapter<Reminder>(ReminderAdapter());
 
-  Hive.registerAdapter<MeasureLog>(MeasureLogAdapter());
+  Hive.registerAdapter<TrialLog>(TrialLogAdapter());
 }
 
 class MyApp extends StatelessWidget {

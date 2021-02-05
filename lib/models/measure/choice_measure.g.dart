@@ -17,9 +17,9 @@ class ChoiceMeasureAdapter extends TypeAdapter<ChoiceMeasure> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ChoiceMeasure(
-      id: fields[0] as dynamic,
-      name: fields[2] as dynamic,
-      description: fields[3] as dynamic,
+      id: fields[0] as String,
+      name: fields[2] as String,
+      description: fields[3] as String,
       choices: (fields[5] as List)?.cast<Choice>(),
     )
       ..type = fields[1] as String

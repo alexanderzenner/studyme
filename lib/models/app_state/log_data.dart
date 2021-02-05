@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:studyme/models/log/log.dart';
+import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/measure/measure.dart';
 
 class LogData extends ChangeNotifier {

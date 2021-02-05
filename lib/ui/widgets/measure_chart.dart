@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
-import 'package:studyme/models/log/log.dart';
+import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import "package:collection/collection.dart";
@@ -80,6 +80,8 @@ class _MeasureChartState extends State<MeasureChart> {
         _logs,
         (TrialLog log) =>
             DateTime(log.dateTime.year, log.dateTime.month, log.dateTime.day));
+
+    _logs.forEach((log) => print(log.dateTime));
 
     return _logsGroupedByDate.entries.map((e) {
       List<num> _values = e.value.map((log) => log.value).toList();

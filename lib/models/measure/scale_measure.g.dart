@@ -17,11 +17,11 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ScaleMeasure(
-      id: fields[0] as dynamic,
-      name: fields[2] as dynamic,
-      description: fields[3] as dynamic,
-      min: fields[5] as dynamic,
-      max: fields[6] as dynamic,
+      id: fields[0] as String,
+      name: fields[2] as String,
+      description: fields[3] as String,
+      min: fields[5] as num,
+      max: fields[6] as num,
     )
       ..initial = fields[7] as num
       ..type = fields[1] as String

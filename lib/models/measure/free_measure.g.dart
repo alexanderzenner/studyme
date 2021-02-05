@@ -17,9 +17,9 @@ class FreeMeasureAdapter extends TypeAdapter<FreeMeasure> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return FreeMeasure(
-      id: fields[0] as dynamic,
-      name: fields[2] as dynamic,
-      description: fields[3] as dynamic,
+      id: fields[0] as String,
+      name: fields[2] as String,
+      description: fields[3] as String,
     )
       ..type = fields[1] as String
       ..aggregationString = fields[4] as String;

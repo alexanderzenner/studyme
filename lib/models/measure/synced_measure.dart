@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:health/health.dart';
 import 'package:hive/hive.dart';
-import 'package:studyme/models/log/measure_log.dart';
+import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/util/health_connector.dart';
 
@@ -41,7 +41,7 @@ class SyncedMeasure extends Measure {
   @override
   bool get canEdit => false;
 
-  MeasureLog createLogFrom(HealthDataPoint dataPoint) {
-    return MeasureLog(this.id, dataPoint.dateTo, dataPoint.value);
+  TrialLog createLogFrom(HealthDataPoint dataPoint) {
+    return TrialLog(this.id, dataPoint.dateTo, dataPoint.value);
   }
 }

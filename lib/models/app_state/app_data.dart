@@ -114,7 +114,7 @@ class AppData extends ChangeNotifier {
   startTrial() {
     saveAppState(AppState.DOING);
     DateTime now = DateTime.now();
-    _trial.startDate = DateTime(now.year, now.month, now.day);
+    _trial.startDate = DateTime(now.year, now.month, 3);
     _trial.save();
     _trial.reminders.asMap().forEach((index, reminder) {
       Notifications().scheduleNotificationFor(reminder, index);

@@ -1,6 +1,6 @@
 import "package:collection/collection.dart";
 import 'package:health/health.dart';
-import 'package:studyme/models/log/measure_log.dart';
+import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/measure/synced_measure.dart';
 import 'package:studyme/models/trial.dart';
 
@@ -43,7 +43,7 @@ class HealthConnector {
     groupBy(dataPoints, (HealthDataPoint point) => point.type)
         .forEach((dataType, healthPoints) {
       SyncedMeasure _measure = dataTypeToMeasureMap[dataType];
-      List<MeasureLog> _measureLogs =
+      List<TrialLog> _measureLogs =
           healthPoints.map((_point) => _measure.createLogFrom(_point)).toList();
       saveCallback(_measureLogs, _measure);
     });

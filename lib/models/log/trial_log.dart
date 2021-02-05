@@ -1,19 +1,19 @@
 import 'package:hive/hive.dart';
 
-abstract class TrialLog {
-  @HiveField(0)
-  String type;
+part 'trial_log.g.dart';
 
-  @HiveField(1)
+@HiveType(typeId: 50)
+class TrialLog {
+  @HiveField(0)
   String loggedItemId;
 
-  @HiveField(2)
+  @HiveField(1)
   DateTime dateTime;
 
-  @HiveField(3)
+  @HiveField(2)
   num value;
 
-  TrialLog(this.type, this.loggedItemId, this.dateTime, this.value);
+  TrialLog(this.loggedItemId, this.dateTime, this.value);
 
   String get id =>
       this.loggedItemId + this.dateTime.toString() + this.value.toString();
