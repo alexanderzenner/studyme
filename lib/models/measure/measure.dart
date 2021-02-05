@@ -20,7 +20,6 @@ abstract class Measure {
   String aggregationString;
 
   Aggregation get aggregation {
-    print(this.aggregationString);
     return Aggregation.values
         .firstWhere((t) => t.toString() == this.aggregationString);
   }

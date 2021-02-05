@@ -17,6 +17,8 @@ class TrialSchedule extends HiveObject {
   @HiveField(3)
   int numberOfCycles;
 
+  int get numberOfPhases => phaseSequence.length;
+
   TrialSchedule();
 
   TrialSchedule.createDefault() {
@@ -36,7 +38,7 @@ class TrialSchedule extends HiveObject {
     return TrialSchedule.clone(this);
   }
 
-  int get duration => phaseDuration * phaseSequence.length;
+  int get duration => phaseDuration * numberOfPhases;
 
   updatePhaseOrder(PhaseOrder newPhaseOrder) {
     phaseOrder = newPhaseOrder;

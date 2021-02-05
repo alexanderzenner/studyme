@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
+import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/measure/measure.dart';
+import 'package:studyme/models/trial.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import "package:collection/collection.dart";
 
 class MeasureChart extends StatefulWidget {
   final Measure measure;
+  final Trial trial;
 
-  MeasureChart({@required this.measure});
+  MeasureChart({@required this.measure, @required this.trial});
 
   @override
   _MeasureChartState createState() => _MeasureChartState();
@@ -20,11 +23,14 @@ class MeasureChart extends StatefulWidget {
 class _MeasureChartState extends State<MeasureChart> {
   bool _isLoading;
 
+  TimeAggregation _timeAggregation;
+
   List<TrialLog> _logs;
 
   @override
   void initState() {
     _isLoading = true;
+    _timeAggregation = TimeAggregation.Day;
     super.initState();
   }
 
@@ -56,19 +62,68 @@ class _MeasureChartState extends State<MeasureChart> {
   }
 
   Widget _buildChart() {
-    return charts.TimeSeriesChart(_getTimeSeries(),
+    return charts.NumericComboChart(_getSeriesData(),
         animate: false,
+        behaviors: [
+          _getSeperators(),
+        ],
         defaultInteractions: false,
-        defaultRenderer: charts.PointRendererConfig<DateTime>(radiusPx: 5),
+        defaultRenderer: new charts.BarRendererConfig(),
+        domainAxis: charts.NumericAxisSpec(
+            viewport: _getExtents(),
+            tickFormatterSpec: charts.BasicNumericTickFormatterSpec(
+                (value) => (value + 1).toInt().toString())),
         primaryMeasureAxis: widget.measure.tickProvider);
   }
 
-  List<charts.Series<_ChartValue, DateTime>> _getTimeSeries() {
+  charts.RangeAnnotation _getSeperators() => charts.RangeAnnotation(
+        Iterable.generate(widget.trial.schedule.numberOfPhases + 1)
+            .map((i) => charts.LineAnnotationSegment<num>(
+                  i * widget.trial.schedule.phaseDuration - 0.5,
+                  charts.RangeAnnotationAxisType.domain,
+                  color: charts.MaterialPalette.gray.shade400,
+                  strokeWidthPx: 1,
+                ))
+            .toList(),
+      );
+
+  charts.NumericExtents _getExtents() {
+    if (_timeAggregation == TimeAggregation.Day) {
+      return charts.NumericExtents(
+          0,
+          widget.trial.schedule.numberOfPhases *
+                  widget.trial.schedule.phaseDuration -
+              1);
+    } else {
+      return null;
+    }
+  }
+
+  // keep this in case I need it
+  charts.StaticNumericTickProviderSpec _getDomainTicks() {
+    if (_timeAggregation == TimeAggregation.Day) {
+      return charts.StaticNumericTickProviderSpec(widget
+          .trial.schedule.phaseSequence
+          .asMap()
+          .map((index, value) => MapEntry(
+              index * widget.trial.schedule.phaseDuration +
+                  (widget.trial.schedule.phaseDuration - 1) / 2,
+              value))
+          .entries
+          .map((entry) =>
+              charts.TickSpec<num>(entry.key, label: entry.value.toUpperCase()))
+          .toList());
+    } else {
+      return null;
+    }
+  }
+
+  List<charts.Series<_ChartValue, num>> _getSeriesData() {
     return [
-      new charts.Series<_ChartValue, DateTime>(
-        id: 'measurements',
+      charts.Series<_ChartValue, num>(
+        id: 'hi',
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (_ChartValue value, _) => value.timestamp,
+        domainFn: (_ChartValue value, _) => value.aggregationUnit,
         measureFn: (_ChartValue value, _) => value.value,
         data: _getAggregatedValues(),
       )
@@ -76,26 +131,31 @@ class _MeasureChartState extends State<MeasureChart> {
   }
 
   List<_ChartValue> _getAggregatedValues() {
-    final _logsGroupedByDate = groupBy(
-        _logs,
-        (TrialLog log) =>
-            DateTime(log.dateTime.year, log.dateTime.month, log.dateTime.day));
+    if (_timeAggregation == TimeAggregation.Day) {
+      final _logsGroupedByDate = groupBy(
+          _logs,
+          (TrialLog log) => DateTime(
+              log.dateTime.year, log.dateTime.month, log.dateTime.day));
+      return _logsGroupedByDate.entries.map((entry) {
+        List<num> _values = entry.value.map((log) => log.value).toList();
+        num _aggregationUnit = widget.trial.getDayOfStudyFor(entry.key);
+        print(_aggregationUnit);
+        Intervention _intervention =
+            widget.trial.getInterventionForDate(entry.key).intervention;
+        return _ChartValue(
+            _aggregationUnit, _aggregate(_values), _intervention.name);
+      }).toList();
+    } else {
+      return [];
+    }
+  }
 
-    _logs.forEach((log) => print(log.dateTime));
-
-    return _logsGroupedByDate.entries.map((e) {
-      List<num> _values = e.value.map((log) => log.value).toList();
-      num _aggregatedValue;
-
-      if (widget.measure.aggregation == Aggregation.Average) {
-        _aggregatedValue = _calculateMean(_values);
-      } else if (widget.measure.aggregation == Aggregation.Sum) {
-        _aggregatedValue = _calculateSum(_values);
-      }
-
-      DateTime _datetime = DateTime(e.key.year, e.key.month, e.key.day);
-      return _ChartValue(e.key.day, _datetime, _aggregatedValue);
-    }).toList();
+  _aggregate(List<num> values) {
+    if (widget.measure.aggregation == Aggregation.Average) {
+      return _calculateMean(values);
+    } else if (widget.measure.aggregation == Aggregation.Sum) {
+      return _calculateSum(values);
+    }
   }
 
   _calculateSum(List<num> values) => values.reduce((a, b) => a + b);
@@ -104,9 +164,11 @@ class _MeasureChartState extends State<MeasureChart> {
 }
 
 class _ChartValue {
-  num aggregationUnit;
-  DateTime timestamp;
-  num value;
+  final num aggregationUnit;
+  final num value;
+  final String loggedItemId;
 
-  _ChartValue(this.aggregationUnit, this.timestamp, this.value);
+  _ChartValue(this.aggregationUnit, this.value, this.loggedItemId);
 }
+
+enum TimeAggregation { Day, Phase, Intervention }

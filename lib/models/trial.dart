@@ -41,13 +41,17 @@ class Trial extends HiveObject {
         .subtract(Duration(seconds: 1));
   }
 
+  int getDayOfStudyFor(DateTime date) {
+    return date.differenceInDays(startDate).inDays;
+  }
+
   bool isInStudyTimeframe(DateTime date) {
     return date.isAfter(startDate) && date.isBefore(endDate);
   }
 
   InterventionWithContext getInterventionForDate(DateTime date) {
     final index = getInterventionIndexForDate(date);
-    if (index < 0 || index >= schedule.phaseSequence.length) {
+    if (index < 0 || index >= schedule.numberOfPhases) {
       print('Study is over or has not begun.');
       return null;
     }

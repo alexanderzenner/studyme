@@ -14,7 +14,9 @@ class History extends StatelessWidget {
             shrinkWrap: true,
             itemCount: appState.trial.measures.length,
             itemBuilder: (context, index) {
-              return MeasureChart(measure: appState.trial.measures[index]);
+              return MeasureChart(
+                  measure: appState.trial.measures[index],
+                  trial: appState.trial);
             }),
       );
     });

@@ -38,13 +38,13 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
         child: ScrollablePositionedList.builder(
           scrollDirection: Axis.horizontal,
           itemScrollController: _scrollController,
-          itemCount: widget.schedule.phaseSequence.length + 1,
+          itemCount: widget.schedule.numberOfPhases + 1,
           itemBuilder: (context, index) {
             Widget _cardContent;
             Widget _textBelowCard;
             Color _cardColor = Colors.white;
 
-            if (index == widget.schedule.phaseSequence.length) {
+            if (index == widget.schedule.numberOfPhases) {
               _cardContent = Icon(Icons.flag);
               if (widget.showDuration) {
                 _textBelowCard = _buildTotalDurationText();
@@ -71,7 +71,7 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
 
   _buildTotalDurationText() {
     return Text(
-      '= ${widget.schedule.phaseDuration * widget.schedule.phaseSequence.length}d',
+      '= ${widget.schedule.phaseDuration * widget.schedule.numberOfPhases}d',
       style: TextStyle(fontWeight: FontWeight.bold),
       overflow: TextOverflow.ellipsis,
     );
