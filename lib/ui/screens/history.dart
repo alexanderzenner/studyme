@@ -29,7 +29,7 @@ class History extends StatelessWidget {
                       MeasureChart(
                         measure: appState.trial.measures[index],
                         trial: appState.trial,
-                        timeAggregation: TimeAggregation.Phase,
+                        timeAggregation: TimeAggregation.Intervention,
                       )
                     ],
                   );

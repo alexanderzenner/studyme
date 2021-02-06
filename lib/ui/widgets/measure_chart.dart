@@ -111,6 +111,14 @@ class _MeasureChartState extends State<MeasureChart> {
     } else if (widget.timeAggregation == TimeAggregation.Phase) {
       return charts.BasicNumericTickFormatterSpec(
           (value) => widget.trial.schedule.phaseSequence[value].toUpperCase());
+    } else if (widget.timeAggregation == TimeAggregation.Intervention) {
+      return charts.BasicNumericTickFormatterSpec((value) {
+        if (value == 0) return 'A';
+        if (value == 1)
+          return 'B';
+        else
+          return null;
+      });
     } else {
       return null;
     }
@@ -118,12 +126,10 @@ class _MeasureChartState extends State<MeasureChart> {
 
   charts.NumericTickProviderSpec _getProviderSpec() {
     if (widget.timeAggregation == TimeAggregation.Phase) {
-      return charts.StaticNumericTickProviderSpec([
-        charts.TickSpec<num>(0),
-        charts.TickSpec<num>(1),
-        charts.TickSpec<num>(2),
-        charts.TickSpec<num>(3),
-      ]);
+      return charts.StaticNumericTickProviderSpec(
+          Iterable.generate(widget.trial.schedule.numberOfPhases)
+              .map((e) => charts.TickSpec<num>(e))
+              .toList());
     } else {
       return null;
     }
@@ -150,26 +156,42 @@ class _MeasureChartState extends State<MeasureChart> {
           (TrialLog log) => DateTime(
               log.dateTime.year, log.dateTime.month, log.dateTime.day));
       return _logsGroupedByDate.entries.map((entry) {
-        List<num> _values = entry.value.map((log) => log.value).toList();
         num _aggregationUnit = widget.trial.getDayOfStudyFor(entry.key);
         Intervention _intervention =
             widget.trial.getInterventionForDate(entry.key);
-        return _ChartValue(
-            _aggregationUnit, _aggregate(_values), _intervention.letter);
+        return _ChartValue(_aggregationUnit,
+            _aggregate(_getValuesFromLogs(entry.value)), _intervention.letter);
       }).toList();
     } else if (widget.timeAggregation == TimeAggregation.Phase) {
       final _logsGroupedByPhase = groupBy(_logs,
           (TrialLog log) => widget.trial.getPhaseIndexForDate(log.dateTime));
       return _logsGroupedByPhase.entries.map((entry) {
-        List<num> _values = entry.value.map((log) => log.value).toList();
         Intervention _intervention =
             widget.trial.getInterventionForPhaseIndex(entry.key);
-        return _ChartValue(
-            entry.key, _aggregate(_values), _intervention.letter);
+        return _ChartValue(entry.key,
+            _aggregate(_getValuesFromLogs(entry.value)), _intervention.letter);
+      }).toList();
+    } else if (widget.timeAggregation == TimeAggregation.Intervention) {
+      final _logsGroupedByIntervention = groupBy(_logs,
+          (TrialLog log) => widget.trial.getInterventionForDate(log.dateTime));
+      return _logsGroupedByIntervention.entries.map((entry) {
+        int aggregationUnit;
+        if (entry.key.letter == 'a') {
+          aggregationUnit = 0;
+        } else {
+          aggregationUnit = 1;
+        }
+        print(entry.key.name);
+        return _ChartValue(aggregationUnit,
+            _aggregate(_getValuesFromLogs(entry.value)), entry.key.letter);
       }).toList();
     } else {
       return [];
     }
+  }
+
+  List<num> _getValuesFromLogs(List<TrialLog> logs) {
+    return logs.map((log) => log.value).toList();
   }
 
   _aggregate(List<num> values) {
@@ -186,7 +208,7 @@ class _MeasureChartState extends State<MeasureChart> {
 }
 
 class _ChartValue {
-  final num aggregationUnit;
+  final dynamic aggregationUnit;
   final num value;
   final String loggedItemId;
 
