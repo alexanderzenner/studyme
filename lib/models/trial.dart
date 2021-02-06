@@ -19,7 +19,7 @@ class Trial extends HiveObject {
   List<Measure> measures;
 
   @HiveField(3)
-  TrialSchedule schedule;
+  TrialPhases phases;
 
   @HiveField(4)
   DateTime startDate;
@@ -37,7 +37,7 @@ class Trial extends HiveObject {
 
   DateTime get endDate {
     return startDate
-        .add(Duration(days: this.schedule.duration))
+        .add(Duration(days: phases.totalDuration))
         .subtract(Duration(seconds: 1));
   }
 
@@ -56,11 +56,11 @@ class Trial extends HiveObject {
   }
 
   Intervention getInterventionForPhaseIndex(int index) {
-    if (index < 0 || index >= schedule.numberOfPhases) {
+    if (index < 0 || index >= phases.numberOfPhases) {
       print('Study is over or has not begun.');
       return null;
     }
-    final interventionLetter = schedule.phaseSequence[index];
+    final interventionLetter = phases.phaseSequence[index];
 
     if (interventionLetter == 'a')
       return a;
@@ -72,7 +72,7 @@ class Trial extends HiveObject {
 
   int getPhaseIndexForDate(DateTime date) {
     final test = date.differenceInDays(startDate).inDays;
-    return test ~/ schedule.phaseDuration;
+    return test ~/ phases.phaseDuration;
   }
 }
 

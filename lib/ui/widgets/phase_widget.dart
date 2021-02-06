@@ -1,25 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:studyme/models/schedule/trial_schedule.dart';
+import 'package:studyme/models/schedule/trial_phases.dart';
 import 'package:studyme/ui/widgets/intervention_letter.dart';
 import 'package:studyme/util/color_map.dart';
 
-class ScheduleWidget extends StatefulWidget {
-  final TrialSchedule schedule;
+class PhasesWidget extends StatefulWidget {
+  final TrialPhases schedule;
   final bool showDuration;
   final int activeIndex;
 
-  ScheduleWidget(
+  PhasesWidget(
       {@required this.schedule,
       this.showDuration = false,
       this.activeIndex = -1});
 
   @override
-  _ScheduleWidgetState createState() => _ScheduleWidgetState();
+  _PhasesWidgetState createState() => _PhasesWidgetState();
 }
 
-class _ScheduleWidgetState extends State<ScheduleWidget> {
+class _PhasesWidgetState extends State<PhasesWidget> {
   ItemScrollController _scrollController = ItemScrollController();
 
   @override

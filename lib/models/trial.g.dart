@@ -20,7 +20,7 @@ class TrialAdapter extends TypeAdapter<Trial> {
       ..a = fields[0] as Intervention
       ..b = fields[1] as Intervention
       ..measures = (fields[2] as List)?.cast<Measure>()
-      ..schedule = fields[3] as TrialSchedule
+      ..phases = fields[3] as dynamic
       ..startDate = fields[4] as DateTime
       ..reminders = (fields[5] as List)?.cast<Reminder>();
   }
@@ -36,7 +36,7 @@ class TrialAdapter extends TypeAdapter<Trial> {
       ..writeByte(2)
       ..write(obj.measures)
       ..writeByte(3)
-      ..write(obj.schedule)
+      ..write(obj.phases)
       ..writeByte(4)
       ..write(obj.startDate)
       ..writeByte(5)

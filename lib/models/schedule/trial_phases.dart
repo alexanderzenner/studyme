@@ -1,10 +1,10 @@
 import 'package:hive/hive.dart';
 import 'package:studyme/models/schedule/phase_order.dart';
 
-part 'trial_schedule.g.dart';
+part 'trial_phases.g.dart';
 
 @HiveType(typeId: 201)
-class TrialSchedule extends HiveObject {
+class TrialPhases extends HiveObject {
   @HiveField(0)
   PhaseOrder phaseOrder;
 
@@ -19,26 +19,26 @@ class TrialSchedule extends HiveObject {
 
   int get numberOfPhases => phaseSequence.length;
 
-  TrialSchedule();
+  TrialPhases();
 
-  TrialSchedule.createDefault() {
+  TrialPhases.createDefault() {
     this.phaseOrder = PhaseOrder.alternating;
     this.phaseDuration = 7;
     this.numberOfCycles = 2;
     _updatePhaseSequence();
   }
 
-  TrialSchedule.clone(TrialSchedule schedule)
+  TrialPhases.clone(TrialPhases schedule)
       : phaseOrder = schedule.phaseOrder,
         phaseDuration = schedule.phaseDuration,
         phaseSequence = schedule.phaseSequence,
         numberOfCycles = schedule.numberOfCycles;
 
   clone() {
-    return TrialSchedule.clone(this);
+    return TrialPhases.clone(this);
   }
 
-  int get duration => phaseDuration * numberOfPhases;
+  int get totalDuration => phaseDuration * numberOfPhases;
 
   updatePhaseOrder(PhaseOrder newPhaseOrder) {
     phaseOrder = newPhaseOrder;

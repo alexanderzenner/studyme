@@ -2,12 +2,12 @@ import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
+import 'package:studyme/models/schedule/trial_phases.dart';
 import 'package:studyme/util/notifications.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/reminder.dart';
 import 'package:studyme/models/trial.dart';
-import 'package:studyme/models/schedule/trial_schedule.dart';
 
 class AppData extends ChangeNotifier {
   static const activeTrialKey = 'trial';
@@ -72,8 +72,8 @@ class AppData extends ChangeNotifier {
     }
   }
 
-  void updateSchedule(TrialSchedule schedule) {
-    _trial.schedule = schedule;
+  void updateSchedule(TrialPhases schedule) {
+    _trial.phases = schedule;
     _trial.save();
     notifyListeners();
   }
@@ -139,7 +139,7 @@ class AppData extends ChangeNotifier {
   }
 
   bool canAddMeasures() {
-    return canAddSchedule() && _trial.schedule != null;
+    return canAddSchedule() && _trial.phases != null;
   }
 
   bool canAddReminders() {

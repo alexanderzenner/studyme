@@ -8,7 +8,7 @@ import 'package:studyme/ui/widgets/hint_card.dart';
 import '../widgets/creator_intervention_section.dart';
 import '../widgets/creator_measure_section.dart';
 import '../widgets/creator_reminder_section.dart';
-import '../widgets/creator_schedule_section.dart';
+import '../widgets/creator_phase_section.dart';
 
 class Creator extends StatelessWidget {
   @override
@@ -28,8 +28,7 @@ class Creator extends StatelessWidget {
                   HintCard(),
                   CreatorInterventionSection(model),
                   Divider(height: 30),
-                  CreatorScheduleSection(model,
-                      isActive: model.canAddSchedule()),
+                  CreatorPhasesSection(model, isActive: model.canAddSchedule()),
                   Divider(height: 30),
                   CreatorMeasureSection(model,
                       isActive: model.canAddMeasures()),

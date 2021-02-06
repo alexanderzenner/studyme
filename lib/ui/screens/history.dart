@@ -16,7 +16,7 @@ class _HistoryState extends State<History> {
   @override
   initState() {
     super.initState();
-    _timeAggregation = TimeAggregation.Intervention;
+    _timeAggregation = TimeAggregation.Day;
   }
 
   @override

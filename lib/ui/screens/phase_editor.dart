@@ -3,28 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/schedule/phase_order.dart';
-import 'package:studyme/models/schedule/trial_schedule.dart';
+import 'package:studyme/models/schedule/trial_phases.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
-import 'package:studyme/ui/widgets/schedule_widget.dart';
+import 'package:studyme/ui/widgets/phase_widget.dart';
 
-class ScheduleEditor extends StatefulWidget {
+class PhaseEditor extends StatefulWidget {
   @override
-  _ScheduleEditorState createState() => _ScheduleEditorState();
+  _PhaseEditorState createState() => _PhaseEditorState();
 }
 
-class _ScheduleEditorState extends State<ScheduleEditor> {
-  TrialSchedule _schedule;
+class _PhaseEditorState extends State<PhaseEditor> {
+  TrialPhases _schedule;
   bool _isCreator;
 
   @override
   void initState() {
     final trial = Provider.of<AppData>(context, listen: false).trial;
-    if (trial.schedule != null) {
+    if (trial.phases != null) {
       _isCreator = false;
-      _schedule = trial.schedule.clone();
+      _schedule = trial.phases.clone();
     } else {
       _isCreator = true;
-      _schedule = TrialSchedule.createDefault();
+      _schedule = TrialPhases.createDefault();
     }
     super.initState();
   }
@@ -34,7 +34,7 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
     return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
-          title: Text((_isCreator ? 'Add' : 'Edit') + ' Schedule'),
+          title: Text((_isCreator ? 'Add' : 'Edit') + ' Phases'),
           actions: <Widget>[
             SaveButton(canPress: _canSubmit(), onPressed: _save)
           ],
@@ -44,7 +44,7 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
           child: Consumer<AppData>(builder: (context, model, child) {
             return Column(
               children: [
-                ScheduleWidget(schedule: _schedule, showDuration: true),
+                PhasesWidget(schedule: _schedule, showDuration: true),
                 SizedBox(height: 20),
                 TextFormField(
                   initialValue: _schedule.phaseDuration.toString(),
@@ -77,7 +77,7 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
   }
 
   _canSubmit() {
-    return _schedule.duration != 0;
+    return _schedule.totalDuration != 0;
   }
 
   _updateNumberOfCycles(text) {
