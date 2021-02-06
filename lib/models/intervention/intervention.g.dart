@@ -21,13 +21,14 @@ class InterventionAdapter extends TypeAdapter<Intervention> {
       type: fields[0] as dynamic,
       name: fields[2] as String,
       description: fields[3] as String,
+      letter: fields[4] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Intervention obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.type)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class InterventionAdapter extends TypeAdapter<Intervention> {
       ..writeByte(2)
       ..write(obj.name)
       ..writeByte(3)
-      ..write(obj.description);
+      ..write(obj.description)
+      ..writeByte(4)
+      ..write(obj.letter);
   }
 
   @override

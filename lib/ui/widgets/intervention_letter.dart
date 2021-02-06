@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:studyme/util/color_map.dart';
 
 class InterventionLetter extends StatelessWidget {
-  final bool isA;
+  final String letter;
   final bool isInverted;
 
-  InterventionLetter({@required this.isA, this.isInverted = false});
+  InterventionLetter(this.letter, {this.isInverted = false});
 
   @override
   Widget build(BuildContext context) {
-    return Text(isA ? 'A' : 'B',
+    return Text(letter.toUpperCase(),
         style: TextStyle(
-            color: isInverted
-                ? Colors.white
-                : isA
-                    ? Colors.lightBlue
-                    : Colors.lightGreen,
+            color: isInverted ? Colors.white : colorMap[letter],
             fontSize: 20,
             fontWeight: FontWeight.bold));
   }

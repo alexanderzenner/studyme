@@ -21,14 +21,18 @@ class Intervention {
   @HiveField(3)
   String description;
 
-  Intervention({id, type, this.name, this.description})
+  @HiveField(4)
+  String letter;
+
+  Intervention({id, type, this.name, this.description, this.letter})
       : this.id = id ?? Uuid().v4(),
         this.type = type ?? interventionType;
 
   Intervention.clone(Intervention intervention)
       : type = intervention.type,
         name = intervention.name,
-        description = intervention.description;
+        description = intervention.description,
+        letter = intervention.letter;
 
   clone() {
     switch (this.runtimeType) {
@@ -38,11 +42,4 @@ class Intervention {
         return Intervention.clone(this);
     }
   }
-}
-
-class InterventionWithContext {
-  final bool isA;
-  final Intervention intervention;
-
-  InterventionWithContext({this.isA, this.intervention});
 }

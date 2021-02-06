@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:studyme/models/schedule/trial_schedule.dart';
 import 'package:studyme/ui/widgets/intervention_letter.dart';
+import 'package:studyme/util/color_map.dart';
 
 class ScheduleWidget extends StatefulWidget {
   final TrialSchedule schedule;
@@ -50,14 +51,14 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                 _textBelowCard = _buildTotalDurationText();
               }
             } else {
-              bool _isA = widget.schedule.phaseSequence[index] == 'a';
-              _cardContent = InterventionLetter(
-                  isInverted: index < widget.activeIndex, isA: _isA);
+              String letter = widget.schedule.phaseSequence[index];
+              _cardContent = InterventionLetter(letter,
+                  isInverted: index < widget.activeIndex);
               if (widget.showDuration) {
                 _textBelowCard = _buildPhaseDurationText();
               }
               if (index < widget.activeIndex) {
-                _cardColor = _isA ? Colors.lightBlue : Colors.lightGreen;
+                _cardColor = colorMap[letter];
               }
             }
 

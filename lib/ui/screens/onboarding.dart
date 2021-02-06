@@ -79,11 +79,9 @@ class _OnboardingState extends State<Onboarding> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            InterventionLetter(isA: true),
+                            InterventionLetter('a'),
                             Text("vs."),
-                            InterventionLetter(
-                              isA: false,
-                            )
+                            InterventionLetter('b')
                           ],
                         )
                       ],

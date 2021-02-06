@@ -51,10 +51,9 @@ class Home extends StatelessWidget {
     return [
       SectionTitle('Intervention'),
       InterventionCard(
-          isA: currentIntervention.isA,
-          intervention: currentIntervention.intervention,
-          onTap: () => _navigateToInterventionScreen(
-              context, currentIntervention.intervention)),
+          intervention: currentIntervention,
+          onTap: () =>
+              _navigateToInterventionScreen(context, currentIntervention)),
       SizedBox(height: 10),
       SectionTitle('Measures'),
       ListView.builder(

@@ -12,6 +12,8 @@ import 'package:studyme/models/schedule/trial_schedule.dart';
 class AppData extends ChangeNotifier {
   static const activeTrialKey = 'trial';
   static const stateKey = 'state';
+  static const interventionALetter = 'a';
+  static const interventionBLetter = 'b';
 
   Box box;
   Trial _trial;
@@ -29,12 +31,14 @@ class AppData extends ChangeNotifier {
   }
 
   void setInterventionA(Intervention intervention) {
+    intervention.letter = interventionALetter;
     _trial.a = intervention;
     _trial.save();
     notifyListeners();
   }
 
   void setInterventionB(Intervention intervention) {
+    intervention.letter = interventionBLetter;
     _trial.b = intervention;
     _trial.save();
     notifyListeners();

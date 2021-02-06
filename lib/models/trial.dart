@@ -49,16 +49,14 @@ class Trial extends HiveObject {
     return date.isAfter(startDate) && date.isBefore(endDate);
   }
 
-  InterventionWithContext getInterventionForDate(DateTime date) {
+  Intervention getInterventionForDate(DateTime date) {
     final index = getInterventionIndexForDate(date);
     if (index < 0 || index >= schedule.numberOfPhases) {
       print('Study is over or has not begun.');
       return null;
     }
     final interventionLetter = schedule.phaseSequence[index];
-    return InterventionWithContext(
-        isA: interventionLetter == 'a',
-        intervention: _getInterventionForLetter(interventionLetter));
+    return _getInterventionForLetter(interventionLetter);
   }
 
   Intervention _getInterventionForLetter(String letter) {

@@ -141,7 +141,7 @@ class _MeasureChartState extends State<MeasureChart> {
         num _aggregationUnit = widget.trial.getDayOfStudyFor(entry.key);
         print(_aggregationUnit);
         Intervention _intervention =
-            widget.trial.getInterventionForDate(entry.key).intervention;
+            widget.trial.getInterventionForDate(entry.key);
         return _ChartValue(
             _aggregationUnit, _aggregate(_values), _intervention.name);
       }).toList();
