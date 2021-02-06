@@ -31,7 +31,7 @@ class Home extends StatelessWidget {
     } else {
       final _currentIntervention = _trial.getInterventionForDate(_dateToday);
       _body = _buildBodyWithTodaysTasks(context, _trial, _currentIntervention);
-      _activeIndex = _trial.getInterventionIndexForDate(_dateToday);
+      _activeIndex = _trial.getPhaseIndexForDate(_dateToday);
     }
 
     return SingleChildScrollView(

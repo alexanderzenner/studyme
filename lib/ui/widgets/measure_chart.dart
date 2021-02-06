@@ -30,7 +30,7 @@ class _MeasureChartState extends State<MeasureChart> {
   @override
   void initState() {
     _isLoading = true;
-    _timeAggregation = TimeAggregation.Day;
+    _timeAggregation = TimeAggregation.Phase;
     super.initState();
   }
 
@@ -61,18 +61,20 @@ class _MeasureChartState extends State<MeasureChart> {
     ]);
   }
 
+  bool get needSeperators => _timeAggregation == TimeAggregation.Day;
+
   Widget _buildChart() {
     return charts.NumericComboChart(_getSeriesData(),
         animate: false,
         behaviors: [
-          _getSeperators(),
+          if (needSeperators) _getSeperators(),
         ],
         defaultInteractions: false,
         defaultRenderer: new charts.BarRendererConfig(),
         domainAxis: charts.NumericAxisSpec(
             viewport: _getExtents(),
-            tickFormatterSpec: charts.BasicNumericTickFormatterSpec(
-                (value) => (value + 1).toInt().toString())),
+            tickFormatterSpec: _getFormatterSpec(),
+            tickProviderSpec: _getProviderSpec()),
         primaryMeasureAxis: widget.measure.tickProvider);
   }
 
@@ -94,25 +96,31 @@ class _MeasureChartState extends State<MeasureChart> {
           widget.trial.schedule.numberOfPhases *
                   widget.trial.schedule.phaseDuration -
               1);
+    } else if (_timeAggregation == TimeAggregation.Phase) {
+      print(widget.trial.schedule.numberOfPhases);
+      return charts.NumericExtents(0, widget.trial.schedule.numberOfPhases - 1);
     } else {
       return null;
     }
   }
 
-  // keep this in case I need it
-  charts.StaticNumericTickProviderSpec _getDomainTicks() {
+  charts.TickFormatterSpec _getFormatterSpec() {
     if (_timeAggregation == TimeAggregation.Day) {
-      return charts.StaticNumericTickProviderSpec(widget
-          .trial.schedule.phaseSequence
-          .asMap()
-          .map((index, value) => MapEntry(
-              index * widget.trial.schedule.phaseDuration +
-                  (widget.trial.schedule.phaseDuration - 1) / 2,
-              value))
-          .entries
-          .map((entry) =>
-              charts.TickSpec<num>(entry.key, label: entry.value.toUpperCase()))
-          .toList());
+      return charts.BasicNumericTickFormatterSpec(
+          (value) => (value + 1).toInt().toString());
+    } else {
+      return null;
+    }
+  }
+
+  charts.NumericTickProviderSpec _getProviderSpec() {
+    if (_timeAggregation == TimeAggregation.Phase) {
+      return charts.StaticNumericTickProviderSpec([
+        charts.TickSpec<num>(0),
+        charts.TickSpec<num>(1),
+        charts.TickSpec<num>(2),
+        charts.TickSpec<num>(3),
+      ]);
     } else {
       return null;
     }
@@ -122,7 +130,9 @@ class _MeasureChartState extends State<MeasureChart> {
     return [
       charts.Series<_ChartValue, num>(
         id: 'hi',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        colorFn: (_ChartValue value, __) => value.loggedItemId == 'a'
+            ? charts.MaterialPalette.blue.shadeDefault
+            : charts.MaterialPalette.green.shadeDefault,
         domainFn: (_ChartValue value, _) => value.aggregationUnit,
         measureFn: (_ChartValue value, _) => value.value,
         data: _getAggregatedValues(),
@@ -139,11 +149,20 @@ class _MeasureChartState extends State<MeasureChart> {
       return _logsGroupedByDate.entries.map((entry) {
         List<num> _values = entry.value.map((log) => log.value).toList();
         num _aggregationUnit = widget.trial.getDayOfStudyFor(entry.key);
-        print(_aggregationUnit);
         Intervention _intervention =
             widget.trial.getInterventionForDate(entry.key);
         return _ChartValue(
-            _aggregationUnit, _aggregate(_values), _intervention.name);
+            _aggregationUnit, _aggregate(_values), _intervention.letter);
+      }).toList();
+    } else if (_timeAggregation == TimeAggregation.Phase) {
+      final _logsGroupedByPhase = groupBy(_logs,
+          (TrialLog log) => widget.trial.getPhaseIndexForDate(log.dateTime));
+      return _logsGroupedByPhase.entries.map((entry) {
+        List<num> _values = entry.value.map((log) => log.value).toList();
+        Intervention _intervention =
+            widget.trial.getInterventionForPhaseIndex(entry.key);
+        return _ChartValue(
+            entry.key, _aggregate(_values), _intervention.letter);
       }).toList();
     } else {
       return [];
@@ -172,3 +191,23 @@ class _ChartValue {
 }
 
 enum TimeAggregation { Day, Phase, Intervention }
+
+
+// keep this in case I need it
+/*   charts.StaticNumericTickProviderSpec _getDomainTicks() {
+    if (_timeAggregation == TimeAggregation.Day) {
+      return charts.StaticNumericTickProviderSpec(widget
+          .trial.schedule.phaseSequence
+          .asMap()
+          .map((index, value) => MapEntry(
+              index * widget.trial.schedule.phaseDuration +
+                  (widget.trial.schedule.phaseDuration - 1) / 2,
+              value))
+          .entries
+          .map((entry) =>
+              charts.TickSpec<num>(entry.key, label: entry.value.toUpperCase()))
+          .toList());
+    } else {
+      return null;
+    }
+  } */

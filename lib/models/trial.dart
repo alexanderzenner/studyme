@@ -50,25 +50,27 @@ class Trial extends HiveObject {
   }
 
   Intervention getInterventionForDate(DateTime date) {
-    final index = getInterventionIndexForDate(date);
+    final index = getPhaseIndexForDate(date);
+
+    return getInterventionForPhaseIndex(index);
+  }
+
+  Intervention getInterventionForPhaseIndex(int index) {
     if (index < 0 || index >= schedule.numberOfPhases) {
       print('Study is over or has not begun.');
       return null;
     }
     final interventionLetter = schedule.phaseSequence[index];
-    return _getInterventionForLetter(interventionLetter);
-  }
 
-  Intervention _getInterventionForLetter(String letter) {
-    if (letter == 'a')
+    if (interventionLetter == 'a')
       return a;
-    else if (letter == 'b')
+    else if (interventionLetter == 'b')
       return b;
     else
       return null;
   }
 
-  int getInterventionIndexForDate(DateTime date) {
+  int getPhaseIndexForDate(DateTime date) {
     final test = date.differenceInDays(startDate).inDays;
     return test ~/ schedule.phaseDuration;
   }
