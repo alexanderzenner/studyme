@@ -13,8 +13,12 @@ import "package:collection/collection.dart";
 class MeasureChart extends StatefulWidget {
   final Measure measure;
   final Trial trial;
+  final TimeAggregation timeAggregation;
 
-  MeasureChart({@required this.measure, @required this.trial});
+  MeasureChart(
+      {@required this.measure,
+      @required this.trial,
+      @required this.timeAggregation});
 
   @override
   _MeasureChartState createState() => _MeasureChartState();
@@ -23,14 +27,11 @@ class MeasureChart extends StatefulWidget {
 class _MeasureChartState extends State<MeasureChart> {
   bool _isLoading;
 
-  TimeAggregation _timeAggregation;
-
   List<TrialLog> _logs;
 
   @override
   void initState() {
     _isLoading = true;
-    _timeAggregation = TimeAggregation.Phase;
     super.initState();
   }
 
@@ -61,7 +62,7 @@ class _MeasureChartState extends State<MeasureChart> {
     ]);
   }
 
-  bool get needSeperators => _timeAggregation == TimeAggregation.Day;
+  bool get needSeperators => widget.timeAggregation == TimeAggregation.Day;
 
   Widget _buildChart() {
     return charts.NumericComboChart(_getSeriesData(),
@@ -90,14 +91,13 @@ class _MeasureChartState extends State<MeasureChart> {
       );
 
   charts.NumericExtents _getExtents() {
-    if (_timeAggregation == TimeAggregation.Day) {
+    if (widget.timeAggregation == TimeAggregation.Day) {
       return charts.NumericExtents(
           0,
           widget.trial.schedule.numberOfPhases *
                   widget.trial.schedule.phaseDuration -
               1);
-    } else if (_timeAggregation == TimeAggregation.Phase) {
-      print(widget.trial.schedule.numberOfPhases);
+    } else if (widget.timeAggregation == TimeAggregation.Phase) {
       return charts.NumericExtents(0, widget.trial.schedule.numberOfPhases - 1);
     } else {
       return null;
@@ -105,16 +105,19 @@ class _MeasureChartState extends State<MeasureChart> {
   }
 
   charts.TickFormatterSpec _getFormatterSpec() {
-    if (_timeAggregation == TimeAggregation.Day) {
+    if (widget.timeAggregation == TimeAggregation.Day) {
       return charts.BasicNumericTickFormatterSpec(
           (value) => (value + 1).toInt().toString());
+    } else if (widget.timeAggregation == TimeAggregation.Phase) {
+      return charts.BasicNumericTickFormatterSpec(
+          (value) => widget.trial.schedule.phaseSequence[value].toUpperCase());
     } else {
       return null;
     }
   }
 
   charts.NumericTickProviderSpec _getProviderSpec() {
-    if (_timeAggregation == TimeAggregation.Phase) {
+    if (widget.timeAggregation == TimeAggregation.Phase) {
       return charts.StaticNumericTickProviderSpec([
         charts.TickSpec<num>(0),
         charts.TickSpec<num>(1),
@@ -141,7 +144,7 @@ class _MeasureChartState extends State<MeasureChart> {
   }
 
   List<_ChartValue> _getAggregatedValues() {
-    if (_timeAggregation == TimeAggregation.Day) {
+    if (widget.timeAggregation == TimeAggregation.Day) {
       final _logsGroupedByDate = groupBy(
           _logs,
           (TrialLog log) => DateTime(
@@ -154,7 +157,7 @@ class _MeasureChartState extends State<MeasureChart> {
         return _ChartValue(
             _aggregationUnit, _aggregate(_values), _intervention.letter);
       }).toList();
-    } else if (_timeAggregation == TimeAggregation.Phase) {
+    } else if (widget.timeAggregation == TimeAggregation.Phase) {
       final _logsGroupedByPhase = groupBy(_logs,
           (TrialLog log) => widget.trial.getPhaseIndexForDate(log.dateTime));
       return _logsGroupedByPhase.entries.map((entry) {
@@ -195,7 +198,7 @@ enum TimeAggregation { Day, Phase, Intervention }
 
 // keep this in case I need it
 /*   charts.StaticNumericTickProviderSpec _getDomainTicks() {
-    if (_timeAggregation == TimeAggregation.Day) {
+    if (widget.timeAggregation == TimeAggregation.Day) {
       return charts.StaticNumericTickProviderSpec(widget
           .trial.schedule.phaseSequence
           .asMap()
