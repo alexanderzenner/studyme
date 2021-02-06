@@ -9,6 +9,7 @@ import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import "package:collection/collection.dart";
+import 'package:studyme/util/string_extension.dart';
 
 class MeasureChart extends StatefulWidget {
   final Measure measure;
@@ -33,6 +34,7 @@ class _MeasureChartState extends State<MeasureChart> {
   void initState() {
     _isLoading = true;
     super.initState();
+    print(widget.measure.name);
   }
 
   @override
@@ -53,7 +55,8 @@ class _MeasureChartState extends State<MeasureChart> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      SectionTitle(widget.measure.name),
+      SectionTitle(
+          "${widget.measure.name} (${widget.measure.aggregation.readable})"),
       if (_isLoading) CircularProgressIndicator(),
       if (!_isLoading)
         Container(
@@ -62,13 +65,19 @@ class _MeasureChartState extends State<MeasureChart> {
     ]);
   }
 
-  bool get needSeperators => widget.timeAggregation == TimeAggregation.Day;
-
   Widget _buildChart() {
+    final _seperators = _getSeperators();
     return charts.NumericComboChart(_getSeriesData(),
         animate: false,
         behaviors: [
-          if (needSeperators) _getSeperators(),
+          if (_seperators != null) (() => _seperators)(),
+          charts.ChartTitle(
+            _getDomainAxisTitle(),
+            outerPadding: 0,
+            innerPadding: 2,
+            behaviorPosition: charts.BehaviorPosition.bottom,
+            titleStyleSpec: charts.TextStyleSpec(fontSize: 15),
+          ),
         ],
         defaultInteractions: false,
         defaultRenderer: new charts.BarRendererConfig(),
@@ -79,7 +88,9 @@ class _MeasureChartState extends State<MeasureChart> {
         primaryMeasureAxis: widget.measure.tickProvider);
   }
 
-  charts.RangeAnnotation _getSeperators() => charts.RangeAnnotation(
+  charts.RangeAnnotation _getSeperators() {
+    if (widget.timeAggregation == TimeAggregation.Day) {
+      return charts.RangeAnnotation(
         Iterable.generate(widget.trial.schedule.numberOfPhases + 1)
             .map((i) => charts.LineAnnotationSegment<num>(
                   i * widget.trial.schedule.phaseDuration - 0.5,
@@ -89,6 +100,10 @@ class _MeasureChartState extends State<MeasureChart> {
                 ))
             .toList(),
       );
+    } else {
+      return charts.RangeAnnotation([]);
+    }
+  }
 
   charts.NumericExtents _getExtents() {
     if (widget.timeAggregation == TimeAggregation.Day) {
@@ -99,8 +114,23 @@ class _MeasureChartState extends State<MeasureChart> {
               1);
     } else if (widget.timeAggregation == TimeAggregation.Phase) {
       return charts.NumericExtents(0, widget.trial.schedule.numberOfPhases - 1);
+    } else if (widget.timeAggregation == TimeAggregation.Intervention) {
+      return charts.NumericExtents(0, 1);
     } else {
       return null;
+    }
+  }
+
+  String _getDomainAxisTitle() {
+    switch (widget.timeAggregation) {
+      case TimeAggregation.Day:
+        return "Day";
+      case TimeAggregation.Phase:
+        return "Phase";
+      case TimeAggregation.Intervention:
+        return "Intervention";
+      default:
+        return "";
     }
   }
 
@@ -109,8 +139,8 @@ class _MeasureChartState extends State<MeasureChart> {
       return charts.BasicNumericTickFormatterSpec(
           (value) => (value + 1).toInt().toString());
     } else if (widget.timeAggregation == TimeAggregation.Phase) {
-      return charts.BasicNumericTickFormatterSpec(
-          (value) => widget.trial.schedule.phaseSequence[value].toUpperCase());
+      return charts.BasicNumericTickFormatterSpec((value) =>
+          "${(value + 1).toString()} (${widget.trial.schedule.phaseSequence[value].toUpperCase()})");
     } else if (widget.timeAggregation == TimeAggregation.Intervention) {
       return charts.BasicNumericTickFormatterSpec((value) {
         if (value == 0) return 'A';
@@ -131,7 +161,8 @@ class _MeasureChartState extends State<MeasureChart> {
               .map((e) => charts.TickSpec<num>(e))
               .toList());
     } else {
-      return null;
+      return charts.StaticNumericTickProviderSpec(
+          [charts.TickSpec<num>(0), charts.TickSpec<num>(1)]);
     }
   }
 
@@ -139,9 +170,7 @@ class _MeasureChartState extends State<MeasureChart> {
     return [
       charts.Series<_ChartValue, num>(
         id: 'hi',
-        colorFn: (_ChartValue value, __) => value.loggedItemId == 'a'
-            ? charts.MaterialPalette.blue.shadeDefault
-            : charts.MaterialPalette.green.shadeDefault,
+        colorFn: (_ChartValue value, __) => value.color,
         domainFn: (_ChartValue value, _) => value.aggregationUnit,
         measureFn: (_ChartValue value, _) => value.value,
         data: _getAggregatedValues(),
@@ -181,7 +210,6 @@ class _MeasureChartState extends State<MeasureChart> {
         } else {
           aggregationUnit = 1;
         }
-        print(entry.key.name);
         return _ChartValue(aggregationUnit,
             _aggregate(_getValuesFromLogs(entry.value)), entry.key.letter);
       }).toList();
@@ -211,11 +239,21 @@ class _ChartValue {
   final dynamic aggregationUnit;
   final num value;
   final String loggedItemId;
+  charts.Color color;
 
-  _ChartValue(this.aggregationUnit, this.value, this.loggedItemId);
+  _ChartValue(this.aggregationUnit, this.value, this.loggedItemId) {
+    this.color = this.loggedItemId == 'a'
+        ? charts.MaterialPalette.blue.shadeDefault
+        : charts.MaterialPalette.green.shadeDefault;
+  }
 }
 
 enum TimeAggregation { Day, Phase, Intervention }
+
+extension TimeAggregationExtension on TimeAggregation {
+  String get readable => this.toString().split('.').last.capitalize();
+}
+
 
 
 // keep this in case I need it
