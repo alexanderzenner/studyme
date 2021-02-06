@@ -59,10 +59,16 @@ class _MeasureChartState extends State<MeasureChart> {
           "${widget.measure.name} (${widget.measure.aggregation.readable})"),
       if (_isLoading) CircularProgressIndicator(),
       if (!_isLoading)
-        Container(
-            height: MediaQuery.of(context).size.height / 4,
-            child: _buildChart())
+        Container(height: _getContainerHeight(), child: _buildChart())
     ]);
+  }
+
+  double _getContainerHeight() {
+    if (MediaQuery.of(context).orientation == Orientation.landscape) {
+      return MediaQuery.of(context).size.height / 2;
+    } else {
+      return MediaQuery.of(context).size.height / 4;
+    }
   }
 
   Widget _buildChart() {
@@ -160,9 +166,11 @@ class _MeasureChartState extends State<MeasureChart> {
           Iterable.generate(widget.trial.schedule.numberOfPhases)
               .map((e) => charts.TickSpec<num>(e))
               .toList());
-    } else {
+    } else if (widget.timeAggregation == TimeAggregation.Intervention) {
       return charts.StaticNumericTickProviderSpec(
           [charts.TickSpec<num>(0), charts.TickSpec<num>(1)]);
+    } else {
+      return null;
     }
   }
 
