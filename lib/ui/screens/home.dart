@@ -2,14 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
+import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 import 'package:studyme/ui/widgets/phase_widget.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
+import 'package:studyme/util/notifications.dart';
 import 'package:studyme/util/util.dart';
 
+import '../../routes.dart';
 import 'intervention_interactor.dart';
 import 'measure_interactor.dart';
 
@@ -41,7 +44,34 @@ class Home extends StatelessWidget {
           SizedBox(height: 10),
           PhasesWidget(schedule: _trial.phases, activeIndex: _activeIndex),
           SizedBox(height: 20),
-          ..._body
+          ..._body,
+          PopupMenuButton<Option>(
+              onSelected: (Option option) {
+                option.callback();
+              },
+              itemBuilder: (context) => [
+                    Option(
+                        name: 'Edit trial (Debug)',
+                        callback: () {
+                          Provider.of<AppData>(context, listen: false)
+                              .saveAppState(AppState.CREATING);
+                          Notifications().clearAll();
+                          Navigator.pushReplacementNamed(
+                              context, Routes.onboarding);
+                        }),
+                    Option(
+                        name: 'Cancel trial',
+                        callback: () {
+                          Provider.of<AppData>(context, listen: false)
+                              .createNewTrial();
+                          Notifications().clearAll();
+                          Navigator.pushReplacementNamed(
+                              context, Routes.onboarding);
+                        })
+                  ]
+                      .map((option) => PopupMenuItem<Option>(
+                          value: option, child: Text(option.name)))
+                      .toList())
         ]),
       ),
     );

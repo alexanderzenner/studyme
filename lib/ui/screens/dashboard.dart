@@ -1,12 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/app_state/app_state.dart';
-import 'package:studyme/util/notifications.dart';
-import 'package:studyme/util/util.dart';
 
-import '../../routes.dart';
 import 'history.dart';
 import 'home.dart';
 
@@ -31,40 +25,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        brightness: Brightness.dark,
-        title: Text(_titles[_currentIndex]),
-        actions: [
-          PopupMenuButton<Option>(
-              onSelected: (Option option) {
-                option.callback();
-              },
-              itemBuilder: (context) => [
-                    Option(
-                        name: 'Edit trial (Debug)',
-                        callback: () {
-                          Provider.of<AppData>(context, listen: false)
-                              .saveAppState(AppState.CREATING);
-                          Notifications().clearAll();
-                          Navigator.pushReplacementNamed(
-                              context, Routes.onboarding);
-                        }),
-                    Option(
-                        name: 'Cancel trial',
-                        callback: () {
-                          Provider.of<AppData>(context, listen: false)
-                              .createNewTrial();
-                          Notifications().clearAll();
-                          Navigator.pushReplacementNamed(
-                              context, Routes.onboarding);
-                        })
-                  ]
-                      .map((option) => PopupMenuItem<Option>(
-                          value: option, child: Text(option.name)))
-                      .toList())
-        ],
-      ),
-      body: _body[_currentIndex](),
+      body: SafeArea(child: _body[_currentIndex]()),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: (index) {
