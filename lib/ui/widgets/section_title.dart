@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class SectionTitle extends StatelessWidget {
   final String text;
+  final bool isSubtitle;
   final IconButton action;
 
-  SectionTitle(this.text, {this.action});
+  SectionTitle(this.text, {this.isSubtitle = false, this.action});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,11 @@ class SectionTitle extends StatelessWidget {
             children: [
               Text(text,
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: this.isSubtitle ? null : FontWeight.bold,
                       fontSize: 18,
-                      color: Theme.of(context).primaryColor)),
+                      color: this.isSubtitle
+                          ? null
+                          : Theme.of(context).primaryColor)),
             ],
           ),
           if (action != null)

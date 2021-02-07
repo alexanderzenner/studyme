@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:studyme/models/intervention/intervention_schedule.dart';
 import 'package:studyme/models/log/trial_log.dart';
 
 import 'models/app_state/app_data.dart';
@@ -48,6 +49,7 @@ _setupHive() async {
   Hive.registerAdapter<TrialPhases>(TrialPhasesAdapter());
   Hive.registerAdapter<PhaseOrder>(PhaseOrderAdapter());
 
+  Hive.registerAdapter<InterventionSchedule>(InterventionScheduleAdapter());
   Hive.registerAdapter<NoIntervention>(NoInterventionAdapter());
   Hive.registerAdapter<Intervention>(InterventionAdapter());
 

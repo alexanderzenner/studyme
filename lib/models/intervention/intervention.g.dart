@@ -22,13 +22,13 @@ class InterventionAdapter extends TypeAdapter<Intervention> {
       name: fields[2] as String,
       description: fields[3] as String,
       letter: fields[4] as String,
-    );
+    )..schedule = fields[5] as InterventionSchedule;
   }
 
   @override
   void write(BinaryWriter writer, Intervention obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.type)
       ..writeByte(1)
@@ -38,7 +38,9 @@ class InterventionAdapter extends TypeAdapter<Intervention> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.letter);
+      ..write(obj.letter)
+      ..writeByte(5)
+      ..write(obj.schedule);
   }
 
   @override
