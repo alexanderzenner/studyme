@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:studyme/models/reminder.dart';
-import 'package:studyme/models/schedule/trial_schedule.dart';
+import 'package:studyme/models/schedule/trial_phases.dart';
 import './measure/measure.dart';
 import 'intervention/intervention.dart';
 import 'measure/synced_measure.dart';
