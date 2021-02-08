@@ -8,6 +8,7 @@ import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/ui/widgets/choice_editor.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
+import 'package:studyme/ui/widgets/schedule_editor_section.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:uuid/uuid.dart';
 
@@ -61,6 +62,8 @@ class _MeasureEditorState extends State<MeasureEditor> {
                 ),
                 if (_body != null) _body,
                 Divider(height: 30),
+                ScheduleEditorSection(schedule: _measure.schedule),
+                Divider(height: 30),
                 SectionTitle("Other"),
                 _buildAggregationDropdown()
               ],
@@ -70,7 +73,9 @@ class _MeasureEditorState extends State<MeasureEditor> {
   }
 
   _canSubmit() {
-    return _measure.name != null && _measure.name.length > 0;
+    return _measure.name != null &&
+        _measure.name.length > 0 &&
+        _measure.schedule.times.length > 0;
   }
 
   _changeName(text) {

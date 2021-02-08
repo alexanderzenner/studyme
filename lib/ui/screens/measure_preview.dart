@@ -11,6 +11,7 @@ import 'package:studyme/ui/widgets/measure_choice_widget.dart';
 import 'package:studyme/ui/widgets/measure_free_widget.dart';
 import 'package:studyme/ui/widgets/measure_scale_widget.dart';
 import 'package:studyme/ui/widgets/measure_synced_widget.dart';
+import 'package:studyme/ui/widgets/schedule_editor_section.dart';
 
 import 'measure_editor.dart';
 

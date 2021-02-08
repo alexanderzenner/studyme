@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/intervention.dart';
-import 'package:studyme/models/schedule.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
+import 'package:studyme/ui/widgets/schedule_editor_section.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 
 class InterventionEditor extends StatefulWidget {
@@ -19,18 +19,9 @@ class InterventionEditor extends StatefulWidget {
 class _InterventionEditorState extends State<InterventionEditor> {
   Intervention _intervention;
 
-  Frequency _frequency;
-
   @override
   initState() {
     _intervention = widget.intervention.clone();
-    if (_intervention.schedule != null) {
-      _frequency = _intervention.schedule.frequency == 1
-          ? Frequency.Daily
-          : Frequency.EveryXDays;
-    } else {
-      _frequency = Frequency.Daily;
-    }
     super.initState();
   }
 
@@ -56,26 +47,7 @@ class _InterventionEditorState extends State<InterventionEditor> {
                 SizedBox(
                   height: 10,
                 ),
-                if (!widget.isA)
-                  Center(
-                    child: ToggleButtons(
-                      children: <Widget>[
-                        Padding(
-                          child: Text("No Intervention"),
-                          padding: const EdgeInsets.all(10.0),
-                        ),
-                        Padding(
-                          child: Text("Intervention"),
-                          padding: const EdgeInsets.all(10.0),
-                        ),
-                      ],
-                      onPressed: _changeInterventionType,
-                      isSelected: [
-                        _isNullIntervention(),
-                        !_isNullIntervention()
-                      ],
-                    ),
-                  ),
+                if (!widget.isA) _buildTypeToggle(),
                 if (!_isNullIntervention())
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,33 +62,7 @@ class _InterventionEditorState extends State<InterventionEditor> {
                         ),
                       ),
                       Divider(height: 30),
-                      SectionTitle("Schedule"),
-                      _buildFrequencySelector(),
-                      SizedBox(height: 20),
-                      SectionTitle('Times',
-                          isSubtitle: true,
-                          action: IconButton(
-                              icon: Icon(Icons.add), onPressed: _addTime)),
-                      ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: _intervention.schedule.times.length,
-                          itemBuilder: (content, index) {
-                            return Card(
-                              margin: EdgeInsets.symmetric(vertical: 2),
-                              child: ListTile(
-                                title: GestureDetector(
-                                  onTap: () => _editTime(index),
-                                  child: Text(_intervention
-                                      .schedule.times[index].readable),
-                                ),
-                                trailing: IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () => _removeTime(index),
-                                ),
-                              ),
-                            );
-                          }),
+                      ScheduleEditorSection(schedule: _intervention.schedule)
                     ],
                   ),
               ],
@@ -125,60 +71,23 @@ class _InterventionEditorState extends State<InterventionEditor> {
         ));
   }
 
-  _buildFrequencySelector() {
-    Widget _dropDown = DropdownButtonFormField<Frequency>(
-      decoration: InputDecoration(
-        labelText: 'Frequency',
-      ),
-      onChanged: _changeFrequency,
-      value: _frequency,
-      items: Frequency.values
-          .map((value) => DropdownMenuItem<Frequency>(
-              value: value, child: Text(value.readable)))
-          .toList(),
-    );
-
-    if (_frequency == Frequency.Daily) {
-      return _dropDown;
-    } else {
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(child: _dropDown),
-          SizedBox(width: 5),
-          Expanded(
-            child: TextFormField(
-              keyboardType: TextInputType.number,
-              initialValue: _intervention.schedule.frequency.toString(),
-              onChanged: _setFrequency,
-            ),
+  _buildTypeToggle() {
+    return Center(
+      child: ToggleButtons(
+        children: <Widget>[
+          Padding(
+            child: Text("No Intervention"),
+            padding: const EdgeInsets.all(10.0),
           ),
-          SizedBox(width: 5),
-          Text("days")
+          Padding(
+            child: Text("Intervention"),
+            padding: const EdgeInsets.all(10.0),
+          ),
         ],
-      );
-    }
-  }
-
-  _changeFrequency(Frequency newFrequency) {
-    if (newFrequency != _frequency) {
-      setState(() {
-        _frequency = newFrequency;
-        _intervention.schedule.frequency = newFrequency.initial;
-      });
-    }
-  }
-
-  _setFrequency(String text) {
-    try {
-      int value = text.length > 0 ? int.parse(text) : 0;
-      if (value > 1) {
-        _intervention.schedule.frequency = value;
-      }
-    } on Exception catch (_) {
-      print("Invalid number");
-    }
+        onPressed: _changeInterventionType,
+        isSelected: [_isNullIntervention(), !_isNullIntervention()],
+      ),
+    );
   }
 
   _canSubmit() {
@@ -206,57 +115,5 @@ class _InterventionEditorState extends State<InterventionEditor> {
 
   _isNullIntervention() {
     return _intervention is NoIntervention;
-  }
-
-  Future<void> _editTime(int index) async {
-    final TimeOfDay picked = await showTimePicker(
-        context: context, initialTime: _intervention.schedule.times[index]);
-
-    if (picked != null) {
-      setState(() {
-        _intervention.schedule.updateTime(index, picked);
-      });
-    }
-  }
-
-  Future<void> _addTime() async {
-    final TimeOfDay picked =
-        await showTimePicker(context: context, initialTime: TimeOfDay.now());
-
-    if (picked != null) {
-      setState(() {
-        _intervention.schedule.addTime(picked);
-      });
-    }
-  }
-
-  _removeTime(int index) {
-    setState(() {
-      _intervention.schedule.removeTime(index);
-    });
-  }
-}
-
-enum Frequency { Daily, EveryXDays }
-
-extension FrequencyExtension on Frequency {
-  String get readable {
-    if (this == Frequency.Daily) {
-      return 'Daily';
-    } else if (this == Frequency.EveryXDays) {
-      return 'Every ...';
-    } else {
-      return null;
-    }
-  }
-
-  int get initial {
-    if (this == Frequency.Daily) {
-      return 1;
-    } else if (this == Frequency.EveryXDays) {
-      return 2;
-    } else {
-      return null;
-    }
   }
 }

@@ -31,7 +31,7 @@ abstract class Measure {
       this.description,
       ValueAggregation aggregation,
       Schedule schedule}) {
-    this.aggregation = ValueAggregation.Average;
+    this.aggregation = aggregation ?? ValueAggregation.Average;
     this.id = id ?? Uuid().v4();
     this.schedule = schedule ?? Schedule();
   }

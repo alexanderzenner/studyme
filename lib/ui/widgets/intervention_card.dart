@@ -6,7 +6,9 @@ class InterventionCard extends StatelessWidget {
   final Intervention intervention;
   final void Function() onTap;
 
-  InterventionCard({this.intervention, this.onTap});
+  final bool showSchedule;
+
+  InterventionCard({this.intervention, this.onTap, this.showSchedule = false});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class InterventionCard extends StatelessWidget {
   }
 
   Widget _getSubtitle() {
-    if (intervention.schedule != null) {
+    if (showSchedule && intervention.schedule != null) {
       return Text(intervention.schedule.readable);
     } else {
       return null;

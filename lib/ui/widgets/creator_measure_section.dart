@@ -38,6 +38,7 @@ class CreatorMeasureSection extends StatelessWidget {
             itemBuilder: (context, index) {
               Measure measure = model.trial.measures[index];
               return MeasureCard(
+                  showSchedule: true,
                   measure: measure,
                   onTap: () {
                     _previewMeasure(context, measure);
