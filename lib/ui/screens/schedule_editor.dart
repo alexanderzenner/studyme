@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:studyme/models/schedule.dart';
+import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 
-class ScheduleEditorSection extends StatefulWidget {
+class ScheduleEditor extends StatefulWidget {
   final Schedule schedule;
 
-  ScheduleEditorSection({@required this.schedule});
+  ScheduleEditor({@required this.schedule});
 
   @override
-  _ScheduleEditorSectionState createState() => _ScheduleEditorSectionState();
+  _ScheduleEditorState createState() => _ScheduleEditorState();
 }
 
-class _ScheduleEditorSectionState extends State<ScheduleEditorSection> {
+class _ScheduleEditorState extends State<ScheduleEditor> {
   Frequency _frequency;
+  Schedule _schedule;
 
   @override
   initState() {
-    if (widget.schedule != null) {
-      _frequency = widget.schedule.frequency == 1
-          ? Frequency.Daily
-          : Frequency.EveryXDays;
+    _schedule = widget.schedule.clone();
+    if (_schedule != null) {
+      _frequency =
+          _schedule.frequency == 1 ? Frequency.Daily : Frequency.EveryXDays;
     } else {
       _frequency = Frequency.Daily;
     }
@@ -28,35 +30,57 @@ class _ScheduleEditorSectionState extends State<ScheduleEditorSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SectionTitle("Schedule"),
-        _buildFrequencySelector(),
-        SizedBox(height: 20),
-        SectionTitle('Times',
-            isSubtitle: true,
-            action: IconButton(icon: Icon(Icons.add), onPressed: _addTime)),
-        ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: widget.schedule.times.length,
-            itemBuilder: (content, index) {
-              return Card(
-                margin: EdgeInsets.symmetric(vertical: 2),
-                child: ListTile(
-                  title: GestureDetector(
-                    onTap: () => _editTime(index),
-                    child: Text(widget.schedule.times[index].readable),
-                  ),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () => _removeTime(index),
-                  ),
-                ),
-              );
-            }),
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        brightness: Brightness.dark,
+        title: Text("Edit Schedule"),
+        actions: <Widget>[
+          SaveButton(
+              canPress: _canSubmit(),
+              onPressed: () {
+                Navigator.pop(context, _schedule);
+              })
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            _buildFrequencySelector(),
+            SizedBox(height: 20),
+            SectionTitle('Times',
+                isSubtitle: true,
+                action: IconButton(icon: Icon(Icons.add), onPressed: _addTime)),
+            ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: _schedule.times.length,
+                itemBuilder: (content, index) {
+                  return Card(
+                    margin: EdgeInsets.symmetric(vertical: 2),
+                    child: ListTile(
+                      title: GestureDetector(
+                        onTap: () => _editTime(index),
+                        child: Text(_schedule.times[index].readable),
+                      ),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () => _removeTime(index),
+                      ),
+                    ),
+                  );
+                }),
+          ],
+        ),
+      ),
     );
+  }
+
+  _canSubmit() {
+    return _schedule.times.length > 0;
   }
 
   _buildFrequencySelector() {
@@ -84,7 +108,7 @@ class _ScheduleEditorSectionState extends State<ScheduleEditorSection> {
           Expanded(
             child: TextFormField(
               keyboardType: TextInputType.number,
-              initialValue: widget.schedule.frequency.toString(),
+              initialValue: _schedule.frequency.toString(),
               onChanged: _setFrequency,
             ),
           ),
@@ -99,7 +123,7 @@ class _ScheduleEditorSectionState extends State<ScheduleEditorSection> {
     if (newFrequency != _frequency) {
       setState(() {
         _frequency = newFrequency;
-        widget.schedule.frequency = newFrequency.initial;
+        _schedule.frequency = newFrequency.initial;
       });
     }
   }
@@ -108,7 +132,7 @@ class _ScheduleEditorSectionState extends State<ScheduleEditorSection> {
     try {
       int value = text.length > 0 ? int.parse(text) : 0;
       if (value > 1) {
-        widget.schedule.frequency = value;
+        _schedule.frequency = value;
       }
     } on Exception catch (_) {
       print("Invalid number");
@@ -117,11 +141,11 @@ class _ScheduleEditorSectionState extends State<ScheduleEditorSection> {
 
   Future<void> _editTime(int index) async {
     final TimeOfDay picked = await showTimePicker(
-        context: context, initialTime: widget.schedule.times[index]);
+        context: context, initialTime: _schedule.times[index]);
 
     if (picked != null) {
       setState(() {
-        widget.schedule.updateTime(index, picked);
+        _schedule.updateTime(index, picked);
       });
     }
   }
@@ -132,14 +156,14 @@ class _ScheduleEditorSectionState extends State<ScheduleEditorSection> {
 
     if (picked != null) {
       setState(() {
-        widget.schedule.addTime(picked);
+        _schedule.addTime(picked);
       });
     }
   }
 
   _removeTime(int index) {
     setState(() {
-      widget.schedule.removeTime(index);
+      _schedule.removeTime(index);
     });
   }
 }

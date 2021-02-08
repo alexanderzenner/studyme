@@ -60,6 +60,10 @@ class Schedule {
   }
 
   String get readable {
+    if (times.length == 0) {
+      return '';
+    }
+
     String _text;
     if (frequency == 1) {
       _text = "Every day";

@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
+import 'package:studyme/models/schedule.dart';
+import 'package:studyme/ui/screens/schedule_editor.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
-import 'package:studyme/ui/widgets/schedule_editor_section.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 
 class InterventionEditor extends StatefulWidget {
@@ -62,7 +63,11 @@ class _InterventionEditorState extends State<InterventionEditor> {
                         ),
                       ),
                       Divider(height: 30),
-                      ScheduleEditorSection(schedule: _intervention.schedule)
+                      SectionTitle("Schedule",
+                          action: IconButton(
+                              icon: Icon(Icons.edit),
+                              onPressed: _editSchedule)),
+                      Text(_intervention.schedule.readable)
                     ],
                   ),
               ],
@@ -115,5 +120,19 @@ class _InterventionEditorState extends State<InterventionEditor> {
 
   _isNullIntervention() {
     return _intervention is NoIntervention;
+  }
+
+  Future _editSchedule() async {
+    Schedule schedule = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ScheduleEditor(schedule: _intervention.schedule),
+      ),
+    );
+    if (schedule != null) {
+      setState(() {
+        _intervention.schedule = schedule;
+      });
+    }
   }
 }
