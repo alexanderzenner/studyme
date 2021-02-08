@@ -24,9 +24,11 @@ class _InterventionEditorState extends State<InterventionEditor> {
   @override
   initState() {
     _intervention = widget.intervention.clone();
-    _frequency = _intervention.schedule.frequency == 1
-        ? Frequency.Daily
-        : Frequency.EveryXDays;
+    if (_intervention.schedule != null) {
+      _frequency = _intervention.schedule.frequency == 1
+          ? Frequency.Daily
+          : Frequency.EveryXDays;
+    }
     super.initState();
   }
 
@@ -178,10 +180,11 @@ class _InterventionEditorState extends State<InterventionEditor> {
   }
 
   _canSubmit() {
+    print(_intervention.schedule.times.length);
     return _intervention.name != null &&
         _intervention.name.length > 0 &&
         !(!(_intervention is NoIntervention) &&
-            _intervention.schedule.times.length > 0);
+            _intervention.schedule.times.length == 0);
   }
 
   _changeName(text) {

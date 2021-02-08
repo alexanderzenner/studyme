@@ -38,7 +38,9 @@ class Intervention {
         name = intervention.name,
         description = intervention.description,
         letter = intervention.letter,
-        schedule = intervention.schedule.clone();
+        schedule = intervention.schedule != null
+            ? intervention.schedule.clone()
+            : null;
 
   clone() {
     switch (this.runtimeType) {

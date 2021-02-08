@@ -11,6 +11,9 @@ class NoIntervention extends Intervention {
   final name = 'No Intervention';
   final description = 'TBD';
 
+  @override
+  final InterventionSchedule schedule = null;
+
   NoIntervention() : super(type: interventionType);
 
   NoIntervention.clone(NoIntervention intervention) : super.clone(intervention);

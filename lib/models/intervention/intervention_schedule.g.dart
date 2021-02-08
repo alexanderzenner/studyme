@@ -18,7 +18,7 @@ class InterventionScheduleAdapter extends TypeAdapter<InterventionSchedule> {
     };
     return InterventionSchedule(
       frequency: fields[0] as int,
-      timestamps: fields[1] as dynamic,
+      timestamps: (fields[1] as List)?.cast<DateTime>(),
     );
   }
 

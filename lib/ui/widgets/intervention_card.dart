@@ -15,8 +15,16 @@ class InterventionCard extends StatelessWidget {
         child: ListTile(
             leading: InterventionLetter(intervention.letter),
             title: intervention != null ? Text(intervention.name) : null,
-            subtitle: Text(intervention.schedule.readable),
+            subtitle: _getSubtitle(),
             trailing: onTap != null ? Icon(Icons.chevron_right) : null,
             onTap: onTap));
+  }
+
+  Widget _getSubtitle() {
+    if (intervention.schedule != null) {
+      return Text(intervention.schedule.readable);
+    } else {
+      return null;
+    }
   }
 }

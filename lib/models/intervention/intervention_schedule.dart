@@ -18,7 +18,7 @@ class InterventionSchedule {
     return timestamps.map((e) => TimeOfDay.fromDateTime(e)).toList();
   }
 
-  InterventionSchedule({this.frequency = 1, timestamps})
+  InterventionSchedule({this.frequency = 1, List<DateTime> timestamps})
       : this.timestamps = timestamps ?? [];
 
   addTime(TimeOfDay time) {
