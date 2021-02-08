@@ -30,22 +30,28 @@ class HealthConnector {
   }
 
   syncMeasures(Trial trial, Function saveCallback) async {
-    Map<HealthDataType, SyncedMeasure> dataTypeToMeasureMap = {};
+    List<SyncedMeasure> _measures = trial.syncedMeasures;
 
-    trial.syncedMeasures.forEach((SyncedMeasure measure) {
-      dataTypeToMeasureMap.putIfAbsent(
-          measure.trackedHealthDataType, () => measure);
-    });
+    if (_measures.length > 0) {
+      Map<HealthDataType, SyncedMeasure> dataTypeToMeasureMap = {};
 
-    List<HealthDataPoint> dataPoints = await HealthConnector().fetchValuesFor(
-        trial.startDate, trial.endDate, dataTypeToMeasureMap.keys.toList());
-    dataPoints.removeWhere((element) => element.dateTo.isAfter(DateTime.now()));
-    groupBy(dataPoints, (HealthDataPoint point) => point.type)
-        .forEach((dataType, healthPoints) {
-      SyncedMeasure _measure = dataTypeToMeasureMap[dataType];
-      List<TrialLog> _measureLogs =
-          healthPoints.map((_point) => _measure.createLogFrom(_point)).toList();
-      saveCallback(_measureLogs, _measure);
-    });
+      _measures.forEach((SyncedMeasure measure) {
+        dataTypeToMeasureMap.putIfAbsent(
+            measure.trackedHealthDataType, () => measure);
+      });
+
+      List<HealthDataPoint> dataPoints = await HealthConnector().fetchValuesFor(
+          trial.startDate, trial.endDate, dataTypeToMeasureMap.keys.toList());
+      dataPoints
+          .removeWhere((element) => element.dateTo.isAfter(DateTime.now()));
+      groupBy(dataPoints, (HealthDataPoint point) => point.type)
+          .forEach((dataType, healthPoints) {
+        SyncedMeasure _measure = dataTypeToMeasureMap[dataType];
+        List<TrialLog> _measureLogs = healthPoints
+            .map((_point) => _measure.createLogFrom(_point))
+            .toList();
+        saveCallback(_measureLogs, _measure);
+      });
+    }
   }
 }

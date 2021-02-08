@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:uuid/uuid.dart';
-import 'package:studyme/util/string_extension.dart';
 
 import '../schedule.dart';
+import 'aggregations.dart';
 import 'choice_measure.dart';
 import 'free_measure.dart';
 
@@ -18,18 +18,9 @@ abstract class Measure {
   @HiveField(3)
   String description;
   @HiveField(4)
-  String aggregationString;
+  ValueAggregation aggregation;
   @HiveField(5)
   Schedule schedule;
-
-  Aggregation get aggregation {
-    return Aggregation.values
-        .firstWhere((t) => t.toString() == this.aggregationString);
-  }
-
-  set aggregation(Aggregation aggregation) {
-    this.aggregationString = aggregation.toString();
-  }
 
   IconData icon;
 
@@ -38,12 +29,10 @@ abstract class Measure {
       this.type,
       this.name,
       this.description,
-      aggregation,
+      ValueAggregation aggregation,
       Schedule schedule}) {
+    this.aggregation = ValueAggregation.Average;
     this.id = id ?? Uuid().v4();
-    this.aggregationString = aggregation != null
-        ? aggregation.toString()
-        : Aggregation.Average.toString();
     this.schedule = schedule ?? Schedule();
   }
 
@@ -52,7 +41,7 @@ abstract class Measure {
         type = measure.type,
         name = measure.name,
         description = measure.description,
-        aggregationString = measure.aggregationString,
+        aggregation = measure.aggregation,
         schedule = measure.schedule.clone();
 
   clone() {
@@ -71,10 +60,4 @@ abstract class Measure {
   bool get canEdit => true;
 
   dynamic get tickProvider => null;
-}
-
-enum Aggregation { Average, Sum }
-
-extension AggregationExtension on Aggregation {
-  String get readable => this.toString().split('.').last.capitalize();
 }

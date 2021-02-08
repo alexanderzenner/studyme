@@ -7,6 +7,8 @@ import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/schedule.dart';
 import 'package:studyme/util/health_connector.dart';
 
+import 'aggregations.dart';
+
 part 'synced_measure.g.dart';
 
 @HiveType(typeId: 5)
@@ -25,7 +27,7 @@ class SyncedMeasure extends Measure {
       String name,
       HealthDataType healthDataType,
       String description,
-      Aggregation aggregation,
+      ValueAggregation aggregation,
       Schedule schedule})
       : trackedHealthDataTypeName = healthDataType.toString(),
         super(

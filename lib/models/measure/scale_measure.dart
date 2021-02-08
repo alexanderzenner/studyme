@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:studyme/models/measure/measure.dart';
 
 import '../schedule.dart';
+import 'aggregations.dart';
 
 part 'scale_measure.g.dart';
 
@@ -26,7 +27,7 @@ class ScaleMeasure extends Measure {
       String description,
       num min,
       num max,
-      Aggregation aggregation,
+      ValueAggregation aggregation,
       Schedule schedule})
       : this.min = min ?? 0.0,
         this.max = max ?? 10.0,

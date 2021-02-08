@@ -28,6 +28,8 @@ class _InterventionEditorState extends State<InterventionEditor> {
       _frequency = _intervention.schedule.frequency == 1
           ? Frequency.Daily
           : Frequency.EveryXDays;
+    } else {
+      _frequency = Frequency.Daily;
     }
     super.initState();
   }
@@ -180,11 +182,10 @@ class _InterventionEditorState extends State<InterventionEditor> {
   }
 
   _canSubmit() {
-    print(_intervention.schedule.times.length);
     return _intervention.name != null &&
         _intervention.name.length > 0 &&
-        !(!(_intervention is NoIntervention) &&
-            _intervention.schedule.times.length == 0);
+        (_intervention is NoIntervention ||
+            _intervention.schedule.times.length > 0);
   }
 
   _changeName(text) {

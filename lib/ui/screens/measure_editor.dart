@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:studyme/models/measure/aggregations.dart';
 import 'package:studyme/models/measure/choice.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
@@ -117,18 +118,18 @@ class _MeasureEditorState extends State<MeasureEditor> {
   }
 
   _buildAggregationDropdown() {
-    return DropdownButtonFormField<Aggregation>(
+    return DropdownButtonFormField<ValueAggregation>(
       decoration: InputDecoration(labelText: 'Aggregation'),
       onChanged: _changeAggregationType,
       value: _measure.aggregation,
-      items: Aggregation.values
-          .map((aggregation) => DropdownMenuItem<Aggregation>(
+      items: ValueAggregation.values
+          .map((aggregation) => DropdownMenuItem<ValueAggregation>(
               value: aggregation, child: Text(aggregation.readable)))
           .toList(),
     );
   }
 
-  _changeAggregationType(Aggregation aggregation) {
+  _changeAggregationType(ValueAggregation aggregation) {
     if (aggregation != _measure.aggregation) {
       setState(() {
         _measure.aggregation = aggregation;

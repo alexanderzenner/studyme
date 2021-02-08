@@ -1,11 +1,12 @@
 import 'package:charts_flutter/flutter.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/measure/choice.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 import '../schedule.dart';
+import 'aggregations.dart';
 
 part 'choice_measure.g.dart';
 
@@ -22,7 +23,7 @@ class ChoiceMeasure extends Measure {
       String name,
       String description,
       List<Choice> choices,
-      Aggregation aggregation,
+      ValueAggregation aggregation,
       Schedule schedule})
       : this.choices = choices ?? [],
         super(

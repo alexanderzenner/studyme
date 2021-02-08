@@ -20,9 +20,9 @@ class FreeMeasureAdapter extends TypeAdapter<FreeMeasure> {
       id: fields[0] as String,
       name: fields[2] as String,
       description: fields[3] as String,
+      aggregation: fields[4] as ValueAggregation,
     )
       ..type = fields[1] as String
-      ..aggregationString = fields[4] as String
       ..schedule = fields[5] as Schedule;
   }
 
@@ -39,7 +39,7 @@ class FreeMeasureAdapter extends TypeAdapter<FreeMeasure> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.aggregationString)
+      ..write(obj.aggregation)
       ..writeByte(5)
       ..write(obj.schedule);
   }

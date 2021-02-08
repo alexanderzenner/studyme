@@ -22,11 +22,11 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       description: fields[3] as String,
       min: fields[6] as num,
       max: fields[7] as num,
+      aggregation: fields[4] as ValueAggregation,
       schedule: fields[5] as Schedule,
     )
       ..initial = fields[8] as num
-      ..type = fields[1] as String
-      ..aggregationString = fields[4] as String;
+      ..type = fields[1] as String;
   }
 
   @override
@@ -48,7 +48,7 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.aggregationString)
+      ..write(obj.aggregation)
       ..writeByte(5)
       ..write(obj.schedule);
   }

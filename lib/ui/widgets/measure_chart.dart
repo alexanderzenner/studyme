@@ -5,11 +5,11 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/log/trial_log.dart';
+import 'package:studyme/models/measure/aggregations.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import "package:collection/collection.dart";
-import 'package:studyme/util/string_extension.dart';
 
 class MeasureChart extends StatefulWidget {
   final Measure measure;
@@ -231,9 +231,9 @@ class _MeasureChartState extends State<MeasureChart> {
   }
 
   _aggregate(List<num> values) {
-    if (widget.measure.aggregation == Aggregation.Average) {
+    if (widget.measure.aggregation == ValueAggregation.Average) {
       return _calculateMean(values);
-    } else if (widget.measure.aggregation == Aggregation.Sum) {
+    } else if (widget.measure.aggregation == ValueAggregation.Sum) {
       return _calculateSum(values);
     }
   }
@@ -255,13 +255,6 @@ class _ChartValue {
         : charts.MaterialPalette.green.shadeDefault;
   }
 }
-
-enum TimeAggregation { Day, Phase, Intervention }
-
-extension TimeAggregationExtension on TimeAggregation {
-  String get readable => this.toString().split('.').last.capitalize();
-}
-
 
 
 // keep this in case I need it
