@@ -19,6 +19,8 @@ import 'measure_interactor.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Notifications().debugShowPendingRequests();
+
     final Trial _trial = Provider.of<AppData>(context).trial;
     final _dateToday = DateTime.now();
 
@@ -54,8 +56,9 @@ class Home extends StatelessWidget {
                         name: 'Edit trial (Debug)',
                         callback: () {
                           Provider.of<AppData>(context, listen: false)
+                              .debugCancelAllNotifications();
+                          Provider.of<AppData>(context, listen: false)
                               .saveAppState(AppState.CREATING);
-                          Notifications().clearAll();
                           Navigator.pushReplacementNamed(
                               context, Routes.onboarding);
                         }),
@@ -63,8 +66,9 @@ class Home extends StatelessWidget {
                         name: 'Cancel trial',
                         callback: () {
                           Provider.of<AppData>(context, listen: false)
+                              .debugCancelAllNotifications();
+                          Provider.of<AppData>(context, listen: false)
                               .createNewTrial();
-                          Notifications().clearAll();
                           Navigator.pushReplacementNamed(
                               context, Routes.onboarding);
                         })

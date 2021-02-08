@@ -2,16 +2,19 @@ import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
+import 'package:studyme/models/reminder.dart';
 import 'package:studyme/models/schedule/trial_phases.dart';
 import 'package:studyme/util/notifications.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/models/reminder.dart';
 import 'package:studyme/models/trial.dart';
 
 class AppData extends ChangeNotifier {
   static const activeTrialKey = 'trial';
   static const stateKey = 'state';
+  static const lastDateWithScheduledNotificationsKey =
+      'lastDateWithScheduledNotifications';
+  static const notificationIdCounterKey = 'notificationIdCounterKey';
   static const interventionALetter = 'a';
   static const interventionBLetter = 'b';
 
@@ -78,30 +81,6 @@ class AppData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateReminder(Reminder reminder, Reminder newReminder) {
-    var index = _getIndexForId(_trial.reminders, reminder.id);
-    if (index >= 0) {
-      _trial.reminders[index] = newReminder;
-      _trial.save();
-      notifyListeners();
-    }
-  }
-
-  void removeReminder(Reminder reminder) {
-    var index = _getIndexForId(_trial.reminders, reminder.id);
-    if (index >= 0) {
-      _trial.reminders.removeAt(index);
-      _trial.save();
-      notifyListeners();
-    }
-  }
-
-  void addReminder(Reminder reminder) {
-    _trial.reminders.add(reminder);
-    _trial.save();
-    notifyListeners();
-  }
-
   loadAppState() async {
     box = await Hive.openBox('app_data');
     _trial = box.get(activeTrialKey);
@@ -118,11 +97,9 @@ class AppData extends ChangeNotifier {
   startTrial() {
     saveAppState(AppState.DOING);
     DateTime now = DateTime.now();
-    _trial.startDate = DateTime(now.year, now.month, 3);
+    _trial.startDate = DateTime(now.year, now.month, now.day);
     _trial.save();
-    _trial.reminders.asMap().forEach((index, reminder) {
-      Notifications().scheduleNotificationFor(reminder, index);
-    });
+    scheduleNotificationsFor(now);
   }
 
   saveAppState(AppState state) {
@@ -132,6 +109,34 @@ class AppData extends ChangeNotifier {
   createNewTrial() {
     _trial = Trial();
     box.put(activeTrialKey, _trial);
+  }
+
+  void scheduleNotificationsFor(DateTime date) async {
+    DateTime _latest = box.get(lastDateWithScheduledNotificationsKey);
+    int _id = box.get(notificationIdCounterKey) ?? 0;
+    if (_latest == null || _latest.isBefore(date)) {
+      List<Reminder> reminders = _trial.getRemindersForDate(date);
+
+      DateTime _now = DateTime.now();
+
+      if (date.difference(DateTime.now()).inDays == 0) {
+        reminders.removeWhere((element) =>
+            (element.time.hour + element.time.minute / 60.0) <
+            _now.hour + _now.minute / 60.0);
+      }
+      reminders.forEach((reminder) {
+        Notifications().scheduleNotificationFor(date, reminder, _id);
+        _id++;
+      });
+      box.put(lastDateWithScheduledNotificationsKey, date);
+      box.put(notificationIdCounterKey, _id);
+    }
+  }
+
+  void debugCancelAllNotifications() {
+    Notifications().clearAll();
+    box.put(lastDateWithScheduledNotificationsKey, null);
+    box.put(notificationIdCounterKey, 0);
   }
 
   bool canAddSchedule() {

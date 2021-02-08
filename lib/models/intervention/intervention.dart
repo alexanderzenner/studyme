@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/schedule.dart';
 import 'package:uuid/uuid.dart';
 
+import '../reminder.dart';
 import 'no_intervention.dart';
 
 part 'intervention.g.dart';
@@ -42,6 +44,14 @@ class Intervention {
         schedule = intervention.schedule != null
             ? intervention.schedule.clone()
             : null;
+
+  List<Reminder> getRemindersFor(daysSinceBeginningOfTimeRange) {
+    List<TimeOfDay> times =
+        this.schedule.getTaskTimesFor(daysSinceBeginningOfTimeRange);
+    return times
+        .map((time) => Reminder(title: this.name, body: this.name, time: time))
+        .toList();
+  }
 
   clone() {
     switch (this.runtimeType) {

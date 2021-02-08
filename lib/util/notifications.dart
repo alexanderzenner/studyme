@@ -29,31 +29,29 @@ class Notifications {
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
   }
 
-  Future<void> scheduleNotificationFor(Reminder reminder, int id) async {
-    await _flutterLocalNotificationsPlugin.zonedSchedule(
-        id,
-        'Check in on your trial',
-        'It\'s time to check in on your trial and to log your data.',
-        _nextInstanceOf(reminder.time),
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-              'daily notification channel id',
-              'daily notification channel name',
-              'daily notification description'),
-        ),
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.time);
+  Future<void> scheduleNotificationFor(
+      DateTime date, Reminder reminder, int id) async {
+    tz.TZDateTime scheduledTime = _getScheduledTime(date, reminder.time);
+    tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    if (!scheduledTime.isBefore(now)) {
+      print(scheduledTime);
+      await _flutterLocalNotificationsPlugin.zonedSchedule(
+          0,
+          'scheduled title',
+          'scheduled body',
+          tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+          const NotificationDetails(
+              android: AndroidNotificationDetails('your channel id',
+                  'your channel name', 'your channel description')),
+          androidAllowWhileIdle: true,
+          uiLocalNotificationDateInterpretation:
+              UILocalNotificationDateInterpretation.absoluteTime);
+    }
   }
 
-  tz.TZDateTime _nextInstanceOf(TimeOfDay time) {
-    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+  tz.TZDateTime _getScheduledTime(DateTime date, TimeOfDay time) {
     tz.TZDateTime scheduledDate = tz.TZDateTime(
-        tz.local, now.year, now.month, now.day, time.hour, time.minute);
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
-    }
+        tz.local, date.year, date.month, date.day, time.hour, time.minute);
     return scheduledDate;
   }
 

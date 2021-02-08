@@ -20,15 +20,14 @@ class TrialAdapter extends TypeAdapter<Trial> {
       ..a = fields[0] as Intervention
       ..b = fields[1] as Intervention
       ..measures = (fields[2] as List)?.cast<Measure>()
-      ..phases = fields[3] as dynamic
-      ..startDate = fields[4] as DateTime
-      ..reminders = (fields[5] as List)?.cast<Reminder>();
+      ..phases = fields[3] as TrialPhases
+      ..startDate = fields[4] as DateTime;
   }
 
   @override
   void write(BinaryWriter writer, Trial obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.a)
       ..writeByte(1)
@@ -38,9 +37,7 @@ class TrialAdapter extends TypeAdapter<Trial> {
       ..writeByte(3)
       ..write(obj.phases)
       ..writeByte(4)
-      ..write(obj.startDate)
-      ..writeByte(5)
-      ..write(obj.reminders);
+      ..write(obj.startDate);
   }
 
   @override

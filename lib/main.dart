@@ -15,7 +15,6 @@ import 'models/measure/choice_measure.dart';
 import 'models/measure/free_measure.dart';
 import 'models/measure/scale_measure.dart';
 import 'models/measure/synced_measure.dart';
-import 'models/reminder.dart';
 import 'models/schedule.dart';
 import 'models/schedule/phase_order.dart';
 import 'models/schedule/trial_phases.dart';
@@ -60,8 +59,6 @@ _setupHive() async {
   Hive.registerAdapter<ChoiceMeasure>(ChoiceMeasureAdapter());
   Hive.registerAdapter<ScaleMeasure>(ScaleMeasureAdapter());
   Hive.registerAdapter<SyncedMeasure>(SyncedMeasureAdapter());
-
-  Hive.registerAdapter<Reminder>(ReminderAdapter());
 
   Hive.registerAdapter<TrialLog>(TrialLogAdapter());
 }

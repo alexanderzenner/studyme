@@ -4,10 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/routes.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
+import 'package:studyme/ui/widgets/section_title.dart';
 
 import '../widgets/creator_intervention_section.dart';
 import '../widgets/creator_measure_section.dart';
-import '../widgets/creator_reminder_section.dart';
 import '../widgets/creator_phase_section.dart';
 
 class Creator extends StatelessWidget {
@@ -33,8 +33,6 @@ class Creator extends StatelessWidget {
                   CreatorMeasureSection(model,
                       isActive: model.canAddMeasures()),
                   Divider(height: 30),
-                  CreatorReminderSection(model,
-                      isActive: model.canAddReminders()),
                   SizedBox(height: 60),
                 ]),
               ),

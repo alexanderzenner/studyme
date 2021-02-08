@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:studyme/models/schedule.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
+import 'package:studyme/util/notifications.dart';
 
 class ScheduleEditor extends StatefulWidget {
   final Schedule schedule;
@@ -151,13 +152,17 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
   }
 
   Future<void> _addTime() async {
-    final TimeOfDay picked =
-        await showTimePicker(context: context, initialTime: TimeOfDay.now());
+    bool hasGrantedNotificationPermissions =
+        await Notifications().requestPermission();
+    if (hasGrantedNotificationPermissions != false) {
+      final TimeOfDay picked =
+          await showTimePicker(context: context, initialTime: TimeOfDay.now());
 
-    if (picked != null) {
-      setState(() {
-        _schedule.addTime(picked);
-      });
+      if (picked != null) {
+        setState(() {
+          _schedule.addTime(picked);
+        });
+      }
     }
   }
 

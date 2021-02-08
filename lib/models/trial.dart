@@ -24,16 +24,29 @@ class Trial extends HiveObject {
   @HiveField(4)
   DateTime startDate;
 
-  @HiveField(5)
-  List<Reminder> reminders;
+  List<Reminder> getRemindersForDate(DateTime date) {
+    DateTime _cleanDate = DateTime(date.year, date.month, date.day);
+
+    List<Reminder> _reminders = [];
+
+    int daysSinceBeginningOfTrial = _cleanDate.difference(startDate).inDays;
+    int daysSinceBeginningOfPhase =
+        daysSinceBeginningOfTrial % phases.phaseDuration;
+
+    Intervention _intervention = getInterventionForDate(_cleanDate);
+
+    _reminders.addAll(_intervention.getRemindersFor(daysSinceBeginningOfPhase));
+    measures.forEach((measure) {
+      _reminders.addAll(measure.getRemindersFor(daysSinceBeginningOfTrial));
+    });
+    return _reminders;
+  }
 
   List<SyncedMeasure> get syncedMeasures {
     return measures.whereType<SyncedMeasure>().toList();
   }
 
-  Trial()
-      : this.measures = [],
-        this.reminders = [];
+  Trial() : this.measures = [];
 
   DateTime get endDate {
     return startDate

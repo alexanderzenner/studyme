@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:studyme/models/reminder.dart';
 
 part 'schedule.g.dart';
 
@@ -79,6 +80,23 @@ class Schedule {
     }
 
     return _text;
+  }
+
+  List<TimeOfDay> getTaskTimesFor(int daysSinceBeginningOfTimeRange) {
+    bool hasTasksForDate = false;
+
+    if (frequency == 1) {
+      hasTasksForDate = true;
+    } else if (frequency > 1 &&
+        daysSinceBeginningOfTimeRange % frequency == 0) {
+      hasTasksForDate = true;
+    }
+
+    if (hasTasksForDate) {
+      return times;
+    } else {
+      return [];
+    }
   }
 
   clone() {
