@@ -22,13 +22,14 @@ class FreeMeasureAdapter extends TypeAdapter<FreeMeasure> {
       description: fields[3] as String,
     )
       ..type = fields[1] as String
-      ..aggregationString = fields[4] as String;
+      ..aggregationString = fields[4] as String
+      ..schedule = fields[5] as Schedule;
   }
 
   @override
   void write(BinaryWriter writer, FreeMeasure obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class FreeMeasureAdapter extends TypeAdapter<FreeMeasure> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.aggregationString);
+      ..write(obj.aggregationString)
+      ..writeByte(5)
+      ..write(obj.schedule);
   }
 
   @override

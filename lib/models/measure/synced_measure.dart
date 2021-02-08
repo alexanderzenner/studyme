@@ -4,6 +4,7 @@ import 'package:health/health.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/measure/measure.dart';
+import 'package:studyme/models/schedule.dart';
 import 'package:studyme/util/health_connector.dart';
 
 part 'synced_measure.g.dart';
@@ -13,7 +14,7 @@ class SyncedMeasure extends Measure {
   static const String measureType = 'synced';
   final IconData icon = Icons.devices_other;
 
-  @HiveField(5)
+  @HiveField(6)
   String trackedHealthDataTypeName;
 
   HealthDataType get trackedHealthDataType => HealthDataType.values
@@ -24,14 +25,16 @@ class SyncedMeasure extends Measure {
       String name,
       HealthDataType healthDataType,
       String description,
-      Aggregation aggregation})
+      Aggregation aggregation,
+      Schedule schedule})
       : trackedHealthDataTypeName = healthDataType.toString(),
         super(
             id: id,
             type: measureType,
             name: name,
             description: description,
-            aggregation: aggregation);
+            aggregation: aggregation,
+            schedule: schedule);
 
   @override
   Future<bool> get canAdd {

@@ -20,7 +20,8 @@ class ChoiceMeasureAdapter extends TypeAdapter<ChoiceMeasure> {
       id: fields[0] as String,
       name: fields[2] as String,
       description: fields[3] as String,
-      choices: (fields[5] as List)?.cast<Choice>(),
+      choices: (fields[6] as List)?.cast<Choice>(),
+      schedule: fields[5] as Schedule,
     )
       ..type = fields[1] as String
       ..aggregationString = fields[4] as String;
@@ -29,8 +30,8 @@ class ChoiceMeasureAdapter extends TypeAdapter<ChoiceMeasure> {
   @override
   void write(BinaryWriter writer, ChoiceMeasure obj) {
     writer
+      ..writeByte(7)
       ..writeByte(6)
-      ..writeByte(5)
       ..write(obj.choices)
       ..writeByte(0)
       ..write(obj.id)
@@ -41,7 +42,9 @@ class ChoiceMeasureAdapter extends TypeAdapter<ChoiceMeasure> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.aggregationString);
+      ..write(obj.aggregationString)
+      ..writeByte(5)
+      ..write(obj.schedule);
   }
 
   @override

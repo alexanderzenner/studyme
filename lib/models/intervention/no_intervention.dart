@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:studyme/models/intervention/intervention.dart';
-import 'package:studyme/models/intervention/intervention_schedule.dart';
+import 'package:studyme/models/schedule.dart';
 
 part 'no_intervention.g.dart';
 
@@ -12,7 +12,7 @@ class NoIntervention extends Intervention {
   final description = 'TBD';
 
   @override
-  final InterventionSchedule schedule = null;
+  final Schedule schedule = null;
 
   NoIntervention() : super(type: interventionType);
 

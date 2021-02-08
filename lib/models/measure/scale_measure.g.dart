@@ -20,10 +20,11 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       id: fields[0] as String,
       name: fields[2] as String,
       description: fields[3] as String,
-      min: fields[5] as num,
-      max: fields[6] as num,
+      min: fields[6] as num,
+      max: fields[7] as num,
+      schedule: fields[5] as Schedule,
     )
-      ..initial = fields[7] as num
+      ..initial = fields[8] as num
       ..type = fields[1] as String
       ..aggregationString = fields[4] as String;
   }
@@ -31,12 +32,12 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
   @override
   void write(BinaryWriter writer, ScaleMeasure obj) {
     writer
-      ..writeByte(8)
-      ..writeByte(5)
-      ..write(obj.min)
+      ..writeByte(9)
       ..writeByte(6)
-      ..write(obj.max)
+      ..write(obj.min)
       ..writeByte(7)
+      ..write(obj.max)
+      ..writeByte(8)
       ..write(obj.initial)
       ..writeByte(0)
       ..write(obj.id)
@@ -47,7 +48,9 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.aggregationString);
+      ..write(obj.aggregationString)
+      ..writeByte(5)
+      ..write(obj.schedule);
   }
 
   @override

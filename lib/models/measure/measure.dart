@@ -4,6 +4,7 @@ import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:uuid/uuid.dart';
 import 'package:studyme/util/string_extension.dart';
 
+import '../schedule.dart';
 import 'choice_measure.dart';
 import 'free_measure.dart';
 
@@ -18,6 +19,8 @@ abstract class Measure {
   String description;
   @HiveField(4)
   String aggregationString;
+  @HiveField(5)
+  Schedule schedule;
 
   Aggregation get aggregation {
     return Aggregation.values
@@ -30,11 +33,18 @@ abstract class Measure {
 
   IconData icon;
 
-  Measure({this.id, this.type, this.name, this.description, aggregation}) {
+  Measure(
+      {this.id,
+      this.type,
+      this.name,
+      this.description,
+      aggregation,
+      Schedule schedule}) {
     this.id = id ?? Uuid().v4();
     this.aggregationString = aggregation != null
         ? aggregation.toString()
         : Aggregation.Average.toString();
+    this.schedule = schedule ?? Schedule();
   }
 
   Measure.clone(Measure measure)
@@ -42,7 +52,8 @@ abstract class Measure {
         type = measure.type,
         name = measure.name,
         description = measure.description,
-        aggregationString = measure.aggregationString;
+        aggregationString = measure.aggregationString,
+        schedule = measure.schedule.clone();
 
   clone() {
     switch (this.runtimeType) {

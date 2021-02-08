@@ -19,24 +19,22 @@ class NoInterventionAdapter extends TypeAdapter<NoIntervention> {
     return NoIntervention()
       ..name = fields[2] as String
       ..description = fields[3] as String
+      ..schedule = fields[5] as Schedule
       ..type = fields[0] as String
       ..id = fields[1] as String
-      ..letter = fields[4] as String
-      ..schedule = fields[5] as InterventionSchedule;
+      ..letter = fields[4] as String;
   }
 
   @override
   void write(BinaryWriter writer, NoIntervention obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.type)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(4)
-      ..write(obj.letter)
-      ..writeByte(5)
-      ..write(obj.schedule);
+      ..write(obj.letter);
   }
 
   @override

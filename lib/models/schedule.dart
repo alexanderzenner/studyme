@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-part 'intervention_schedule.g.dart';
+part 'schedule.g.dart';
 
 @HiveType(typeId: 204)
-class InterventionSchedule {
+class Schedule {
   final year = 2000;
   final month = 1;
   final day = 1;
@@ -18,7 +18,7 @@ class InterventionSchedule {
     return timestamps.map((e) => TimeOfDay.fromDateTime(e)).toList();
   }
 
-  InterventionSchedule({this.frequency = 1, List<DateTime> timestamps})
+  Schedule({this.frequency = 1, List<DateTime> timestamps})
       : this.timestamps = timestamps ?? [];
 
   addTime(TimeOfDay time) {
@@ -78,7 +78,7 @@ class InterventionSchedule {
   }
 
   clone() {
-    return InterventionSchedule(
+    return Schedule(
         frequency: this.frequency,
         timestamps: List<DateTime>.from(this.timestamps));
   }

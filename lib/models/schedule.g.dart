@@ -1,29 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'intervention_schedule.dart';
+part of 'schedule.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class InterventionScheduleAdapter extends TypeAdapter<InterventionSchedule> {
+class ScheduleAdapter extends TypeAdapter<Schedule> {
   @override
   final int typeId = 204;
 
   @override
-  InterventionSchedule read(BinaryReader reader) {
+  Schedule read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return InterventionSchedule(
+    return Schedule(
       frequency: fields[0] as int,
       timestamps: (fields[1] as List)?.cast<DateTime>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, InterventionSchedule obj) {
+  void write(BinaryWriter writer, Schedule obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)
@@ -38,7 +38,7 @@ class InterventionScheduleAdapter extends TypeAdapter<InterventionSchedule> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is InterventionScheduleAdapter &&
+      other is ScheduleAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/intervention.dart';
-import 'package:studyme/models/intervention/intervention_schedule.dart';
+import 'package:studyme/models/schedule.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:studyme/ui/widgets/section_title.dart';

@@ -22,7 +22,8 @@ class InterventionAdapter extends TypeAdapter<Intervention> {
       name: fields[2] as String,
       description: fields[3] as String,
       letter: fields[4] as String,
-    )..schedule = fields[5] as InterventionSchedule;
+      schedule: fields[5] as Schedule,
+    );
   }
 
   @override

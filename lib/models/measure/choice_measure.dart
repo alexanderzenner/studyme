@@ -5,6 +5,8 @@ import 'package:studyme/models/measure/choice.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
+import '../schedule.dart';
+
 part 'choice_measure.g.dart';
 
 @HiveType(typeId: 3)
@@ -12,7 +14,7 @@ class ChoiceMeasure extends Measure {
   static const String measureType = 'choice';
   final IconData icon = Icons.list;
 
-  @HiveField(5)
+  @HiveField(6)
   List<Choice> choices;
 
   ChoiceMeasure(
@@ -20,14 +22,16 @@ class ChoiceMeasure extends Measure {
       String name,
       String description,
       List<Choice> choices,
-      Aggregation aggregation})
+      Aggregation aggregation,
+      Schedule schedule})
       : this.choices = choices ?? [],
         super(
             id: id,
             type: measureType,
             name: name,
             description: description,
-            aggregation: aggregation);
+            aggregation: aggregation,
+            schedule: schedule);
 
   ChoiceMeasure.clone(ChoiceMeasure measure)
       : choices = List.of(measure.choices),

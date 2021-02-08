@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:studyme/models/intervention/intervention_schedule.dart';
+import 'package:studyme/models/schedule.dart';
 import 'package:uuid/uuid.dart';
 
 import 'no_intervention.dart';
@@ -26,12 +26,13 @@ class Intervention {
   String letter;
 
   @HiveField(5)
-  InterventionSchedule schedule;
+  Schedule schedule;
 
-  Intervention({id, type, this.name, this.description, this.letter})
+  Intervention(
+      {id, type, this.name, this.description, this.letter, Schedule schedule})
       : this.id = id ?? Uuid().v4(),
         this.type = type ?? interventionType,
-        this.schedule = InterventionSchedule();
+        this.schedule = schedule ?? Schedule();
 
   Intervention.clone(Intervention intervention)
       : type = intervention.type,
