@@ -26,6 +26,7 @@ class _ChoiceEditorState extends State<ChoiceEditor> {
       Expanded(
         flex: 16,
         child: TextFormField(
+            autofocus: widget.choice.value == null,
             initialValue: widget.choice.value,
             onChanged: (text) => setState(() {
                   widget.choice.value = text;

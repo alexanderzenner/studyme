@@ -16,9 +16,10 @@ class InterventionScheduleAdapter extends TypeAdapter<InterventionSchedule> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return InterventionSchedule()
-      ..frequency = (fields[0] as List)?.cast<int>()
-      .._times = (fields[1] as List)?.cast<DateTime>();
+    return InterventionSchedule(
+      frequency: fields[0] as int,
+      timestamps: fields[1] as dynamic,
+    );
   }
 
   @override
@@ -28,7 +29,7 @@ class InterventionScheduleAdapter extends TypeAdapter<InterventionSchedule> {
       ..writeByte(0)
       ..write(obj.frequency)
       ..writeByte(1)
-      ..write(obj._times);
+      ..write(obj.timestamps);
   }
 
   @override

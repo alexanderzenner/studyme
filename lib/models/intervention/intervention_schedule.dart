@@ -5,43 +5,86 @@ part 'intervention_schedule.g.dart';
 
 @HiveType(typeId: 204)
 class InterventionSchedule {
+  final year = 2000;
+  final month = 1;
+  final day = 1;
+
   @HiveField(0)
-  List<int> frequency;
+  int frequency;
   @HiveField(1)
-  List<DateTime> _times;
+  List<DateTime> timestamps;
 
   List<TimeOfDay> get times {
-    return _times.map((e) => TimeOfDay.fromDateTime(e)).toList();
+    return timestamps.map((e) => TimeOfDay.fromDateTime(e)).toList();
   }
 
-  InterventionSchedule({this.frequency, times}) : this._times = times ?? [];
+  InterventionSchedule({this.frequency = 1, timestamps})
+      : this.timestamps = timestamps ?? [];
 
   addTime(TimeOfDay time) {
     // only care about time and hour, but hive needs to save datetime
-    final now = new DateTime.now();
-    _times.add(DateTime(now.year, now.month, now.day, time.hour, time.minute));
+    final newTimestamp = _generateDateTime(time);
+    if (!_containsTime(newTimestamp)) {
+      timestamps.add(newTimestamp);
+    }
     _sortTimes();
   }
 
   updateTime(int index, TimeOfDay time) {
-    final now = new DateTime.now();
-    if (index < _times.length) {
-      _times[index] =
-          DateTime(now.year, now.month, now.day, time.hour, time.minute);
+    final newTimestamp = _generateDateTime(time);
+    if (index < timestamps.length && !_containsTime(newTimestamp)) {
+      timestamps[index] = newTimestamp;
       _sortTimes();
     }
   }
 
   removeTime(int index) {
-    _times.removeAt(index);
+    timestamps.removeAt(index);
   }
 
   _sortTimes() {
-    _times.sort((a, b) => a.compareTo(b));
+    timestamps.sort((a, b) => a.compareTo(b));
+  }
+
+  _generateDateTime(TimeOfDay time) {
+    return DateTime(year, month, day, time.hour, time.minute);
+  }
+
+  _containsTime(DateTime newTimestamp) {
+    for (var timestamp in timestamps) {
+      if (timestamp.compareTo(newTimestamp) == 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  String get readable {
+    String _text;
+    if (frequency == 1) {
+      _text = "Every day";
+    } else {
+      _text = "Every ${frequency.toString()} days";
+    }
+    _text += " at ";
+    for (var i = 0; i < times.length; i++) {
+      _text += "${times[i].readable}";
+      if (i < times.length - 1) {
+        _text += ", ";
+      }
+    }
+
+    return _text;
   }
 
   clone() {
     return InterventionSchedule(
-        frequency: this.frequency, times: List<DateTime>.from(this._times));
+        frequency: this.frequency,
+        timestamps: List<DateTime>.from(this.timestamps));
   }
+}
+
+extension TimeOfDayExtension on TimeOfDay {
+  String get readable => DefaultMaterialLocalizations()
+      .formatTimeOfDay(this, alwaysUse24HourFormat: true);
 }

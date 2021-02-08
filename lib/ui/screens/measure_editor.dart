@@ -7,6 +7,7 @@ import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/ui/widgets/choice_editor.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
+import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:uuid/uuid.dart';
 
 class MeasureEditor extends StatefulWidget {
@@ -50,6 +51,7 @@ class _MeasureEditorState extends State<MeasureEditor> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
+                SectionTitle("Measure"),
                 if (widget.isCreator) _buildTypeDropdown(),
                 TextFormField(
                   initialValue: _measure.name,
@@ -57,6 +59,8 @@ class _MeasureEditorState extends State<MeasureEditor> {
                   decoration: InputDecoration(labelText: 'Name'),
                 ),
                 if (_body != null) _body,
+                Divider(height: 30),
+                SectionTitle("Other"),
                 _buildAggregationDropdown()
               ],
             ),
@@ -89,7 +93,7 @@ class _MeasureEditorState extends State<MeasureEditor> {
           child: Text('${value[0].toUpperCase()}${value.substring(1)}'),
         );
       }).toList(),
-      decoration: InputDecoration(labelText: 'Measure Type'),
+      decoration: InputDecoration(labelText: 'Type'),
     );
   }
 
@@ -114,7 +118,7 @@ class _MeasureEditorState extends State<MeasureEditor> {
 
   _buildAggregationDropdown() {
     return DropdownButtonFormField<Aggregation>(
-      decoration: InputDecoration(labelText: 'Aggregation Type'),
+      decoration: InputDecoration(labelText: 'Aggregation'),
       onChanged: _changeAggregationType,
       value: _measure.aggregation,
       items: Aggregation.values
@@ -145,6 +149,8 @@ class _MeasureEditorState extends State<MeasureEditor> {
 
   _buildScaleMeasureBody(ScaleMeasure measure) {
     return Column(children: [
+      Divider(height: 30),
+      SectionTitle("Scale"),
       TextFormField(
         keyboardType: TextInputType.number,
         initialValue: measure.min.toInt().toString(),
@@ -170,6 +176,13 @@ class _MeasureEditorState extends State<MeasureEditor> {
 
   _buildChoiceMeasureBody(ChoiceMeasure measure) {
     return Column(children: [
+      Divider(height: 30),
+      SectionTitle("Choices",
+          action: IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () => setState(() {
+                    measure.choices.add(Choice());
+                  }))),
       ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
@@ -184,16 +197,6 @@ class _MeasureEditorState extends State<MeasureEditor> {
                     }));
           }),
       SizedBox(height: 20),
-      ButtonBar(
-        children: [
-          OutlineButton.icon(
-              icon: Icon(Icons.add),
-              label: Text('Add Choice'),
-              onPressed: () => setState(() {
-                    measure.choices.add(Choice());
-                  }))
-        ],
-      )
     ]);
   }
 }

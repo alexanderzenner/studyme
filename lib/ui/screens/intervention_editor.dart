@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/models/intervention/intervention_schedule.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
@@ -18,12 +19,14 @@ class InterventionEditor extends StatefulWidget {
 class _InterventionEditorState extends State<InterventionEditor> {
   Intervention _intervention;
 
-  String _test;
+  Frequency _frequency;
 
   @override
   initState() {
     _intervention = widget.intervention.clone();
-    _test = 'Daily';
+    _frequency = _intervention.schedule.frequency == 1
+        ? Frequency.Daily
+        : Frequency.EveryXDays;
     super.initState();
   }
 
@@ -75,9 +78,12 @@ class _InterventionEditorState extends State<InterventionEditor> {
                     children: [
                       SectionTitle("Intervention"),
                       TextFormField(
+                        autofocus: _intervention.name == null,
                         initialValue: _intervention.name,
                         onChanged: _changeName,
-                        decoration: InputDecoration(labelText: 'Name'),
+                        decoration: InputDecoration(
+                          labelText: 'Name',
+                        ),
                       ),
                       Divider(height: 30),
                       SectionTitle("Schedule"),
@@ -97,10 +103,8 @@ class _InterventionEditorState extends State<InterventionEditor> {
                               child: ListTile(
                                 title: GestureDetector(
                                   onTap: () => _editTime(index),
-                                  child: Text(DefaultMaterialLocalizations()
-                                      .formatTimeOfDay(
-                                          _intervention.schedule.times[index],
-                                          alwaysUse24HourFormat: true)),
+                                  child: Text(_intervention
+                                      .schedule.times[index].readable),
                                 ),
                                 trailing: IconButton(
                                   icon: Icon(Icons.delete),
@@ -118,19 +122,19 @@ class _InterventionEditorState extends State<InterventionEditor> {
   }
 
   _buildFrequencySelector() {
-    Widget _dropDown = DropdownButtonFormField<String>(
-      decoration: InputDecoration(labelText: 'Frequency'),
-      onChanged: (value) => setState(() {
-        _test = value;
-      }),
-      value: 'Every ...',
-      items: ['Daily', 'Every ...']
-          .map((aggregation) => DropdownMenuItem<String>(
-              value: aggregation, child: Text(aggregation)))
+    Widget _dropDown = DropdownButtonFormField<Frequency>(
+      decoration: InputDecoration(
+        labelText: 'Frequency',
+      ),
+      onChanged: _changeFrequency,
+      value: _frequency,
+      items: Frequency.values
+          .map((value) => DropdownMenuItem<Frequency>(
+              value: value, child: Text(value.readable)))
           .toList(),
     );
 
-    if (_test == 'Daily') {
+    if (_frequency == Frequency.Daily) {
       return _dropDown;
     } else {
       return Row(
@@ -141,8 +145,9 @@ class _InterventionEditorState extends State<InterventionEditor> {
           SizedBox(width: 5),
           Expanded(
             child: TextFormField(
-              initialValue: _intervention.name,
-              onChanged: _changeName,
+              keyboardType: TextInputType.number,
+              initialValue: _intervention.schedule.frequency.toString(),
+              onChanged: _setFrequency,
             ),
           ),
           SizedBox(width: 5),
@@ -152,8 +157,31 @@ class _InterventionEditorState extends State<InterventionEditor> {
     }
   }
 
+  _changeFrequency(Frequency newFrequency) {
+    if (newFrequency != _frequency) {
+      setState(() {
+        _frequency = newFrequency;
+        _intervention.schedule.frequency = newFrequency.initial;
+      });
+    }
+  }
+
+  _setFrequency(String text) {
+    try {
+      int value = text.length > 0 ? int.parse(text) : 0;
+      if (value > 1) {
+        _intervention.schedule.frequency = value;
+      }
+    } on Exception catch (_) {
+      print("Invalid number");
+    }
+  }
+
   _canSubmit() {
-    return _intervention.name != null && _intervention.name.length > 0;
+    return _intervention.name != null &&
+        _intervention.name.length > 0 &&
+        !(!(_intervention is NoIntervention) &&
+            _intervention.schedule.times.length > 0);
   }
 
   _changeName(text) {
@@ -202,5 +230,29 @@ class _InterventionEditorState extends State<InterventionEditor> {
     setState(() {
       _intervention.schedule.removeTime(index);
     });
+  }
+}
+
+enum Frequency { Daily, EveryXDays }
+
+extension FrequencyExtension on Frequency {
+  String get readable {
+    if (this == Frequency.Daily) {
+      return 'Daily';
+    } else if (this == Frequency.EveryXDays) {
+      return 'Every ...';
+    } else {
+      return null;
+    }
+  }
+
+  int get initial {
+    if (this == Frequency.Daily) {
+      return 1;
+    } else if (this == Frequency.EveryXDays) {
+      return 2;
+    } else {
+      return null;
+    }
   }
 }
