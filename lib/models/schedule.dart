@@ -67,7 +67,7 @@ class Schedule {
 
     String _text;
     if (frequency == 1) {
-      _text = "Every day";
+      _text = "Daily";
     } else {
       _text = "Every ${frequency.toString()} days";
     }

@@ -8,6 +8,7 @@ import 'package:studyme/util/notifications.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/trial.dart';
+import 'package:studyme/util/time_of_day_extension.dart';
 
 class AppData extends ChangeNotifier {
   static const activeTrialKey = 'trial';
@@ -124,9 +125,8 @@ class AppData extends ChangeNotifier {
       DateTime _now = DateTime.now();
 
       if (date.difference(DateTime.now()).inDays == 0) {
-        reminders.removeWhere((element) =>
-            (element.time.hour + element.time.minute / 60.0) <
-            _now.hour + _now.minute / 60.0);
+        reminders.removeWhere(
+            (element) => element.time.combined < element.time.combined);
       }
       reminders.forEach((reminder) {
         Notifications().scheduleNotificationFor(_cleanDate, reminder, _id);

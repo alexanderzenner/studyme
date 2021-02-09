@@ -5,6 +5,8 @@ import './measure/measure.dart';
 import 'intervention/intervention.dart';
 import 'measure/synced_measure.dart';
 
+import 'package:studyme/util/time_of_day_extension.dart';
+
 part 'trial.g.dart';
 
 @HiveType(typeId: 200)
@@ -38,6 +40,17 @@ class Trial extends HiveObject {
     measures.forEach((measure) {
       _reminders.addAll(measure.getRemindersFor(daysSinceBeginningOfTrial));
     });
+
+    _reminders.sort((a, b) {
+      if (a.time.combined < b.time.combined) {
+        return -1;
+      } else if (a.time.combined > b.time.combined) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
     return _reminders;
   }
 

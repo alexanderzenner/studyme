@@ -19,7 +19,7 @@ class Home extends StatelessWidget {
     Notifications().debugShowPendingRequests();
 
     final Trial _trial = Provider.of<AppData>(context).trial;
-    final _dateToday = DateTime.now();
+    final _dateToday = DateTime.now().add(Duration(days: 0));
 
     List<Widget> _body;
     int _activeIndex;
@@ -32,7 +32,7 @@ class Home extends StatelessWidget {
       _activeIndex = _trial.phases.totalDuration;
     } else {
       _body = _buildBodyWithTodaysTasks(
-          context, _trial.getRemindersForDate(DateTime.now()));
+          context, _trial.getRemindersForDate(_dateToday));
       _activeIndex = _trial.getPhaseIndexForDate(_dateToday);
     }
 

@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/schedule.dart';
+import 'package:studyme/models/task/task.dart';
 
 part 'no_intervention.g.dart';
 
@@ -11,10 +12,15 @@ class NoIntervention extends Intervention {
   final name = 'No Intervention';
   final description = 'TBD';
 
+  NoIntervention() : super(type: interventionType);
+
   @override
   final Schedule schedule = null;
 
-  NoIntervention() : super(type: interventionType);
+  @override
+  List<Task> getRemindersFor(daysSinceBeginningOfTimeRange) {
+    return [];
+  }
 
   NoIntervention.clone(NoIntervention intervention) : super.clone(intervention);
 }
