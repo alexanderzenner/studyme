@@ -11,6 +11,8 @@ class Notifications {
 
   Notifications._internal() {
     _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    _initialize();
     _configureLocalTimeZone();
     _instance = this;
   }
@@ -29,17 +31,31 @@ class Notifications {
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
   }
 
+  Future<void> _initialize() async {
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: IOSInitializationSettings(),
+            macOS: MacOSInitializationSettings());
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
   Future<void> scheduleNotificationFor(
       DateTime date, Reminder reminder, int id) async {
     tz.TZDateTime scheduledTime = _getScheduledTime(date, reminder.time);
     tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     if (!scheduledTime.isBefore(now)) {
-      print(scheduledTime);
       await _flutterLocalNotificationsPlugin.zonedSchedule(
-          0,
-          'scheduled title',
-          'scheduled body',
-          tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+          id,
+          reminder.title,
+          reminder.body,
+          scheduledTime,
           const NotificationDetails(
               android: AndroidNotificationDetails('your channel id',
                   'your channel name', 'your channel description')),

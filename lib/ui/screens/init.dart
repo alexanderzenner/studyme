@@ -23,6 +23,8 @@ class _InitState extends State<Init> {
     // first make sure app data is fetched from box
     await Provider.of<AppData>(context, listen: false).loadAppState();
     AppData appData = Provider.of<AppData>(context, listen: false);
+    // schedule notifications for next day
+    appData.scheduleNotificationsFor(DateTime.now().add(Duration(days: 1)));
     AppState state = appData.state;
     if (state == AppState.ONBOARDING) {
       Navigator.pushReplacementNamed(context, Routes.onboarding);
