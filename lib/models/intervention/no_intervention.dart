@@ -18,7 +18,7 @@ class NoIntervention extends Intervention {
   final Schedule schedule = null;
 
   @override
-  List<Task> getRemindersFor(daysSinceBeginningOfTimeRange) {
+  List<Task> getTasksFor(daysSinceBeginningOfTimeRange) {
     return [];
   }
 

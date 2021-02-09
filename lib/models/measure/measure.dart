@@ -64,7 +64,7 @@ abstract class Measure {
 
   dynamic get tickProvider => null;
 
-  List<Task> getRemindersFor(int daysSinceBeginningOfTimeRange) {
+  List<Task> getTasksFor(int daysSinceBeginningOfTimeRange) {
     List<TimeOfDay> times =
         this.schedule.getTaskTimesFor(daysSinceBeginningOfTimeRange);
     return times.map((time) => MeasureTask(this, time)).toList();

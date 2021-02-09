@@ -26,32 +26,36 @@ class Trial extends HiveObject {
   @HiveField(4)
   DateTime startDate;
 
-  List<Task> getRemindersForDate(DateTime date) {
+  List<Task> getTasksForDate(DateTime date) {
     DateTime _cleanDate = DateTime(date.year, date.month, date.day);
-    List<Task> _reminders = [];
+    List<Task> _tasks = [];
 
-    int daysSinceBeginningOfTrial = _cleanDate.difference(startDate).inDays;
-    int daysSinceBeginningOfPhase =
-        daysSinceBeginningOfTrial % phases.phaseDuration;
+    if (date.isAfter(startDate) && date.isBefore(endDate)) {
+      int daysSinceBeginningOfTrial = _cleanDate.difference(startDate).inDays;
+      int daysSinceBeginningOfPhase =
+          daysSinceBeginningOfTrial % phases.phaseDuration;
 
-    Intervention _intervention = getInterventionForDate(_cleanDate);
+      Intervention _intervention = getInterventionForDate(_cleanDate);
 
-    _reminders.addAll(_intervention.getRemindersFor(daysSinceBeginningOfPhase));
-    measures.forEach((measure) {
-      _reminders.addAll(measure.getRemindersFor(daysSinceBeginningOfTrial));
-    });
+      _tasks.addAll(_intervention.getTasksFor(daysSinceBeginningOfPhase));
+      measures.forEach((measure) {
+        _tasks.addAll(measure.getTasksFor(daysSinceBeginningOfTrial));
+      });
 
-    _reminders.sort((a, b) {
-      if (a.time.combined < b.time.combined) {
-        return -1;
-      } else if (a.time.combined > b.time.combined) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
+      _tasks.sort((a, b) {
+        if (a.time.combined < b.time.combined) {
+          return -1;
+        } else if (a.time.combined > b.time.combined) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    } else {
+      print("trial has ended");
+    }
 
-    return _reminders;
+    return _tasks;
   }
 
   List<SyncedMeasure> get syncedMeasures {
@@ -82,7 +86,7 @@ class Trial extends HiveObject {
 
   Intervention getInterventionForPhaseIndex(int index) {
     if (index < 0 || index >= phases.numberOfPhases) {
-      print('Study is over or has not begun.');
+      print('trial is over or has not begun.');
       return null;
     }
     final interventionLetter = phases.phaseSequence[index];

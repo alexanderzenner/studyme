@@ -157,8 +157,9 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
     bool hasGrantedNotificationPermissions =
         await Notifications().requestPermission();
     if (hasGrantedNotificationPermissions != false) {
-      final TimeOfDay picked =
-          await showTimePicker(context: context, initialTime: TimeOfDay.now());
+      final TimeOfDay picked = await showTimePicker(
+          context: context,
+          initialTime: TimeOfDay(hour: TimeOfDay.now().hour, minute: 0));
 
       if (picked != null) {
         setState(() {

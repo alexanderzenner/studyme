@@ -46,7 +46,7 @@ class Intervention {
             ? intervention.schedule.clone()
             : null;
 
-  List<Task> getRemindersFor(daysSinceBeginningOfTimeRange) {
+  List<Task> getTasksFor(daysSinceBeginningOfTimeRange) {
     List<TimeOfDay> times =
         this.schedule.getTaskTimesFor(daysSinceBeginningOfTimeRange);
     return times.map((time) => InterventionTask(this, time)).toList();
