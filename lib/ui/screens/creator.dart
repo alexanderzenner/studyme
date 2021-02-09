@@ -45,7 +45,7 @@ class Creator extends StatelessWidget {
                   Navigator.pushReplacementNamed(context, Routes.dashboard);
                 },
                 icon: Icon(Icons.check),
-                label: Text('Start trial'),
+                label: Text('Start'),
                 backgroundColor: Colors.green,
               )
             : null,

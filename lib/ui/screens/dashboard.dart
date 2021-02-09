@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:studyme/ui/screens/settings.dart';
 
 import 'history.dart';
 import 'home.dart';
@@ -12,9 +13,9 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   int _currentIndex;
 
-  List<String> _titles = ['Home', 'History'];
+  List<String> _titles = ['Home', 'History', 'Settings'];
 
-  List<Function> _body = [() => Home(), () => History()];
+  List<Function> _body = [() => Home(), () => History(), () => Settings()];
 
   @override
   void initState() {
@@ -41,6 +42,10 @@ class _DashboardState extends State<Dashboard> {
             BottomNavigationBarItem(
               icon: new Icon(Icons.insert_chart),
               label: _titles[1],
+            ),
+            BottomNavigationBarItem(
+              icon: new Icon(Icons.settings),
+              label: _titles[2],
             )
           ]),
     );

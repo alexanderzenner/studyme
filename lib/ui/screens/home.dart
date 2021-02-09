@@ -42,37 +42,6 @@ class Home extends StatelessWidget {
           PhasesWidget(schedule: _trial.phases, activeIndex: _activeIndex),
           SizedBox(height: 20),
           ..._body,
-          SizedBox(height: 1000),
-          PopupMenuButton<Option>(
-              icon: Icon(Icons.warning_amber_outlined),
-              onSelected: (Option option) {
-                option.callback();
-              },
-              itemBuilder: (context) => [
-                    Option(
-                        name: 'Edit trial (Debug)',
-                        callback: () {
-                          Provider.of<AppData>(context, listen: false)
-                              .debugCancelAllNotifications();
-                          Provider.of<AppData>(context, listen: false)
-                              .saveAppState(AppState.CREATING);
-                          Navigator.pushReplacementNamed(
-                              context, Routes.onboarding);
-                        }),
-                    Option(
-                        name: 'Cancel trial',
-                        callback: () {
-                          Provider.of<AppData>(context, listen: false)
-                              .debugCancelAllNotifications();
-                          Provider.of<AppData>(context, listen: false)
-                              .createNewTrial();
-                          Navigator.pushReplacementNamed(
-                              context, Routes.onboarding);
-                        })
-                  ]
-                      .map((option) => PopupMenuItem<Option>(
-                          value: option, child: Text(option.name)))
-                      .toList())
         ]),
       ),
     );
