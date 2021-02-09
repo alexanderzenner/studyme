@@ -5,7 +5,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/schedule/phase_order.dart';
 import 'package:studyme/models/schedule/trial_phases.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
-import 'package:studyme/ui/widgets/phase_widget.dart';
+import 'package:studyme/ui/widgets/phases_widget.dart';
 
 class PhaseEditor extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/ui/widgets/phase_widget.dart';
+import 'package:studyme/ui/widgets/phases_widget.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 
 import '../screens/phase_editor.dart';

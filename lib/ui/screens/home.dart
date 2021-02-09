@@ -35,9 +35,7 @@ class Home extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          SizedBox(height: 10),
           PhasesWidget(schedule: _trial.phases, activeIndex: _activeIndex),
-          SizedBox(height: 20),
           ..._body,
         ]),
       ),
@@ -70,15 +68,19 @@ class Home extends StatelessWidget {
 
   _buildBeforeStartBody(Trial trial) {
     return [
-      Text(
-          "Your trial will start on ${DateFormat(DateFormat.YEAR_MONTH_DAY).format(trial.startDate)}")
+      SizedBox(height: 20),
+      HintCard(
+          title:
+              "Your trial will start on ${DateFormat(DateFormat.YEAR_MONTH_DAY).format(trial.startDate)}")
     ];
   }
 
   _buildAfterEndBody(Trial trial) {
     return [
-      Text(
-          "Your trial ended on ${DateFormat(DateFormat.YEAR_MONTH_DAY).format(trial.endDate)}")
+      SizedBox(height: 20),
+      HintCard(
+          title:
+              "Your trial ended on ${DateFormat(DateFormat.YEAR_MONTH_DAY).format(trial.endDate)}")
     ];
   }
 }
