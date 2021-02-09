@@ -7,7 +7,7 @@ import 'package:studyme/models/task/intervention_task.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
-import 'package:studyme/ui/widgets/phase_widget.dart';
+import 'package:studyme/ui/widgets/phases_widget.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/ui/widgets/task_card.dart';
 
@@ -27,7 +27,8 @@ class Home extends StatelessWidget {
       _body = _buildAfterEndBody(_trial);
       _activeIndex = _trial.phases.totalDuration;
     } else {
-      _body = _buildBodyWithTodaysTasks(context, []);
+      _body = _buildBodyWithTodaysTasks(
+          context, _trial.getTasksForDate(_dateToday));
       _activeIndex = _trial.getPhaseIndexForDate(_dateToday);
     }
 
