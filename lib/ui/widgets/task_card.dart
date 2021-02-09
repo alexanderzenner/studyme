@@ -27,22 +27,22 @@ class TaskCard extends StatelessWidget {
   _select(context) {
     if (task is InterventionTask) {
       InterventionTask _task = task as InterventionTask;
-      _navigateToInterventionScreen(context, _task.intervention);
+      _navigateToInterventionScreen(context, _task);
     } else if (task is MeasureTask) {
       MeasureTask _task = task as MeasureTask;
-      _navigateToMeasureScreen(context, _task.measure);
+      _navigateToMeasureScreen(context, _task);
     }
   }
 
-  _navigateToInterventionScreen(context, intervention) async {
+  _navigateToInterventionScreen(context, InterventionTask intervention) async {
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => InterventionInteractor(intervention)));
   }
 
-  _navigateToMeasureScreen(context, measure) async {
+  _navigateToMeasureScreen(context, MeasureTask task) async {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => MeasureInteract(measure)));
+        MaterialPageRoute(builder: (context) => MeasureInteractor(task)));
   }
 }

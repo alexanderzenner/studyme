@@ -5,25 +5,27 @@ import 'package:studyme/models/app_state/log_data.dart';
 import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
-import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/models/measure/synced_measure.dart';
+import 'package:studyme/models/task/measure_task.dart';
 import 'package:studyme/ui/widgets/measure_choice_widget.dart';
 import 'package:studyme/ui/widgets/measure_free_widget.dart';
 import 'package:studyme/ui/widgets/measure_scale_widget.dart';
 import 'package:studyme/ui/widgets/measure_synced_widget.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 
-class MeasureInteract extends StatefulWidget {
-  final Measure measure;
+import 'package:studyme/util/time_of_day_extension.dart';
 
-  MeasureInteract(this.measure);
+class MeasureInteractor extends StatefulWidget {
+  final MeasureTask task;
+
+  MeasureInteractor(this.task);
 
   @override
-  _MeasureInteractState createState() => _MeasureInteractState();
+  _MeasureInteractorState createState() => _MeasureInteractorState();
 }
 
-class _MeasureInteractState extends State<MeasureInteract> {
+class _MeasureInteractorState extends State<MeasureInteractor> {
   num _value;
 
   @override
@@ -41,7 +43,7 @@ class _MeasureInteractState extends State<MeasureInteract> {
     return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
-          title: Text(widget.measure.name),
+          title: Text(widget.task.measure.name),
           actions: <Widget>[
             SaveButton(canPress: _hasSelectedValue(), onPressed: _logValue)
           ],
@@ -49,21 +51,34 @@ class _MeasureInteractState extends State<MeasureInteract> {
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            children: [_buildMeasureWidget()],
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Icon(Icons.alarm),
+                    SizedBox(width: 10),
+                    Text(widget.task.time.readable),
+                  ],
+                ),
+              ),
+              _buildMeasureWidget()
+            ],
           ),
         ));
   }
 
   _buildMeasureWidget() {
-    switch (widget.measure.runtimeType) {
+    print(widget.task.measure.runtimeType);
+    switch (widget.task.measure.runtimeType) {
       case (FreeMeasure):
-        return FreeMeasureWidget(widget.measure, _updateValue);
+        return FreeMeasureWidget(widget.task.measure, _updateValue);
       case (ScaleMeasure):
-        return ScaleMeasureWidget(widget.measure, _updateValue);
+        return ScaleMeasureWidget(widget.task.measure, _updateValue);
       case (ChoiceMeasure):
-        return ChoiceMeasureWidget(widget.measure, _updateValue);
+        return ChoiceMeasureWidget(widget.task.measure, _updateValue);
       case (SyncedMeasure):
-        return SyncedMeasureWidget(measure: widget.measure);
+        return SyncedMeasureWidget(measure: widget.task.measure);
       default:
         return Text("Hi");
     }
@@ -76,9 +91,9 @@ class _MeasureInteractState extends State<MeasureInteract> {
   }
 
   _logValue() {
-    var log = TrialLog(widget.measure.id, DateTime.now(), _value);
+    var log = TrialLog(widget.task.measure.id, DateTime.now(), _value);
     Provider.of<LogData>(context, listen: false)
-        .addMeasureLogs([log], widget.measure);
+        .addMeasureLogs([log], widget.task.measure);
     Navigator.pop(context, true);
   }
 }

@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/task/intervention_task.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:studyme/models/trial.dart';
+import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/ui/widgets/phase_widget.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/ui/widgets/task_card.dart';
-import 'package:studyme/util/util.dart';
-
-import '../../routes.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -29,8 +27,7 @@ class Home extends StatelessWidget {
       _body = _buildAfterEndBody(_trial);
       _activeIndex = _trial.phases.totalDuration;
     } else {
-      _body = _buildBodyWithTodaysTasks(
-          context, _trial.getTasksForDate(_dateToday));
+      _body = _buildBodyWithTodaysTasks(context, []);
       _activeIndex = _trial.getPhaseIndexForDate(_dateToday);
     }
 
@@ -50,15 +47,24 @@ class Home extends StatelessWidget {
   _buildBodyWithTodaysTasks(context, List<Task> todaysTasks) {
     return [
       SectionTitle('Today'),
-      ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: todaysTasks.length,
-        itemBuilder: (context, index) {
-          Task task = todaysTasks[index];
-          return TaskCard(task: task);
-        },
-      ),
+      if (todaysTasks.length > 0)
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: todaysTasks.length,
+          itemBuilder: (context, index) {
+            Task task = todaysTasks[index];
+            return TaskCard(task: task);
+          },
+        ),
+      if (!todaysTasks.any((element) => element is InterventionTask))
+        HintCard(
+          title: "No intervention today!",
+        ),
+      if (todaysTasks.length == 0)
+        HintCard(
+          title: "No tasks today!",
+        ),
     ];
   }
 

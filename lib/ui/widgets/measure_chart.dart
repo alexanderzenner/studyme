@@ -34,7 +34,6 @@ class _MeasureChartState extends State<MeasureChart> {
   void initState() {
     _isLoading = true;
     super.initState();
-    print(widget.measure.name);
   }
 
   @override

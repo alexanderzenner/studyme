@@ -2,14 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
-import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/log/trial_log.dart';
+import 'package:studyme/models/task/intervention_task.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 
-class InterventionInteractor extends StatefulWidget {
-  final Intervention intervention;
+import 'package:studyme/util/time_of_day_extension.dart';
 
-  InterventionInteractor(this.intervention);
+class InterventionInteractor extends StatefulWidget {
+  final InterventionTask task;
+
+  InterventionInteractor(this.task);
 
   @override
   _InterventionInteractorState createState() => _InterventionInteractorState();
@@ -23,7 +25,7 @@ class _InterventionInteractorState extends State<InterventionInteractor> {
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.dark,
-        title: Text(widget.intervention.name),
+        title: Text(widget.task.intervention.name),
         actions: <Widget>[
           SaveButton(canPress: _confirmed, onPressed: _logValue)
         ],
@@ -32,6 +34,16 @@ class _InterventionInteractorState extends State<InterventionInteractor> {
           padding: EdgeInsets.all(8),
           child: Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Icon(Icons.alarm),
+                    SizedBox(width: 10),
+                    Text(widget.task.time.readable),
+                  ],
+                ),
+              ),
               SwitchListTile(
                 title: Text("I completed the intervention"),
                 value: _confirmed,
@@ -47,7 +59,7 @@ class _InterventionInteractorState extends State<InterventionInteractor> {
   }
 
   _logValue() {
-    var log = TrialLog(widget.intervention.id, DateTime.now(), 1);
+    var log = TrialLog(widget.task.intervention.id, DateTime.now(), 1);
     Provider.of<LogData>(context, listen: false).addAdherenceLog(log);
     Navigator.pop(context, true);
   }
