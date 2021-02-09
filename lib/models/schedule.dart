@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:studyme/models/reminder.dart';
+import 'package:studyme/util/time_of_day_extension.dart';
 
 part 'schedule.g.dart';
 
@@ -71,6 +71,7 @@ class Schedule {
     } else {
       _text = "Every ${frequency.toString()} days";
     }
+
     _text += " at ";
     for (var i = 0; i < times.length; i++) {
       _text += "${times[i].readable}";
@@ -104,9 +105,4 @@ class Schedule {
         frequency: this.frequency,
         timestamps: List<DateTime>.from(this.timestamps));
   }
-}
-
-extension TimeOfDayExtension on TimeOfDay {
-  String get readable => DefaultMaterialLocalizations()
-      .formatTimeOfDay(this, alwaysUse24HourFormat: true);
 }

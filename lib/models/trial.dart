@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:studyme/models/reminder.dart';
 import 'package:studyme/models/schedule/trial_phases.dart';
+import 'package:studyme/models/task/task.dart';
 import './measure/measure.dart';
 import 'intervention/intervention.dart';
 import 'measure/synced_measure.dart';
@@ -24,15 +24,15 @@ class Trial extends HiveObject {
   @HiveField(4)
   DateTime startDate;
 
-  List<Reminder> getRemindersForDate(DateTime date) {
+  List<Task> getRemindersForDate(DateTime date) {
     DateTime _cleanDate = DateTime(date.year, date.month, date.day);
-    List<Reminder> _reminders = [];
+    List<Task> _reminders = [];
 
-    int daysSinceBeginningOfTrial = date.difference(startDate).inDays;
+    int daysSinceBeginningOfTrial = _cleanDate.difference(startDate).inDays;
     int daysSinceBeginningOfPhase =
         daysSinceBeginningOfTrial % phases.phaseDuration;
 
-    Intervention _intervention = getInterventionForDate(date);
+    Intervention _intervention = getInterventionForDate(_cleanDate);
 
     _reminders.addAll(_intervention.getRemindersFor(daysSinceBeginningOfPhase));
     measures.forEach((measure) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-import 'package:studyme/models/reminder.dart';
+import 'package:studyme/models/task/task.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -47,7 +47,7 @@ class Notifications {
   }
 
   Future<void> scheduleNotificationFor(
-      DateTime date, Reminder reminder, int id) async {
+      DateTime date, Task reminder, int id) async {
     tz.TZDateTime scheduledTime = _getScheduledTime(date, reminder.time);
     tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     if (!scheduledTime.isBefore(now)) {

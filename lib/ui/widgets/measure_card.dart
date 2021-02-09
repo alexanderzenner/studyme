@@ -4,7 +4,6 @@ import 'package:studyme/models/measure/measure.dart';
 class MeasureCard extends StatelessWidget {
   final Measure measure;
   final bool showSchedule;
-
   final void Function() onTap;
 
   MeasureCard({this.measure, this.onTap, this.showSchedule = false});
@@ -23,7 +22,7 @@ class MeasureCard extends StatelessWidget {
   }
 
   _getSubtitle() {
-    if (showSchedule) {
+    if (showSchedule && measure.schedule != null) {
       return Text(measure.schedule.readable);
     } else {
       return null;

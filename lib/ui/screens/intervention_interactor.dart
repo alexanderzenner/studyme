@@ -33,7 +33,7 @@ class _InterventionInteractorState extends State<InterventionInteractor> {
           child: Column(
             children: [
               SwitchListTile(
-                title: Text("I followed the intervention"),
+                title: Text("I completed the intervention"),
                 value: _confirmed,
                 onChanged: (value) {
                   setState(() {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Reminder {
+abstract class Task {
   String title;
   String body;
   TimeOfDay time;
 
-  Reminder({this.title, this.body, this.time});
+  Task({this.title, this.body, this.time});
 }

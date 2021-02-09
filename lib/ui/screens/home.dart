@@ -3,18 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/app_state.dart';
-import 'package:studyme/models/measure/measure.dart';
+import 'package:studyme/models/task/task.dart';
 import 'package:studyme/models/trial.dart';
-import 'package:studyme/ui/widgets/intervention_card.dart';
-import 'package:studyme/ui/widgets/measure_card.dart';
 import 'package:studyme/ui/widgets/phase_widget.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
+import 'package:studyme/ui/widgets/task_card.dart';
 import 'package:studyme/util/notifications.dart';
 import 'package:studyme/util/util.dart';
 
 import '../../routes.dart';
-import 'intervention_interactor.dart';
-import 'measure_interactor.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -34,8 +31,8 @@ class Home extends StatelessWidget {
       _body = _buildBodyWithTrialIsEndedMessage();
       _activeIndex = _trial.phases.totalDuration;
     } else {
-      final _currentIntervention = _trial.getInterventionForDate(_dateToday);
-      _body = _buildBodyWithTodaysTasks(context, _trial, _currentIntervention);
+      _body = _buildBodyWithTodaysTasks(
+          context, _trial.getRemindersForDate(DateTime.now()));
       _activeIndex = _trial.getPhaseIndexForDate(_dateToday);
     }
 
@@ -47,7 +44,9 @@ class Home extends StatelessWidget {
           PhasesWidget(schedule: _trial.phases, activeIndex: _activeIndex),
           SizedBox(height: 20),
           ..._body,
+          SizedBox(height: 1000),
           PopupMenuButton<Option>(
+              icon: Icon(Icons.warning_amber_outlined),
               onSelected: (Option option) {
                 option.callback();
               },
@@ -81,26 +80,16 @@ class Home extends StatelessWidget {
     );
   }
 
-  _buildBodyWithTodaysTasks(context, trial, currentIntervention) {
+  _buildBodyWithTodaysTasks(context, List<Task> todaysTasks) {
     return [
-      SectionTitle('Intervention'),
-      InterventionCard(
-          intervention: currentIntervention,
-          onTap: () =>
-              _navigateToInterventionScreen(context, currentIntervention)),
-      SizedBox(height: 10),
-      SectionTitle('Measures'),
+      SectionTitle('Today'),
       ListView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        itemCount: trial.measures.length,
+        itemCount: todaysTasks.length,
         itemBuilder: (context, index) {
-          Measure measure = trial.measures[index];
-          return MeasureCard(
-              measure: measure,
-              onTap: () {
-                _navigateToMeasureScreen(context, measure);
-              });
+          Task task = todaysTasks[index];
+          return TaskCard(task: task);
         },
       ),
     ];
@@ -112,23 +101,5 @@ class Home extends StatelessWidget {
 
   _buildBodyWithTrialIsEndedMessage() {
     return [Text("Trial has ended")];
-  }
-
-  _navigateToInterventionScreen(context, intervention) async {
-    bool completed = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => InterventionInteractor(intervention)));
-    if (completed != null && completed) {
-      Util.toast(context, "Saved");
-    }
-  }
-
-  _navigateToMeasureScreen(context, measure) async {
-    bool didLog = await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => MeasureInteract(measure)));
-    if (didLog != null && didLog) {
-      Util.toast(context, "Saved");
-    }
   }
 }

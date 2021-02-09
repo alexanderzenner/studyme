@@ -2,8 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
-import 'package:studyme/models/reminder.dart';
 import 'package:studyme/models/schedule/trial_phases.dart';
+import 'package:studyme/models/task/task.dart';
 import 'package:studyme/util/notifications.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
@@ -119,7 +119,7 @@ class AppData extends ChangeNotifier {
     int _id = box.get(notificationIdCounterKey) ?? 0;
     // check that we haven't already scheduled notifications up to this date
     if (_latest == null || _latest.isBefore(_cleanDate)) {
-      List<Reminder> reminders = _trial.getRemindersForDate(_cleanDate);
+      List<Task> reminders = _trial.getRemindersForDate(_cleanDate);
 
       DateTime _now = DateTime.now();
 

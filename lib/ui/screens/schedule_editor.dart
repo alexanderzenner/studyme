@@ -4,6 +4,8 @@ import 'package:studyme/ui/widgets/save_button.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/util/notifications.dart';
 
+import 'package:studyme/util/time_of_day_extension.dart';
+
 class ScheduleEditor extends StatefulWidget {
   final Schedule schedule;
 

@@ -24,6 +24,7 @@ class CreatorInterventionSection extends StatelessWidget {
         ),
         if (model.trial.a != null)
           InterventionCard(
+              showSchedule: true,
               intervention: model.trial.a,
               onTap: () {
                 _editIntervention(
@@ -31,6 +32,7 @@ class CreatorInterventionSection extends StatelessWidget {
               }),
         if (model.trial.b != null)
           InterventionCard(
+              showSchedule: true,
               intervention: model.trial.b,
               onTap: () {
                 _editIntervention(

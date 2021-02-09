@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
+import 'package:studyme/models/task/measure_task.dart';
 import 'package:uuid/uuid.dart';
 
-import '../reminder.dart';
+import '../task/task.dart';
 import '../schedule.dart';
 import 'aggregations.dart';
 import 'choice_measure.dart';
@@ -63,14 +64,9 @@ abstract class Measure {
 
   dynamic get tickProvider => null;
 
-  List<Reminder> getRemindersFor(int daysSinceBeginningOfTimeRange) {
+  List<Task> getRemindersFor(int daysSinceBeginningOfTimeRange) {
     List<TimeOfDay> times =
         this.schedule.getTaskTimesFor(daysSinceBeginningOfTimeRange);
-    return times
-        .map((time) => Reminder(
-            title: "Log your ${this.name}",
-            body: "Log your ${this.name}",
-            time: time))
-        .toList();
+    return times.map((time) => MeasureTask(this, time)).toList();
   }
 }
