@@ -69,7 +69,6 @@ class _MeasureInteractorState extends State<MeasureInteractor> {
   }
 
   _buildMeasureWidget() {
-    print(widget.task.measure.runtimeType);
     switch (widget.task.measure.runtimeType) {
       case (FreeMeasure):
         return FreeMeasureWidget(widget.task.measure, _updateValue);

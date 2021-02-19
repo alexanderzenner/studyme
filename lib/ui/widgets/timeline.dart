@@ -22,7 +22,7 @@ class _TimelineState extends State<Timeline> {
 
   @override
   Widget build(BuildContext context) {
-    int offset;
+    int offset = -1;
     if (widget.activeIndex >= 0) {
       offset = 0;
     }
@@ -33,7 +33,7 @@ class _TimelineState extends State<Timeline> {
       offset = widget.activeIndex;
     }
 
-    if (offset != null) {
+    if (offset >= 0) {
       WidgetsBinding.instance
           .addPostFrameCallback((_) => _scrollController.jumpTo(index: offset));
     }
