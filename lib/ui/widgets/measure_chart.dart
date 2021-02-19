@@ -45,6 +45,7 @@ class _MeasureChartState extends State<MeasureChart> {
   loadLogs() async {
     List<TrialLog> _data =
         await Provider.of<LogData>(context).getMeasureLogs(widget.measure);
+    _data.removeWhere((log) => !widget.trial.isInStudyTimeframe(log.dateTime));
     setState(() {
       _logs = _data;
       _isLoading = false;
