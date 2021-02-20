@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/util/debug_functions.dart';
 
 import '../../routes.dart';
 
@@ -32,7 +33,8 @@ class Settings extends StatelessWidget {
   }
 
   _editTrial(BuildContext context) async {
-    Provider.of<AppData>(context, listen: false).debugCancelAllNotifications();
+    debugCancelAllNotifications();
+    deleteLogs(Provider.of<AppData>(context, listen: false).trial);
     Provider.of<AppData>(context, listen: false)
         .saveAppState(AppState.CREATING);
     Navigator.pushReplacementNamed(context, Routes.onboarding);
@@ -54,12 +56,11 @@ class Settings extends StatelessWidget {
             ));
 
     if (_confirmed != null && _confirmed) {
-      Provider.of<AppData>(context, listen: false)
-          .debugCancelAllNotifications();
+      debugCancelAllNotifications();
+      deleteLogs(Provider.of<AppData>(context, listen: false).trial);
       Provider.of<AppData>(context, listen: false).createNewTrial();
       Navigator.pushReplacementNamed(context, Routes.onboarding);
     }
   }
 
-  _removeLogs(BuildContext context) {}
 }

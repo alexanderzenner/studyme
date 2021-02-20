@@ -135,12 +135,6 @@ class AppData extends ChangeNotifier {
     }
   }
 
-  void debugCancelAllNotifications() {
-    Notifications().clearAll();
-    box.put(lastDateWithScheduledNotificationsKey, null);
-    box.put(notificationIdCounterKey, 0);
-  }
-
   bool canAddSchedule() {
     return _trial.a != null && _trial.b != null;
   }

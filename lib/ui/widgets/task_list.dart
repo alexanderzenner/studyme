@@ -32,7 +32,6 @@ class _TaskListState extends State<TaskList> {
   @override
   void initState() {
     _isLoading = true;
-    print(widget.date);
     _todaysTasks = widget.trial.getTasksForDate(widget.date);
     super.initState();
   }
