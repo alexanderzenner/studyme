@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/util/debug_functions.dart';
+import 'package:flutter/services.dart';
 
 import '../../routes.dart';
 
@@ -25,6 +26,16 @@ class Settings extends StatelessWidget {
                 label: Text("Cancel Trial"),
                 onPressed: () => _cancelTrial(context),
               )
+            ],
+          ),
+          SizedBox(height: 50),
+          ButtonBar(
+            children: [
+              OutlineButton.icon(
+                icon: Icon(Icons.share),
+                label: Text("Export Trial Info"),
+                onPressed: () => _exportTrialInfo(context),
+              ),
             ],
           )
         ],
@@ -63,4 +74,9 @@ class Settings extends StatelessWidget {
     }
   }
 
+  _exportTrialInfo(BuildContext context) {
+    Clipboard.setData(new ClipboardData(text: "your text"));
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Data copied. Please share as instructed.")));
+  }
 }
