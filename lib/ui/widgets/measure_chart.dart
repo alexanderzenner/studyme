@@ -87,6 +87,11 @@ class _MeasureChartState extends State<MeasureChart> {
         ],
         defaultInteractions: false,
         defaultRenderer: new charts.BarRendererConfig(),
+        customSeriesRenderers: [
+          new charts.PointRendererConfig(
+              // ID used to link series to this renderer.
+              customRendererId: 'bar')
+        ],
         domainAxis: charts.NumericAxisSpec(
             viewport: _getExtents(),
             tickFormatterSpec: _getFormatterSpec(),
@@ -176,13 +181,20 @@ class _MeasureChartState extends State<MeasureChart> {
 
   List<charts.Series<_ChartValue, num>> _getSeriesData() {
     return [
-      charts.Series<_ChartValue, num>(
-        id: 'hi',
+      new charts.Series<_ChartValue, num>(
+        id: 'bar',
         colorFn: (_ChartValue value, __) => value.color,
         domainFn: (_ChartValue value, _) => value.aggregationUnit,
         measureFn: (_ChartValue value, _) => value.value,
         data: _getAggregatedValues(),
-      )
+      ),
+      new charts.Series<_ChartValue, num>(
+        id: 'point',
+        colorFn: (_ChartValue value, __) => value.color,
+        domainFn: (_ChartValue value, _) => value.aggregationUnit,
+        measureFn: (_ChartValue value, _) => value.value,
+        data: _getAggregatedValues(),
+      )..setAttribute(charts.rendererIdKey, 'bar'),
     ];
   }
 
