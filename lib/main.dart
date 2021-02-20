@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:studyme/models/log/completed_task_log.dart';
 
 import 'models/app_state/app_data.dart';
 import 'models/app_state/app_state.dart';
@@ -61,6 +62,7 @@ _setupHive() async {
   Hive.registerAdapter<SyncedMeasure>(SyncedMeasureAdapter());
 
   Hive.registerAdapter<TrialLog>(TrialLogAdapter());
+  Hive.registerAdapter<CompletedTaskLog>(CompletedTaskLogAdapter());
 }
 
 class MyApp extends StatelessWidget {

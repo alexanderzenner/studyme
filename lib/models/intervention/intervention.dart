@@ -38,7 +38,8 @@ class Intervention {
         this.schedule = schedule ?? Schedule();
 
   Intervention.clone(Intervention intervention)
-      : type = intervention.type,
+      : id = Uuid().v4(),
+        type = intervention.type,
         name = intervention.name,
         description = intervention.description,
         letter = intervention.letter,

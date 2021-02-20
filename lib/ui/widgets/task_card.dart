@@ -9,19 +9,32 @@ import 'package:studyme/util/time_of_day_extension.dart';
 
 class TaskCard extends StatelessWidget {
   final Task task;
+  final bool isCompleted;
 
-  TaskCard({this.task});
+  TaskCard({this.task, this.isCompleted});
 
   @override
   Widget build(BuildContext context) {
     return Card(
         margin: EdgeInsets.symmetric(vertical: 2),
         child: ListTile(
-          leading: Text(task.time.readable),
-          title: Text(task.title),
-          trailing: Icon(Icons.chevron_right),
-          onTap: () => _select(context),
+          leading: Text(task.time.readable, style: _getTextStyle()),
+          title: Text(task.title, style: _getTextStyle()),
+          trailing: Icon(_getIcon()),
+          onTap: _getOnTap(context),
         ));
+  }
+
+  IconData _getIcon() {
+    return isCompleted ? Icons.check : Icons.chevron_right;
+  }
+
+  TextStyle _getTextStyle() {
+    return isCompleted ? TextStyle(color: Colors.grey) : null;
+  }
+
+  Function() _getOnTap(context) {
+    return isCompleted ? null : () => _select(context);
   }
 
   _select(context) {

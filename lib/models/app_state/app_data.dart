@@ -113,21 +113,21 @@ class AppData extends ChangeNotifier {
   }
 
   void scheduleNotificationsFor(DateTime date) async {
-    // clean the date, so comparison is based on day alone and not specific time
-    DateTime _cleanDate = DateTime(date.year, date.month, date.day);
     DateTime _latest = box.get(lastDateWithScheduledNotificationsKey);
 
     int _id = box.get(notificationIdCounterKey) ?? 0;
     // check that we haven't already scheduled notifications up to this date
+    // clean the date, so comparison is based on day alone and not specific time
+    DateTime _cleanDate = DateTime(date.year, date.month, date.day);
     if (_latest == null || _latest.isBefore(_cleanDate)) {
-      List<Task> tasks = _trial.getTasksForDate(_cleanDate);
+      List<Task> tasks = _trial.getTasksForDate(date);
 
       if (date.difference(DateTime.now()).inDays == 0) {
         tasks.removeWhere(
             (element) => element.time.combined < element.time.combined);
       }
       tasks.forEach((task) {
-        Notifications().scheduleNotificationFor(_cleanDate, task, _id);
+        Notifications().scheduleNotificationFor(date, task, _id);
         _id++;
       });
       box.put(lastDateWithScheduledNotificationsKey, _cleanDate);

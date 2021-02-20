@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
-import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/task/intervention_task.dart';
 import 'package:studyme/ui/widgets/save_button.dart';
 
@@ -27,7 +26,7 @@ class _InterventionInteractorState extends State<InterventionInteractor> {
         brightness: Brightness.dark,
         title: Text(widget.task.intervention.name),
         actions: <Widget>[
-          SaveButton(canPress: _confirmed, onPressed: _logValue)
+          SaveButton(canPress: _confirmed, onPressed: _markCompleted)
         ],
       ),
       body: Padding(
@@ -58,9 +57,9 @@ class _InterventionInteractorState extends State<InterventionInteractor> {
     );
   }
 
-  _logValue() {
-    var log = TrialLog(widget.task.intervention.id, DateTime.now(), 1);
-    Provider.of<LogData>(context, listen: false).addAdherenceLog(log);
+  _markCompleted() {
+    Provider.of<LogData>(context, listen: false)
+        .addCompletedTaskId(widget.task.id);
     Navigator.pop(context, true);
   }
 }

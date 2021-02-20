@@ -21,9 +21,8 @@ class FreeMeasureAdapter extends TypeAdapter<FreeMeasure> {
       name: fields[2] as String,
       description: fields[3] as String,
       aggregation: fields[4] as ValueAggregation,
-    )
-      ..type = fields[1] as String
-      ..schedule = fields[5] as Schedule;
+      schedule: fields[5] as Schedule,
+    )..type = fields[1] as String;
   }
 
   @override

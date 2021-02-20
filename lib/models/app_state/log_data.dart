@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:studyme/models/log/completed_task_log.dart';
 import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/measure/measure.dart';
 
 class LogData extends ChangeNotifier {
-  static const adherenceKey = 'adherence';
+  static const completedTaskIdsKey = 'completedTasks';
 
-  Future<List<TrialLog>> getAdherenceLogs() async {
-    return _getLogsFor(adherenceKey);
+  void addCompletedTaskId(String id) async {
+    Box box = await Hive.openBox(completedTaskIdsKey);
+    box.add(CompletedTaskLog(taskId: id, dateTime: DateTime.now()));
+    notifyListeners();
+  }
+
+  Future<List<String>> getCompletedTaskIdsFor(DateTime date) async {
+    Box box = await Hive.openBox(completedTaskIdsKey);
+    List<CompletedTaskLog> _logs = box.values.toList().cast<CompletedTaskLog>();
+    _logs.removeWhere((log) => log.dateTime.difference(date).inDays > 0);
+    return _logs.map((log) => log.taskId).toList();
   }
 
   Future<List<TrialLog>> getMeasureLogs(Measure measure) async {
-    return _getLogsFor(measure.id);
-  }
-
-  Future<List<TrialLog>> _getLogsFor(String boxname) async {
-    Box box = await Hive.openBox(boxname);
+    Box box = await Hive.openBox(measure.id);
     return box.values.toList().cast<TrialLog>();
-  }
-
-  void addAdherenceLog(TrialLog log) async {
-    _addLogsFor(adherenceKey, [log]);
-    notifyListeners();
   }
 
   void checkForDuplicatesAndAdd(List<TrialLog> newLogs, Measure measure) async {

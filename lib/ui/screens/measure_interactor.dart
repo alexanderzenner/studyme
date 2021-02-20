@@ -27,15 +27,13 @@ class MeasureInteractor extends StatefulWidget {
 
 class _MeasureInteractorState extends State<MeasureInteractor> {
   num _value;
+  bool _canSave;
 
   @override
   void initState() {
     _value = null;
+    _canSave = false;
     super.initState();
-  }
-
-  _hasSelectedValue() {
-    return _value != null;
   }
 
   @override
@@ -45,7 +43,7 @@ class _MeasureInteractorState extends State<MeasureInteractor> {
           brightness: Brightness.dark,
           title: Text(widget.task.measure.name),
           actions: <Widget>[
-            SaveButton(canPress: _hasSelectedValue(), onPressed: _logValue)
+            SaveButton(canPress: _canSave, onPressed: _logValue)
           ],
         ),
         body: Padding(
@@ -77,7 +75,12 @@ class _MeasureInteractorState extends State<MeasureInteractor> {
       case (ChoiceMeasure):
         return ChoiceMeasureWidget(widget.task.measure, _updateValue);
       case (SyncedMeasure):
-        return SyncedMeasureWidget(measure: widget.task.measure);
+        return SyncedMeasureWidget(
+            measure: widget.task.measure,
+            confirmed: _canSave,
+            setCanSave: (value) => setState(() {
+                  _canSave = value;
+                }));
       default:
         return Text("Hi");
     }
@@ -86,13 +89,21 @@ class _MeasureInteractorState extends State<MeasureInteractor> {
   _updateValue(value) {
     setState(() {
       _value = value;
+      _canSave = true;
     });
   }
 
   _logValue() {
-    var log = TrialLog(widget.task.measure.id, DateTime.now(), _value);
+    if (_value != null) {
+      var now = DateTime.now();
+      var time = DateTime(now.year, now.month, now.day, widget.task.time.hour,
+          widget.task.time.minute);
+      var log = TrialLog(widget.task.measure.id, time, _value);
+      Provider.of<LogData>(context, listen: false)
+          .addMeasureLogs([log], widget.task.measure);
+    }
     Provider.of<LogData>(context, listen: false)
-        .addMeasureLogs([log], widget.task.measure);
+        .addCompletedTaskId(widget.task.id);
     Navigator.pop(context, true);
   }
 }

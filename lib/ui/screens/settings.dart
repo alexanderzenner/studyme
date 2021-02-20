@@ -17,18 +17,12 @@ class Settings extends StatelessWidget {
               OutlineButton.icon(
                 icon: Icon(Icons.edit),
                 label: Text("Edit Trial"),
-                onPressed: () {
-                  Provider.of<AppData>(context, listen: false)
-                      .debugCancelAllNotifications();
-                  Provider.of<AppData>(context, listen: false)
-                      .saveAppState(AppState.CREATING);
-                  Navigator.pushReplacementNamed(context, Routes.onboarding);
-                },
+                onPressed: () => _editTrial(context),
               ),
               OutlineButton.icon(
                 icon: Icon(Icons.cancel),
                 label: Text("Cancel Trial"),
-                onPressed: () => _cancel(context),
+                onPressed: () => _cancelTrial(context),
               )
             ],
           )
@@ -37,7 +31,14 @@ class Settings extends StatelessWidget {
     );
   }
 
-  _cancel(BuildContext context) async {
+  _editTrial(BuildContext context) async {
+    Provider.of<AppData>(context, listen: false).debugCancelAllNotifications();
+    Provider.of<AppData>(context, listen: false)
+        .saveAppState(AppState.CREATING);
+    Navigator.pushReplacementNamed(context, Routes.onboarding);
+  }
+
+  _cancelTrial(BuildContext context) async {
     bool _confirmed = await showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -59,4 +60,6 @@ class Settings extends StatelessWidget {
       Navigator.pushReplacementNamed(context, Routes.onboarding);
     }
   }
+
+  _removeLogs(BuildContext context) {}
 }
