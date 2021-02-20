@@ -16,9 +16,10 @@ class CompletedTaskLogAdapter extends TypeAdapter<CompletedTaskLog> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return CompletedTaskLog()
-      ..taskId = fields[0] as String
-      ..dateTime = fields[1] as DateTime;
+    return CompletedTaskLog(
+      taskId: fields[0] as String,
+      dateTime: fields[1] as DateTime,
+    );
   }
 
   @override

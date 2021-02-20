@@ -1,14 +1,16 @@
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/schedule/trial_phases.dart';
 import 'package:studyme/models/task/task.dart';
+import 'package:studyme/util/time_of_day_extension.dart';
+
 import './measure/measure.dart';
 import 'intervention/intervention.dart';
 import 'measure/synced_measure.dart';
 
-import 'package:studyme/util/time_of_day_extension.dart';
-
 part 'trial.g.dart';
 
+@JsonSerializable()
 @HiveType(typeId: 200)
 class Trial extends HiveObject {
   @HiveField(0)
@@ -103,6 +105,9 @@ class Trial extends HiveObject {
     final test = date.differenceInDays(startDate).inDays;
     return test ~/ phases.phaseDuration;
   }
+
+  factory Trial.fromJson(Map<String, dynamic> json) => _$TrialFromJson(json);
+  Map<String, dynamic> toJson() => _$TrialToJson(this);
 }
 
 extension DateOnlyCompare on DateTime {

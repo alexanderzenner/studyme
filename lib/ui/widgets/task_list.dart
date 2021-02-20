@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
-import 'package:studyme/models/log/completed_task_log.dart';
 import 'package:studyme/models/trial.dart';
 
 import 'package:studyme/models/task/intervention_task.dart';

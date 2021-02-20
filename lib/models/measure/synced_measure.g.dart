@@ -57,3 +57,70 @@ class SyncedMeasureAdapter extends TypeAdapter<SyncedMeasure> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+SyncedMeasure _$SyncedMeasureFromJson(Map<String, dynamic> json) {
+  return SyncedMeasure(
+    id: json['id'] as String,
+    name: json['name'] as String,
+    description: json['description'] as String,
+    aggregation:
+        _$enumDecodeNullable(_$ValueAggregationEnumMap, json['aggregation']),
+    schedule: json['schedule'] == null
+        ? null
+        : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
+  )
+    ..type = json['type'] as String
+    ..trackedHealthDataTypeName = json['trackedHealthDataTypeName'] as String;
+}
+
+Map<String, dynamic> _$SyncedMeasureToJson(SyncedMeasure instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'type': instance.type,
+      'name': instance.name,
+      'description': instance.description,
+      'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
+      'schedule': instance.schedule,
+      'trackedHealthDataTypeName': instance.trackedHealthDataTypeName,
+    };
+
+T _$enumDecode<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError('A value must be provided. Supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+
+  final value = enumValues.entries
+      .singleWhere((e) => e.value == source, orElse: () => null)
+      ?.key;
+
+  if (value == null && unknownValue == null) {
+    throw ArgumentError('`$source` is not one of the supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+  return value ?? unknownValue;
+}
+
+T _$enumDecodeNullable<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+}
+
+const _$ValueAggregationEnumMap = {
+  ValueAggregation.Average: 'Average',
+  ValueAggregation.Sum: 'Sum',
+};

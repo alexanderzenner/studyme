@@ -4,6 +4,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/util/debug_functions.dart';
 import 'package:flutter/services.dart';
+import 'dart:convert';
 
 import '../../routes.dart';
 
@@ -75,7 +76,8 @@ class Settings extends StatelessWidget {
   }
 
   _exportTrialInfo(BuildContext context) {
-    Clipboard.setData(new ClipboardData(text: "your text"));
+    Clipboard.setData(new ClipboardData(
+        text: json.encode(Provider.of<AppData>(context).trial.toJson())));
     ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Data copied. Please share as instructed.")));
   }

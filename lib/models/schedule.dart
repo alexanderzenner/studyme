@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 
 part 'schedule.g.dart';
 
+@JsonSerializable()
 @HiveType(typeId: 204)
 class Schedule {
   final year = 2000;
@@ -105,4 +107,8 @@ class Schedule {
         frequency: this.frequency,
         timestamps: List<DateTime>.from(this.timestamps));
   }
+
+  factory Schedule.fromJson(Map<String, dynamic> json) =>
+      _$ScheduleFromJson(json);
+  Map<String, dynamic> toJson() => _$ScheduleToJson(this);
 }

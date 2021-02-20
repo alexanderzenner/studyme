@@ -47,3 +47,29 @@ class NoInterventionAdapter extends TypeAdapter<NoIntervention> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+NoIntervention _$NoInterventionFromJson(Map<String, dynamic> json) {
+  return NoIntervention()
+    ..type = json['type'] as String
+    ..id = json['id'] as String
+    ..letter = json['letter'] as String
+    ..name = json['name'] as String
+    ..description = json['description'] as String
+    ..schedule = json['schedule'] == null
+        ? null
+        : Schedule.fromJson(json['schedule'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$NoInterventionToJson(NoIntervention instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      'id': instance.id,
+      'letter': instance.letter,
+      'name': instance.name,
+      'description': instance.description,
+      'schedule': instance.schedule,
+    };

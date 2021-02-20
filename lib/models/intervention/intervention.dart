@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/schedule.dart';
 import 'package:studyme/models/task/intervention_task.dart';
 import 'package:studyme/models/task/task.dart';
@@ -9,6 +10,7 @@ import 'no_intervention.dart';
 
 part 'intervention.g.dart';
 
+@JsonSerializable()
 @HiveType(typeId: 101)
 class Intervention {
   static const String interventionType = 'intervention';
@@ -61,4 +63,8 @@ class Intervention {
         return Intervention.clone(this);
     }
   }
+
+  factory Intervention.fromJson(Map<String, dynamic> json) =>
+      _$InterventionFromJson(json);
+  Map<String, dynamic> toJson() => _$InterventionToJson(this);
 }

@@ -39,3 +39,17 @@ class ChoiceAdapter extends TypeAdapter<Choice> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Choice _$ChoiceFromJson(Map<String, dynamic> json) {
+  return Choice(
+    value: json['value'] as String,
+  );
+}
+
+Map<String, dynamic> _$ChoiceToJson(Choice instance) => <String, dynamic>{
+      'value': instance.value,
+    };

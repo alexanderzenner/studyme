@@ -1,8 +1,10 @@
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/schedule/phase_order.dart';
 
 part 'trial_phases.g.dart';
 
+@JsonSerializable()
 @HiveType(typeId: 201)
 class TrialPhases extends HiveObject {
   @HiveField(0)
@@ -62,4 +64,8 @@ class TrialPhases extends HiveObject {
     }
     phaseSequence = newPhaseSequence;
   }
+
+  factory TrialPhases.fromJson(Map<String, dynamic> json) =>
+      _$TrialPhasesFromJson(json);
+  Map<String, dynamic> toJson() => _$TrialPhasesToJson(this);
 }

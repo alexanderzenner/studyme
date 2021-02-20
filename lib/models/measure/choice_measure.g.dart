@@ -56,3 +56,72 @@ class ChoiceMeasureAdapter extends TypeAdapter<ChoiceMeasure> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+ChoiceMeasure _$ChoiceMeasureFromJson(Map<String, dynamic> json) {
+  return ChoiceMeasure(
+    id: json['id'] as String,
+    name: json['name'] as String,
+    description: json['description'] as String,
+    choices: (json['choices'] as List)
+        ?.map((e) =>
+            e == null ? null : Choice.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    aggregation:
+        _$enumDecodeNullable(_$ValueAggregationEnumMap, json['aggregation']),
+    schedule: json['schedule'] == null
+        ? null
+        : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
+  )..type = json['type'] as String;
+}
+
+Map<String, dynamic> _$ChoiceMeasureToJson(ChoiceMeasure instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'type': instance.type,
+      'name': instance.name,
+      'description': instance.description,
+      'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
+      'schedule': instance.schedule,
+      'choices': instance.choices,
+    };
+
+T _$enumDecode<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError('A value must be provided. Supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+
+  final value = enumValues.entries
+      .singleWhere((e) => e.value == source, orElse: () => null)
+      ?.key;
+
+  if (value == null && unknownValue == null) {
+    throw ArgumentError('`$source` is not one of the supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+  return value ?? unknownValue;
+}
+
+T _$enumDecodeNullable<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+}
+
+const _$ValueAggregationEnumMap = {
+  ValueAggregation.Average: 'Average',
+  ValueAggregation.Sum: 'Sum',
+};

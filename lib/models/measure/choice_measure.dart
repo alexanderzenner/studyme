@@ -2,6 +2,7 @@ import 'package:charts_flutter/flutter.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/measure/choice.dart';
 import 'package:studyme/models/measure/measure.dart';
 
@@ -10,9 +11,12 @@ import 'aggregations.dart';
 
 part 'choice_measure.g.dart';
 
+@JsonSerializable()
 @HiveType(typeId: 3)
 class ChoiceMeasure extends Measure {
   static const String measureType = 'choice';
+
+  @JsonKey(ignore: true)
   final IconData icon = Icons.list;
 
   @HiveField(6)
@@ -49,4 +53,8 @@ class ChoiceMeasure extends Measure {
           ],
         ),
       );
+
+  factory ChoiceMeasure.fromJson(Map<String, dynamic> json) =>
+      _$ChoiceMeasureFromJson(json);
+  Map<String, dynamic> toJson() => _$ChoiceMeasureToJson(this);
 }

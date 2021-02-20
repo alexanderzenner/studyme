@@ -9,8 +9,6 @@ class PhaseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> days = ['Mo', 'Tue', 'Wed', 'Frid', 'Sat'];
-
     return Timeline(
         activeIndex: 0,
         height: 50,

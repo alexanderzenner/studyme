@@ -42,3 +42,22 @@ class ScheduleAdapter extends TypeAdapter<Schedule> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Schedule _$ScheduleFromJson(Map<String, dynamic> json) {
+  return Schedule(
+    frequency: json['frequency'] as int,
+    timestamps: (json['timestamps'] as List)
+        ?.map((e) => e == null ? null : DateTime.parse(e as String))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$ScheduleToJson(Schedule instance) => <String, dynamic>{
+      'frequency': instance.frequency,
+      'timestamps':
+          instance.timestamps?.map((e) => e?.toIso8601String())?.toList(),
+    };

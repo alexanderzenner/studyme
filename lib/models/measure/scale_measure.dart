@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/measure/measure.dart';
 
 import '../schedule.dart';
@@ -7,9 +8,12 @@ import 'aggregations.dart';
 
 part 'scale_measure.g.dart';
 
+@JsonSerializable()
 @HiveType(typeId: 2)
 class ScaleMeasure extends Measure {
   static const String measureType = 'scale';
+
+  @JsonKey(ignore: true)
   final IconData icon = Icons.linear_scale;
 
   @HiveField(6)
@@ -44,4 +48,8 @@ class ScaleMeasure extends Measure {
         max = measure.max,
         initial = measure.initial,
         super.clone(measure);
+
+  factory ScaleMeasure.fromJson(Map<String, dynamic> json) =>
+      _$ScaleMeasureFromJson(json);
+  Map<String, dynamic> toJson() => _$ScaleMeasureToJson(this);
 }

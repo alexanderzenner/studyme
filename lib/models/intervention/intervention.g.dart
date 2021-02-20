@@ -54,3 +54,30 @@ class InterventionAdapter extends TypeAdapter<Intervention> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Intervention _$InterventionFromJson(Map<String, dynamic> json) {
+  return Intervention(
+    id: json['id'],
+    type: json['type'],
+    name: json['name'] as String,
+    description: json['description'] as String,
+    letter: json['letter'] as String,
+    schedule: json['schedule'] == null
+        ? null
+        : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$InterventionToJson(Intervention instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      'id': instance.id,
+      'name': instance.name,
+      'description': instance.description,
+      'letter': instance.letter,
+      'schedule': instance.schedule,
+    };
