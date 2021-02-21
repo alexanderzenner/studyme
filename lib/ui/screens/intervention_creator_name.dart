@@ -5,12 +5,16 @@ import 'package:studyme/ui/screens/intervention_creator_schedule.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 
 class InterventionCreatorName extends StatefulWidget {
-  final bool isA;
+  final String title;
   final Intervention intervention;
   final Function(Intervention intervention) onSave;
+  final bool save;
 
   const InterventionCreatorName(
-      {@required this.isA, @required this.intervention, @required this.onSave});
+      {@required this.title,
+      @required this.intervention,
+      @required this.onSave,
+      @required this.save});
 
   @override
   _InterventionCreatorNameState createState() =>
@@ -35,7 +39,7 @@ class _InterventionCreatorNameState extends State<InterventionCreatorName> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(widget.isA ? "Intervention A" : "Intervention B"),
+              Text(widget.title),
               Visibility(
                 visible: true,
                 child: Text(
@@ -49,7 +53,7 @@ class _InterventionCreatorNameState extends State<InterventionCreatorName> {
           ),
           actions: <Widget>[
             ActionButton(
-                icon: Icons.arrow_forward,
+                icon: widget.save ? Icons.check : Icons.arrow_forward,
                 canPress: _canSubmit(),
                 onPressed: _submit)
           ],
@@ -82,14 +86,16 @@ class _InterventionCreatorNameState extends State<InterventionCreatorName> {
 
   _submit() {
     widget.intervention.name = _name;
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => InterventionCreatorSchedule(
-              isA: widget.isA,
-              intervention: widget.intervention,
-              onSave: widget.onSave),
-        ));
+    widget.save
+        ? widget.onSave(widget.intervention)
+        : Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => InterventionCreatorSchedule(
+                  title: widget.title,
+                  scheduledItem: widget.intervention,
+                  onSave: widget.onSave),
+            ));
   }
 
   _changeName(text) {

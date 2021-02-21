@@ -90,7 +90,7 @@ class AppData extends ChangeNotifier {
     if (state == null) {
       saveAppState(AppState.ONBOARDING);
     }
-    if (_trial == null) {
+    if (true || _trial == null) {
       createNewTrial();
     }
   }

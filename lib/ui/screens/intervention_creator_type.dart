@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/ui/screens/intervention_creator_name.dart';
-import 'package:studyme/ui/screens/intervention_overview.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 
 class InterventionCreatorType extends StatefulWidget {
-  final bool isA;
+  final String title;
   final Intervention intervention;
   final Function(Intervention intervention) onSave;
 
   const InterventionCreatorType(
-      {@required this.isA, @required this.intervention, @required this.onSave});
+      {@required this.title,
+      @required this.intervention,
+      @required this.onSave});
 
   @override
   _InterventionCreatorTypeState createState() =>
@@ -37,7 +38,7 @@ class _InterventionCreatorTypeState extends State<InterventionCreatorType> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(widget.isA ? "Intervention A" : "Intervention B"),
+              Text(widget.title),
               Visibility(
                 visible: true,
                 child: Text(
@@ -59,9 +60,10 @@ class _InterventionCreatorTypeState extends State<InterventionCreatorType> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => InterventionCreatorName(
-                              isA: widget.isA,
+                              title: widget.title,
                               intervention: _intervention,
-                              onSave: widget.onSave),
+                              onSave: widget.onSave,
+                              save: false),
                         )))
           ],
         ),

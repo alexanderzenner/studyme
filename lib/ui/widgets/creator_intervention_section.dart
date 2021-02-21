@@ -30,16 +30,14 @@ class CreatorInterventionSection extends StatelessWidget {
               showSchedule: true,
               intervention: model.trial.a,
               onTap: () {
-                _editIntervention(
-                    context, true, model.trial.a, model.setInterventionA);
+                _viewIntervention(context, true);
               }),
         if (model.trial.b != null)
           InterventionCard(
               showSchedule: true,
               intervention: model.trial.b,
               onTap: () {
-                _editIntervention(
-                    context, false, model.trial.b, model.setInterventionB);
+                _viewIntervention(context, false);
               }),
       ],
     );
@@ -57,25 +55,25 @@ class CreatorInterventionSection extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) => isA
             ? InterventionCreatorName(
-                isA: isA, intervention: Intervention(), onSave: saveFunction)
+                title: "Intervention A",
+                intervention: Intervention(),
+                onSave: saveFunction,
+                save: false)
             : InterventionCreatorType(
-                isA: isA, intervention: NoIntervention(), onSave: saveFunction),
+                title: "Intervention B",
+                intervention: NoIntervention(),
+                onSave: saveFunction),
       ),
     );
   }
 
-  _editIntervention(context, isA, intervention, setIntervention) {
+  _viewIntervention(context, isA) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            InterventionOverview(isA: isA, intervention: intervention),
+        builder: (context) => InterventionOverview(isA: isA),
       ),
-    ).then((result) {
-      if (result != null) {
-        setIntervention(result);
-      }
-    });
+    );
   }
 
   Widget _buildNextAction(context) {

@@ -7,6 +7,7 @@ import 'package:studyme/models/task/measure_task.dart';
 import 'package:uuid/uuid.dart';
 
 import '../schedule.dart';
+import '../scheduled_item.dart';
 import '../task/task.dart';
 import 'aggregations.dart';
 import 'choice_measure.dart';
@@ -14,7 +15,7 @@ import 'free_measure.dart';
 
 typedef MeasureTaskParser = Measure Function(Map<String, dynamic> data);
 
-abstract class Measure {
+abstract class Measure extends ScheduledItem {
   static Map<String, MeasureTaskParser> measureTypes = {
     ChoiceMeasure.measureType: (json) => ChoiceMeasure.fromJson(json),
     FreeMeasure.measureType: (json) => FreeMeasure.fromJson(json),
@@ -32,8 +33,6 @@ abstract class Measure {
   String description;
   @HiveField(4)
   ValueAggregation aggregation;
-  @HiveField(5)
-  Schedule schedule;
   IconData icon;
 
   Measure(
@@ -54,7 +53,7 @@ abstract class Measure {
         name = measure.name,
         description = measure.description,
         aggregation = measure.aggregation,
-        schedule = measure.schedule.clone();
+        super.clone(measure);
 
   clone() {
     switch (this.runtimeType) {

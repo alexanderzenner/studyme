@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/schedule.dart';
+import 'package:studyme/models/scheduled_item.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/util/notifications.dart';
@@ -9,12 +10,14 @@ import 'package:studyme/util/notifications.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 
 class InterventionCreatorSchedule extends StatefulWidget {
-  final bool isA;
-  final Intervention intervention;
+  final String title;
+  final ScheduledItem scheduledItem;
   final Function(Intervention intervention) onSave;
 
   const InterventionCreatorSchedule(
-      {@required this.isA, @required this.intervention, @required this.onSave});
+      {@required this.title,
+      @required this.scheduledItem,
+      @required this.onSave});
 
   @override
   _InterventionCreatorScheduleState createState() =>
@@ -28,7 +31,7 @@ class _InterventionCreatorScheduleState
 
   @override
   initState() {
-    _schedule = Schedule();
+    _schedule = widget.scheduledItem.schedule.clone();
     _frequency = Frequency.Daily;
     super.initState();
   }
@@ -42,7 +45,7 @@ class _InterventionCreatorScheduleState
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(widget.isA ? "Intervention A" : "Intervention B"),
+              Text(widget.title),
               Visibility(
                 visible: true,
                 child: Text(
@@ -99,8 +102,8 @@ class _InterventionCreatorScheduleState
   }
 
   _submit() {
-    widget.intervention.schedule = _schedule;
-    widget.onSave(widget.intervention);
+    widget.scheduledItem.schedule = _schedule;
+    widget.onSave(widget.scheduledItem);
   }
 
   _canSubmit() {

@@ -87,12 +87,12 @@ ScaleMeasure _$ScaleMeasureFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$ScaleMeasureToJson(ScaleMeasure instance) =>
     <String, dynamic>{
+      'schedule': instance.schedule,
       'id': instance.id,
       'type': instance.type,
       'name': instance.name,
       'description': instance.description,
       'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
-      'schedule': instance.schedule,
       'min': instance.min,
       'max': instance.max,
       'initial': instance.initial,

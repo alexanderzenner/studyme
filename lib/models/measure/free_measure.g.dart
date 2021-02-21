@@ -73,12 +73,12 @@ FreeMeasure _$FreeMeasureFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$FreeMeasureToJson(FreeMeasure instance) =>
     <String, dynamic>{
+      'schedule': instance.schedule,
       'id': instance.id,
       'type': instance.type,
       'name': instance.name,
       'description': instance.description,
       'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
-      'schedule': instance.schedule,
     };
 
 T _$enumDecode<T>(

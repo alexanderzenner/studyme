@@ -74,10 +74,10 @@ Intervention _$InterventionFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$InterventionToJson(Intervention instance) =>
     <String, dynamic>{
+      'schedule': instance.schedule,
       'type': instance.type,
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
       'letter': instance.letter,
-      'schedule': instance.schedule,
     };

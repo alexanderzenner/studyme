@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/schedule.dart';
+import 'package:studyme/models/scheduled_item.dart';
 import 'package:studyme/models/task/intervention_task.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:uuid/uuid.dart';
@@ -12,7 +13,7 @@ part 'intervention.g.dart';
 
 @JsonSerializable()
 @HiveType(typeId: 101)
-class Intervention {
+class Intervention extends ScheduledItem {
   static const String interventionType = 'intervention';
 
   @HiveField(0)
@@ -30,14 +31,11 @@ class Intervention {
   @HiveField(4)
   String letter;
 
-  @HiveField(5)
-  Schedule schedule;
-
   Intervention(
       {id, type, this.name, this.description, this.letter, Schedule schedule})
       : this.id = id ?? Uuid().v4(),
         this.type = type ?? interventionType,
-        this.schedule = schedule ?? Schedule();
+        super(schedule: schedule);
 
   Intervention.clone(Intervention intervention)
       : id = Uuid().v4(),
@@ -45,9 +43,7 @@ class Intervention {
         name = intervention.name,
         description = intervention.description,
         letter = intervention.letter,
-        schedule = intervention.schedule != null
-            ? intervention.schedule.clone()
-            : null;
+        super.clone(intervention);
 
   List<Task> getTasksFor(daysSinceBeginningOfTimeRange) {
     List<TimeOfDay> times =
