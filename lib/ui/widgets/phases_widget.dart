@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/schedule/trial_phases.dart';
+import 'package:studyme/models/phases/phases.dart';
 import 'package:studyme/ui/widgets/intervention_letter.dart';
 import 'package:studyme/ui/widgets/timeline.dart';
 import 'package:studyme/ui/widgets/timeline_card.dart';
 import 'package:studyme/util/color_map.dart';
 
 class PhasesWidget extends StatefulWidget {
-  final TrialPhases schedule;
+  final Phases phases;
   final bool showDuration;
   final int activeIndex;
 
   PhasesWidget(
-      {@required this.schedule,
+      {@required this.phases,
       this.showDuration = false,
       this.activeIndex = -1});
 
@@ -26,19 +26,19 @@ class _PhasesWidgetState extends State<PhasesWidget> {
     return Timeline(
         activeIndex: widget.activeIndex,
         height: widget.showDuration ? 71 : 50,
-        itemCount: widget.schedule.numberOfPhases + 1,
+        itemCount: widget.phases.numberOfPhases + 1,
         callback: (int index) {
           Widget _cardContent;
           Widget _textBelowCard;
           Color _cardColor = Colors.white;
 
-          if (index == widget.schedule.numberOfPhases) {
+          if (index == widget.phases.numberOfPhases) {
             _cardContent = Icon(Icons.flag);
             if (widget.showDuration) {
               _textBelowCard = _buildTotalDurationText();
             }
           } else {
-            String letter = widget.schedule.phaseSequence[index];
+            String letter = widget.phases.phaseSequence[index];
             _cardContent = InterventionLetter(letter,
                 isInverted: index < widget.activeIndex);
             if (widget.showDuration) {
@@ -59,14 +59,14 @@ class _PhasesWidgetState extends State<PhasesWidget> {
 
   _buildTotalDurationText() {
     return Text(
-      '= ${widget.schedule.phaseDuration * widget.schedule.numberOfPhases}d',
+      '= ${widget.phases.phaseDuration * widget.phases.numberOfPhases}d',
       style: TextStyle(fontWeight: FontWeight.bold),
       overflow: TextOverflow.ellipsis,
     );
   }
 
   _buildPhaseDurationText() {
-    return Text((widget.schedule.phaseDuration.toString() + 'd'),
+    return Text((widget.phases.phaseDuration.toString() + 'd'),
         overflow: TextOverflow.ellipsis);
   }
 }

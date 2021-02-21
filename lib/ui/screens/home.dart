@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          PhasesWidget(schedule: _trial.phases, activeIndex: _activeIndex),
+          PhasesWidget(phases: _trial.phases, activeIndex: _activeIndex),
           _body,
         ]),
       ),

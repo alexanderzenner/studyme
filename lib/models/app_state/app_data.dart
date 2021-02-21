@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
-import 'package:studyme/models/schedule/trial_phases.dart';
+import 'package:studyme/models/phases/phases.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:studyme/util/notifications.dart';
 import 'package:studyme/models/intervention/intervention.dart';
@@ -76,7 +76,7 @@ class AppData extends ChangeNotifier {
     }
   }
 
-  void updateSchedule(TrialPhases schedule) {
+  void updateSchedule(Phases schedule) {
     _trial.phases = schedule;
     _trial.save();
     notifyListeners();

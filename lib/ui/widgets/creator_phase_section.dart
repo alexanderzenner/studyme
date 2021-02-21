@@ -30,7 +30,7 @@ class CreatorPhasesSection extends StatelessWidget {
                     : null,
               )),
           if (model.trial.phases != null)
-            PhasesWidget(schedule: model.trial.phases, showDuration: true),
+            PhasesWidget(phases: model.trial.phases, showDuration: true),
         ],
       ),
     );

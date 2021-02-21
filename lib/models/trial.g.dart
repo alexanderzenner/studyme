@@ -20,7 +20,7 @@ class TrialAdapter extends TypeAdapter<Trial> {
       ..a = fields[0] as Intervention
       ..b = fields[1] as Intervention
       ..measures = (fields[2] as List)?.cast<Measure>()
-      ..phases = fields[3] as TrialPhases
+      ..phases = fields[3] as Phases
       ..startDate = fields[4] as DateTime;
   }
 
@@ -69,7 +69,7 @@ Trial _$TrialFromJson(Map<String, dynamic> json) {
         ?.toList()
     ..phases = json['phases'] == null
         ? null
-        : TrialPhases.fromJson(json['phases'] as Map<String, dynamic>)
+        : Phases.fromJson(json['phases'] as Map<String, dynamic>)
     ..startDate = json['startDate'] == null
         ? null
         : DateTime.parse(json['startDate'] as String);

@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'trial_phases.dart';
+part of 'phases.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TrialPhasesAdapter extends TypeAdapter<TrialPhases> {
+class PhasesAdapter extends TypeAdapter<Phases> {
   @override
   final int typeId = 201;
 
   @override
-  TrialPhases read(BinaryReader reader) {
+  Phases read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return TrialPhases()
+    return Phases()
       ..phaseOrder = fields[0] as PhaseOrder
       ..phaseDuration = fields[1] as int
       ..phaseSequence = (fields[2] as List)?.cast<String>()
@@ -24,7 +24,7 @@ class TrialPhasesAdapter extends TypeAdapter<TrialPhases> {
   }
 
   @override
-  void write(BinaryWriter writer, TrialPhases obj) {
+  void write(BinaryWriter writer, Phases obj) {
     writer
       ..writeByte(4)
       ..writeByte(0)
@@ -43,7 +43,7 @@ class TrialPhasesAdapter extends TypeAdapter<TrialPhases> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TrialPhasesAdapter &&
+      other is PhasesAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -52,8 +52,8 @@ class TrialPhasesAdapter extends TypeAdapter<TrialPhases> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-TrialPhases _$TrialPhasesFromJson(Map<String, dynamic> json) {
-  return TrialPhases()
+Phases _$PhasesFromJson(Map<String, dynamic> json) {
+  return Phases()
     ..phaseOrder = _$enumDecodeNullable(_$PhaseOrderEnumMap, json['phaseOrder'])
     ..phaseDuration = json['phaseDuration'] as int
     ..phaseSequence =
@@ -61,8 +61,7 @@ TrialPhases _$TrialPhasesFromJson(Map<String, dynamic> json) {
     ..numberOfCycles = json['numberOfCycles'] as int;
 }
 
-Map<String, dynamic> _$TrialPhasesToJson(TrialPhases instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$PhasesToJson(Phases instance) => <String, dynamic>{
       'phaseOrder': _$PhaseOrderEnumMap[instance.phaseOrder],
       'phaseDuration': instance.phaseDuration,
       'phaseSequence': instance.phaseSequence,

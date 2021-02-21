@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:studyme/models/schedule/trial_phases.dart';
+import 'package:studyme/models/phases/phases.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 
@@ -23,7 +23,7 @@ class Trial extends HiveObject {
   List<Measure> measures;
 
   @HiveField(3)
-  TrialPhases phases;
+  Phases phases;
 
   @HiveField(4)
   DateTime startDate;

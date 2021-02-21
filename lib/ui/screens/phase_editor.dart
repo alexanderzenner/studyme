@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/schedule/phase_order.dart';
-import 'package:studyme/models/schedule/trial_phases.dart';
+import 'package:studyme/models/phases/phase_order.dart';
+import 'package:studyme/models/phases/phases.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/phases_widget.dart';
 
@@ -13,7 +13,7 @@ class PhaseEditor extends StatefulWidget {
 }
 
 class _PhaseEditorState extends State<PhaseEditor> {
-  TrialPhases _schedule;
+  Phases _schedule;
   bool _isCreator;
 
   @override
@@ -24,7 +24,7 @@ class _PhaseEditorState extends State<PhaseEditor> {
       _schedule = trial.phases.clone();
     } else {
       _isCreator = true;
-      _schedule = TrialPhases.createDefault();
+      _schedule = Phases.createDefault();
     }
     super.initState();
   }
@@ -45,7 +45,7 @@ class _PhaseEditorState extends State<PhaseEditor> {
           child: Consumer<AppData>(builder: (context, model, child) {
             return Column(
               children: [
-                PhasesWidget(schedule: _schedule, showDuration: true),
+                PhasesWidget(phases: _schedule, showDuration: true),
                 SizedBox(height: 20),
                 TextFormField(
                   initialValue: _schedule.phaseDuration.toString(),
