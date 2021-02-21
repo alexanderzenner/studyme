@@ -13,7 +13,6 @@ part 'scale_measure.g.dart';
 class ScaleMeasure extends Measure {
   static const String measureType = 'scale';
 
-  @JsonKey(ignore: true)
   final IconData icon = Icons.linear_scale;
 
   @HiveField(6)

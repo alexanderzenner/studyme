@@ -4,6 +4,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/ui/screens/intervention_creator_name.dart';
 import 'package:studyme/ui/screens/intervention_creator_schedule.dart';
+import 'package:studyme/ui/screens/intervention_creator_type.dart';
 
 class InterventionOverview extends StatelessWidget {
   final bool isA;
@@ -29,7 +30,9 @@ class InterventionOverview extends StatelessWidget {
                     if (!isA)
                       ListTile(
                           title: Text("Type"),
-                          subtitle: Text(intervention.type)),
+                          subtitle: Text(intervention.typeReadable),
+                          trailing: Icon(Icons.chevron_right),
+                          onTap: () => _editType(context, intervention)),
                     if (intervention.schedule != null)
                       Column(
                         children: [
@@ -54,6 +57,22 @@ class InterventionOverview extends StatelessWidget {
         ));
   }
 
+  _editType(context, intervention) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => InterventionCreatorType(
+            title: _getTitle(),
+            intervention: intervention,
+            onSave: (Intervention _intervention) {
+              _getSetter(context)(_intervention);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/creator', (r) => false);
+            },
+          ),
+        ));
+  }
+
   _editName(context, intervention) {
     Navigator.push(
         context,
@@ -62,7 +81,7 @@ class InterventionOverview extends StatelessWidget {
               title: _getTitle(),
               intervention: intervention,
               onSave: (Intervention _intervention) {
-                Provider.of<AppData>(context).setInterventionA(_intervention);
+                _getSetter(context)(_intervention);
                 Navigator.pop(context);
               },
               save: true),
@@ -77,10 +96,16 @@ class InterventionOverview extends StatelessWidget {
               title: _getTitle(),
               scheduledItem: intervention,
               onSave: (Intervention _intervention) {
-                Provider.of<AppData>(context).setInterventionA(_intervention);
+                _getSetter(context)(_intervention);
                 Navigator.pop(context);
               }),
         ));
+  }
+
+  _getSetter(context) {
+    return isA
+        ? Provider.of<AppData>(context).setInterventionA
+        : Provider.of<AppData>(context).setInterventionB;
   }
 
   _getTitle() {

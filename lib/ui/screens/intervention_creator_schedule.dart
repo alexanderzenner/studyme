@@ -32,7 +32,12 @@ class _InterventionCreatorScheduleState
   @override
   initState() {
     _schedule = widget.scheduledItem.schedule.clone();
-    _frequency = Frequency.Daily;
+    if (_schedule != null) {
+      _frequency =
+          _schedule.frequency == 1 ? Frequency.Daily : Frequency.EveryXDays;
+    } else {
+      _frequency = Frequency.Daily;
+    }
     super.initState();
   }
 

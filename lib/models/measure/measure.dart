@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/models/measure/synced_measure.dart';
 import 'package:studyme/models/task/measure_task.dart';
@@ -25,14 +26,20 @@ abstract class Measure extends ScheduledItem {
 
   @HiveField(0)
   String id;
+
   @HiveField(1)
   String type;
+
   @HiveField(2)
   String name;
+
   @HiveField(3)
   String description;
+
   @HiveField(4)
   ValueAggregation aggregation;
+
+  @JsonKey(ignore: true)
   IconData icon;
 
   Measure(

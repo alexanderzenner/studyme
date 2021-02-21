@@ -47,7 +47,8 @@ class CreatorInterventionSection extends StatelessWidget {
     Function setter = isA ? model.setInterventionA : model.setInterventionB;
     Function saveFunction = (Intervention intervention) {
       setter(intervention);
-      Navigator.pushReplacementNamed(context, '/creator');
+
+      Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
     };
 
     Navigator.push(
