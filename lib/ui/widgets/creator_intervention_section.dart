@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
+import 'package:studyme/ui/screens/intervention_creator_name.dart';
+import 'package:studyme/ui/screens/intervention_creator_type.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 
-import '../screens/intervention_editor.dart';
+import '../screens/intervention_overview.dart';
+import '../screens/intervention_creator_type.dart';
 
 class CreatorInterventionSection extends StatelessWidget {
   final AppData model;
@@ -42,16 +45,33 @@ class CreatorInterventionSection extends StatelessWidget {
     );
   }
 
-  _addIntervention(context, isA, newIntervention, setIntervention) {
-    _navigateToInterventionEditor(context, isA, newIntervention).then((result) {
-      if (result != null) {
-        setIntervention(result);
-      }
-    });
+  _addIntervention(context, isA) {
+    Function setter = isA ? model.setInterventionA : model.setInterventionB;
+    Function saveFunction = (Intervention intervention) {
+      setter(intervention);
+      Navigator.pushReplacementNamed(context, '/creator');
+    };
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => isA
+            ? InterventionCreatorName(
+                isA: isA, intervention: Intervention(), onSave: saveFunction)
+            : InterventionCreatorType(
+                isA: isA, intervention: NoIntervention(), onSave: saveFunction),
+      ),
+    );
   }
 
   _editIntervention(context, isA, intervention, setIntervention) {
-    _navigateToInterventionEditor(context, isA, intervention).then((result) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            InterventionOverview(isA: isA, intervention: intervention),
+      ),
+    ).then((result) {
       if (result != null) {
         setIntervention(result);
       }
@@ -65,30 +85,18 @@ class CreatorInterventionSection extends StatelessWidget {
           Icons.add,
         ),
         onPressed: () {
-          _addIntervention(
-              context, true, Intervention(), model.setInterventionA);
+          _addIntervention(context, true);
         },
       );
     } else if (model.trial.b == null) {
       return IconButton(
         icon: Icon(Icons.add),
         onPressed: () {
-          _addIntervention(
-              context, false, NoIntervention(), model.setInterventionB);
+          _addIntervention(context, false);
         },
       );
     } else {
       return null;
     }
-  }
-
-  Future _navigateToInterventionEditor(context, isA, intervention) async {
-    return await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            InterventionEditor(isA: isA, intervention: intervention),
-      ),
-    );
   }
 }
