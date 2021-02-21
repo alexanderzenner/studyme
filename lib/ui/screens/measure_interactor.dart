@@ -12,7 +12,7 @@ import 'package:studyme/ui/widgets/measure_choice_widget.dart';
 import 'package:studyme/ui/widgets/measure_free_widget.dart';
 import 'package:studyme/ui/widgets/measure_scale_widget.dart';
 import 'package:studyme/ui/widgets/measure_synced_widget.dart';
-import 'package:studyme/ui/widgets/save_button.dart';
+import 'package:studyme/ui/widgets/action_button.dart';
 
 import 'package:studyme/util/time_of_day_extension.dart';
 
@@ -43,7 +43,8 @@ class _MeasureInteractorState extends State<MeasureInteractor> {
           brightness: Brightness.dark,
           title: Text(widget.task.measure.name),
           actions: <Widget>[
-            SaveButton(canPress: _canSave, onPressed: _logValue)
+            ActionButton(
+                icon: Icons.check, canPress: _canSave, onPressed: _logValue)
           ],
         ),
         body: Padding(

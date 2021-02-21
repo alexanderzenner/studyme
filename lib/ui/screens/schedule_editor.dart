@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studyme/models/schedule.dart';
-import 'package:studyme/ui/widgets/save_button.dart';
+import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/util/notifications.dart';
 
@@ -38,7 +38,8 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
         brightness: Brightness.dark,
         title: Text("Edit Schedule"),
         actions: <Widget>[
-          SaveButton(
+          ActionButton(
+              icon: Icons.check,
               canPress: _canSubmit(),
               onPressed: () {
                 Navigator.pop(context, _schedule);

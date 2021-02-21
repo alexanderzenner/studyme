@@ -9,7 +9,7 @@ import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/models/schedule.dart';
 import 'package:studyme/ui/screens/schedule_editor.dart';
 import 'package:studyme/ui/widgets/choice_editor.dart';
-import 'package:studyme/ui/widgets/save_button.dart';
+import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:uuid/uuid.dart';
 
@@ -41,7 +41,8 @@ class _MeasureEditorState extends State<MeasureEditor> {
           brightness: Brightness.dark,
           title: Text((widget.isCreator ? "Create" : "Edit") + " Measure"),
           actions: <Widget>[
-            SaveButton(
+            ActionButton(
+              icon: Icons.check,
               canPress: _canSubmit(),
               onPressed: () {
                 Navigator.pop(context, _measure);

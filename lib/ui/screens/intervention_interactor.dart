@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
 import 'package:studyme/models/task/intervention_task.dart';
-import 'package:studyme/ui/widgets/save_button.dart';
+import 'package:studyme/ui/widgets/action_button.dart';
 
 import 'package:studyme/util/time_of_day_extension.dart';
 
@@ -26,7 +26,10 @@ class _InterventionInteractorState extends State<InterventionInteractor> {
         brightness: Brightness.dark,
         title: Text(widget.task.intervention.name),
         actions: <Widget>[
-          SaveButton(canPress: _confirmed, onPressed: _markCompleted)
+          ActionButton(
+              icon: Icons.check,
+              canPress: _confirmed,
+              onPressed: _markCompleted)
         ],
       ),
       body: Padding(
