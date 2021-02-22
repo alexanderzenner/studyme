@@ -6,7 +6,7 @@ import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/screens/measure_creator_type.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 
-import 'measure_preview.dart';
+import 'measure_overview.dart';
 
 class MeasureLibrary extends StatelessWidget {
   @override
@@ -42,7 +42,8 @@ class MeasureLibrary extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MeasurePreview(measure: measure, isAdded: false),
+        builder: (context) =>
+            MeasureOverview(isPreview: true, measure: measure),
       ),
     );
   }

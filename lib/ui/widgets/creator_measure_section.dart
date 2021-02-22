@@ -47,11 +47,11 @@ class CreatorMeasureSection extends StatelessWidget {
     );
   }
 
-  _previewMeasure(context, measure) {
+  _previewMeasure(context, int index) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MeasureOverview(index: measure),
+        builder: (context) => MeasureOverview(isPreview: false, index: index),
       ),
     );
   }
