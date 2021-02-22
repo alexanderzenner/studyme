@@ -24,6 +24,9 @@ class ScaleMeasure extends Measure {
   @HiveField(8)
   double initial;
 
+  String get scaleString =>
+      "min: " + min.toInt().toString() + ", max: " + max.toInt().toString();
+
   ScaleMeasure(
       {String id,
       String name,

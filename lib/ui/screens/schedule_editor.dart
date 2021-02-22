@@ -8,21 +8,21 @@ import 'package:studyme/util/notifications.dart';
 
 import 'package:studyme/util/time_of_day_extension.dart';
 
-class CreatorSchedule extends StatefulWidget {
+class ScheduleEditor extends StatefulWidget {
   final String title;
   final HasSchedule objectWithSchedule;
   final Function onSave;
 
-  const CreatorSchedule(
+  const ScheduleEditor(
       {@required this.title,
       @required this.objectWithSchedule,
       @required this.onSave});
 
   @override
-  _CreatorScheduleState createState() => _CreatorScheduleState();
+  _ScheduleEditorState createState() => _ScheduleEditorState();
 }
 
-class _CreatorScheduleState extends State<CreatorSchedule> {
+class _ScheduleEditorState extends State<ScheduleEditor> {
   Frequency _frequency;
   Schedule _schedule;
 

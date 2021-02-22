@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
-import 'package:studyme/ui/screens/intervention_creator_name.dart';
-import 'package:studyme/ui/widgets/action_button.dart';
+
+import '../widgets/action_button.dart';
+import 'intervention_editor_name.dart';
 
 class InterventionCreatorType extends StatefulWidget {
   final String title;
@@ -93,7 +94,7 @@ class _InterventionCreatorTypeState extends State<InterventionCreatorType> {
         : Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => InterventionCreatorName(
+              builder: (context) => InterventionEditorName(
                   title: widget.title,
                   intervention: _intervention,
                   onSave: widget.onSave,

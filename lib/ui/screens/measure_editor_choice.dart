@@ -3,27 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:studyme/models/measure/choice.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/ui/screens/creator_schedule.dart';
-import 'package:studyme/ui/widgets/action_button.dart';
-import 'package:studyme/ui/widgets/section_title.dart';
 
-class MeasureCreatorChoice extends StatefulWidget {
+import '../widgets/action_button.dart';
+import '../widgets/section_title.dart';
+import 'schedule_editor.dart';
+
+class MeasureEditorChoice extends StatefulWidget {
   final String title;
   final ChoiceMeasure measure;
   final Function(Measure measure) onSave;
   final bool save;
 
-  const MeasureCreatorChoice(
+  const MeasureEditorChoice(
       {@required this.title,
       @required this.measure,
       @required this.onSave,
       @required this.save});
 
   @override
-  _MeasureCreatorChoiceState createState() => _MeasureCreatorChoiceState();
+  _MeasureEditorChoiceState createState() => _MeasureEditorChoiceState();
 }
 
-class _MeasureCreatorChoiceState extends State<MeasureCreatorChoice> {
+class _MeasureEditorChoiceState extends State<MeasureEditorChoice> {
   List<Choice> _choices;
   String _editedChoice;
 
@@ -141,7 +142,7 @@ class _MeasureCreatorChoiceState extends State<MeasureCreatorChoice> {
         : Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CreatorSchedule(
+              builder: (context) => ScheduleEditor(
                   title: widget.title,
                   objectWithSchedule: widget.measure,
                   onSave: widget.onSave),

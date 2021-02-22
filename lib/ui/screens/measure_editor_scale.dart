@@ -2,26 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/ui/screens/creator_schedule.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 
-class MeasureCreatorScale extends StatefulWidget {
+import 'schedule_editor.dart';
+
+class MeasureEditorScale extends StatefulWidget {
   final String title;
   final ScaleMeasure measure;
   final Function(Measure measure) onSave;
   final bool save;
 
-  const MeasureCreatorScale(
+  const MeasureEditorScale(
       {@required this.title,
       @required this.measure,
       @required this.onSave,
       @required this.save});
 
   @override
-  _MeasureCreatorScaleState createState() => _MeasureCreatorScaleState();
+  _MeasureEditorScaleState createState() => _MeasureEditorScaleState();
 }
 
-class _MeasureCreatorScaleState extends State<MeasureCreatorScale> {
+class _MeasureEditorScaleState extends State<MeasureEditorScale> {
   double _min;
   double _max;
 
@@ -104,7 +105,7 @@ class _MeasureCreatorScaleState extends State<MeasureCreatorScale> {
         : Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CreatorSchedule(
+              builder: (context) => ScheduleEditor(
                   title: widget.title,
                   objectWithSchedule: widget.measure,
                   onSave: widget.onSave),

@@ -3,28 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/ui/screens/creator_schedule.dart';
-import 'package:studyme/ui/screens/measure_creator_choice.dart';
-import 'package:studyme/ui/screens/measure_creator_scale.dart';
-import 'package:studyme/ui/widgets/action_button.dart';
 
-class MeasureCreatorName extends StatefulWidget {
+import '../widgets/action_button.dart';
+import 'measure_editor_choice.dart';
+import 'measure_editor_scale.dart';
+import 'schedule_editor.dart';
+
+class MeasureEditorName extends StatefulWidget {
   final String title;
   final Measure measure;
   final Function(Measure measure) onSave;
   final bool save;
 
-  const MeasureCreatorName(
+  const MeasureEditorName(
       {@required this.title,
       @required this.measure,
       @required this.onSave,
       @required this.save});
 
   @override
-  _MeasureCreatorNameState createState() => _MeasureCreatorNameState();
+  _MeasureEditorNameState createState() => _MeasureEditorNameState();
 }
 
-class _MeasureCreatorNameState extends State<MeasureCreatorName> {
+class _MeasureEditorNameState extends State<MeasureEditorName> {
   String _name;
 
   @override
@@ -96,7 +97,7 @@ class _MeasureCreatorNameState extends State<MeasureCreatorName> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MeasureCreatorChoice(
+              builder: (context) => MeasureEditorChoice(
                   title: widget.title,
                   measure: widget.measure,
                   onSave: widget.onSave,
@@ -106,7 +107,7 @@ class _MeasureCreatorNameState extends State<MeasureCreatorName> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MeasureCreatorScale(
+              builder: (context) => MeasureEditorScale(
                   title: widget.title,
                   measure: widget.measure,
                   onSave: widget.onSave,
@@ -116,7 +117,7 @@ class _MeasureCreatorNameState extends State<MeasureCreatorName> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CreatorSchedule(
+              builder: (context) => ScheduleEditor(
                   title: widget.title,
                   objectWithSchedule: widget.measure,
                   onSave: widget.onSave),

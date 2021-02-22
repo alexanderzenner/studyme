@@ -1,27 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/intervention.dart';
-import 'package:studyme/ui/screens/creator_schedule.dart';
-import 'package:studyme/ui/widgets/action_button.dart';
 
-class InterventionCreatorName extends StatefulWidget {
+import '../widgets/action_button.dart';
+import 'schedule_editor.dart';
+
+class InterventionEditorName extends StatefulWidget {
   final String title;
   final Intervention intervention;
   final Function(Intervention intervention) onSave;
   final bool save;
 
-  const InterventionCreatorName(
+  const InterventionEditorName(
       {@required this.title,
       @required this.intervention,
       @required this.onSave,
       @required this.save});
 
   @override
-  _InterventionCreatorNameState createState() =>
-      _InterventionCreatorNameState();
+  _InterventionEditorNameState createState() => _InterventionEditorNameState();
 }
 
-class _InterventionCreatorNameState extends State<InterventionCreatorName> {
+class _InterventionEditorNameState extends State<InterventionEditorName> {
   String _name;
 
   @override
@@ -91,7 +91,7 @@ class _InterventionCreatorNameState extends State<InterventionCreatorName> {
         : Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CreatorSchedule(
+              builder: (context) => ScheduleEditor(
                   title: widget.title,
                   objectWithSchedule: widget.intervention,
                   onSave: widget.onSave),

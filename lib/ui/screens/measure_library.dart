@@ -8,7 +8,6 @@ import 'package:studyme/ui/screens/measure_creator_type.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 import 'package:uuid/uuid.dart';
 
-import 'measure_editor.dart';
 import 'measure_preview.dart';
 
 class MeasureLibrary extends StatelessWidget {

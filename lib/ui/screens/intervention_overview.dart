@@ -3,8 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
-import 'package:studyme/ui/screens/creator_schedule.dart';
-import 'package:studyme/ui/screens/intervention_creator_name.dart';
+
+import 'intervention_editor_name.dart';
+import 'schedule_editor.dart';
 
 class InterventionOverview extends StatelessWidget {
   final bool isA;
@@ -67,7 +68,7 @@ class InterventionOverview extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => InterventionCreatorName(
+          builder: (context) => InterventionEditorName(
               title: _getTitle(),
               intervention: intervention,
               onSave: (Intervention _intervention) {
@@ -82,7 +83,7 @@ class InterventionOverview extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => CreatorSchedule(
+          builder: (context) => ScheduleEditor(
               title: _getTitle(),
               objectWithSchedule: intervention,
               onSave: (Intervention _intervention) {

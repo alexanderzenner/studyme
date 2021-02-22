@@ -2,14 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/intervention/intervention.dart';
-import 'package:studyme/models/intervention/no_intervention.dart';
-import 'package:studyme/ui/screens/intervention_creator_name.dart';
-import 'package:studyme/ui/screens/intervention_creator_type.dart';
-import 'package:studyme/ui/widgets/intervention_card.dart';
-import 'package:studyme/ui/widgets/section_title.dart';
 
-import '../screens/intervention_overview.dart';
 import '../screens/intervention_creator_type.dart';
+import '../screens/intervention_editor_name.dart';
+import '../screens/intervention_overview.dart';
+import 'intervention_card.dart';
+import 'section_title.dart';
 
 class CreatorInterventionSection extends StatelessWidget {
   final AppData model;
@@ -85,7 +83,7 @@ class CreatorInterventionSection extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => isA
-            ? InterventionCreatorName(
+            ? InterventionEditorName(
                 title: "Intervention A",
                 intervention: Intervention(),
                 onSave: saveFunction,

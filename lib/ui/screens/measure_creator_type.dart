@@ -4,8 +4,9 @@ import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/ui/screens/measure_creator_name.dart';
-import 'package:studyme/ui/widgets/action_button.dart';
+
+import '../widgets/action_button.dart';
+import 'measure_editor_name.dart';
 
 class MeasureCreatorType extends StatefulWidget {
   final Function(Measure measure) onSave;
@@ -91,7 +92,7 @@ class _MeasureCreatorTypeState extends State<MeasureCreatorType> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => MeasureCreatorName(
+          builder: (context) => MeasureEditorName(
               title: "Measure",
               measure: _measure,
               onSave: widget.onSave,
