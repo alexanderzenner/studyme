@@ -33,14 +33,6 @@ class Schedule {
     _sortTimes();
   }
 
-  updateTime(int index, TimeOfDay time) {
-    final newTimestamp = _generateDateTime(time);
-    if (index < timestamps.length && !_containsTime(newTimestamp)) {
-      timestamps[index] = newTimestamp;
-      _sortTimes();
-    }
-  }
-
   removeTime(int index) {
     timestamps.removeAt(index);
   }

@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
@@ -11,7 +9,6 @@ import 'package:studyme/ui/widgets/measure_choice_widget.dart';
 import 'package:studyme/ui/widgets/measure_free_widget.dart';
 import 'package:studyme/ui/widgets/measure_scale_widget.dart';
 import 'package:studyme/ui/widgets/measure_synced_widget.dart';
-import 'measure_editor.dart';
 
 class MeasurePreview extends StatelessWidget {
   final Measure measure;
@@ -42,20 +39,6 @@ class MeasurePreview extends StatelessWidget {
                           label: Text("Add to trial"),
                           onPressed: () {
                             _addMeasure(context);
-                          }),
-                    if (isAdded)
-                      OutlineButton.icon(
-                          icon: Icon(Icons.delete),
-                          label: Text("Remove"),
-                          onPressed: () {
-                            _removeMeasure(context);
-                          }),
-                    if (isAdded && measure.canEdit)
-                      OutlineButton.icon(
-                          icon: Icon(Icons.edit),
-                          label: Text("Edit"),
-                          onPressed: () {
-                            _editMeasure(context);
                           }),
                   ],
                 )
@@ -91,29 +74,5 @@ class MeasurePreview extends StatelessWidget {
                 "Access denied. In order for StudyMe to track your ${measure.name} automatically you need to grant permissions.")));
       }
     });
-  }
-
-  _removeMeasure(context) {
-    Provider.of<AppData>(context, listen: false).removeMeasure(measure);
-    Navigator.pop(context);
-  }
-
-  _editMeasure(context) {
-    _navigateToEditor(context).then((result) {
-      if (result != null) {
-        Provider.of<AppData>(context, listen: false)
-            .updateMeasure(measure, result);
-        Navigator.pop(context);
-      }
-    });
-  }
-
-  Future _navigateToEditor(context) async {
-    return await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MeasureEditor(isCreator: false, measure: measure),
-      ),
-    );
   }
 }

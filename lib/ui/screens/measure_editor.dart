@@ -6,8 +6,6 @@ import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/models/schedule.dart';
-import 'package:studyme/ui/screens/schedule_editor.dart';
 import 'package:studyme/ui/widgets/choice_editor.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
@@ -65,9 +63,6 @@ class _MeasureEditorState extends State<MeasureEditor> {
                 ),
                 if (_body != null) _body,
                 Divider(height: 30),
-                SectionTitle("Schedule",
-                    action: IconButton(
-                        icon: Icon(Icons.edit), onPressed: _editSchedule)),
                 Text(_measure.schedule.readable),
                 Divider(height: 30),
                 SectionTitle("Other"),
@@ -210,19 +205,5 @@ class _MeasureEditorState extends State<MeasureEditor> {
           }),
       SizedBox(height: 20),
     ]);
-  }
-
-  Future _editSchedule() async {
-    Schedule schedule = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ScheduleEditor(schedule: _measure.schedule),
-      ),
-    );
-    if (schedule != null) {
-      setState(() {
-        _measure.schedule = schedule;
-      });
-    }
   }
 }

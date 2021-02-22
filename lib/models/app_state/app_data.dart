@@ -52,18 +52,13 @@ class AppData extends ChangeNotifier {
     notifyListeners();
   }
 
-  int _getIndexForId(List list, String id) {
-    return list.indexWhere((i) => i.id == id);
-  }
-
   void addMeasure(Measure measure) {
     _trial.measures.add(measure);
     _trial.save();
     notifyListeners();
   }
 
-  void updateMeasure(Measure measure, Measure newMeasure) {
-    var index = _getIndexForId(_trial.measures, measure.id);
+  void updateMeasure(int index, Measure newMeasure) {
     if (index >= 0) {
       _trial.measures[index] = newMeasure;
       _trial.save();
@@ -71,8 +66,7 @@ class AppData extends ChangeNotifier {
     }
   }
 
-  void removeMeasure(Measure measure) {
-    var index = _getIndexForId(_trial.measures, measure.id);
+  void removeMeasure(int index) {
     if (index >= 0) {
       _trial.measures.removeAt(index);
       _trial.save();

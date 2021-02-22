@@ -51,7 +51,7 @@ class _CreatorScheduleState extends State<CreatorSchedule> {
               Visibility(
                 visible: true,
                 child: Text(
-                  'Set Schedule',
+                  'Schedule',
                   style: TextStyle(
                     fontSize: 12.0,
                   ),
@@ -86,10 +86,7 @@ class _CreatorScheduleState extends State<CreatorSchedule> {
                       return Card(
                         margin: EdgeInsets.symmetric(vertical: 2),
                         child: ListTile(
-                          title: GestureDetector(
-                            onTap: () => _editTime(index),
-                            child: Text(_schedule.times[index].readable),
-                          ),
+                          title: Text(_schedule.times[index].readable),
                           trailing: IconButton(
                             icon: Icon(Icons.delete),
                             onPressed: () => _removeTime(index),
@@ -165,17 +162,6 @@ class _CreatorScheduleState extends State<CreatorSchedule> {
       }
     } on Exception catch (_) {
       print("Invalid number");
-    }
-  }
-
-  Future<void> _editTime(int index) async {
-    final TimeOfDay picked = await showTimePicker(
-        context: context, initialTime: _schedule.times[index]);
-
-    if (picked != null) {
-      setState(() {
-        _schedule.updateTime(index, picked);
-      });
     }
   }
 
