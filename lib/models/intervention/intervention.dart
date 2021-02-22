@@ -16,9 +16,6 @@ part 'intervention.g.dart';
 class Intervention extends ScheduledItem {
   static const String interventionType = 'intervention';
 
-  @JsonKey(ignore: true)
-  final String typeReadable = 'Intervention';
-
   @HiveField(0)
   String type;
 

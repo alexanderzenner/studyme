@@ -35,14 +35,18 @@ class AppData extends ChangeNotifier {
   }
 
   void setInterventionA(Intervention intervention) {
-    intervention.letter = interventionALetter;
+    if (intervention != null) {
+      intervention.letter = interventionALetter;
+    }
     _trial.a = intervention;
     _trial.save();
     notifyListeners();
   }
 
   void setInterventionB(Intervention intervention) {
-    intervention.letter = interventionBLetter;
+    if (intervention != null) {
+      intervention.letter = interventionBLetter;
+    }
     _trial.b = intervention;
     _trial.save();
     notifyListeners();

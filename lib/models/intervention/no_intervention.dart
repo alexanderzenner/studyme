@@ -11,8 +11,6 @@ part 'no_intervention.g.dart';
 class NoIntervention extends Intervention {
   static const String interventionType = 'no_intervention';
 
-  final String typeReadable = 'No Intervention';
-
   final name = 'No Intervention';
   final description = 'TBD';
 

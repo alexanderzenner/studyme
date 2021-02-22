@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/ui/screens/intervention_creator_name.dart';
 import 'package:studyme/ui/screens/intervention_creator_schedule.dart';
-import 'package:studyme/ui/screens/intervention_creator_type.dart';
 
 class InterventionOverview extends StatelessWidget {
   final bool isA;
@@ -21,55 +21,45 @@ class InterventionOverview extends StatelessWidget {
         body: Consumer<AppData>(
           builder: (context, model, child) {
             Intervention intervention = isA ? model.trial.a : model.trial.b;
-
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    if (!isA)
+            if (intervention != null) {
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
                       ListTile(
-                          title: Text("Type"),
-                          subtitle: Text(intervention.typeReadable),
-                          trailing: Icon(Icons.chevron_right),
-                          onTap: () => _editType(context, intervention)),
-                    if (intervention.schedule != null)
-                      Column(
+                          title: Text("Name"),
+                          subtitle: Text(intervention.name),
+                          trailing: intervention is NoIntervention
+                              ? null
+                              : Icon(Icons.chevron_right),
+                          onTap: intervention is NoIntervention
+                              ? null
+                              : () => _editName(context, intervention)),
+                      if (intervention.schedule != null)
+                        ListTile(
+                            title: Text("Schedule"),
+                            subtitle: Text(intervention.schedule.readable),
+                            trailing: Icon(Icons.chevron_right),
+                            onTap: () => _editSchedule(context, intervention)),
+                      ButtonBar(
                         children: [
-                          ListTile(
-                              title: Text("Name"),
-                              subtitle: Text(intervention.name),
-                              trailing: Icon(Icons.chevron_right),
-                              onTap: () => _editName(context, intervention)),
-                          ListTile(
-                              title: Text("Schedule"),
-                              subtitle: Text(intervention.schedule.readable),
-                              trailing: Icon(Icons.chevron_right),
-                              onTap: () =>
-                                  _editSchedule(context, intervention)),
+                          OutlineButton.icon(
+                              icon: Icon(Icons.delete),
+                              label: Text("Remove"),
+                              onPressed: () => _remove(context)),
                         ],
-                      ),
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            );
+              );
+            } else {
+              return Column(
+                children: [],
+              );
+            }
           },
-        ));
-  }
-
-  _editType(context, intervention) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => InterventionCreatorType(
-            title: _getTitle(),
-            intervention: intervention,
-            onSave: (Intervention _intervention) {
-              _getSetter(context)(_intervention);
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/creator', (r) => false);
-            },
-          ),
         ));
   }
 
@@ -100,6 +90,11 @@ class InterventionOverview extends StatelessWidget {
                 Navigator.pop(context);
               }),
         ));
+  }
+
+  _remove(context) {
+    _getSetter(context)(null);
+    Navigator.pop(context);
   }
 
   _getSetter(context) {

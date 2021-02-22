@@ -43,31 +43,6 @@ class CreatorInterventionSection extends StatelessWidget {
     );
   }
 
-  _addIntervention(context, isA) {
-    Function setter = isA ? model.setInterventionA : model.setInterventionB;
-    Function saveFunction = (Intervention intervention) {
-      setter(intervention);
-
-      Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
-    };
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => isA
-            ? InterventionCreatorName(
-                title: "Intervention A",
-                intervention: Intervention(),
-                onSave: saveFunction,
-                save: false)
-            : InterventionCreatorType(
-                title: "Intervention B",
-                intervention: NoIntervention(),
-                onSave: saveFunction),
-      ),
-    );
-  }
-
   _viewIntervention(context, isA) {
     Navigator.push(
       context,
@@ -97,5 +72,29 @@ class CreatorInterventionSection extends StatelessWidget {
     } else {
       return null;
     }
+  }
+
+  _addIntervention(context, isA) {
+    Function setter = isA ? model.setInterventionA : model.setInterventionB;
+    Function saveFunction = (Intervention intervention) {
+      setter(intervention);
+      Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
+    };
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => isA
+            ? InterventionCreatorName(
+                title: "Intervention A",
+                intervention: Intervention(),
+                onSave: saveFunction,
+                save: false)
+            : InterventionCreatorType(
+                title: "Intervention B",
+                intervention: NoIntervention(),
+                onSave: saveFunction),
+      ),
+    );
   }
 }
