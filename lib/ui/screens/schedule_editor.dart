@@ -84,7 +84,6 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
                     itemCount: _schedule.times.length,
                     itemBuilder: (content, index) {
                       return Card(
-                        margin: EdgeInsets.symmetric(vertical: 2),
                         child: ListTile(
                           title: Text(_schedule.times[index].readable),
                           trailing: IconButton(

@@ -16,13 +16,12 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.symmetric(vertical: 2),
         child: ListTile(
-          leading: Text(task.time.readable, style: _getTextStyle()),
-          title: Text(task.title, style: _getTextStyle()),
-          trailing: Icon(_getIcon()),
-          onTap: _getOnTap(context),
-        ));
+      leading: Text(task.time.readable, style: _getTextStyle()),
+      title: Text(task.title, style: _getTextStyle()),
+      trailing: Icon(_getIcon()),
+      onTap: _getOnTap(context),
+    ));
   }
 
   IconData _getIcon() {

@@ -11,14 +11,13 @@ class MeasureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.symmetric(vertical: 2),
         child: ListTile(
-          leading: Icon(measure.icon),
-          title: Text(measure.name),
-          subtitle: _getSubtitle(),
-          trailing: Icon(Icons.chevron_right),
-          onTap: onTap,
-        ));
+      leading: Icon(measure.icon),
+      title: Text(measure.name),
+      subtitle: _getSubtitle(),
+      trailing: Icon(Icons.chevron_right),
+      onTap: onTap,
+    ));
   }
 
   _getSubtitle() {

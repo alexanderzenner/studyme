@@ -12,7 +12,6 @@ class InterventionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.symmetric(vertical: 2),
         child: ListTile(
             leading: InterventionLetter(intervention.letter),
             title: intervention != null ? Text(intervention.name) : null,
