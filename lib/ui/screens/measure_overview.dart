@@ -66,7 +66,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                   EditableListTile(
                       title: Text("Name"),
                       subtitle: Text(measure.name),
-                      canEdit: _canEditName(measure),
+                      canEdit: !widget.isPreview && measure.canEdit,
                       onTap: () => _editName(context, measure)),
                   if (!widget.isPreview)
                     EditableListTile(
@@ -147,10 +147,6 @@ class _MeasureOverviewState extends State<MeasureOverview> {
     });
     Provider.of<AppData>(context, listen: false).removeMeasure(widget.index);
     Navigator.pop(context);
-  }
-
-  _canEditName(Measure measure) {
-    return !widget.isPreview && !(measure is SyncedMeasure);
   }
 
   _editName(BuildContext context, Measure measure) {
