@@ -79,12 +79,12 @@ SyncedMeasure _$SyncedMeasureFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$SyncedMeasureToJson(SyncedMeasure instance) =>
     <String, dynamic>{
-      'schedule': instance.schedule,
       'id': instance.id,
       'type': instance.type,
       'name': instance.name,
       'description': instance.description,
       'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
+      'schedule': instance.schedule,
       'trackedHealthDataTypeName': instance.trackedHealthDataTypeName,
     };
 

@@ -1,35 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/ui/screens/creator_schedule.dart';
-import 'package:studyme/ui/screens/measure_creator_choice.dart';
-import 'package:studyme/ui/screens/measure_creator_scale.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 
-class MeasureCreatorName extends StatefulWidget {
+class MeasureCreatorScale extends StatefulWidget {
   final String title;
-  final Measure measure;
+  final ScaleMeasure measure;
   final Function(Measure measure) onSave;
   final bool save;
 
-  const MeasureCreatorName(
+  const MeasureCreatorScale(
       {@required this.title,
       @required this.measure,
       @required this.onSave,
       @required this.save});
 
   @override
-  _MeasureCreatorNameState createState() => _MeasureCreatorNameState();
+  _MeasureCreatorScaleState createState() => _MeasureCreatorScaleState();
 }
 
-class _MeasureCreatorNameState extends State<MeasureCreatorName> {
-  String _name;
+class _MeasureCreatorScaleState extends State<MeasureCreatorScale> {
+  double _min;
+  double _max;
 
   @override
   void initState() {
-    _name = widget.measure.name;
+    _min = widget.measure.min;
+    _max = widget.measure.max;
     super.initState();
   }
 
@@ -46,7 +45,7 @@ class _MeasureCreatorNameState extends State<MeasureCreatorName> {
               Visibility(
                 visible: true,
                 child: Text(
-                  'Name',
+                  'Scale',
                   style: TextStyle(
                     fontSize: 12.0,
                   ),
@@ -66,16 +65,25 @@ class _MeasureCreatorNameState extends State<MeasureCreatorName> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                SizedBox(
-                  height: 10,
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  initialValue: _min.toInt().toString(),
+                  onChanged: (text) {
+                    setState(() {
+                      _min = double.parse(text);
+                    });
+                  },
+                  decoration: InputDecoration(labelText: 'Min'),
                 ),
                 TextFormField(
-                  autofocus: _name == null,
-                  initialValue: _name,
-                  onChanged: _changeName,
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                  ),
+                  keyboardType: TextInputType.number,
+                  initialValue: _max.toInt().toString(),
+                  onChanged: (text) {
+                    setState(() {
+                      _max = double.parse(text);
+                    });
+                  },
+                  decoration: InputDecoration(labelText: 'Max'),
                 ),
               ],
             ),
@@ -84,36 +92,16 @@ class _MeasureCreatorNameState extends State<MeasureCreatorName> {
   }
 
   _canSubmit() {
-    return _name != null && _name.length > 0;
+    print((_max - _min).abs());
+    return (_max - _min).abs() > 0;
   }
 
   _submit() {
-    widget.measure.name = _name;
-    if (widget.save) {
-      widget.onSave(widget.measure);
-    } else {
-      if (widget.measure is ChoiceMeasure) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MeasureCreatorChoice(
-                  title: widget.title,
-                  measure: widget.measure,
-                  onSave: widget.onSave,
-                  save: false),
-            ));
-      } else if (widget.measure is ScaleMeasure) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MeasureCreatorScale(
-                  title: widget.title,
-                  measure: widget.measure,
-                  onSave: widget.onSave,
-                  save: false),
-            ));
-      } else {
-        Navigator.push(
+    widget.measure.min = _min;
+    widget.measure.max = _max;
+    widget.save
+        ? widget.onSave(widget.measure)
+        : Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => CreatorSchedule(
@@ -121,13 +109,5 @@ class _MeasureCreatorNameState extends State<MeasureCreatorName> {
                   objectWithSchedule: widget.measure,
                   onSave: widget.onSave),
             ));
-      }
-    }
-  }
-
-  _changeName(text) {
-    setState(() {
-      _name = text;
-    });
   }
 }

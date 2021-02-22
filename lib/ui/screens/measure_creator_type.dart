@@ -38,7 +38,7 @@ class _MeasureCreatorTypeState extends State<MeasureCreatorType> {
               Visibility(
                 visible: true,
                 child: Text(
-                  'Set Type',
+                  'Type',
                   style: TextStyle(
                     fontSize: 12.0,
                   ),

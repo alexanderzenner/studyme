@@ -16,20 +16,20 @@ class ScaleMeasure extends Measure {
   final IconData icon = Icons.linear_scale;
 
   @HiveField(6)
-  num min;
+  double min;
 
   @HiveField(7)
-  num max;
+  double max;
 
   @HiveField(8)
-  num initial;
+  double initial;
 
   ScaleMeasure(
       {String id,
       String name,
       String description,
-      num min,
-      num max,
+      double min,
+      double max,
       ValueAggregation aggregation,
       Schedule schedule})
       : this.min = min ?? 0.0,

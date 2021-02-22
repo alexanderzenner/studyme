@@ -1,35 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:studyme/models/measure/choice.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/ui/screens/creator_schedule.dart';
-import 'package:studyme/ui/screens/measure_creator_choice.dart';
-import 'package:studyme/ui/screens/measure_creator_scale.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
+import 'package:studyme/ui/widgets/choice_editor.dart';
+import 'package:studyme/ui/widgets/section_title.dart';
 
-class MeasureCreatorName extends StatefulWidget {
+class MeasureCreatorChoice extends StatefulWidget {
   final String title;
-  final Measure measure;
+  final ChoiceMeasure measure;
   final Function(Measure measure) onSave;
   final bool save;
 
-  const MeasureCreatorName(
+  const MeasureCreatorChoice(
       {@required this.title,
       @required this.measure,
       @required this.onSave,
       @required this.save});
 
   @override
-  _MeasureCreatorNameState createState() => _MeasureCreatorNameState();
+  _MeasureCreatorChoiceState createState() => _MeasureCreatorChoiceState();
 }
 
-class _MeasureCreatorNameState extends State<MeasureCreatorName> {
-  String _name;
+class _MeasureCreatorChoiceState extends State<MeasureCreatorChoice> {
+  List<Choice> _choices;
 
   @override
   void initState() {
-    _name = widget.measure.name;
+    _choices = widget.measure.choices.toList();
     super.initState();
   }
 
@@ -46,7 +46,7 @@ class _MeasureCreatorNameState extends State<MeasureCreatorName> {
               Visibility(
                 visible: true,
                 child: Text(
-                  'Name',
+                  'Choices',
                   style: TextStyle(
                     fontSize: 12.0,
                   ),
@@ -66,17 +66,26 @@ class _MeasureCreatorNameState extends State<MeasureCreatorName> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  autofocus: _name == null,
-                  initialValue: _name,
-                  onChanged: _changeName,
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                  ),
-                ),
+                SectionTitle("Choices",
+                    isSubtitle: true,
+                    action: IconButton(
+                        icon: Icon(Icons.add),
+                        onPressed: () => setState(() {
+                              _choices.add(Choice());
+                            }))),
+                ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: _choices.length,
+                    itemBuilder: (content, index) {
+                      return ChoiceEditor(
+                          key: UniqueKey(),
+                          choice: _choices[index],
+                          index: index,
+                          remove: () => setState(() {
+                                _choices.removeAt(index);
+                              }));
+                    }),
               ],
             ),
           ),
@@ -84,36 +93,14 @@ class _MeasureCreatorNameState extends State<MeasureCreatorName> {
   }
 
   _canSubmit() {
-    return _name != null && _name.length > 0;
+    return _choices.length > 0;
   }
 
   _submit() {
-    widget.measure.name = _name;
-    if (widget.save) {
-      widget.onSave(widget.measure);
-    } else {
-      if (widget.measure is ChoiceMeasure) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MeasureCreatorChoice(
-                  title: widget.title,
-                  measure: widget.measure,
-                  onSave: widget.onSave,
-                  save: false),
-            ));
-      } else if (widget.measure is ScaleMeasure) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MeasureCreatorScale(
-                  title: widget.title,
-                  measure: widget.measure,
-                  onSave: widget.onSave,
-                  save: false),
-            ));
-      } else {
-        Navigator.push(
+    widget.measure.choices = _choices;
+    widget.save
+        ? widget.onSave(widget.measure)
+        : Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => CreatorSchedule(
@@ -121,13 +108,5 @@ class _MeasureCreatorNameState extends State<MeasureCreatorName> {
                   objectWithSchedule: widget.measure,
                   onSave: widget.onSave),
             ));
-      }
-    }
-  }
-
-  _changeName(text) {
-    setState(() {
-      _name = text;
-    });
   }
 }

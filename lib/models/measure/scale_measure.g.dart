@@ -20,12 +20,12 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       id: fields[0] as String,
       name: fields[2] as String,
       description: fields[3] as String,
-      min: fields[6] as num,
-      max: fields[7] as num,
+      min: fields[6] as double,
+      max: fields[7] as double,
       aggregation: fields[4] as ValueAggregation,
       schedule: fields[5] as Schedule,
     )
-      ..initial = fields[8] as num
+      ..initial = fields[8] as double
       ..type = fields[1] as String;
   }
 
@@ -73,8 +73,8 @@ ScaleMeasure _$ScaleMeasureFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     name: json['name'] as String,
     description: json['description'] as String,
-    min: json['min'] as num,
-    max: json['max'] as num,
+    min: (json['min'] as num)?.toDouble(),
+    max: (json['max'] as num)?.toDouble(),
     aggregation:
         _$enumDecodeNullable(_$ValueAggregationEnumMap, json['aggregation']),
     schedule: json['schedule'] == null
@@ -82,17 +82,17 @@ ScaleMeasure _$ScaleMeasureFromJson(Map<String, dynamic> json) {
         : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
   )
     ..type = json['type'] as String
-    ..initial = json['initial'] as num;
+    ..initial = (json['initial'] as num)?.toDouble();
 }
 
 Map<String, dynamic> _$ScaleMeasureToJson(ScaleMeasure instance) =>
     <String, dynamic>{
-      'schedule': instance.schedule,
       'id': instance.id,
       'type': instance.type,
       'name': instance.name,
       'description': instance.description,
       'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
+      'schedule': instance.schedule,
       'min': instance.min,
       'max': instance.max,
       'initial': instance.initial,

@@ -42,9 +42,11 @@ class _ScaleMeasureWidgetState extends State<ScaleMeasureWidget> {
         Row(
           children: [
             SizedBox(width: 20),
-            Text("0", style: Theme.of(context).textTheme.headline6),
+            Text(widget.measure.min.toInt().toString(),
+                style: Theme.of(context).textTheme.headline6),
             Spacer(),
-            Text("1", style: Theme.of(context).textTheme.headline6),
+            Text(widget.measure.max.toInt().toString(),
+                style: Theme.of(context).textTheme.headline6),
             SizedBox(width: 20),
           ],
         ),
