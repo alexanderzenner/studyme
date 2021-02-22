@@ -1,32 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/screens/creator_schedule.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 
-class InterventionCreatorName extends StatefulWidget {
+class MeasureCreatorName extends StatefulWidget {
   final String title;
-  final Intervention intervention;
-  final Function(Intervention intervention) onSave;
+  final Measure measure;
+  final Function(Measure measure) onSave;
   final bool save;
 
-  const InterventionCreatorName(
+  const MeasureCreatorName(
       {@required this.title,
-      @required this.intervention,
+      @required this.measure,
       @required this.onSave,
       @required this.save});
 
   @override
-  _InterventionCreatorNameState createState() =>
-      _InterventionCreatorNameState();
+  _MeasureCreatorNameState createState() => _MeasureCreatorNameState();
 }
 
-class _InterventionCreatorNameState extends State<InterventionCreatorName> {
+class _MeasureCreatorNameState extends State<MeasureCreatorName> {
   String _name;
 
   @override
   void initState() {
-    _name = widget.intervention.name;
+    _name = widget.measure.name;
     super.initState();
   }
 
@@ -85,15 +84,15 @@ class _InterventionCreatorNameState extends State<InterventionCreatorName> {
   }
 
   _submit() {
-    widget.intervention.name = _name;
+    widget.measure.name = _name;
     widget.save
-        ? widget.onSave(widget.intervention)
+        ? widget.onSave(widget.measure)
         : Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => CreatorSchedule(
                   title: widget.title,
-                  objectWithSchedule: widget.intervention,
+                  objectWithSchedule: widget.measure,
                   onSave: widget.onSave),
             ));
   }

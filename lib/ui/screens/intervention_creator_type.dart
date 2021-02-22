@@ -50,17 +50,7 @@ class _InterventionCreatorTypeState extends State<InterventionCreatorType> {
             ActionButton(
                 icon: _isNullIntervention() ? Icons.check : Icons.arrow_forward,
                 canPress: _canSubmit(),
-                onPressed: () => _isNullIntervention()
-                    ? widget.onSave(_intervention)
-                    : Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => InterventionCreatorName(
-                              title: widget.title,
-                              intervention: _intervention,
-                              onSave: widget.onSave,
-                              save: false),
-                        )))
+                onPressed: _submit)
           ],
         ),
         body: SingleChildScrollView(
@@ -95,6 +85,20 @@ class _InterventionCreatorTypeState extends State<InterventionCreatorType> {
 
   _canSubmit() {
     return true;
+  }
+
+  _submit() {
+    _isNullIntervention()
+        ? widget.onSave(_intervention)
+        : Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => InterventionCreatorName(
+                  title: widget.title,
+                  intervention: _intervention,
+                  onSave: widget.onSave,
+                  save: false),
+            ));
   }
 
   _changeInterventionType(int index) {

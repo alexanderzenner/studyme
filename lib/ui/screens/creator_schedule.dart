@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/mixins/has_schedule.dart';
 import 'package:studyme/models/schedule.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
@@ -9,23 +8,21 @@ import 'package:studyme/util/notifications.dart';
 
 import 'package:studyme/util/time_of_day_extension.dart';
 
-class InterventionCreatorSchedule extends StatefulWidget {
+class CreatorSchedule extends StatefulWidget {
   final String title;
   final HasSchedule objectWithSchedule;
-  final Function(Intervention intervention) onSave;
+  final Function onSave;
 
-  const InterventionCreatorSchedule(
+  const CreatorSchedule(
       {@required this.title,
       @required this.objectWithSchedule,
       @required this.onSave});
 
   @override
-  _InterventionCreatorScheduleState createState() =>
-      _InterventionCreatorScheduleState();
+  _CreatorScheduleState createState() => _CreatorScheduleState();
 }
 
-class _InterventionCreatorScheduleState
-    extends State<InterventionCreatorSchedule> {
+class _CreatorScheduleState extends State<CreatorSchedule> {
   Frequency _frequency;
   Schedule _schedule;
 

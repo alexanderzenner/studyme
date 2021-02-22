@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
+import 'package:studyme/ui/screens/measure_creator_type.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 import 'package:uuid/uuid.dart';
 
@@ -60,7 +61,7 @@ class MeasureLibrary extends StatelessWidget {
 
   _createMeasure(context, model) {
     Measure newMeasure = FreeMeasure()..id = Uuid().v4();
-    _navigateToCreator(context, newMeasure).then((result) {
+    _navigateToCreator(context, model, newMeasure).then((result) {
       if (result != null) {
         model.addMeasure(result);
         Navigator.pop(context);
@@ -68,11 +69,16 @@ class MeasureLibrary extends StatelessWidget {
     });
   }
 
-  Future _navigateToCreator(context, measure) async {
+  Future _navigateToCreator(context, model, measure) async {
+    Function saveFunction = (Measure measure) {
+      model.addMeasure(measure);
+      Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
+    };
+
     return await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MeasureEditor(isCreator: true, measure: measure),
+        builder: (context) => MeasureCreatorType(onSave: saveFunction),
       ),
     );
   }
