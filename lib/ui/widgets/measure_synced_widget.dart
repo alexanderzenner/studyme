@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:studyme/models/hint.dart';
 import 'package:studyme/models/measure/synced_measure.dart';
+import 'package:studyme/ui/widgets/hint_card.dart';
 
 class SyncedMeasureWidget extends StatelessWidget {
   final SyncedMeasure measure;
@@ -14,8 +16,6 @@ class SyncedMeasureWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-            "This measure will be automatically fetched from your Google Fit / Apple Health app"),
         if (setConfirmed != null)
           SwitchListTile(
             title: Text(

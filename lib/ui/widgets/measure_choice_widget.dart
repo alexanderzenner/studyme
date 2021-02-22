@@ -24,28 +24,29 @@ class _ChoiceMeasureWidgetState extends State<ChoiceMeasureWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: widget.measure.choices.length,
-        itemBuilder: (context, index) {
-          return Card(
-              key: UniqueKey(),
-              child: Ink(
-                color: _state == index
-                    ? Theme.of(context).primaryColor
-                    : Colors.transparent,
-                child: ListTile(
-                    title: Text('${widget.measure.choices[index].value}'),
-                    onTap: () {
-                      setState(() {
-                        _state = index;
-                      });
-                      if (widget.updateValue != null) {
-                        widget.updateValue(_state);
-                      }
-                    }),
-              ));
-        });
+    return Expanded(
+      child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: widget.measure.choices.length,
+          itemBuilder: (context, index) {
+            return Card(
+                key: UniqueKey(),
+                child: Ink(
+                  color: _state == index
+                      ? Theme.of(context).primaryColor
+                      : Colors.transparent,
+                  child: ListTile(
+                      title: Text('${widget.measure.choices[index].value}'),
+                      onTap: () {
+                        setState(() {
+                          _state = index;
+                        });
+                        if (widget.updateValue != null) {
+                          widget.updateValue(_state);
+                        }
+                      }),
+                ));
+          }),
+    );
   }
 }

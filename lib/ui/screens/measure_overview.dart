@@ -101,17 +101,6 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                             onPressed: () => _removeMeasure(context)),
                     ],
                   ),
-                  SizedBox(height: 50),
-                  SectionTitle("Preview"),
-                  Card(
-                    child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          children: [
-                            MeasureWidget(measure: measure),
-                          ],
-                        )),
-                  )
                 ],
               )),
         ));
