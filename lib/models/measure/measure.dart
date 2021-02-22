@@ -77,6 +77,16 @@ abstract class Measure with HasSchedule {
     }
   }
 
+  static String getTitleFor(String name) {
+    String title = '';
+    if (name != null && name.length > 0) {
+      title += "\"$name\" ";
+    }
+    return title + "Measure";
+  }
+
+  String get title => getTitleFor(this.name);
+
   Future<bool> get canAdd => Future.value(true);
 
   bool get canEdit => true;

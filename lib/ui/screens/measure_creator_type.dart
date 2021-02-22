@@ -35,7 +35,7 @@ class _MeasureCreatorTypeState extends State<MeasureCreatorType> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Measure"),
+              Text("New Measure"),
               Visibility(
                 visible: true,
                 child: Text(
@@ -93,10 +93,7 @@ class _MeasureCreatorTypeState extends State<MeasureCreatorType> {
         context,
         MaterialPageRoute(
           builder: (context) => MeasureEditorName(
-              title: "Measure",
-              measure: _measure,
-              onSave: widget.onSave,
-              save: false),
+              measure: _measure, onSave: widget.onSave, save: false),
         ));
   }
 

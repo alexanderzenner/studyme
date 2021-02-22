@@ -10,16 +10,12 @@ import 'measure_editor_scale.dart';
 import 'schedule_editor.dart';
 
 class MeasureEditorName extends StatefulWidget {
-  final String title;
   final Measure measure;
   final Function(Measure measure) onSave;
   final bool save;
 
   const MeasureEditorName(
-      {@required this.title,
-      @required this.measure,
-      @required this.onSave,
-      @required this.save});
+      {@required this.measure, @required this.onSave, @required this.save});
 
   @override
   _MeasureEditorNameState createState() => _MeasureEditorNameState();
@@ -43,7 +39,7 @@ class _MeasureEditorNameState extends State<MeasureEditorName> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("\"${_name}\" Measure"),
+              Text(Measure.getTitleFor(_name)),
               Visibility(
                 visible: true,
                 child: Text(
@@ -98,27 +94,21 @@ class _MeasureEditorNameState extends State<MeasureEditorName> {
             context,
             MaterialPageRoute(
               builder: (context) => MeasureEditorChoice(
-                  title: widget.title,
-                  measure: widget.measure,
-                  onSave: widget.onSave,
-                  save: false),
+                  measure: widget.measure, onSave: widget.onSave, save: false),
             ));
       } else if (widget.measure is ScaleMeasure) {
         Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => MeasureEditorScale(
-                  title: widget.title,
-                  measure: widget.measure,
-                  onSave: widget.onSave,
-                  save: false),
+                  measure: widget.measure, onSave: widget.onSave, save: false),
             ));
       } else {
         Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => ScheduleEditor(
-                  title: widget.title,
+                  title: widget.measure.title,
                   objectWithSchedule: widget.measure,
                   onSave: widget.onSave),
             ));

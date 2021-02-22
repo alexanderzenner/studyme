@@ -9,16 +9,12 @@ import '../widgets/section_title.dart';
 import 'schedule_editor.dart';
 
 class MeasureEditorChoice extends StatefulWidget {
-  final String title;
   final ChoiceMeasure measure;
   final Function(Measure measure) onSave;
   final bool save;
 
   const MeasureEditorChoice(
-      {@required this.title,
-      @required this.measure,
-      @required this.onSave,
-      @required this.save});
+      {@required this.measure, @required this.onSave, @required this.save});
 
   @override
   _MeasureEditorChoiceState createState() => _MeasureEditorChoiceState();
@@ -43,7 +39,7 @@ class _MeasureEditorChoiceState extends State<MeasureEditorChoice> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(widget.title),
+              Text(widget.measure.title),
               Visibility(
                 visible: true,
                 child: Text(
@@ -143,7 +139,7 @@ class _MeasureEditorChoiceState extends State<MeasureEditorChoice> {
             context,
             MaterialPageRoute(
               builder: (context) => ScheduleEditor(
-                  title: widget.title,
+                  title: widget.measure.title,
                   objectWithSchedule: widget.measure,
                   onSave: widget.onSave),
             ));

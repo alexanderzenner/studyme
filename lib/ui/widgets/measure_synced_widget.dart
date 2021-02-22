@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studyme/models/hint.dart';
 import 'package:studyme/models/measure/synced_measure.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
 
 class SyncedMeasureWidget extends StatelessWidget {
   final SyncedMeasure measure;

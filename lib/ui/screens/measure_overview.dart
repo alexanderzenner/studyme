@@ -5,11 +5,8 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/models/measure/synced_measure.dart';
 import 'package:studyme/ui/screens/measure_editor_scale.dart';
 import 'package:studyme/ui/widgets/editable_list_tile.dart';
-import 'package:studyme/ui/widgets/measure_widget.dart';
-import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/util/string_extension.dart';
 
 import 'measure_editor_choice.dart';
@@ -51,9 +48,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
 
   Widget _buildMeasureOverview(Measure measure) {
     return Scaffold(
-        appBar: AppBar(
-            brightness: Brightness.dark,
-            title: Text("\"${measure.name}\" Measure")),
+        appBar: AppBar(brightness: Brightness.dark, title: Text(measure.title)),
         body: SingleChildScrollView(
           child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -118,7 +113,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
             context,
             MaterialPageRoute(
               builder: (context) => ScheduleEditor(
-                  title: "Measure",
+                  title: "",
                   objectWithSchedule: widget.measure,
                   onSave: saveFunction),
             ));
@@ -143,7 +138,6 @@ class _MeasureOverviewState extends State<MeasureOverview> {
         context,
         MaterialPageRoute(
           builder: (context) => MeasureEditorName(
-              title: "Measure",
               measure: measure.clone(),
               onSave: _getSaveFunction(context),
               save: true),
@@ -155,7 +149,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
         context,
         MaterialPageRoute(
           builder: (context) => ScheduleEditor(
-            title: "Measure",
+            title: measure.title,
             objectWithSchedule: measure,
             onSave: _getSaveFunction(context),
           ),
@@ -167,7 +161,6 @@ class _MeasureOverviewState extends State<MeasureOverview> {
         context,
         MaterialPageRoute(
           builder: (context) => MeasureEditorChoice(
-              title: "Measure",
               measure: measure.clone(),
               onSave: _getSaveFunction(context),
               save: true),
@@ -179,7 +172,6 @@ class _MeasureOverviewState extends State<MeasureOverview> {
         context,
         MaterialPageRoute(
           builder: (context) => MeasureEditorScale(
-              title: "Measure",
               measure: measure.clone(),
               onSave: _getSaveFunction(context),
               save: true),

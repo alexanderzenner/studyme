@@ -8,16 +8,12 @@ import 'package:studyme/util/util.dart';
 import 'schedule_editor.dart';
 
 class MeasureEditorScale extends StatefulWidget {
-  final String title;
   final ScaleMeasure measure;
   final Function(Measure measure) onSave;
   final bool save;
 
   const MeasureEditorScale(
-      {@required this.title,
-      @required this.measure,
-      @required this.onSave,
-      @required this.save});
+      {@required this.measure, @required this.onSave, @required this.save});
 
   @override
   _MeasureEditorScaleState createState() => _MeasureEditorScaleState();
@@ -43,7 +39,7 @@ class _MeasureEditorScaleState extends State<MeasureEditorScale> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(widget.title),
+              Text(widget.measure.title),
               Visibility(
                 visible: true,
                 child: Text(
@@ -114,7 +110,7 @@ class _MeasureEditorScaleState extends State<MeasureEditorScale> {
             context,
             MaterialPageRoute(
               builder: (context) => ScheduleEditor(
-                  title: widget.title,
+                  title: widget.measure.title,
                   objectWithSchedule: widget.measure,
                   onSave: widget.onSave),
             ));
