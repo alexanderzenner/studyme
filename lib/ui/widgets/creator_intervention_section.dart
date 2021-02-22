@@ -91,9 +91,7 @@ class CreatorInterventionSection extends StatelessWidget {
                 onSave: saveFunction,
                 save: false)
             : InterventionCreatorType(
-                title: "Intervention B",
-                intervention: NoIntervention(),
-                onSave: saveFunction),
+                title: "Intervention B", onSave: saveFunction),
       ),
     );
   }

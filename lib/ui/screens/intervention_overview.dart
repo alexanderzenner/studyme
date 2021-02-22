@@ -84,7 +84,7 @@ class InterventionOverview extends StatelessWidget {
         MaterialPageRoute(
           builder: (context) => InterventionCreatorSchedule(
               title: _getTitle(),
-              scheduledItem: intervention,
+              objectWithSchedule: intervention,
               onSave: (Intervention _intervention) {
                 _getSetter(context)(_intervention);
                 Navigator.pop(context);

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/models/mixins/has_schedule.dart';
 import 'package:studyme/models/schedule.dart';
-import 'package:studyme/models/scheduled_item.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/util/notifications.dart';
@@ -11,12 +11,12 @@ import 'package:studyme/util/time_of_day_extension.dart';
 
 class InterventionCreatorSchedule extends StatefulWidget {
   final String title;
-  final ScheduledItem scheduledItem;
+  final HasSchedule objectWithSchedule;
   final Function(Intervention intervention) onSave;
 
   const InterventionCreatorSchedule(
       {@required this.title,
-      @required this.scheduledItem,
+      @required this.objectWithSchedule,
       @required this.onSave});
 
   @override
@@ -31,7 +31,7 @@ class _InterventionCreatorScheduleState
 
   @override
   initState() {
-    _schedule = widget.scheduledItem.schedule.clone();
+    _schedule = widget.objectWithSchedule.schedule.clone();
     if (_schedule != null) {
       _frequency =
           _schedule.frequency == 1 ? Frequency.Daily : Frequency.EveryXDays;
@@ -107,8 +107,8 @@ class _InterventionCreatorScheduleState
   }
 
   _submit() {
-    widget.scheduledItem.schedule = _schedule;
-    widget.onSave(widget.scheduledItem);
+    widget.objectWithSchedule.schedule = _schedule;
+    widget.onSave(widget.objectWithSchedule);
   }
 
   _canSubmit() {

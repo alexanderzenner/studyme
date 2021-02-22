@@ -4,11 +4,11 @@ import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/models/measure/synced_measure.dart';
+import 'package:studyme/models/mixins/has_schedule.dart';
 import 'package:studyme/models/task/measure_task.dart';
 import 'package:uuid/uuid.dart';
 
 import '../schedule.dart';
-import '../scheduled_item.dart';
 import '../task/task.dart';
 import 'aggregations.dart';
 import 'choice_measure.dart';
@@ -16,7 +16,7 @@ import 'free_measure.dart';
 
 typedef MeasureTaskParser = Measure Function(Map<String, dynamic> data);
 
-abstract class Measure extends ScheduledItem {
+abstract class Measure with HasSchedule {
   static Map<String, MeasureTaskParser> measureTypes = {
     ChoiceMeasure.measureType: (json) => ChoiceMeasure.fromJson(json),
     FreeMeasure.measureType: (json) => FreeMeasure.fromJson(json),
@@ -39,6 +39,9 @@ abstract class Measure extends ScheduledItem {
   @HiveField(4)
   ValueAggregation aggregation;
 
+  @HiveField(5)
+  Schedule schedule;
+
   @JsonKey(ignore: true)
   IconData icon;
 
@@ -54,13 +57,14 @@ abstract class Measure extends ScheduledItem {
     this.schedule = schedule ?? Schedule();
   }
 
-  Measure.clone(Measure measure)
-      : id = Uuid().v4(),
-        type = measure.type,
-        name = measure.name,
-        description = measure.description,
-        aggregation = measure.aggregation,
-        super.clone(measure);
+  Measure.clone(Measure measure) {
+    this.id = Uuid().v4();
+    this.type = measure.type;
+    this.name = measure.name;
+    this.description = measure.description;
+    this.aggregation = measure.aggregation;
+    this.schedule = measure.schedule;
+  }
 
   clone() {
     switch (this.runtimeType) {

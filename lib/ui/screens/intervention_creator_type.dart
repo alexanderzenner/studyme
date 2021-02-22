@@ -7,13 +7,9 @@ import 'package:studyme/ui/widgets/action_button.dart';
 
 class InterventionCreatorType extends StatefulWidget {
   final String title;
-  final Intervention intervention;
   final Function(Intervention intervention) onSave;
 
-  const InterventionCreatorType(
-      {@required this.title,
-      @required this.intervention,
-      @required this.onSave});
+  const InterventionCreatorType({@required this.title, @required this.onSave});
 
   @override
   _InterventionCreatorTypeState createState() =>
@@ -25,7 +21,7 @@ class _InterventionCreatorTypeState extends State<InterventionCreatorType> {
 
   @override
   initState() {
-    _intervention = widget.intervention.clone();
+    _intervention = NoIntervention();
     super.initState();
   }
 

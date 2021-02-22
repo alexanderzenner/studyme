@@ -93,7 +93,7 @@ class _InterventionCreatorNameState extends State<InterventionCreatorName> {
             MaterialPageRoute(
               builder: (context) => InterventionCreatorSchedule(
                   title: widget.title,
-                  scheduledItem: widget.intervention,
+                  objectWithSchedule: widget.intervention,
                   onSave: widget.onSave),
             ));
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:studyme/models/mixins/has_schedule.dart';
 import 'package:studyme/models/schedule.dart';
-import 'package:studyme/models/scheduled_item.dart';
 import 'package:studyme/models/task/intervention_task.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:uuid/uuid.dart';
@@ -13,7 +13,7 @@ part 'intervention.g.dart';
 
 @JsonSerializable()
 @HiveType(typeId: 101)
-class Intervention extends ScheduledItem {
+class Intervention with HasSchedule {
   static const String interventionType = 'intervention';
 
   @HiveField(0)
@@ -31,19 +31,24 @@ class Intervention extends ScheduledItem {
   @HiveField(4)
   String letter;
 
-  Intervention(
-      {id, type, this.name, this.description, this.letter, Schedule schedule})
-      : this.id = id ?? Uuid().v4(),
-        this.type = type ?? interventionType,
-        super(schedule: schedule);
+  @HiveField(5)
+  Schedule schedule;
 
-  Intervention.clone(Intervention intervention)
-      : id = Uuid().v4(),
-        type = intervention.type,
-        name = intervention.name,
-        description = intervention.description,
-        letter = intervention.letter,
-        super.clone(intervention);
+  Intervention(
+      {id, type, this.name, this.description, this.letter, Schedule schedule}) {
+    this.type = type ?? interventionType;
+    this.id = id ?? Uuid().v4();
+    this.schedule = schedule ?? Schedule();
+  }
+
+  Intervention.clone(Intervention intervention) {
+    this.id = Uuid().v4();
+    this.type = intervention.type;
+    this.name = intervention.name;
+    this.description = intervention.description;
+    this.letter = intervention.letter;
+    this.schedule = intervention.schedule;
+  }
 
   List<Task> getTasksFor(daysSinceBeginningOfTimeRange) {
     List<TimeOfDay> times =
