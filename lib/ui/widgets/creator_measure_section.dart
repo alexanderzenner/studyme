@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/routes.dart';
-import 'package:studyme/ui/screens/measure_added_overview.dart';
+import 'package:studyme/ui/screens/measure_overview.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 
@@ -52,7 +51,7 @@ class CreatorMeasureSection extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MeasureAddedOverview(index: measure),
+        builder: (context) => MeasureOverview(index: measure),
       ),
     );
   }

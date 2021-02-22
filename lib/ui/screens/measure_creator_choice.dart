@@ -5,7 +5,6 @@ import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/screens/creator_schedule.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
-import 'package:studyme/ui/widgets/choice_editor.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 
 class MeasureCreatorChoice extends StatefulWidget {
@@ -26,6 +25,7 @@ class MeasureCreatorChoice extends StatefulWidget {
 
 class _MeasureCreatorChoiceState extends State<MeasureCreatorChoice> {
   List<Choice> _choices;
+  String _editedChoice;
 
   @override
   void initState() {
@@ -69,22 +69,22 @@ class _MeasureCreatorChoiceState extends State<MeasureCreatorChoice> {
                 SectionTitle("Choices",
                     isSubtitle: true,
                     action: IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: () => setState(() {
-                              _choices.add(Choice());
-                            }))),
+                        icon: Icon(Icons.add), onPressed: _addChoice)),
                 ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: _choices.length,
                     itemBuilder: (content, index) {
-                      return ChoiceEditor(
-                          key: UniqueKey(),
-                          choice: _choices[index],
-                          index: index,
-                          remove: () => setState(() {
-                                _choices.removeAt(index);
-                              }));
+                      Choice choice = _choices[index];
+
+                      return Card(
+                          child: ListTile(
+                        title: Text(choice.value),
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () => _removeChoice(index),
+                        ),
+                      ));
                     }),
               ],
             ),
@@ -92,8 +92,46 @@ class _MeasureCreatorChoiceState extends State<MeasureCreatorChoice> {
         ));
   }
 
+  _addChoice() async {
+    setState(() {
+      _editedChoice = null;
+    });
+    bool _confirmed = await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text("Add Choice"),
+              content: TextFormField(
+                autofocus: true,
+                initialValue: null,
+                onChanged: (text) => setState(() {
+                  _editedChoice = text;
+                }),
+              ),
+              actions: [
+                FlatButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("Cancel")),
+                FlatButton(
+                    onPressed: () => Navigator.pop(context, true),
+                    child: Text("Confirm"))
+              ],
+            ));
+    if (_confirmed && _editedChoice != null && _editedChoice.length > 0) {
+      setState(() {
+        _choices.add(Choice(value: _editedChoice));
+      });
+    }
+  }
+
+  _removeChoice(int index) {
+    setState(() {
+      _choices.removeAt(index);
+    });
+  }
+
   _canSubmit() {
-    return _choices.length > 0;
+    return _choices.length > 0 &&
+        _choices.every((element) => element.value != null);
   }
 
   _submit() {

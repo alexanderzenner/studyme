@@ -6,7 +6,6 @@ import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/ui/widgets/choice_editor.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:uuid/uuid.dart';
@@ -145,8 +144,6 @@ class _MeasureEditorState extends State<MeasureEditor> {
 
   _buildMeasureBody() {
     switch (_measure.runtimeType) {
-      case ChoiceMeasure:
-        return _buildChoiceMeasureBody(_measure);
       case ScaleMeasure:
         return _buildScaleMeasureBody(_measure);
       default:
@@ -178,32 +175,6 @@ class _MeasureEditorState extends State<MeasureEditor> {
         },
         decoration: InputDecoration(labelText: 'Max'),
       ),
-    ]);
-  }
-
-  _buildChoiceMeasureBody(ChoiceMeasure measure) {
-    return Column(children: [
-      Divider(height: 30),
-      SectionTitle("Choices",
-          action: IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => setState(() {
-                    measure.choices.add(Choice());
-                  }))),
-      ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: measure.choices.length,
-          itemBuilder: (content, index) {
-            return ChoiceEditor(
-                key: UniqueKey(),
-                choice: measure.choices[index],
-                index: index,
-                remove: () => setState(() {
-                      measure.choices.removeAt(index);
-                    }));
-          }),
-      SizedBox(height: 20),
     ]);
   }
 }

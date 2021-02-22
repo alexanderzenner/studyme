@@ -43,7 +43,7 @@ class _InterventionCreatorNameState extends State<InterventionCreatorName> {
               Visibility(
                 visible: true,
                 child: Text(
-                  'Set Name',
+                  'Name',
                   style: TextStyle(
                     fontSize: 12.0,
                   ),

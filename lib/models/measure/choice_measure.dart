@@ -22,6 +22,13 @@ class ChoiceMeasure extends Measure {
   @HiveField(6)
   List<Choice> choices;
 
+  String get choicesString => choices.fold(
+      '',
+      (previousValue, element) =>
+          previousValue +
+          (previousValue.length > 0 ? ', ' : '') +
+          element.value);
+
   ChoiceMeasure(
       {String id,
       String name,

@@ -2,14 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
+import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
+import 'package:studyme/ui/screens/measure_creator_choice.dart';
 import 'package:studyme/ui/screens/measure_creator_name.dart';
 
 import 'creator_schedule.dart';
 
-class MeasureAddedOverview extends StatelessWidget {
+class MeasureOverview extends StatelessWidget {
   final int index;
-  const MeasureAddedOverview({@required this.index});
+  const MeasureOverview({@required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,12 @@ class MeasureAddedOverview extends StatelessWidget {
                           subtitle: Text(measure.schedule.readable),
                           trailing: Icon(Icons.chevron_right),
                           onTap: () => _editSchedule(context, measure)),
+                      if (measure is ChoiceMeasure)
+                        ListTile(
+                            title: Text("Choices"),
+                            subtitle: Text(measure.choicesString),
+                            trailing: Icon(Icons.chevron_right),
+                            onTap: () => _editChoices(context, measure)),
                       ButtonBar(
                         children: [
                           OutlineButton.icon(
@@ -80,6 +88,18 @@ class MeasureAddedOverview extends StatelessWidget {
             objectWithSchedule: measure,
             onSave: _getSaveFunction(context),
           ),
+        ));
+  }
+
+  _editChoices(BuildContext context, ChoiceMeasure measure) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MeasureCreatorChoice(
+              title: "Measure",
+              measure: measure.clone(),
+              onSave: _getSaveFunction(context),
+              save: true),
         ));
   }
 
