@@ -5,6 +5,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
+import 'package:studyme/ui/screens/measure_editor_scale.dart';
 
 import 'measure_editor_choice.dart';
 import 'measure_editor_name.dart';
@@ -61,7 +62,8 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                               ListTile(
                                   title: Text("Scale"),
                                   subtitle: Text(measure.scaleString),
-                                  trailing: Icon(Icons.chevron_right)),
+                                  trailing: Icon(Icons.chevron_right),
+                                  onTap: () => _editScale(context, measure)),
                             ButtonBar(
                               children: [
                                 OutlineButton.icon(
@@ -118,6 +120,18 @@ class _MeasureOverviewState extends State<MeasureOverview> {
         context,
         MaterialPageRoute(
           builder: (context) => MeasureEditorChoice(
+              title: "Measure",
+              measure: measure.clone(),
+              onSave: _getSaveFunction(context),
+              save: true),
+        ));
+  }
+
+  _editScale(BuildContext context, ScaleMeasure measure) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MeasureEditorScale(
               title: "Measure",
               measure: measure.clone(),
               onSave: _getSaveFunction(context),

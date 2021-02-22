@@ -4,6 +4,7 @@ import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 
+import 'package:studyme/util/util.dart';
 import 'schedule_editor.dart';
 
 class MeasureEditorScale extends StatefulWidget {
@@ -69,21 +70,13 @@ class _MeasureEditorScaleState extends State<MeasureEditorScale> {
                 TextFormField(
                   keyboardType: TextInputType.number,
                   initialValue: _min.toInt().toString(),
-                  onChanged: (text) {
-                    setState(() {
-                      _min = double.parse(text);
-                    });
-                  },
+                  onChanged: _updateMin,
                   decoration: InputDecoration(labelText: 'Min'),
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   initialValue: _max.toInt().toString(),
-                  onChanged: (text) {
-                    setState(() {
-                      _max = double.parse(text);
-                    });
-                  },
+                  onChanged: _updateMax,
                   decoration: InputDecoration(labelText: 'Max'),
                 ),
               ],
@@ -92,9 +85,24 @@ class _MeasureEditorScaleState extends State<MeasureEditorScale> {
         ));
   }
 
+  _updateMin(text) {
+    textToDoubleSetter(text, (double number) {
+      setState(() {
+        _min = number;
+      });
+    });
+  }
+
+  _updateMax(text) {
+    textToDoubleSetter(text, (double number) {
+      setState(() {
+        _max = number;
+      });
+    });
+  }
+
   _canSubmit() {
-    print((_max - _min).abs());
-    return (_max - _min).abs() > 0;
+    return _min < _max;
   }
 
   _submit() {

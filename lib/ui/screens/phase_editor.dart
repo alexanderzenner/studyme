@@ -7,6 +7,8 @@ import 'package:studyme/models/phases/phases.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/phases_widget.dart';
 
+import 'package:studyme/util/util.dart';
+
 class PhaseEditor extends StatefulWidget {
   @override
   _PhaseEditorState createState() => _PhaseEditorState();
@@ -82,7 +84,7 @@ class _PhaseEditorState extends State<PhaseEditor> {
   }
 
   _updateNumberOfCycles(text) {
-    _update(text, (int number) {
+    textToIntSetter(text, (int number) {
       setState(() {
         _schedule.updateNumberOfCycles(number);
       });
@@ -90,20 +92,11 @@ class _PhaseEditorState extends State<PhaseEditor> {
   }
 
   _updatePhaseDuration(text) {
-    _update(text, (int number) {
+    textToIntSetter(text, (int number) {
       setState(() {
         _schedule.phaseDuration = number;
       });
     });
-  }
-
-  _update(text, setterFunction) {
-    try {
-      int value = text.length > 0 ? int.parse(text) : 0;
-      setterFunction(value);
-    } on Exception catch (_) {
-      print("Invalid number");
-    }
   }
 
   _updatePhaseOrder(phaseOrder) {
