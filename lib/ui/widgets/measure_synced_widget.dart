@@ -6,9 +6,9 @@ class SyncedMeasureWidget extends StatelessWidget {
 
   final bool confirmed;
 
-  final void Function(bool) setCanSave;
+  final void Function(bool) setConfirmed;
 
-  SyncedMeasureWidget({this.measure, this.confirmed, this.setCanSave});
+  SyncedMeasureWidget({this.measure, this.confirmed, this.setConfirmed});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +16,12 @@ class SyncedMeasureWidget extends StatelessWidget {
       children: [
         Text(
             "This measure will be automatically fetched from your Google Fit / Apple Health app"),
-        if (setCanSave != null)
+        if (setConfirmed != null)
           SwitchListTile(
             title: Text(
                 "I logged my ${measure.name} weight in my Google Fit / Apple Health app"),
             value: confirmed,
-            onChanged: setCanSave,
+            onChanged: setConfirmed,
           )
       ],
     );

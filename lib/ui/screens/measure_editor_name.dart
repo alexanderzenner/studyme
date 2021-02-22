@@ -43,7 +43,7 @@ class _MeasureEditorNameState extends State<MeasureEditorName> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(widget.title),
+              Text("\"${_name}\" Measure"),
               Visibility(
                 visible: true,
                 child: Text(

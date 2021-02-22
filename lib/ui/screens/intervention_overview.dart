@@ -31,10 +31,10 @@ class InterventionOverview extends StatelessWidget {
                       ListTile(
                           title: Text("Name"),
                           subtitle: Text(intervention.name),
-                          trailing: intervention is NoIntervention
+                          trailing: _canEditName(intervention)
                               ? null
                               : Icon(Icons.chevron_right),
-                          onTap: intervention is NoIntervention
+                          onTap: _canEditName(intervention)
                               ? null
                               : () => _editName(context, intervention)),
                       if (intervention.schedule != null)
@@ -62,6 +62,10 @@ class InterventionOverview extends StatelessWidget {
             }
           },
         ));
+  }
+
+  bool _canEditName(intervention) {
+    return intervention is NoIntervention;
   }
 
   _editName(context, intervention) {
@@ -100,8 +104,8 @@ class InterventionOverview extends StatelessWidget {
 
   _getSetter(context) {
     return isA
-        ? Provider.of<AppData>(context).setInterventionA
-        : Provider.of<AppData>(context).setInterventionB;
+        ? Provider.of<AppData>(context, listen: false).setInterventionA
+        : Provider.of<AppData>(context, listen: false).setInterventionB;
   }
 
   _getTitle() {

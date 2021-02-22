@@ -1,14 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/measure/choice_measure.dart';
-import 'package:studyme/models/measure/free_measure.dart';
+import 'package:provider/provider.dart';
+import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/models/measure/synced_measure.dart';
-import 'package:studyme/ui/widgets/measure_choice_widget.dart';
-import 'package:studyme/ui/widgets/measure_free_widget.dart';
-import 'package:studyme/ui/widgets/measure_scale_widget.dart';
-import 'package:studyme/ui/widgets/measure_synced_widget.dart';
+import 'package:studyme/ui/screens/schedule_editor.dart';
+import 'package:studyme/ui/widgets/measure_widget.dart';
+import 'package:studyme/ui/widgets/section_title.dart';
 
 class MeasurePreview extends StatelessWidget {
   final Measure measure;
@@ -21,16 +18,12 @@ class MeasurePreview extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             brightness: Brightness.dark,
-            title: Text(measure.name + " (Preview)")),
+            title: Text("\"${measure.name}\" Measure")),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                if (measure.description != null &&
-                    measure.description.length > 0)
-                  Text(measure.description),
-                _buildPreview(),
                 ButtonBar(
                   children: [
                     if (!isAdded)
@@ -41,6 +34,13 @@ class MeasurePreview extends StatelessWidget {
                             _addMeasure(context);
                           }),
                   ],
+                ),
+                SizedBox(height: 50),
+                SectionTitle("Preview"),
+                Card(
+                  child: Padding(
+                      padding: EdgeInsets.all(8),
+                      child: MeasureWidget(measure: measure)),
                 )
               ],
             ),
@@ -48,26 +48,22 @@ class MeasurePreview extends StatelessWidget {
         ));
   }
 
-  _buildPreview() {
-    switch (measure.runtimeType) {
-      case FreeMeasure:
-        return FreeMeasureWidget(measure, null);
-        break;
-      case ChoiceMeasure:
-        return ChoiceMeasureWidget(measure, null);
-      case ScaleMeasure:
-        return ScaleMeasureWidget(measure, null);
-      case SyncedMeasure:
-        return SyncedMeasureWidget(measure: measure);
-      default:
-        return Text('HI');
-    }
-  }
-
   _addMeasure(context) {
+    Function saveFunction = (Measure measure) {
+      Provider.of<AppData>(context, listen: false).addMeasure(measure);
+      Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
+    };
+
     measure.canAdd.then((value) {
       if (value) {
-        Navigator.pop(context, measure);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ScheduleEditor(
+                  title: "Measure",
+                  objectWithSchedule: measure,
+                  onSave: saveFunction),
+            ));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(

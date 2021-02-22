@@ -2,11 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/screens/measure_creator_type.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
-import 'package:uuid/uuid.dart';
 
 import 'measure_preview.dart';
 
@@ -26,12 +24,12 @@ class MeasureLibrary extends StatelessWidget {
             Measure _measure = _unaddedMeasures[index];
             return MeasureCard(
                 measure: _measure,
-                onTap: () => _previewMeasure(context, model, _measure));
+                onTap: () => _previewMeasure(context, _measure));
           },
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            _createMeasure(context, model);
+            _createMeasure(context);
           },
           child: Icon(Icons.add),
           backgroundColor: Colors.green,
@@ -40,17 +38,8 @@ class MeasureLibrary extends StatelessWidget {
     });
   }
 
-  _previewMeasure(context, model, measure) {
-    _navigateToPreview(context, measure).then((result) {
-      if (result != null) {
-        model.addMeasure(result);
-        Navigator.pop(context);
-      }
-    });
-  }
-
-  Future _navigateToPreview(context, measure) async {
-    return await Navigator.push(
+  _previewMeasure(context, measure) {
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => MeasurePreview(measure: measure, isAdded: false),
@@ -58,23 +47,13 @@ class MeasureLibrary extends StatelessWidget {
     );
   }
 
-  _createMeasure(context, model) {
-    Measure newMeasure = FreeMeasure()..id = Uuid().v4();
-    _navigateToCreator(context, model, newMeasure).then((result) {
-      if (result != null) {
-        model.addMeasure(result);
-        Navigator.pop(context);
-      }
-    });
-  }
-
-  Future _navigateToCreator(context, model, measure) async {
+  _createMeasure(context) {
     Function saveFunction = (Measure measure) {
-      model.addMeasure(measure);
+      Provider.of<AppData>(context, listen: false).addMeasure(measure);
       Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
     };
 
-    return await Navigator.push(
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => MeasureCreatorType(onSave: saveFunction),

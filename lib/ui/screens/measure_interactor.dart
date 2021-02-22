@@ -3,17 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
 import 'package:studyme/models/log/trial_log.dart';
-import 'package:studyme/models/measure/choice_measure.dart';
-import 'package:studyme/models/measure/free_measure.dart';
-import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/models/measure/synced_measure.dart';
 import 'package:studyme/models/task/measure_task.dart';
-import 'package:studyme/ui/widgets/measure_choice_widget.dart';
-import 'package:studyme/ui/widgets/measure_free_widget.dart';
-import 'package:studyme/ui/widgets/measure_scale_widget.dart';
-import 'package:studyme/ui/widgets/measure_synced_widget.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
-
+import 'package:studyme/ui/widgets/measure_widget.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 
 class MeasureInteractor extends StatefulWidget {
@@ -27,12 +19,12 @@ class MeasureInteractor extends StatefulWidget {
 
 class _MeasureInteractorState extends State<MeasureInteractor> {
   num _value;
-  bool _canSave;
+  bool _confirmed;
 
   @override
   void initState() {
     _value = null;
-    _canSave = false;
+    _confirmed = false;
     super.initState();
   }
 
@@ -44,7 +36,7 @@ class _MeasureInteractorState extends State<MeasureInteractor> {
           title: Text(widget.task.measure.name),
           actions: <Widget>[
             ActionButton(
-                icon: Icons.check, canPress: _canSave, onPressed: _logValue)
+                icon: Icons.check, canPress: _confirmed, onPressed: _logValue)
           ],
         ),
         body: Padding(
@@ -61,36 +53,23 @@ class _MeasureInteractorState extends State<MeasureInteractor> {
                   ],
                 ),
               ),
-              _buildMeasureWidget()
+              MeasureWidget(
+                measure: widget.task.measure,
+                updateValue: _updateValue,
+                confirmed: _confirmed,
+                setConfirmed: (value) => setState(() {
+                  _confirmed = value;
+                }),
+              )
             ],
           ),
         ));
   }
 
-  _buildMeasureWidget() {
-    switch (widget.task.measure.runtimeType) {
-      case (FreeMeasure):
-        return FreeMeasureWidget(widget.task.measure, _updateValue);
-      case (ScaleMeasure):
-        return ScaleMeasureWidget(widget.task.measure, _updateValue);
-      case (ChoiceMeasure):
-        return ChoiceMeasureWidget(widget.task.measure, _updateValue);
-      case (SyncedMeasure):
-        return SyncedMeasureWidget(
-            measure: widget.task.measure,
-            confirmed: _canSave,
-            setCanSave: (value) => setState(() {
-                  _canSave = value;
-                }));
-      default:
-        return Text("Hi");
-    }
-  }
-
   _updateValue(value) {
     setState(() {
       _value = value;
-      _canSave = true;
+      _confirmed = true;
     });
   }
 
