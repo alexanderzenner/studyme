@@ -12,7 +12,7 @@ class MeasureCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         child: ListTile(
-      leading: Icon(measure.icon),
+      leading: Icon(measure.getIcon()),
       title: Text(measure.name),
       subtitle: _getSubtitle(),
       trailing: Icon(Icons.chevron_right),

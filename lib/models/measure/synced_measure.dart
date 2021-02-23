@@ -17,8 +17,7 @@ part 'synced_measure.g.dart';
 class SyncedMeasure extends Measure {
   static const String measureType = 'synced';
 
-  @JsonKey(ignore: true)
-  final IconData icon = Icons.devices_other;
+  static const IconData icon = Icons.devices_other;
 
   @HiveField(6)
   String trackedHealthDataTypeName;

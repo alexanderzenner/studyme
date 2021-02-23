@@ -42,8 +42,7 @@ abstract class Measure with HasSchedule {
   @HiveField(5)
   Schedule schedule;
 
-  @JsonKey(ignore: true)
-  IconData icon;
+  static IconData icon;
 
   Measure(
       {this.id,
@@ -64,6 +63,21 @@ abstract class Measure with HasSchedule {
     this.description = measure.description;
     this.aggregation = measure.aggregation;
     this.schedule = measure.schedule;
+  }
+
+  getIcon() {
+    switch (this.runtimeType) {
+      case FreeMeasure:
+        return FreeMeasure.icon;
+      case ChoiceMeasure:
+        return ChoiceMeasure.icon;
+      case ScaleMeasure:
+        return ScaleMeasure.icon;
+      case SyncedMeasure:
+        return SyncedMeasure.icon;
+      default:
+        return null;
+    }
   }
 
   clone() {

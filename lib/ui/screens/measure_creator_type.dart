@@ -4,6 +4,8 @@ import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
+import 'package:studyme/ui/widgets/choice_card.dart';
+import 'package:studyme/util/string_extension.dart';
 
 import '../widgets/action_button.dart';
 import 'measure_editor_name.dart';
@@ -61,23 +63,39 @@ class _MeasureCreatorTypeState extends State<MeasureCreatorType> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                DropdownButtonFormField<String>(
-                  autofocus: true,
-                  value: _measure.type,
-                  onChanged: _changeMeasureType,
-                  items: [
-                    FreeMeasure.measureType,
-                    ChoiceMeasure.measureType,
-                    ScaleMeasure.measureType
-                  ].map<DropdownMenuItem<String>>((value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(
-                          '${value[0].toUpperCase()}${value.substring(1)}'),
-                    );
-                  }).toList(),
-                  decoration: InputDecoration(labelText: 'Type'),
-                )
+                ChoiceCard<String>(
+                    value: FreeMeasure.measureType,
+                    selectedValue: _measure.type,
+                    onSelect: _changeMeasureType,
+                    title: Row(
+                      children: [
+                        Icon(FreeMeasure.icon),
+                        SizedBox(width: 5),
+                        Text(FreeMeasure.measureType.capitalize()),
+                      ],
+                    )),
+                ChoiceCard<String>(
+                    value: ChoiceMeasure.measureType,
+                    selectedValue: _measure.type,
+                    onSelect: _changeMeasureType,
+                    title: Row(
+                      children: [
+                        Icon(ChoiceMeasure.icon),
+                        SizedBox(width: 5),
+                        Text(ChoiceMeasure.measureType.capitalize()),
+                      ],
+                    )),
+                ChoiceCard<String>(
+                    value: ScaleMeasure.measureType,
+                    selectedValue: _measure.type,
+                    onSelect: _changeMeasureType,
+                    title: Row(
+                      children: [
+                        Icon(ScaleMeasure.icon),
+                        SizedBox(width: 5),
+                        Text(ScaleMeasure.measureType.capitalize()),
+                      ],
+                    )),
               ],
             ),
           ),

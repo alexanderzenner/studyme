@@ -59,7 +59,13 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                 children: [
                   ListTile(
                     title: Text("Type"),
-                    subtitle: Text(measure.type.capitalize()),
+                    subtitle: Row(
+                      children: [
+                        Icon(measure.getIcon()),
+                        SizedBox(width: 5),
+                        Text(measure.type.capitalize()),
+                      ],
+                    ),
                   ),
                   EditableListTile(
                       title: Text("Name"),

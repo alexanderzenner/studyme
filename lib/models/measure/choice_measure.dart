@@ -16,8 +16,7 @@ part 'choice_measure.g.dart';
 class ChoiceMeasure extends Measure {
   static const String measureType = 'choice';
 
-  @JsonKey(ignore: true)
-  final IconData icon = Icons.list;
+  static const IconData icon = Icons.list;
 
   @HiveField(6)
   List<Choice> choices;

@@ -13,8 +13,7 @@ part 'free_measure.g.dart';
 class FreeMeasure extends Measure {
   static const String measureType = 'free';
 
-  @JsonKey(ignore: true)
-  final IconData icon = Icons.dialpad;
+  static const IconData icon = Icons.dialpad;
 
   FreeMeasure(
       {String id,

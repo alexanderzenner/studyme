@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
+import 'package:studyme/ui/widgets/choice_card.dart';
 
 class ChoiceMeasureWidget extends StatefulWidget {
   final ChoiceMeasure measure;
@@ -29,24 +30,21 @@ class _ChoiceMeasureWidgetState extends State<ChoiceMeasureWidget> {
           shrinkWrap: true,
           itemCount: widget.measure.choices.length,
           itemBuilder: (context, index) {
-            return Card(
-                key: UniqueKey(),
-                child: Ink(
-                  color: _state == index
-                      ? Theme.of(context).primaryColor
-                      : Colors.transparent,
-                  child: ListTile(
-                      title: Text('${widget.measure.choices[index].value}'),
-                      onTap: () {
-                        setState(() {
-                          _state = index;
-                        });
-                        if (widget.updateValue != null) {
-                          widget.updateValue(_state);
-                        }
-                      }),
-                ));
+            return ChoiceCard<num>(
+                value: index,
+                selectedValue: _state,
+                title: Text('${widget.measure.choices[index].value}'),
+                onSelect: _updateValue);
           }),
     );
+  }
+
+  _updateValue(num value) {
+    setState(() {
+      _state = value;
+    });
+    if (widget.updateValue != null) {
+      widget.updateValue(_state);
+    }
   }
 }
