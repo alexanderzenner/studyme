@@ -6,6 +6,7 @@ import 'package:studyme/models/intervention/intervention.dart';
 import '../screens/intervention_creator_type.dart';
 import '../screens/intervention_editor_name.dart';
 import '../screens/intervention_overview.dart';
+import 'hint_card.dart';
 import 'intervention_card.dart';
 import 'section_title.dart';
 
@@ -19,6 +20,25 @@ class CreatorInterventionSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if (model.trial.a == null && model.trial.b == null)
+          HintCard(titleText: "Add Intervention A", body: [
+            Text(
+                "Let's start setting up your trial. First you need to decide what interventions you want to compare."),
+            Text(''),
+            Text(
+                'Click on the \"+\" icon next to \"Interventions\", to set Intervention A')
+          ]),
+        if (model.trial.b == null && model.trial.a != null)
+          HintCard(
+            titleText: "Add Intervention B",
+            body: [
+              Text(
+                  "Great! Next you need to decide what you will compare \"Intervention A\" to."),
+              Text(''),
+              Text(
+                  "Click on the \"+\" icon next to \"Interventions\", to set \"Intervention B\"."),
+            ],
+          ),
         SectionTitle(
           'Interventions',
           action: _buildNextAction(context),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:studyme/models/mixins/has_schedule.dart';
 import 'package:studyme/models/schedule.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
+import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/util/notifications.dart';
 
@@ -69,6 +70,24 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
+                HintCard(
+                  titleText: "Set Schedule for ${widget.title}",
+                  body: [
+                    Text(
+                        'Here you can decide at what time(s) you want to do the ${widget.title}.'),
+                    Text(''),
+                    Text('Frequency'),
+                    Text(
+                        'The frequency can be set to daily or to every 2 or more days.'),
+                    Text(''),
+                    Text('Times'),
+                    Text(
+                        'You can schedule to do the ${widget.title} at one or multiple times in a day. For each time the app will also send you a notification to remind you.'),
+                    Text(''),
+                    Text(
+                        'Click the "+" icon next to "Times" to add at least one time.')
+                  ],
+                ),
                 SizedBox(
                   height: 10,
                 ),

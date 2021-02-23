@@ -5,6 +5,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/phases/phase_order.dart';
 import 'package:studyme/models/phases/phases.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
+import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/ui/widgets/phases_widget.dart';
 
 import 'package:studyme/util/util.dart';
@@ -47,6 +48,8 @@ class _PhaseEditorState extends State<PhaseEditor> {
           child: Consumer<AppData>(builder: (context, model, child) {
             return Column(
               children: [
+                HintCard(),
+                SizedBox(height: 10),
                 PhasesWidget(phases: _schedule, showDuration: true),
                 SizedBox(height: 20),
                 TextFormField(

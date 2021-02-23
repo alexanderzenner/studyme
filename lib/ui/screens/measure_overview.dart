@@ -113,7 +113,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
             context,
             MaterialPageRoute(
               builder: (context) => ScheduleEditor(
-                  title: "",
+                  title: widget.measure.title,
                   objectWithSchedule: widget.measure,
                   onSave: saveFunction),
             ));

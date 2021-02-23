@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/ui/widgets/hint_card.dart';
 
 import '../widgets/action_button.dart';
 import 'schedule_editor.dart';
@@ -63,6 +64,10 @@ class _InterventionEditorNameState extends State<InterventionEditorName> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
+                HintCard(titleText: "Set Intervention Name", body: [
+                  Text(
+                      "Choose a short name that describes the Intervention for you. Some suggested formats are \"Do X\" or \"Take Y\".")
+                ]),
                 SizedBox(
                   height: 10,
                 ),
