@@ -45,7 +45,7 @@ class Settings extends StatelessWidget {
   }
 
   _editTrial(BuildContext context) async {
-    debugCancelAllNotifications();
+    Provider.of<AppData>(context, listen: false).cancelAllNotifications();
     deleteLogs(Provider.of<AppData>(context, listen: false).trial);
     Provider.of<AppData>(context, listen: false)
         .saveAppState(AppState.CREATING);
@@ -68,7 +68,7 @@ class Settings extends StatelessWidget {
             ));
 
     if (_confirmed != null && _confirmed) {
-      debugCancelAllNotifications();
+      Provider.of<AppData>(context, listen: false).cancelAllNotifications();
       deleteLogs(Provider.of<AppData>(context, listen: false).trial);
       Provider.of<AppData>(context, listen: false).createNewTrial();
       Navigator.pushReplacementNamed(context, Routes.onboarding);

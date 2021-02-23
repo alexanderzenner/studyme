@@ -117,7 +117,9 @@ class AppData extends ChangeNotifier {
     // check that we haven't already scheduled notifications up to this date
     // clean the date, so comparison is based on day alone and not specific time
     DateTime _cleanDate = DateTime(date.year, date.month, date.day);
-    if (_latest == null || _latest.isBefore(_cleanDate)) {
+    print(_cleanDate);
+    print(_latest);
+    if (_latest == null || _latest.isBefore(date)) {
       List<Task> tasks = _trial.getTasksForDate(date);
 
       if (date.difference(DateTime.now()).inDays == 0) {
@@ -131,6 +133,12 @@ class AppData extends ChangeNotifier {
       box.put(lastDateWithScheduledNotificationsKey, _cleanDate);
       box.put(notificationIdCounterKey, _id);
     }
+  }
+
+  void cancelAllNotifications() {
+    Notifications().clearAll();
+    box.put(lastDateWithScheduledNotificationsKey, null);
+    box.put(notificationIdCounterKey, null);
   }
 
   bool canAddSchedule() {
