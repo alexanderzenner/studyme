@@ -4,9 +4,7 @@ import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/ui/screens/measure_editor_aggregation.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
-
 import 'package:studyme/util/util.dart';
-import 'schedule_editor.dart';
 
 class MeasureEditorScale extends StatefulWidget {
   final ScaleMeasure measure;

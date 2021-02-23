@@ -8,7 +8,6 @@ import '../widgets/action_button.dart';
 import 'measure_editor_aggregation.dart';
 import 'measure_editor_choice.dart';
 import 'measure_editor_scale.dart';
-import 'schedule_editor.dart';
 
 class MeasureEditorName extends StatefulWidget {
   final Measure measure;

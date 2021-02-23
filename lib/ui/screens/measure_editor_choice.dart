@@ -7,7 +7,6 @@ import 'package:studyme/ui/screens/measure_editor_aggregation.dart';
 
 import '../widgets/action_button.dart';
 import '../widgets/section_title.dart';
-import 'schedule_editor.dart';
 
 class MeasureEditorChoice extends StatefulWidget {
   final ChoiceMeasure measure;
