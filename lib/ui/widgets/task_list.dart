@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
+import 'package:studyme/models/task/measure_task.dart';
 import 'package:studyme/models/trial.dart';
 
 import 'package:studyme/models/task/intervention_task.dart';
@@ -77,11 +78,11 @@ class _TaskListState extends State<TaskList> {
           ),
         if (!_todaysTasks.any((element) => element is InterventionTask))
           HintCard(
-            title: "No intervention today!",
+            titleText: "No intervention today",
           ),
-        if (_todaysTasks.length == 0)
+        if (!_todaysTasks.any((element) => element is MeasureTask))
           HintCard(
-            title: "No tasks today!",
+            titleText: "No measures today",
           )
       ],
     );

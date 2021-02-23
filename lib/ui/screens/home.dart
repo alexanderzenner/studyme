@@ -46,7 +46,8 @@ class Home extends StatelessWidget {
     return Column(children: [
       SizedBox(height: 20),
       HintCard(
-          title:
+          titleText: "Trial hasn't started yet",
+          bodyText:
               "Your trial will start on ${DateFormat(DateFormat.YEAR_MONTH_DAY).format(trial.startDate)}")
     ]);
   }
@@ -55,7 +56,8 @@ class Home extends StatelessWidget {
     return Column(children: [
       SizedBox(height: 20),
       HintCard(
-          title:
+          titleText: "Trial ended",
+          bodyText:
               "Your trial ended on ${DateFormat(DateFormat.YEAR_MONTH_DAY).format(trial.endDate)}")
     ]);
   }
