@@ -76,11 +76,13 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
                     Text(
                         'Here you can decide at what time(s) you want to do the ${widget.title}.'),
                     Text(''),
-                    Text('Frequency'),
+                    Text('Frequency',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(
                         'The frequency can be set to daily or to every 2 or more days.'),
                     Text(''),
-                    Text('Times'),
+                    Text('Times',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(
                         'You can schedule to do the ${widget.title} at one or multiple times in a day. For each time the app will also send you a notification to remind you.'),
                     Text(''),

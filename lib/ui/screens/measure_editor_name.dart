@@ -5,6 +5,7 @@ import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 
 import '../widgets/action_button.dart';
+import 'measure_editor_aggregation.dart';
 import 'measure_editor_choice.dart';
 import 'measure_editor_scale.dart';
 import 'schedule_editor.dart';
@@ -58,24 +59,22 @@ class _MeasureEditorNameState extends State<MeasureEditorName> {
                 onPressed: _submit)
           ],
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 10,
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                autofocus: _name == null,
+                initialValue: _name,
+                onChanged: _changeName,
+                decoration: InputDecoration(
+                  labelText: 'Name',
                 ),
-                TextFormField(
-                  autofocus: _name == null,
-                  initialValue: _name,
-                  onChanged: _changeName,
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ));
   }
@@ -107,10 +106,8 @@ class _MeasureEditorNameState extends State<MeasureEditorName> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ScheduleEditor(
-                  title: widget.measure.title,
-                  objectWithSchedule: widget.measure,
-                  onSave: widget.onSave),
+              builder: (context) => MeasureEditorAggregation(
+                  measure: widget.measure, onSave: widget.onSave, save: false),
             ));
       }
     }
