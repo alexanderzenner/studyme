@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class HintCard extends StatelessWidget {
   final String titleText;
   final String bodyText;
+  final bool canClose;
 
-  HintCard({this.titleText, this.bodyText});
+  HintCard({this.titleText, this.bodyText, this.canClose = false});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,13 @@ class HintCard extends StatelessWidget {
             color: Colors.blue,
             size: 32,
           ),
+          trailing: canClose
+              ? IconButton(
+                  icon: Icon(
+                    Icons.close,
+                  ),
+                  onPressed: () => print("hi"))
+              : null,
           title: title,
         ),
         if (body != null)
