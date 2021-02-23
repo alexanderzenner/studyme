@@ -80,7 +80,10 @@ class _PhaseEditorState extends State<PhaseEditor> {
   }
 
   _canSubmit() {
-    return _schedule.totalDuration != 0;
+    return _schedule.totalDuration > 0 &&
+        _schedule.totalDuration < 1000 &&
+        _schedule.phaseDuration <= 365 &&
+        _schedule.numberOfCycles < 100;
   }
 
   _updateNumberOfCycles(text) {
