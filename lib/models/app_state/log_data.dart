@@ -16,7 +16,7 @@ class LogData extends ChangeNotifier {
   Future<List<String>> getCompletedTaskIdsFor(DateTime date) async {
     Box box = await Hive.openBox(completedTaskIdsKey);
     List<CompletedTaskLog> _logs = box.values.toList().cast<CompletedTaskLog>();
-    _logs.removeWhere((log) => log.dateTime.difference(date).inDays > 0);
+    _logs.removeWhere((log) => log.dateTime.difference(date).inDays.abs() > 0);
     return _logs.map((log) => log.taskId).toList();
   }
 
