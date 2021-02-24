@@ -7,6 +7,7 @@ import 'package:studyme/models/measure/measure.dart';
 
 import 'package:studyme/models/measure/aggregations.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
+import 'package:studyme/models/measure/synced_measure.dart';
 import 'package:studyme/ui/screens/measure_editor_aggregation.dart';
 import 'package:studyme/ui/screens/measure_editor_scale.dart';
 import 'package:studyme/ui/widgets/editable_list_tile.dart';
@@ -58,13 +59,14 @@ class _MeasureOverviewState extends State<MeasureOverview> {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
-                  HintCard(
-                    titleText: "Synced measure",
-                    body: [
-                      Text(
-                          "This measure requires using the Google Fit or Apple Health app. Any measurement you add during the trial is automatically fetched.")
-                    ],
-                  ),
+                  if (widget.isPreview && measure is SyncedMeasure)
+                    HintCard(
+                      titleText: "Synced measure",
+                      body: [
+                        Text(
+                            "This measure requires using the third party Google Fit or Apple Health app. Any measurement you add to the third party app during the trial is fetched and automatically logged for you.")
+                      ],
+                    ),
                   ListTile(
                     title: Text("Type"),
                     subtitle: Row(
