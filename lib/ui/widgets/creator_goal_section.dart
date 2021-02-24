@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/goal_editor.dart';
-import 'package:studyme/util/text_blocks.dart';
 
 import 'section_title.dart';
 
@@ -30,10 +29,10 @@ class CreatorGoalSection extends StatelessWidget {
                 title: Text("I want to lose weight"),
                 subtitle: Row(
                   children: [
-                    Text("and"),
-                    ...(model.trial.numberOfInterventions == 1
-                        ? evaluateOne
-                        : compareTwo)
+                    Text("and "),
+                    model.trial.numberOfInterventions == 1
+                        ? Text('evaluate one intervention')
+                        : Text('compare two interventions')
                   ],
                 )),
           ),

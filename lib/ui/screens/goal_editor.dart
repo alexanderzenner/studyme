@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/choice_card.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
-import 'package:studyme/util/text_blocks.dart';
 
 class GoalEditor extends StatefulWidget {
   final int numberOfInterventions;
@@ -84,19 +83,12 @@ class _GoalEditorState extends State<GoalEditor> {
                     value: 1,
                     selectedValue: _numberOfInterventions,
                     onSelect: _selectOption,
-                    title: Row(
-                      children: [
-                        Text('I want to'),
-                        ...evaluateOne,
-                      ],
-                    )),
+                    title: Text('I want to evaluate one intervention')),
                 ChoiceCard<int>(
                     value: 2,
                     selectedValue: _numberOfInterventions,
                     onSelect: _selectOption,
-                    title: Row(
-                      children: [Text('I want to'), ...compareTwo],
-                    )),
+                    title: Text('I want to compare two interventions')),
               ],
             ),
           ),
