@@ -93,31 +93,38 @@ class _MeasureEditorChoiceState extends State<MeasureEditorChoice> {
     setState(() {
       _editedChoice = null;
     });
-    bool _confirmed = await showDialog(
+    await showDialog(
         context: context,
         builder: (context) => AlertDialog(
               title: Text("Add Choice"),
               content: TextFormField(
                 autofocus: true,
                 initialValue: null,
-                onChanged: (text) => setState(() {
-                  _editedChoice = text;
-                }),
+                onChanged: _updateEditedChoice,
               ),
               actions: [
                 FlatButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      _updateEditedChoice(null);
+                      Navigator.pop(context);
+                    },
                     child: Text("Cancel")),
                 FlatButton(
                     onPressed: () => Navigator.pop(context, true),
                     child: Text("Confirm"))
               ],
             ));
-    if (_confirmed && _editedChoice != null && _editedChoice.length > 0) {
+    if (_editedChoice != null && _editedChoice.length > 0) {
       setState(() {
         _choices.add(Choice(value: _editedChoice));
       });
     }
+  }
+
+  _updateEditedChoice(String value) {
+    setState(() {
+      _editedChoice = value;
+    });
   }
 
   _removeChoice(int index) {
