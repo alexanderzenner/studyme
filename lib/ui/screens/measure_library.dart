@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/screens/measure_creator_type.dart';
+import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 
 import 'measure_overview.dart';
@@ -18,14 +19,30 @@ class MeasureLibrary extends StatelessWidget {
           brightness: Brightness.dark,
           title: Text("Add Measure"),
         ),
-        body: ListView.builder(
-          itemCount: _unaddedMeasures.length,
-          itemBuilder: (context, index) {
-            Measure _measure = _unaddedMeasures[index];
-            return MeasureCard(
-                measure: _measure,
-                onTap: () => _previewMeasure(context, _measure));
-          },
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              HintCard(
+                titleText: "Add existing or new measure",
+                body: [
+                  Text(
+                      "You can choose from a set of predefined measures or create your own."),
+                ],
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: _unaddedMeasures.length,
+                itemBuilder: (context, index) {
+                  Measure _measure = _unaddedMeasures[index];
+                  return MeasureCard(
+                      measure: _measure,
+                      onTap: () => _previewMeasure(context, _measure));
+                },
+              ),
+              SizedBox(height: 90)
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {

@@ -64,19 +64,19 @@ class _InterventionEditorNumberOfState
                     Text('1) One Intervention',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(
-                        "This means you are comparing Intervention A to your current lifestyle and when you are in a \"Intervention B\" phase you don't add any additional intervention to your lifestyle."),
+                        "This means you are comparing Intervention A to your current lifestyle and when you are in the B phase you don't add any additional intervention to your lifestyle."),
                     Text(''),
                     Text(
-                        "Example: You want to evaluate if drinking tea makes you more productive than you currently are, so you run a trial with \"Intervention A\" set to \"drink tea\" and \"Intervention B\" set to \"No Intervention\".",
+                        "Example: You want to evaluate if drinking tea makes you more productive than you currently are.",
                         style: TextStyle(fontStyle: FontStyle.italic)),
                     Text(''),
                     Text('2) Two Interventions',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(
-                        "This means you are comparing Intervention A to another Intervention and when you are in a \"Intervention B\" phase you follow that intervention."),
+                        "This means you are comparing Intervention A to another Intervention and when you are in a Intervention B phase you follow that intervention."),
                     Text(''),
                     Text(
-                        "Example: You want to compare if drinking tea or drinking coffee makes you more productive, so you run a trial with \"Intervention A\" set to \"drink tea\" and \"Intervention B\" set to \"drink coffee\".",
+                        "Example: You want to compare if drinking tea or drinking coffee makes you more productive.",
                         style: TextStyle(fontStyle: FontStyle.italic)),
                     Text(''),
                   ],

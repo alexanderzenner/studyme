@@ -5,6 +5,7 @@ import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/ui/widgets/choice_card.dart';
+import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/util/string_extension.dart';
 
 import '../widgets/action_button.dart';
@@ -41,7 +42,7 @@ class _MeasureCreatorTypeState extends State<MeasureCreatorType> {
               Visibility(
                 visible: true,
                 child: Text(
-                  'Type',
+                  'Input Type',
                   style: TextStyle(
                     fontSize: 12.0,
                   ),
@@ -63,6 +64,25 @@ class _MeasureCreatorTypeState extends State<MeasureCreatorType> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                HintCard(
+                  titleText: "Choose input type",
+                  body: [
+                    Text('Free', style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text('The measurement is entered via keyboard'),
+                    Text(''),
+                    Text('Choice',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(
+                        'The measurement is selected from a choice list. You need to define the choices in a next step.'),
+                    Text(''),
+                    Text('Scale',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(
+                        'The measurment is entered via a scale. You need to define the scale in a next step.'),
+                    Text('')
+                  ],
+                ),
+                SizedBox(height: 10),
                 ChoiceCard<String>(
                     value: FreeMeasure.measureType,
                     selectedValue: _measure.type,

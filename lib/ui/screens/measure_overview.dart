@@ -10,6 +10,7 @@ import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/ui/screens/measure_editor_aggregation.dart';
 import 'package:studyme/ui/screens/measure_editor_scale.dart';
 import 'package:studyme/ui/widgets/editable_list_tile.dart';
+import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/util/string_extension.dart';
 
 import 'measure_editor_choice.dart';
@@ -57,6 +58,13 @@ class _MeasureOverviewState extends State<MeasureOverview> {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
+                  HintCard(
+                    titleText: "Synced measure",
+                    body: [
+                      Text(
+                          "This measure requires using the Google Fit or Apple Health app. Any measurement you add during the trial is automatically fetched.")
+                    ],
+                  ),
                   ListTile(
                     title: Text("Type"),
                     subtitle: Row(

@@ -7,6 +7,7 @@ import 'package:studyme/models/phases/phases.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/ui/widgets/phases_widget.dart';
+import 'package:studyme/ui/widgets/section_title.dart';
 
 import 'package:studyme/util/util.dart';
 
@@ -17,16 +18,13 @@ class PhaseEditor extends StatefulWidget {
 
 class _PhaseEditorState extends State<PhaseEditor> {
   Phases _schedule;
-  bool _isCreator;
 
   @override
   void initState() {
     final trial = Provider.of<AppData>(context, listen: false).trial;
     if (trial.phases != null) {
-      _isCreator = false;
       _schedule = trial.phases.clone();
     } else {
-      _isCreator = true;
       _schedule = Phases.createDefault();
     }
     super.initState();
@@ -37,48 +35,73 @@ class _PhaseEditorState extends State<PhaseEditor> {
     return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
-          title: Text((_isCreator ? 'Add' : 'Edit') + ' Phases'),
+          title: Text('Phases'),
           actions: <Widget>[
             ActionButton(
                 icon: Icons.check, canPress: _canSubmit(), onPressed: _save)
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Consumer<AppData>(builder: (context, model, child) {
-            return Column(
-              children: [
-                HintCard(),
-                SizedBox(height: 10),
-                PhasesWidget(phases: _schedule, showDuration: true),
-                SizedBox(height: 20),
-                TextFormField(
-                  initialValue: _schedule.phaseDuration.toString(),
-                  keyboardType: TextInputType.number,
-                  onChanged: _updatePhaseDuration,
-                  decoration: InputDecoration(labelText: 'Phase Duration'),
-                ),
-                TextFormField(
-                  initialValue: _schedule.numberOfCycles.toString(),
-                  keyboardType: TextInputType.number,
-                  onChanged: _updateNumberOfCycles,
-                  decoration: InputDecoration(labelText: 'Number of Cycles'),
-                ),
-                DropdownButtonFormField<PhaseOrder>(
-                  decoration: InputDecoration(labelText: 'Phase Order'),
-                  value: _schedule.phaseOrder,
-                  onChanged: _updatePhaseOrder,
-                  items: [PhaseOrder.alternating, PhaseOrder.counterbalanced]
-                      .map<DropdownMenuItem<PhaseOrder>>((value) {
-                    return DropdownMenuItem<PhaseOrder>(
-                      value: value,
-                      child: Text(value.readable),
-                    );
-                  }).toList(),
-                )
-              ],
-            );
-          }),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Consumer<AppData>(builder: (context, model, child) {
+              return Column(
+                children: [
+                  HintCard(
+                    titleText: "Set Phases",
+                    body: [
+                      Text('Note:',
+                          style: TextStyle(fontStyle: FontStyle.italic)),
+                      Text(
+                          '\u2022 The phases are paired, meaning for every A phase there is a B phase.',
+                          style: TextStyle(fontStyle: FontStyle.italic)),
+                      Text(
+                          '\u2022 Under the flag in the phase overview below you can see the total duration of your trial.',
+                          style: TextStyle(fontStyle: FontStyle.italic)),
+                      Text(''),
+                      Text('Number of Pairs',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text(
+                          'This number defines how many pairs of A and B phases your trial has.'),
+                      Text(''),
+                      Text('Phase Duration',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text(
+                          'This number defines how long each of the phases is.')
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  PhasesWidget(phases: _schedule, showDuration: true),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    initialValue: _schedule.phaseDuration.toString(),
+                    keyboardType: TextInputType.number,
+                    onChanged: _updatePhaseDuration,
+                    decoration:
+                        InputDecoration(labelText: 'Phase Duration (in days)'),
+                  ),
+                  TextFormField(
+                    initialValue: _schedule.numberOfCycles.toString(),
+                    keyboardType: TextInputType.number,
+                    onChanged: _updateNumberOfCycles,
+                    decoration: InputDecoration(labelText: 'Number of Pairs'),
+                  ),
+                  DropdownButtonFormField<PhaseOrder>(
+                    decoration: InputDecoration(labelText: 'Phase Order'),
+                    value: _schedule.phaseOrder,
+                    onChanged: _updatePhaseOrder,
+                    items: [PhaseOrder.alternating, PhaseOrder.counterbalanced]
+                        .map<DropdownMenuItem<PhaseOrder>>((value) {
+                      return DropdownMenuItem<PhaseOrder>(
+                        value: value,
+                        child: Text(value.readable),
+                      );
+                    }).toList(),
+                  )
+                ],
+              );
+            }),
+          ),
         ));
   }
 

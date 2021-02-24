@@ -23,6 +23,11 @@ class CreatorInterventionSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (isActive && model.trial.numberOfInterventions == null)
+            HintCard(titleText: "Set Interventions", body: [
+              Text(
+                  'Click on the + below, to choose the number of interventions.')
+            ]),
           SectionTitle('Interventions',
               action: model.trial.numberOfInterventions == null
                   ? IconButton(
@@ -52,10 +57,19 @@ class CreatorInterventionSection extends StatelessWidget {
           onTap: () => _navigateToGoalNumberOfInterventionsEditor(context),
         ),
       ),
-      if (model.trial.a == null || model.trial.b == null)
-        HintCard(titleText: "Set Intervention A & B", body: [
+      if ((model.trial.a == null || model.trial.b == null) &&
+          model.trial.numberOfInterventions == 2)
+        HintCard(titleText: "Add Intervention A & B", body: [
           Text(
-              'Click on the cards below, to set the two interventions you want to compare')
+              'Click on the cards below, to set the two interventions you want to compare.')
+        ]),
+      if (model.trial.a == null && model.trial.numberOfInterventions == 1)
+        HintCard(titleText: "Add Intervention A", body: [
+          Text(
+              'Click on the card below, to set the intervention you want to evaluate.'),
+          Text(''),
+          Text(
+              'Note: As you selected to evaluate one intervention, Intervention B was set to No Intervention automatically.')
         ]),
       InterventionCard(
           letter: 'a',

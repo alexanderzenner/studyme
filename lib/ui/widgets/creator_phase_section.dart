@@ -5,6 +5,7 @@ import 'package:studyme/ui/widgets/phases_widget.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 
 import '../screens/phase_editor.dart';
+import 'hint_card.dart';
 
 class CreatorPhasesSection extends StatelessWidget {
   final AppData model;
@@ -20,17 +21,31 @@ class CreatorPhasesSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (isActive && !_phasesIsSet())
+            HintCard(
+              titleText: "Set Phases",
+              body: [
+                Text(
+                    "Next we define the phases you will go through during the trial."),
+                Text(''),
+                Text("Click on the + below to set the trial's phases.")
+              ],
+            ),
           SectionTitle('Phases',
               action: IconButton(
-                icon: Icon(model.trial.phases != null ? Icons.edit : Icons.add),
+                icon: Icon(_phasesIsSet() ? Icons.edit : Icons.add),
                 onPressed:
                     isActive ? () => _navigateToScheduleEditor(context) : null,
               )),
-          if (model.trial.phases != null)
+          if (_phasesIsSet())
             PhasesWidget(phases: model.trial.phases, showDuration: true),
         ],
       ),
     );
+  }
+
+  _phasesIsSet() {
+    return model.trial.phases != null;
   }
 
   _navigateToScheduleEditor(context) {

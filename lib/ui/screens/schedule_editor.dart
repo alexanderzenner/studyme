@@ -71,11 +71,8 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
             child: Column(
               children: [
                 HintCard(
-                  titleText: "Set Schedule for ${widget.title}",
+                  titleText: "Set Schedule",
                   body: [
-                    Text(
-                        'Here you can decide at what time(s) you want to do the ${widget.title}.'),
-                    Text(''),
                     Text('Frequency',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(
@@ -84,10 +81,9 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
                     Text('Times',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(
-                        'You can schedule to do the ${widget.title} at one or multiple times in a day. For each time the app will also send you a notification to remind you.'),
+                        'You can schedule one or multiple times in a day. For each time the app will also send you a notification to remind you.'),
                     Text(''),
-                    Text(
-                        'Click the "+" icon next to "Times" to add at least one time.')
+                    Text('Click the + below to add at least one time.')
                   ],
                 ),
                 SizedBox(

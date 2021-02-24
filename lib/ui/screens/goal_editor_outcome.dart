@@ -40,9 +40,6 @@ class _GoalEditorOutcomeState extends State<GoalEditorOutcome> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HintCard(
-                  titleText: "Set Goal",
-                ),
                 SizedBox(height: 10),
                 TextFormField(
                   autofocus: _outcome == null,
