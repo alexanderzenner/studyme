@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
+import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/models/phases/phases.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:studyme/util/notifications.dart';
@@ -32,6 +33,22 @@ class AppData extends ChangeNotifier {
     measures.removeWhere(
         (i) => _trial.measures.map((x) => x.id).toList().contains(i.id));
     return measures;
+  }
+
+  void setNumberOfInterventions(int number) {
+    if (number == 1 || number == 2) {
+      if (number == 1) {
+        _trial.b = NoIntervention(letter: interventionBLetter);
+      }
+      if (number == 2) {
+        _trial.b = null;
+      }
+
+      _trial.numberOfInterventions = number;
+
+      _trial.save();
+      notifyListeners();
+    }
   }
 
   void setInterventionA(Intervention intervention) {
@@ -82,7 +99,7 @@ class AppData extends ChangeNotifier {
 
   loadAppState() async {
     box = await Hive.openBox('app_data');
-    _trial = box.get(activeTrialKey);
+    _trial = null;
 
     // first time app is started, initialize state and trial
     if (state == null) {
@@ -117,8 +134,6 @@ class AppData extends ChangeNotifier {
     // check that we haven't already scheduled notifications up to this date
     // clean the date, so comparison is based on day alone and not specific time
     DateTime _cleanDate = DateTime(date.year, date.month, date.day);
-    print(_cleanDate);
-    print(_latest);
     if (_latest == null || _latest.isBefore(date)) {
       List<Task> tasks = _trial.getTasksForDate(date);
 

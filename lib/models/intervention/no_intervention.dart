@@ -14,7 +14,7 @@ class NoIntervention extends Intervention {
   final name = 'No Intervention';
   final description = 'TBD';
 
-  NoIntervention() : super(type: interventionType);
+  NoIntervention({letter}) : super(type: interventionType, letter: letter);
 
   @override
   final Schedule schedule = null;

@@ -32,25 +32,26 @@ class InterventionOverview extends StatelessWidget {
                           title: Text("Name"),
                           subtitle: Text(intervention.name),
                           trailing: _canEditName(intervention)
-                              ? null
-                              : Icon(Icons.chevron_right),
+                              ? Icon(Icons.chevron_right)
+                              : null,
                           onTap: _canEditName(intervention)
-                              ? null
-                              : () => _editName(context, intervention)),
+                              ? () => _editName(context, intervention)
+                              : null),
                       if (intervention.schedule != null)
                         ListTile(
                             title: Text("Schedule"),
                             subtitle: Text(intervention.schedule.readable),
                             trailing: Icon(Icons.chevron_right),
                             onTap: () => _editSchedule(context, intervention)),
-                      ButtonBar(
-                        children: [
-                          OutlineButton.icon(
-                              icon: Icon(Icons.delete),
-                              label: Text("Remove"),
-                              onPressed: () => _remove(context)),
-                        ],
-                      )
+                      if (_canRemove(intervention))
+                        ButtonBar(
+                          children: [
+                            OutlineButton.icon(
+                                icon: Icon(Icons.delete),
+                                label: Text("Remove"),
+                                onPressed: () => _remove(context)),
+                          ],
+                        )
                     ],
                   ),
                 ),
@@ -64,8 +65,12 @@ class InterventionOverview extends StatelessWidget {
         ));
   }
 
+  bool _canRemove(intervention) {
+    return !(intervention is NoIntervention);
+  }
+
   bool _canEditName(intervention) {
-    return intervention is NoIntervention;
+    return !(intervention is NoIntervention);
   }
 
   _editName(context, intervention) {

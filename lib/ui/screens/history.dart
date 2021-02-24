@@ -28,8 +28,8 @@ class _HistoryState extends State<History> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              InterventionCard(intervention: appState.trial.a),
-              InterventionCard(intervention: appState.trial.b),
+              InterventionCard(letter: 'a', intervention: appState.trial.a),
+              InterventionCard(letter: 'b', intervention: appState.trial.b),
               DropdownButtonFormField<TimeAggregation>(
                 decoration: InputDecoration(labelText: 'Aggregate by'),
                 value: _timeAggregation,

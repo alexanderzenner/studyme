@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/intervention/intervention.dart';
-
-import '../screens/intervention_creator_type.dart';
 import '../screens/intervention_editor_name.dart';
 import '../screens/intervention_overview.dart';
 import 'hint_card.dart';
@@ -12,52 +10,61 @@ import 'section_title.dart';
 
 class CreatorInterventionSection extends StatelessWidget {
   final AppData model;
+  final bool isActive;
 
-  CreatorInterventionSection(this.model);
+  CreatorInterventionSection(this.model, {this.isActive});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (model.trial.a == null && model.trial.b == null)
-          HintCard(titleText: "Add Intervention A", body: [
-            Text(
-                "Let's start setting up your trial. First you need to decide what interventions you want to compare."),
-            Text(''),
-            Text(
-                'Click on the \"+\" icon next to \"Interventions\", to set Intervention A')
-          ]),
-        if (model.trial.b == null && model.trial.a != null)
-          HintCard(
-            titleText: "Add Intervention B",
-            body: [
+    return Opacity(
+      opacity: isActive ? 1.0 : 0.3,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (isActive && model.trial.a == null && model.trial.b == null)
+            HintCard(titleText: "Add Intervention A", body: [
               Text(
-                  "Great! Next you need to decide what you will compare \"Intervention A\" to."),
+                  "Let's start setting up your trial. First you need to decide what interventions you want to compare."),
               Text(''),
               Text(
-                  "Click on the \"+\" icon next to \"Interventions\", to set \"Intervention B\"."),
-            ],
+                  'Click on the \"+\" icon next to \"Interventions\", to set Intervention A')
+            ]),
+          if (isActive && model.trial.b == null && model.trial.a != null)
+            HintCard(
+              titleText: "Add Intervention B",
+              body: [
+                Text(
+                    "Great! Next you need to decide what you will compare \"Intervention A\" to."),
+                Text(''),
+                Text(
+                    "Click on the \"+\" icon next to \"Interventions\", to set \"Intervention B\"."),
+              ],
+            ),
+          SectionTitle(
+            'Interventions',
           ),
-        SectionTitle(
-          'Interventions',
-          action: _buildNextAction(context),
-        ),
-        if (model.trial.a != null)
-          InterventionCard(
-              showSchedule: true,
-              intervention: model.trial.a,
-              onTap: () {
-                _viewIntervention(context, true);
-              }),
-        if (model.trial.b != null)
-          InterventionCard(
-              showSchedule: true,
-              intervention: model.trial.b,
-              onTap: () {
-                _viewIntervention(context, false);
-              }),
-      ],
+          if (isActive)
+            InterventionCard(
+                letter: 'a',
+                intervention: model.trial.a,
+                showSchedule: true,
+                onTap: () {
+                  model.trial.a == null
+                      ? _addIntervention(context, true)
+                      : _viewIntervention(context, true);
+                }),
+          if (isActive)
+            InterventionCard(
+                letter: 'b',
+                showSchedule: true,
+                intervention: model.trial.b,
+                onTap: () {
+                  model.trial.b == null
+                      ? _addIntervention(context, false)
+                      : _viewIntervention(context, false);
+                }),
+        ],
+      ),
     );
   }
 
@@ -70,28 +77,6 @@ class CreatorInterventionSection extends StatelessWidget {
     );
   }
 
-  Widget _buildNextAction(context) {
-    if (model.trial.a == null) {
-      return IconButton(
-        icon: Icon(
-          Icons.add,
-        ),
-        onPressed: () {
-          _addIntervention(context, true);
-        },
-      );
-    } else if (model.trial.b == null) {
-      return IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () {
-          _addIntervention(context, false);
-        },
-      );
-    } else {
-      return null;
-    }
-  }
-
   _addIntervention(context, isA) {
     Function setter = isA ? model.setInterventionA : model.setInterventionB;
     Function saveFunction = (Intervention intervention) {
@@ -102,14 +87,11 @@ class CreatorInterventionSection extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => isA
-            ? InterventionEditorName(
-                title: "Intervention A",
-                intervention: Intervention(),
-                onSave: saveFunction,
-                save: false)
-            : InterventionCreatorType(
-                title: "Intervention B", onSave: saveFunction),
+        builder: (context) => InterventionEditorName(
+            title: isA ? "Intervention A" : "Intervention B",
+            intervention: Intervention(),
+            onSave: saveFunction,
+            save: false),
       ),
     );
   }

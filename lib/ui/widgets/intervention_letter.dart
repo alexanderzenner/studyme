@@ -11,7 +11,7 @@ class InterventionLetter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(letter.toUpperCase(),
         style: TextStyle(
-            color: isInverted ? Colors.white : colorMap[letter],
+            color: isInverted ? Colors.white : letterColorMap[letter],
             fontSize: 20,
             fontWeight: FontWeight.bold));
   }

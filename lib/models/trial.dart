@@ -14,18 +14,21 @@ part 'trial.g.dart';
 @HiveType(typeId: 200)
 class Trial extends HiveObject {
   @HiveField(0)
-  Intervention a;
+  int numberOfInterventions;
 
   @HiveField(1)
-  Intervention b;
+  Intervention a;
 
   @HiveField(2)
-  List<Measure> measures;
+  Intervention b;
 
   @HiveField(3)
-  Phases phases;
+  List<Measure> measures;
 
   @HiveField(4)
+  Phases phases;
+
+  @HiveField(5)
   DateTime startDate;
 
   List<Task> getTasksForDate(DateTime date) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Map<String, Color> colorMap = {
+Map<String, Color> letterColorMap = {
   'a': Colors.lightBlue,
   'b': Colors.lightGreen,
 };

@@ -45,7 +45,7 @@ class _PhasesWidgetState extends State<PhasesWidget> {
               _textBelowCard = _buildPhaseDurationText();
             }
             if (index < widget.activeIndex) {
-              _cardColor = colorMap[letter];
+              _cardColor = letterColorMap[letter];
             }
           }
 
