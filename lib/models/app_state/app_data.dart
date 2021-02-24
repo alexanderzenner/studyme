@@ -35,6 +35,12 @@ class AppData extends ChangeNotifier {
     return measures;
   }
 
+  void setOutcome(String outcome) {
+    _trial.outcome = outcome;
+    _trial.save();
+    notifyListeners();
+  }
+
   void setNumberOfInterventions(int number) {
     if (number == 1 || number == 2) {
       if (number == 1) {
@@ -156,19 +162,19 @@ class AppData extends ChangeNotifier {
     box.put(notificationIdCounterKey, null);
   }
 
-  bool canAddSchedule() {
+  bool canDefineInterventions() {
+    return _trial.outcome != null;
+  }
+
+  bool canDefinePhases() {
     return _trial.a != null && _trial.b != null;
   }
 
-  bool canAddMeasures() {
-    return canAddSchedule() && _trial.phases != null;
-  }
-
-  bool canAddReminders() {
-    return canAddMeasures() && _trial.measures.length > 0;
+  bool canDefineMeasures() {
+    return canDefinePhases() && _trial.phases != null;
   }
 
   bool canStartTrial() {
-    return canAddReminders();
+    return canDefineMeasures() && _trial.measures.length > 0;
   }
 }

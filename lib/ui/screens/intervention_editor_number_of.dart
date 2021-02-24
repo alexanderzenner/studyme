@@ -3,17 +3,19 @@ import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/choice_card.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
 
-class GoalEditor extends StatefulWidget {
+class InterventionEditorNumberOf extends StatefulWidget {
   final int numberOfInterventions;
   final Function(int numberOfInterventions) onSave;
 
-  GoalEditor({this.numberOfInterventions, this.onSave});
+  InterventionEditorNumberOf({this.numberOfInterventions, this.onSave});
 
   @override
-  _GoalEditorState createState() => _GoalEditorState();
+  _InterventionEditorNumberOfState createState() =>
+      _InterventionEditorNumberOfState();
 }
 
-class _GoalEditorState extends State<GoalEditor> {
+class _InterventionEditorNumberOfState
+    extends State<InterventionEditorNumberOf> {
   int _numberOfInterventions;
 
   @override
@@ -31,7 +33,7 @@ class _GoalEditorState extends State<GoalEditor> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Goal"),
+              Text("Interventions"),
               Visibility(
                 visible: true,
                 child: Text(
@@ -83,12 +85,12 @@ class _GoalEditorState extends State<GoalEditor> {
                     value: 1,
                     selectedValue: _numberOfInterventions,
                     onSelect: _selectOption,
-                    title: Text('I want to evaluate one intervention')),
+                    title: Text('Evaluate one intervention')),
                 ChoiceCard<int>(
                     value: 2,
                     selectedValue: _numberOfInterventions,
                     onSelect: _selectOption,
-                    title: Text('I want to compare two interventions')),
+                    title: Text('Compare two interventions')),
               ],
             ),
           ),

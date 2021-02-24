@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/ui/widgets/intervention_letter.dart';
 
 class InterventionCard extends StatelessWidget {
@@ -26,7 +27,12 @@ class InterventionCard extends StatelessWidget {
   }
 
   Widget _getTitle() {
-    return intervention != null ? Text(intervention.name) : null;
+    return intervention != null
+        ? Text(intervention.name,
+            style: (intervention is NoIntervention)
+                ? TextStyle(fontStyle: FontStyle.italic)
+                : null)
+        : null;
   }
 
   Widget _getSubtitle() {

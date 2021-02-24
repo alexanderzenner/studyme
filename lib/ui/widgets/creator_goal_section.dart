@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/ui/screens/goal_editor.dart';
+import 'package:studyme/ui/screens/goal_editor_outcome.dart';
 
 import 'section_title.dart';
 
@@ -16,38 +16,33 @@ class CreatorGoalSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionTitle('Goal',
-            action: IconButton(
-              icon: Icon(model.trial.numberOfInterventions != null
-                  ? Icons.edit
-                  : Icons.add),
-              onPressed: () => _navigateToGoalEditor(context),
-            )),
-        if (model.trial.numberOfInterventions != null)
+            action: model.trial.outcome == null
+                ? IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () => _navigateToGoalOutcomeEditor(context),
+                  )
+                : null),
+        if (model.trial.outcome != null)
           Card(
             child: ListTile(
-                leading: Icon(Icons.star_border),
-                title: Text("I want to lose weight"),
-                subtitle: Row(
-                  children: [
-                    Text("and "),
-                    model.trial.numberOfInterventions == 1
-                        ? Text('evaluate one intervention')
-                        : Text('compare two interventions')
-                  ],
-                )),
+              leading: Icon(Icons.star_border),
+              title: Text(model.trial.outcome),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () => _navigateToGoalOutcomeEditor(context),
+            ),
           ),
       ],
     );
   }
 
-  _navigateToGoalEditor(context) {
+  _navigateToGoalOutcomeEditor(context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => GoalEditor(
-            numberOfInterventions: model.trial.numberOfInterventions,
-            onSave: (int number) {
-              model.setNumberOfInterventions(number);
+        builder: (context) => GoalEditorOutcome(
+            outcome: model.trial.outcome,
+            onSave: (String _outcome) {
+              model.setOutcome(_outcome);
               Navigator.pushNamedAndRemoveUntil(
                   context, '/creator', (r) => false);
             }),

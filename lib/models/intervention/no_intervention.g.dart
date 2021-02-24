@@ -16,13 +16,14 @@ class NoInterventionAdapter extends TypeAdapter<NoIntervention> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return NoIntervention()
+    return NoIntervention(
+      letter: fields[4] as dynamic,
+    )
       ..name = fields[2] as String
       ..description = fields[3] as String
       ..schedule = fields[5] as Schedule
       ..type = fields[0] as String
-      ..id = fields[1] as String
-      ..letter = fields[4] as String;
+      ..id = fields[1] as String;
   }
 
   @override
@@ -53,10 +54,11 @@ class NoInterventionAdapter extends TypeAdapter<NoIntervention> {
 // **************************************************************************
 
 NoIntervention _$NoInterventionFromJson(Map<String, dynamic> json) {
-  return NoIntervention()
+  return NoIntervention(
+    letter: json['letter'],
+  )
     ..type = json['type'] as String
     ..id = json['id'] as String
-    ..letter = json['letter'] as String
     ..name = json['name'] as String
     ..description = json['description'] as String
     ..schedule = json['schedule'] == null

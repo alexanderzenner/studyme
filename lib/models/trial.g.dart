@@ -17,29 +17,32 @@ class TrialAdapter extends TypeAdapter<Trial> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Trial()
-      ..numberOfInterventions = fields[0] as int
-      ..a = fields[1] as Intervention
-      ..b = fields[2] as Intervention
-      ..measures = (fields[3] as List)?.cast<Measure>()
-      ..phases = fields[4] as Phases
-      ..startDate = fields[5] as DateTime;
+      ..outcome = fields[0] as String
+      ..numberOfInterventions = fields[1] as int
+      ..a = fields[2] as Intervention
+      ..b = fields[3] as Intervention
+      ..measures = (fields[4] as List)?.cast<Measure>()
+      ..phases = fields[5] as Phases
+      ..startDate = fields[6] as DateTime;
   }
 
   @override
   void write(BinaryWriter writer, Trial obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
-      ..write(obj.numberOfInterventions)
+      ..write(obj.outcome)
       ..writeByte(1)
-      ..write(obj.a)
+      ..write(obj.numberOfInterventions)
       ..writeByte(2)
-      ..write(obj.b)
+      ..write(obj.a)
       ..writeByte(3)
-      ..write(obj.measures)
+      ..write(obj.b)
       ..writeByte(4)
-      ..write(obj.phases)
+      ..write(obj.measures)
       ..writeByte(5)
+      ..write(obj.phases)
+      ..writeByte(6)
       ..write(obj.startDate);
   }
 
@@ -60,6 +63,7 @@ class TrialAdapter extends TypeAdapter<Trial> {
 
 Trial _$TrialFromJson(Map<String, dynamic> json) {
   return Trial()
+    ..outcome = json['outcome'] as String
     ..numberOfInterventions = json['numberOfInterventions'] as int
     ..a = json['a'] == null
         ? null
@@ -80,6 +84,7 @@ Trial _$TrialFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$TrialToJson(Trial instance) => <String, dynamic>{
+      'outcome': instance.outcome,
       'numberOfInterventions': instance.numberOfInterventions,
       'a': instance.a,
       'b': instance.b,

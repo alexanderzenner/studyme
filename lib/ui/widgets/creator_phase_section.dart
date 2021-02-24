@@ -21,13 +21,11 @@ class CreatorPhasesSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SectionTitle('Phases',
-              action: isActive
-                  ? IconButton(
-                      icon: Icon(
-                          model.trial.phases != null ? Icons.edit : Icons.add),
-                      onPressed: () => _navigateToScheduleEditor(context),
-                    )
-                  : null),
+              action: IconButton(
+                icon: Icon(model.trial.phases != null ? Icons.edit : Icons.add),
+                onPressed:
+                    isActive ? () => _navigateToScheduleEditor(context) : null,
+              )),
           if (model.trial.phases != null)
             PhasesWidget(phases: model.trial.phases, showDuration: true),
         ],

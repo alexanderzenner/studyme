@@ -21,12 +21,12 @@ class CreatorMeasureSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SectionTitle('Measures',
-              action: isActive
-                  ? IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () =>
-                          Navigator.pushNamed(context, Routes.measure_library))
-                  : null),
+              action: IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: isActive
+                      ? () =>
+                          Navigator.pushNamed(context, Routes.measure_library)
+                      : null)),
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
