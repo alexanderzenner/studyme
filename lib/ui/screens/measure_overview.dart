@@ -7,7 +7,6 @@ import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/models/measure/synced_measure.dart';
-import 'package:studyme/ui/screens/measure_editor_aggregation.dart';
 import 'package:studyme/ui/screens/measure_editor_scale.dart';
 import 'package:studyme/ui/widgets/editable_list_tile.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
@@ -93,13 +92,6 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                         subtitle: Text(measure.scaleString),
                         canEdit: !widget.isPreview,
                         onTap: () => _editScale(context, measure)),
-                  EditableListTile(
-                      title: Text(
-                        'Aggregation',
-                      ),
-                      subtitle: Text(measure.aggregation.readable),
-                      canEdit: !widget.isPreview && measure.canEdit,
-                      onTap: () => _editAggregation(context, measure)),
                   if (!widget.isPreview)
                     EditableListTile(
                         title: Text("Schedule"),
@@ -198,17 +190,6 @@ class _MeasureOverviewState extends State<MeasureOverview> {
         context,
         MaterialPageRoute(
           builder: (context) => MeasureEditorScale(
-              measure: measure.clone(),
-              onSave: _getSaveFunction(context),
-              save: true),
-        ));
-  }
-
-  _editAggregation(BuildContext context, Measure measure) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MeasureEditorAggregation(
               measure: measure.clone(),
               onSave: _getSaveFunction(context),
               save: true),

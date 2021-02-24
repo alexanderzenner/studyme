@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
+import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
+import 'package:studyme/ui/screens/schedule_editor.dart';
 
 import '../widgets/action_button.dart';
-import 'measure_editor_aggregation.dart';
 import 'measure_editor_choice.dart';
 import 'measure_editor_scale.dart';
 
@@ -101,12 +102,14 @@ class _MeasureEditorNameState extends State<MeasureEditorName> {
               builder: (context) => MeasureEditorScale(
                   measure: widget.measure, onSave: widget.onSave, save: false),
             ));
-      } else {
+      } else if (widget.measure is FreeMeasure) {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MeasureEditorAggregation(
-                  measure: widget.measure, onSave: widget.onSave, save: false),
+              builder: (context) => ScheduleEditor(
+                  title: widget.measure.title,
+                  objectWithSchedule: widget.measure,
+                  onSave: widget.onSave),
             ));
       }
     }

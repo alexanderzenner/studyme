@@ -35,6 +35,7 @@ abstract class Measure with HasSchedule {
   @HiveField(3)
   String description;
 
+  // TODO: this isn't used anymore in the moment, leaving it for now as it might be used in the future
   @HiveField(4)
   ValueAggregation aggregation;
 

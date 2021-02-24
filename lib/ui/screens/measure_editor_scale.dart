@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/ui/screens/measure_editor_aggregation.dart';
+import 'package:studyme/ui/screens/schedule_editor.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/util/util.dart';
 
@@ -108,8 +108,10 @@ class _MeasureEditorScaleState extends State<MeasureEditorScale> {
         : Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MeasureEditorAggregation(
-                  measure: widget.measure, onSave: widget.onSave, save: false),
+              builder: (context) => ScheduleEditor(
+                  title: widget.measure.title,
+                  objectWithSchedule: widget.measure,
+                  onSave: widget.onSave),
             ));
   }
 }

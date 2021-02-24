@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:studyme/models/measure/choice.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/ui/screens/measure_editor_aggregation.dart';
+import 'package:studyme/ui/screens/schedule_editor.dart';
 
 import '../widgets/action_button.dart';
 import '../widgets/section_title.dart';
@@ -145,8 +145,10 @@ class _MeasureEditorChoiceState extends State<MeasureEditorChoice> {
         : Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MeasureEditorAggregation(
-                  measure: widget.measure, onSave: widget.onSave, save: false),
+              builder: (context) => ScheduleEditor(
+                  title: widget.measure.title,
+                  objectWithSchedule: widget.measure,
+                  onSave: widget.onSave),
             ));
   }
 }
