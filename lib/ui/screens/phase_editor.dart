@@ -7,8 +7,6 @@ import 'package:studyme/models/phases/phases.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/ui/widgets/phases_widget.dart';
-import 'package:studyme/ui/widgets/section_title.dart';
-
 import 'package:studyme/util/util.dart';
 
 class PhaseEditor extends StatefulWidget {

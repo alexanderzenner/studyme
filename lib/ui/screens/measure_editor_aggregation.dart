@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:studyme/models/measure/aggregations.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/screens/schedule_editor.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
-
-import 'package:studyme/models/measure/aggregations.dart';
 import 'package:studyme/ui/widgets/choice_card.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
 
 class MeasureEditorAggregation extends StatefulWidget {
   final Measure measure;

@@ -6,7 +6,6 @@ import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/util/notifications.dart';
-
 import 'package:studyme/util/time_of_day_extension.dart';
 
 class ScheduleEditor extends StatefulWidget {

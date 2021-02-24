@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
 
 class GoalEditorOutcome extends StatefulWidget {
   final String outcome;
