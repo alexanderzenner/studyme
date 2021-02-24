@@ -4,6 +4,8 @@ import 'package:studyme/ui/screens/schedule_editor.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 
 import 'package:studyme/models/measure/aggregations.dart';
+import 'package:studyme/ui/widgets/choice_card.dart';
+import 'package:studyme/ui/widgets/hint_card.dart';
 
 class MeasureEditorAggregation extends StatefulWidget {
   final Measure measure;
@@ -62,15 +64,16 @@ class _MeasureEditorAggregationState extends State<MeasureEditorAggregation> {
               SizedBox(
                 height: 10,
               ),
-              DropdownButtonFormField<ValueAggregation>(
-                decoration: InputDecoration(labelText: 'Aggregation'),
-                onChanged: _changeAggregationType,
-                value: _aggregation,
-                items: ValueAggregation.values
-                    .map((aggregation) => DropdownMenuItem<ValueAggregation>(
-                        value: aggregation, child: Text(aggregation.readable)))
-                    .toList(),
-              )
+              ChoiceCard<ValueAggregation>(
+                  value: ValueAggregation.Average,
+                  selectedValue: _aggregation,
+                  title: Text(ValueAggregation.Average.readable),
+                  onSelect: _changeAggregationType),
+              ChoiceCard<ValueAggregation>(
+                  value: ValueAggregation.Sum,
+                  selectedValue: _aggregation,
+                  title: Text(ValueAggregation.Sum.readable),
+                  onSelect: _changeAggregationType),
             ],
           ),
         ));
