@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/measure/aggregations.dart';
 import 'package:studyme/models/measure/choice_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
@@ -62,7 +61,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                       titleText: "Synced measure",
                       body: [
                         Text(
-                            "This measure requires using the third party Google Fit or Apple Health app. Any measurement you add to the third party app during the trial is fetched and automatically logged for you.")
+                            "This measure requires using the third party Google Fit or Apple Health app. Any measurement you add to the third party app during the trial are automatically fetched.")
                       ],
                     ),
                   ListTile(
