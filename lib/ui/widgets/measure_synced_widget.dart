@@ -17,7 +17,7 @@ class SyncedMeasureWidget extends StatelessWidget {
         if (setConfirmed != null)
           SwitchListTile(
             title: Text(
-                "I logged my ${measure.name} weight in my Google Fit / Apple Health app"),
+                "I logged my ${measure.name} in my Google Fit / Apple Health app"),
             value: confirmed,
             onChanged: setConfirmed,
           )

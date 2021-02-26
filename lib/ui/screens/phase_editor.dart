@@ -56,16 +56,6 @@ class _PhaseEditorState extends State<PhaseEditor> {
                       Text(
                           '\u2022 Under the flag in the phase overview below you can see the total duration of your trial.',
                           style: TextStyle(fontStyle: FontStyle.italic)),
-                      Text(''),
-                      Text('Number of Pairs',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text(
-                          'This number defines how many pairs of A and B phases your trial has.'),
-                      Text(''),
-                      Text('Phase Duration',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text(
-                          'This number defines how long each of the phases is.')
                     ],
                   ),
                   SizedBox(height: 10),

@@ -6,6 +6,8 @@ import 'package:studyme/util/debug_functions.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
+import 'package:studyme/util/util.dart';
+
 import '../../routes.dart';
 
 class Settings extends StatelessWidget {
@@ -78,7 +80,6 @@ class Settings extends StatelessWidget {
   _exportTrialInfo(BuildContext context) {
     Clipboard.setData(new ClipboardData(
         text: json.encode(Provider.of<AppData>(context).trial.toJson())));
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Data copied. Please share as instructed.")));
+    toast(context, "Data copied to clipboard. Please share as instructed.");
   }
 }

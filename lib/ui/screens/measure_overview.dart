@@ -11,6 +11,8 @@ import 'package:studyme/ui/widgets/editable_list_tile.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/util/string_extension.dart';
 
+import 'package:studyme/util/util.dart';
+
 import 'measure_editor_choice.dart';
 import 'measure_editor_name.dart';
 import 'schedule_editor.dart';
@@ -61,7 +63,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                       titleText: "Synced measure",
                       body: [
                         Text(
-                            "This measure requires using the third party Google Fit or Apple Health app. Any measurement you add to the third party app during the trial are automatically fetched.")
+                            "This measure requires using the third party Google Fit or Apple Health app. Any measurement you add to the third party app during the trial is automatically fetched.")
                       ],
                     ),
                   ListTile(
@@ -135,9 +137,8 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                   onSave: saveFunction),
             ));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-                "Access denied. In order for StudyMe to track your ${widget.measure.name} automatically you need to grant permissions.")));
+        toast(context,
+            "Access denied. In order for StudyMe to track your ${widget.measure.name} automatically you need to grant permissions.");
       }
     });
   }
