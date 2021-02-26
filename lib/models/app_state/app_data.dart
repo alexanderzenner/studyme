@@ -105,7 +105,7 @@ class AppData extends ChangeNotifier {
 
   loadAppState() async {
     box = await Hive.openBox('app_data');
-    _trial = null;
+    _trial = box.get(activeTrialKey);
 
     // first time app is started, initialize state and trial
     if (state == null) {
