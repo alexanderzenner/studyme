@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/measure/choice_measure.dart';
+import 'package:studyme/models/measure/free_measure.dart';
+import 'package:studyme/models/measure/scale_measure.dart';
+import 'package:studyme/models/measure/synced_measure.dart';
 import 'package:studyme/ui/widgets/intervention_letter.dart';
+import 'package:studyme/ui/widgets/timeline_card.dart';
 
 import '../../routes.dart';
 
@@ -12,7 +17,7 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
-  final int _numPages = 3;
+  final int _numPages = 5;
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
 
@@ -45,18 +50,6 @@ class _OnboardingState extends State<Onboarding> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              alignment: Alignment.centerRight,
-              child: FlatButton(
-                onPressed: _navigateToCreator,
-                child: Text(
-                  'Skip',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                  ),
-                ),
-              ),
-            ),
             Expanded(
               child: PageView(
                 physics: ClampingScrollPhysics(),
@@ -73,17 +66,49 @@ class _OnboardingState extends State<Onboarding> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text("Welcome to StudyMe",
-                            style: TextStyle(fontSize: 30)),
-                        Text("Compare Interventions"),
-                        Text("StudyMe let's you evaluate interventions."),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InterventionLetter('a'),
-                            Text("vs."),
-                            InterventionLetter('b')
-                          ],
-                        )
+                            style: TextStyle(
+                              fontSize: 23,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        Divider(height: 40),
+                        SizedBox(height: 10),
+                        RichText(
+                          text: TextSpan(
+                            style: TextStyle(color: Colors.black, fontSize: 23),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Are you trying to reach a ',
+                              ),
+                              TextSpan(
+                                  text: 'goal',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              TextSpan(
+                                text:
+                                    " you have for your health or wellbeing, but you are unsure which of the things you could do to achieve it is best for you?",
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        RichText(
+                          text: TextSpan(
+                            style: TextStyle(color: Colors.black, fontSize: 23),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Running a ',
+                              ),
+                              TextSpan(
+                                  text: 'trial',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              TextSpan(
+                                text:
+                                    " can bring certainty and with StudyMe you can create and run your own personal health trials.",
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -92,11 +117,37 @@ class _OnboardingState extends State<Onboarding> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            InterventionLetter('a'),
+                            Text("vs.", style: TextStyle(fontSize: 20)),
+                            InterventionLetter('b')
+                          ],
+                        ),
+                        Divider(height: 40),
                         Text(
-                            "An Intervention is anything you can do to reach your desired outcome."),
+                            "The idea of a trial is to compare two things labeled as A and B.",
+                            style: TextStyle(fontSize: 23)),
+                        SizedBox(height: 10),
+                        RichText(
+                          text: TextSpan(
+                            style: TextStyle(color: Colors.black, fontSize: 23),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'We call the things you compare ',
+                              ),
+                              TextSpan(
+                                  text: 'interventions.',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10),
                         Text(
-                            "To know if an intervention is actually working we use measures"),
-                        Text("A measure tells you if ...")
+                            "An intervention can be anything that is aimed at reaching your goal, from doing a certain type of workout to taking a specific supplement.",
+                            style: TextStyle(fontSize: 23)),
                       ],
                     ),
                   ),
@@ -104,9 +155,105 @@ class _OnboardingState extends State<Onboarding> {
                     padding: EdgeInsets.all(40.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[],
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TimelineCard(cardChild: InterventionLetter('a')),
+                            TimelineCard(cardChild: InterventionLetter('b')),
+                            TimelineCard(cardChild: InterventionLetter('b')),
+                            TimelineCard(cardChild: InterventionLetter('a')),
+                            TimelineCard(cardChild: InterventionLetter('a')),
+                            TimelineCard(cardChild: InterventionLetter('b')),
+                          ],
+                        ),
+                        Divider(height: 40),
+                        RichText(
+                          text: TextSpan(
+                            style: TextStyle(color: Colors.black, fontSize: 23),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'During a trial you complete multiple ',
+                              ),
+                              TextSpan(
+                                  text: 'phases.',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text("During each phase you follow either A or B.",
+                            style: TextStyle(fontSize: 23)),
+                        SizedBox(height: 10),
+                        Text(
+                            "The more phases you complete, and the longer they are, the more certain you can be about the result.",
+                            style: TextStyle(fontSize: 23)),
+                      ],
                     ),
                   ),
+                  Padding(
+                    padding: EdgeInsets.all(40.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TimelineCard(cardChild: Icon(FreeMeasure.icon)),
+                            TimelineCard(cardChild: Icon(ChoiceMeasure.icon)),
+                            TimelineCard(cardChild: Icon(ScaleMeasure.icon)),
+                            TimelineCard(cardChild: Icon(SyncedMeasure.icon)),
+                          ],
+                        ),
+                        Divider(height: 40),
+                        RichText(
+                          text: TextSpan(
+                            style: TextStyle(color: Colors.black, fontSize: 23),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text:
+                                    'To know whether A or B is actually helping you, we use ',
+                              ),
+                              TextSpan(
+                                  text: 'measures.',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                            "A measure ideally is linked to the goal you are trying to achieve.",
+                            style: TextStyle(fontSize: 23)),
+                        SizedBox(height: 10),
+                        RichText(
+                          text: TextSpan(
+                            style: TextStyle(color: Colors.black, fontSize: 23),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text:
+                                    'For example if you want to improve your sleep, one measure could be ',
+                              ),
+                              TextSpan(
+                                  text: 'hours slept last night.',
+                                  style:
+                                      TextStyle(fontStyle: FontStyle.italic)),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                      padding: EdgeInsets.all(40.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Ready? Let's get started!",
+                              style: TextStyle(fontSize: 23))
+                        ],
+                      ))
                 ],
               ),
             ),
