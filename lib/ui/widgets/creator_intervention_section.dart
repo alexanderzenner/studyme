@@ -27,7 +27,7 @@ class CreatorInterventionSection extends StatelessWidget {
           if (isActive && model.trial.numberOfInterventions == null)
             HintCard(titleText: "Set Interventions", body: [
               Text(
-                  'Click on the + below, to choose the number of interventions.')
+                  'Click on the + below, to choose the number of interventions you want to compare.')
             ]),
           SectionTitle('Interventions',
               action: model.trial.numberOfInterventions == null
@@ -52,7 +52,7 @@ class CreatorInterventionSection extends StatelessWidget {
         child: ListTile(
           leading: Icon(Icons.compare_arrows),
           title: model.trial.numberOfInterventions == 1
-              ? Text('Compare one intervention to baseline')
+              ? Text('Evaluate one intervention')
               : Text('Compare two interventions'),
           trailing: Icon(Icons.chevron_right),
           onTap: () => _navigateToGoalNumberOfInterventionsEditor(context),

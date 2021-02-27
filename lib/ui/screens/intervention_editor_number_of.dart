@@ -64,7 +64,7 @@ class _InterventionEditorNumberOfState
                     Text('1) One Intervention',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(
-                        "Compare one intervention to your baseline. Baseline means that you don't change anything about your existing lifestyle."),
+                        "Evaluate one intervention, by comparing it to your baseline. Baseline means that you don't change anything about your existing lifestyle."),
                     Text(''),
                     Text(
                         "Example: You want to find out if drinking tea makes you more productive than you currently are.",
@@ -92,7 +92,7 @@ class _InterventionEditorNumberOfState
                     value: 1,
                     selectedValue: _numberOfInterventions,
                     onSelect: _selectOption,
-                    title: Text('Compare one intervention to baseline')),
+                    title: Text('Evaluate one intervention')),
                 ChoiceCard<int>(
                     value: 2,
                     selectedValue: _numberOfInterventions,
