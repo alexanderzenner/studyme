@@ -52,7 +52,7 @@ class CreatorInterventionSection extends StatelessWidget {
         child: ListTile(
           leading: Icon(Icons.compare_arrows),
           title: model.trial.numberOfInterventions == 1
-              ? Text('Evaluate one intervention')
+              ? Text('Compare one intervention to baseline')
               : Text('Compare two interventions'),
           trailing: Icon(Icons.chevron_right),
           onTap: () => _navigateToGoalNumberOfInterventionsEditor(context),
@@ -70,7 +70,7 @@ class CreatorInterventionSection extends StatelessWidget {
               'Click on the card below, to set the intervention you want to evaluate.'),
           Text(''),
           Text(
-              'Note: As you selected to evaluate one intervention, Intervention B was set to No Intervention automatically.')
+              'Note: As you selected to evaluate one intervention, B was set to Baseline automatically.')
         ]),
       InterventionCard(
           letter: 'a',
