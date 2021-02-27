@@ -70,7 +70,8 @@ class CreatorInterventionSection extends StatelessWidget {
               'Click on the card below, to set the intervention you want to evaluate.'),
           Text(''),
           Text(
-              'Note: As you selected to evaluate one intervention, B was set to Baseline automatically.')
+              'Note: As you selected to evaluate one intervention, B was set to Baseline automatically.',
+              style: TextStyle(fontStyle: FontStyle.italic))
         ]),
       InterventionCard(
           letter: 'a',
