@@ -62,12 +62,12 @@ class CreatorInterventionSection extends StatelessWidget {
           model.trial.numberOfInterventions == 2)
         HintCard(titleText: "Add Intervention A & B", body: [
           Text(
-              'Click on the cards below, to set the two interventions you want to compare.')
+              'Click on the cards below to set the two interventions you want to compare.')
         ]),
       if (model.trial.a == null && model.trial.numberOfInterventions == 1)
         HintCard(titleText: "Add Intervention A", body: [
           Text(
-              'Click on the card below, to set the intervention you want to evaluate.'),
+              'Click on the card below to set the intervention you want to evaluate.'),
           Text(''),
           Text(
               'Note: As you selected to evaluate one intervention, B was set to Baseline automatically.',

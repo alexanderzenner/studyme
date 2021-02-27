@@ -187,7 +187,7 @@ class _OnboardingState extends State<Onboarding> {
                             style: TextStyle(fontSize: 23)),
                         SizedBox(height: 10),
                         Text(
-                            "The more phases you complete, and the longer they are, the more certain you can be about the result.",
+                            "The more phases you complete and the longer they are, the more certain you can be about the result.",
                             style: TextStyle(fontSize: 23)),
                       ],
                     ),

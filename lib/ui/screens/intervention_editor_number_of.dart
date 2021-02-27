@@ -64,7 +64,7 @@ class _InterventionEditorNumberOfState
                     Text('1) One Intervention',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(
-                        "Evaluate one intervention, by comparing it to your baseline. Baseline means that you don't change anything about your existing lifestyle."),
+                        "Evaluate one intervention, by comparing it to your baseline. Baseline means that you don't change anything about your current lifestyle."),
                     Text(''),
                     Text(
                         "Example: You want to find out if drinking tea makes you more productive than you currently are.",

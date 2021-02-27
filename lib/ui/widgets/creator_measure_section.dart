@@ -26,7 +26,7 @@ class CreatorMeasureSection extends StatelessWidget {
               titleText: "Add Measures",
               body: [
                 Text(
-                    "Finally we define the measures that are used to determine if you are reaching your goal."),
+                    "Finally, we define the measures that are used to determine if you are reaching your goal."),
                 Text(''),
                 Text('Click the + below to add at least one measure.')
               ],

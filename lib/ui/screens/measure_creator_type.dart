@@ -68,7 +68,7 @@ class _MeasureCreatorTypeState extends State<MeasureCreatorType> {
                   titleText: "Choose input type",
                   body: [
                     Text('Free', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('The measurement is entered via keyboard'),
+                    Text('The measurement is entered via keyboard.'),
                     Text(''),
                     Text('Choice',
                         style: TextStyle(fontWeight: FontWeight.bold)),
@@ -78,7 +78,7 @@ class _MeasureCreatorTypeState extends State<MeasureCreatorType> {
                     Text('Scale',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(
-                        'The measurment is entered via a scale. You need to define the scale in a next step.'),
+                        'The measurement is entered via a scale. You need to define the scale in a next step.'),
                     Text('')
                   ],
                 ),
