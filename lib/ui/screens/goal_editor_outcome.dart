@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
+import 'package:studyme/ui/widgets/hint_card.dart';
+import 'package:studyme/ui/widgets/hints.dart';
 
 class GoalEditorOutcome extends StatefulWidget {
   final String outcome;
@@ -39,6 +41,7 @@ class _GoalEditorOutcomeState extends State<GoalEditorOutcome> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Hints.goalEditorHint,
                 SizedBox(height: 10),
                 TextFormField(
                   autofocus: _outcome == null,
