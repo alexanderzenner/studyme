@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
+import 'package:studyme/models/log/completed_task_log.dart';
 import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/task/measure_task.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
@@ -74,16 +75,16 @@ class _MeasureInteractorState extends State<MeasureInteractor> {
   }
 
   _logValue() {
+    var now = DateTime.now();
+    var time = DateTime(now.year, now.month, now.day, widget.task.time.hour,
+        widget.task.time.minute);
     if (_value != null) {
-      var now = DateTime.now();
-      var time = DateTime(now.year, now.month, now.day, widget.task.time.hour,
-          widget.task.time.minute);
       var log = TrialLog(widget.task.measure.id, time, _value);
       Provider.of<LogData>(context, listen: false)
           .addMeasureLogs([log], widget.task.measure);
     }
-    Provider.of<LogData>(context, listen: false)
-        .addCompletedTaskId(widget.task.id);
+    Provider.of<LogData>(context, listen: false).addCompletedTaskLog(
+        CompletedTaskLog(taskId: widget.task.id, dateTime: now));
     Navigator.pop(context, true);
   }
 }

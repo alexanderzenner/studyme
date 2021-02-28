@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
+import 'package:studyme/models/log/completed_task_log.dart';
 import 'package:studyme/models/task/intervention_task.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 
@@ -61,8 +62,9 @@ class _InterventionInteractorState extends State<InterventionInteractor> {
   }
 
   _markCompleted() {
-    Provider.of<LogData>(context, listen: false)
-        .addCompletedTaskId(widget.task.id);
+    var now = DateTime.now();
+    Provider.of<LogData>(context, listen: false).addCompletedTaskLog(
+        CompletedTaskLog(taskId: widget.task.id, dateTime: now));
     Navigator.pop(context, true);
   }
 }

@@ -7,9 +7,9 @@ import 'package:studyme/models/measure/measure.dart';
 class LogData extends ChangeNotifier {
   static const completedTaskIdsKey = 'completedTasks';
 
-  void addCompletedTaskId(String id) async {
+  void addCompletedTaskLog(CompletedTaskLog log) async {
     Box box = await Hive.openBox(completedTaskIdsKey);
-    box.add(CompletedTaskLog(taskId: id, dateTime: DateTime.now()));
+    box.add(log);
     notifyListeners();
   }
 

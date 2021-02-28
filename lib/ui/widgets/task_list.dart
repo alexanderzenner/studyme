@@ -60,6 +60,14 @@ class _TaskListState extends State<TaskList> {
   _buildTaskList() {
     return Column(
       children: [
+        if (!_todaysTasks.any((element) => element is InterventionTask))
+          HintCard(
+            titleText: "No intervention today",
+          ),
+        if (!_todaysTasks.any((element) => element is MeasureTask))
+          HintCard(
+            titleText: "No measures today",
+          ),
         if (_todaysTasks.length > 0)
           ListView.builder(
             shrinkWrap: true,
@@ -73,14 +81,6 @@ class _TaskListState extends State<TaskList> {
               );
             },
           ),
-        if (!_todaysTasks.any((element) => element is InterventionTask))
-          HintCard(
-            titleText: "No intervention today",
-          ),
-        if (!_todaysTasks.any((element) => element is MeasureTask))
-          HintCard(
-            titleText: "No measures today",
-          )
       ],
     );
   }

@@ -73,12 +73,12 @@ class _MeasureCreatorTypeState extends State<MeasureCreatorType> {
                     Text('Choice',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(
-                        'The measurement is selected from a choice list. You need to define the choices in a next step.'),
+                        'The measurement is selected from a choice list. You need to define the choices in a following step.'),
                     Text(''),
                     Text('Scale',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(
-                        'The measurement is entered via a scale. You need to define the scale in a next step.'),
+                        'The measurement is entered via a scale. You need to define the scale in a following step.'),
                     Text('')
                   ],
                 ),

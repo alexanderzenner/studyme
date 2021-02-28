@@ -50,7 +50,7 @@ class Intervention with HasSchedule {
     this.schedule = intervention.schedule;
   }
 
-  List<Task> getTasksFor(daysSinceBeginningOfTimeRange) {
+  List<Task> getTasksFor(int daysSinceBeginningOfTimeRange) {
     List<TimeOfDay> times =
         this.schedule.getTaskTimesFor(daysSinceBeginningOfTimeRange);
     return times.map((time) => InterventionTask(this, time)).toList();

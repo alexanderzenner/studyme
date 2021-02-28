@@ -20,7 +20,7 @@ class NoIntervention extends Intervention {
   final Schedule schedule = null;
 
   @override
-  List<Task> getTasksFor(daysSinceBeginningOfTimeRange) {
+  List<Task> getTasksFor(int daysSinceBeginningOfTimeRange) {
     return [];
   }
 
