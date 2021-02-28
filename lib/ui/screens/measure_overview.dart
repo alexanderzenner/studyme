@@ -80,39 +80,37 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                       title: Text("Name"),
                       subtitle: Text(measure.name),
                       canEdit: !widget.isPreview && measure.canEdit,
-                      onTap: () => _editName(context, measure)),
+                      onTap: () => _editName(measure)),
                   if (measure is ChoiceMeasure)
                     EditableListTile(
                         title: Text("Choices"),
                         subtitle: Text(measure.choicesString),
                         canEdit: !widget.isPreview,
-                        onTap: () => _editChoices(context, measure)),
+                        onTap: () => _editChoices(measure)),
                   if (measure is ScaleMeasure)
                     EditableListTile(
                         title: Text("Scale"),
                         subtitle: Text(measure.scaleString),
                         canEdit: !widget.isPreview,
-                        onTap: () => _editScale(context, measure)),
+                        onTap: () => _editScale(measure)),
                   if (!widget.isPreview)
                     EditableListTile(
                         title: Text("Schedule"),
                         subtitle: Text(measure.schedule.readable),
                         canEdit: true,
-                        onTap: () => _editSchedule(context, measure)),
+                        onTap: () => _editSchedule(measure)),
                   ButtonBar(
                     children: [
                       if (widget.isPreview)
                         OutlineButton.icon(
                             icon: Icon(Icons.add),
                             label: Text("Add to trial"),
-                            onPressed: () {
-                              _addMeasure(context);
-                            }),
+                            onPressed: _addMeasure),
                       if (!widget.isPreview)
                         OutlineButton.icon(
                             icon: Icon(Icons.delete),
                             label: Text("Remove"),
-                            onPressed: () => _removeMeasure(context)),
+                            onPressed: _removeMeasure),
                     ],
                   ),
                 ],
@@ -120,7 +118,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
         ));
   }
 
-  _addMeasure(context) {
+  _addMeasure() {
     Function saveFunction = (Measure measure) {
       Provider.of<AppData>(context, listen: false).addMeasure(measure);
       Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
@@ -143,7 +141,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
     });
   }
 
-  _removeMeasure(BuildContext context) {
+  _removeMeasure() {
     setState(() {
       _isDeleting = true;
     });
@@ -151,52 +149,46 @@ class _MeasureOverviewState extends State<MeasureOverview> {
     Navigator.pop(context);
   }
 
-  _editName(BuildContext context, Measure measure) {
+  _editName(Measure measure) {
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => MeasureEditorName(
-              measure: measure.clone(),
-              onSave: _getSaveFunction(context),
-              save: true),
+              measure: measure.clone(), onSave: _getSaveFunction(), save: true),
         ));
   }
 
-  _editSchedule(BuildContext context, Measure measure) {
+  _editSchedule(Measure measure) {
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => ScheduleEditor(
             title: measure.title,
             objectWithSchedule: measure,
-            onSave: _getSaveFunction(context),
+            onSave: _getSaveFunction(),
           ),
         ));
   }
 
-  _editChoices(BuildContext context, ChoiceMeasure measure) {
+  _editChoices(ChoiceMeasure measure) {
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => MeasureEditorChoice(
-              measure: measure.clone(),
-              onSave: _getSaveFunction(context),
-              save: true),
+              measure: measure.clone(), onSave: _getSaveFunction(), save: true),
         ));
   }
 
-  _editScale(BuildContext context, ScaleMeasure measure) {
+  _editScale(ScaleMeasure measure) {
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => MeasureEditorScale(
-              measure: measure.clone(),
-              onSave: _getSaveFunction(context),
-              save: true),
+              measure: measure.clone(), onSave: _getSaveFunction(), save: true),
         ));
   }
 
-  _getSaveFunction(context) {
+  _getSaveFunction() {
     return (Measure _measure) {
       Provider.of<AppData>(context).updateMeasure(widget.index, _measure);
       Navigator.pop(context);

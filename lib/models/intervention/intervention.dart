@@ -50,6 +50,16 @@ class Intervention with HasSchedule {
     this.schedule = intervention.schedule;
   }
 
+  static String getTitleFor(String name) {
+    String title = '';
+    if (name != null && name.length > 0) {
+      title += "\"$name\" ";
+    }
+    return title + "Intervention";
+  }
+
+  String get title => getTitleFor(this.name);
+
   List<Task> getTasksFor(int daysSinceBeginningOfTimeRange) {
     List<TimeOfDay> times =
         this.schedule.getTaskTimesFor(daysSinceBeginningOfTimeRange);

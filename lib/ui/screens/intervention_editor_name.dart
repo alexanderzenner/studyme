@@ -7,14 +7,12 @@ import '../widgets/action_button.dart';
 import 'schedule_editor.dart';
 
 class InterventionEditorName extends StatefulWidget {
-  final String title;
   final Intervention intervention;
   final Function(Intervention intervention) onSave;
   final bool save;
 
   const InterventionEditorName(
-      {@required this.title,
-      @required this.intervention,
+      {@required this.intervention,
       @required this.onSave,
       @required this.save});
 
@@ -40,7 +38,7 @@ class _InterventionEditorNameState extends State<InterventionEditorName> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(widget.title),
+              Text(Intervention.getTitleFor(_name)),
               Visibility(
                 visible: true,
                 child: Text(
@@ -97,7 +95,7 @@ class _InterventionEditorNameState extends State<InterventionEditorName> {
             context,
             MaterialPageRoute(
               builder: (context) => ScheduleEditor(
-                  title: widget.title,
+                  title: widget.intervention.name,
                   objectWithSchedule: widget.intervention,
                   onSave: widget.onSave),
             ));

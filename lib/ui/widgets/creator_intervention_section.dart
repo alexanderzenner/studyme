@@ -4,6 +4,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/ui/screens/intervention_editor_number_of.dart';
+import 'package:studyme/ui/screens/intervention_library.dart';
 
 import '../screens/intervention_editor_name.dart';
 import '../screens/intervention_overview.dart';
@@ -100,26 +101,18 @@ class CreatorInterventionSection extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => InterventionOverview(isA: isA),
+        builder: (context) => InterventionOverview(isPreview: false, isA: isA),
       ),
     );
   }
 
   _addIntervention(context, isA) {
-    Function setter = isA ? model.setInterventionA : model.setInterventionB;
-    Function saveFunction = (Intervention intervention) {
-      setter(intervention);
-      Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
-    };
-
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => InterventionEditorName(
-            title: isA ? "Intervention A" : "Intervention B",
-            intervention: Intervention(),
-            onSave: saveFunction,
-            save: false),
+        builder: (context) => InterventionLibrary(
+          isA: isA,
+        ),
       ),
     );
   }

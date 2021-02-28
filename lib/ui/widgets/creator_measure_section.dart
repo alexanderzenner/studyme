@@ -34,10 +34,7 @@ class CreatorMeasureSection extends StatelessWidget {
           SectionTitle('Measures',
               action: IconButton(
                   icon: Icon(Icons.add),
-                  onPressed: isActive
-                      ? () =>
-                          Navigator.pushNamed(context, Routes.measure_library)
-                      : null)),
+                  onPressed: isActive ? () => _addMeasure(context) : null)),
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
@@ -54,6 +51,10 @@ class CreatorMeasureSection extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _addMeasure(context) {
+    Navigator.pushNamed(context, Routes.measure_library);
   }
 
   _previewMeasure(context, int index) {
