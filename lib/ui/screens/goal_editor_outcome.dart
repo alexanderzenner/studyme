@@ -27,7 +27,6 @@ class _GoalEditorOutcomeState extends State<GoalEditorOutcome> {
     return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
-          title: Text("Goal"),
           actions: <Widget>[
             ActionButton(
                 icon: Icons.check,
@@ -41,15 +40,23 @@ class _GoalEditorOutcomeState extends State<GoalEditorOutcome> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Hints.goalEditorHint,
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 4),
+                  child: Text(
+                      "What do you want to improve about your health or well-being?",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor)),
+                ),
                 SizedBox(height: 10),
+                Text("I want to...",
+                    style: TextStyle(
+                        fontSize: 20, color: Theme.of(context).primaryColor)),
                 TextFormField(
                   autofocus: _outcome == null,
                   initialValue: _outcome,
                   onChanged: _changeOutcome,
-                  decoration: InputDecoration(
-                    labelText: 'Goal',
-                  ),
                 ),
               ],
             ),

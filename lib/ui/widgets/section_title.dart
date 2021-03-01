@@ -20,7 +20,7 @@ class SectionTitle extends StatelessWidget {
               Text(text,
                   style: TextStyle(
                       fontWeight: this.isSubtitle ? null : FontWeight.bold,
-                      fontSize: 18,
+                      fontSize: 20,
                       color: this.isSubtitle
                           ? null
                           : Theme.of(context).primaryColor)),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/choice_card.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
@@ -26,25 +28,10 @@ class _InterventionEditorNumberOfState
 
   @override
   Widget build(BuildContext context) {
+    String interventionAName = Provider.of<AppData>(context).trial.a.name;
     return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text("Interventions"),
-              Visibility(
-                visible: true,
-                child: Text(
-                  'Number of Interventions',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                  ),
-                ),
-              ),
-            ],
-          ),
           actions: <Widget>[
             ActionButton(
                 icon: Icons.check,
@@ -58,46 +45,32 @@ class _InterventionEditorNumberOfState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HintCard(
-                  titleText: "Choose number of interventions",
+                Text(
+                    'Do you want to compare “$interventionAName” to something else?',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor)),
+                SizedBox(height: 10),
+                ChoiceCard<int>(
+                  value: 1,
+                  selectedValue: _numberOfInterventions,
+                  onSelect: _selectOption,
+                  title: Text('No'),
                   body: [
-                    Text('1) One Intervention',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(
-                        "Evaluate one intervention, by comparing it to your baseline. Baseline means that you don't change anything about your current lifestyle."),
-                    Text(''),
-                    Text(
-                        "Example: You want to find out if drinking tea makes you more productive than you currently are.",
-                        style: TextStyle(fontStyle: FontStyle.italic)),
-                    Text("A: Drink tea",
-                        style: TextStyle(fontStyle: FontStyle.italic)),
-                    Text("B: Baseline (*do nothing*)",
-                        style: TextStyle(fontStyle: FontStyle.italic)),
-                    Text(''),
-                    Text('2) Two Interventions',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text("Compare one intervention to another intervention. "),
-                    Text(''),
-                    Text(
-                        "Example: You want to find out if drinking tea or drinking coffee makes you more productive.",
-                        style: TextStyle(fontStyle: FontStyle.italic)),
-                    Text("A: Drink tea",
-                        style: TextStyle(fontStyle: FontStyle.italic)),
-                    Text("B: Drink coffee",
-                        style: TextStyle(fontStyle: FontStyle.italic)),
-                    Text(''),
+                        'I just want to find out if “$interventionAName” helps me achieve my goal')
                   ],
                 ),
-                ChoiceCard<int>(
-                    value: 1,
-                    selectedValue: _numberOfInterventions,
-                    onSelect: _selectOption,
-                    title: Text('Evaluate one intervention')),
                 ChoiceCard<int>(
                     value: 2,
                     selectedValue: _numberOfInterventions,
                     onSelect: _selectOption,
-                    title: Text('Compare two interventions')),
+                    title: Text('Yes'),
+                    body: [
+                      Text(
+                          'I want to compare “$interventionAName” to something else to see which of the two options is better for achieving my goal')
+                    ]),
               ],
             ),
           ),

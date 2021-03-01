@@ -166,12 +166,8 @@ class AppData extends ChangeNotifier {
     return _trial.outcome != null;
   }
 
-  bool canDefinePhases() {
-    return _trial.a != null && _trial.b != null;
-  }
-
   bool canDefineMeasures() {
-    return canDefinePhases() && _trial.phases != null;
+    return canDefineInterventions() && _trial.a != null && _trial.b != null;
   }
 
   bool canStartTrial() {

@@ -49,7 +49,7 @@ class _InterventionOverviewState extends State<InterventionOverview> {
     return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
-          title: Text(intervention.title),
+          title: Text(intervention.name),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -99,7 +99,7 @@ class _InterventionOverviewState extends State<InterventionOverview> {
         context,
         MaterialPageRoute(
           builder: (context) => ScheduleEditor(
-              title: widget.intervention.title,
+              title: widget.intervention.name,
               objectWithSchedule: widget.intervention,
               onSave: saveFunction),
         ));
@@ -124,7 +124,7 @@ class _InterventionOverviewState extends State<InterventionOverview> {
         context,
         MaterialPageRoute(
           builder: (context) => ScheduleEditor(
-              title: intervention.title,
+              title: intervention.name,
               objectWithSchedule: intervention,
               onSave: (Intervention _intervention) {
                 _getSetter()(_intervention);

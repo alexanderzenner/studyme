@@ -38,7 +38,7 @@ class _InterventionEditorNameState extends State<InterventionEditorName> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(Intervention.getTitleFor(_name)),
+              Text(_name ?? ''),
               Visibility(
                 visible: true,
                 child: Text(

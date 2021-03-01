@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/goal_editor_outcome.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
-
-import 'section_title.dart';
+import 'package:studyme/ui/widgets/section_title.dart';
 
 class CreatorGoalSection extends StatelessWidget {
   final AppData model;
@@ -26,13 +25,16 @@ class CreatorGoalSection extends StatelessWidget {
               Text("Click on the + below to set your goal.")
             ],
           ),
-        SectionTitle('Goal',
-            action: !_outcomeIsSet()
-                ? IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () => _navigateToGoalOutcomeEditor(context),
-                  )
-                : null),
+        SectionTitle("My goal"),
+        if (!_outcomeIsSet())
+          ButtonBar(
+            children: [
+              OutlineButton.icon(
+                  icon: Icon(Icons.add),
+                  label: Text('Select'),
+                  onPressed: () => _navigateToGoalOutcomeEditor(context)),
+            ],
+          ),
         if (_outcomeIsSet())
           Card(
             child: ListTile(

@@ -17,39 +17,57 @@ class MeasureLibrary extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
-          title: Text("Add Measure"),
         ),
-        body: SingleChildScrollView(
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              HintCard(
-                titleText: "Add existing or new measure",
-                body: [
-                  Text(
-                      "You can choose from a set of predefined measures or create your own."),
-                ],
+              Text(
+                  "What ${(model.trial.measures.length > 0) ? 'other ' : ''}data do you want to collect to assess if you are achieving your goal (${model.trial.outcome})?",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Theme.of(context).primaryColor)),
+              Center(
+                child: Column(
+                  children: [
+                    SizedBox(height: 10),
+                    RaisedButton.icon(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                        color: Colors.green,
+                        icon: Icon(Icons.add, color: Colors.white),
+                        label: Text(
+                          'Create your own',
+                          style: TextStyle(color: Colors.white, fontSize: 15),
+                        ),
+                        onPressed: () {
+                          _createMeasure(context);
+                        }),
+                    Text('or select existing:',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            color: Theme.of(context).primaryColor)),
+                    SizedBox(height: 10),
+                  ],
+                ),
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: _unaddedMeasures.length,
-                itemBuilder: (context, index) {
-                  Measure _measure = _unaddedMeasures[index];
-                  return MeasureCard(
-                      measure: _measure,
-                      onTap: () => _previewMeasure(context, _measure));
-                },
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: _unaddedMeasures.length,
+                  itemBuilder: (context, index) {
+                    Measure _measure = _unaddedMeasures[index];
+                    return MeasureCard(
+                        measure: _measure,
+                        onTap: () => _previewMeasure(context, _measure));
+                  },
+                ),
               ),
-              SizedBox(height: 90)
             ],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _createMeasure(context);
-          },
-          child: Icon(Icons.add),
-          backgroundColor: Colors.green,
         ),
       );
     });

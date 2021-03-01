@@ -68,32 +68,16 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HintCard(
-                  titleText: "Set Schedule",
-                  body: [
-                    Text('Frequency',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(
-                        'The frequency can be set to daily or to every 2 or more days.'),
-                    Text(''),
-                    Text('Times',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(
-                        'You can schedule one or multiple times in a day. For each time the app will also send you a notification to remind you.'),
-                    Text(''),
-                    Text('Click the + below to add at least one time.')
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
+                Text('At what time do you want to get reminded?',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor)),
+                SizedBox(height: 10),
                 _buildFrequencySelector(),
-                SizedBox(height: 20),
-                SectionTitle('Times',
-                    isSubtitle: true,
-                    action:
-                        IconButton(icon: Icon(Icons.add), onPressed: _addTime)),
+                SizedBox(height: 10),
                 ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
@@ -109,6 +93,14 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
                         ),
                       );
                     }),
+                ButtonBar(
+                  children: [
+                    OutlineButton.icon(
+                        icon: Icon(Icons.add),
+                        label: Text("Add Time"),
+                        onPressed: _addTime),
+                  ],
+                ),
               ],
             ),
           ),
@@ -126,9 +118,6 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
 
   _buildFrequencySelector() {
     Widget _dropDown = DropdownButtonFormField<Frequency>(
-      decoration: InputDecoration(
-        labelText: 'Frequency',
-      ),
       onChanged: _changeFrequency,
       value: _frequency,
       items: Frequency.values
