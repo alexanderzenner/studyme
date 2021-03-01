@@ -72,6 +72,8 @@ class Settings extends StatelessWidget {
     if (_confirmed != null && _confirmed) {
       Provider.of<AppData>(context, listen: false).cancelAllNotifications();
       deleteLogs(Provider.of<AppData>(context, listen: false).trial);
+      Provider.of<AppData>(context, listen: false)
+          .saveAppState(AppState.CREATING);
       Provider.of<AppData>(context, listen: false).createNewTrial();
       Navigator.pushReplacementNamed(context, Routes.onboarding);
     }
