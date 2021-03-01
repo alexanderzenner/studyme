@@ -27,11 +27,9 @@ class Creator extends StatelessWidget {
                     model,
                   ),
                   Divider(height: 30),
-                  CreatorInterventionSection(model,
-                      isActive: model.canDefineInterventions()),
+                  CreatorInterventionSection(model),
                   Divider(height: 30),
-                  CreatorMeasureSection(model,
-                      isActive: model.canDefineMeasures()),
+                  CreatorMeasureSection(model),
                   SizedBox(height: 60),
                   ButtonTheme(
                     minWidth: 100,
@@ -46,14 +44,9 @@ class Creator extends StatelessWidget {
                         'Next',
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CreatorPhases(),
-                          ),
-                        );
-                      },
+                      onPressed: model.canStartTrial()
+                          ? () => _navigateToCreatorPhases(context)
+                          : null,
                     ),
                   ),
                   SizedBox(height: 10),
@@ -64,5 +57,14 @@ class Creator extends StatelessWidget {
         ),
       );
     });
+  }
+
+  _navigateToCreatorPhases(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CreatorPhases(),
+      ),
+    );
   }
 }

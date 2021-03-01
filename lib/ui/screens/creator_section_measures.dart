@@ -4,14 +4,13 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/routes.dart';
 import 'package:studyme/ui/screens/measure_overview.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
-import 'package:studyme/ui/widgets/section_title.dart';
 
 class CreatorMeasureSection extends StatelessWidget {
   final AppData model;
 
   final bool isActive;
 
-  CreatorMeasureSection(this.model, {@required this.isActive});
+  CreatorMeasureSection(this.model, {this.isActive = true});
 
   @override
   Widget build(BuildContext context) {

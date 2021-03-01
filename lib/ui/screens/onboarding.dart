@@ -287,7 +287,7 @@ class _OnboardingState extends State<Onboarding> {
 
   _navigateToCreator() {
     Provider.of<AppData>(context, listen: false)
-        .saveAppState(AppState.CREATING);
+        .saveAppState(AppState.CREATING_DETAILS);
     Navigator.pushReplacementNamed(context, Routes.creator);
   }
 }

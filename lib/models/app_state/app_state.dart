@@ -7,7 +7,9 @@ enum AppState {
   @HiveField(0)
   ONBOARDING,
   @HiveField(1)
-  CREATING,
+  CREATING_DETAILS,
   @HiveField(2)
+  CREATING_PHASES,
+  @HiveField(3)
   DOING
 }

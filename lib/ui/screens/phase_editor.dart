@@ -15,15 +15,15 @@ class PhaseEditor extends StatefulWidget {
 }
 
 class _PhaseEditorState extends State<PhaseEditor> {
-  Phases _schedule;
+  Phases _phases;
 
   @override
   void initState() {
     final trial = Provider.of<AppData>(context, listen: false).trial;
     if (trial.phases != null) {
-      _schedule = trial.phases.clone();
+      _phases = trial.phases.clone();
     } else {
-      _schedule = Phases.createDefault();
+      _phases = Phases.createDefault();
     }
     super.initState();
   }
@@ -59,24 +59,24 @@ class _PhaseEditorState extends State<PhaseEditor> {
                     ],
                   ),
                   SizedBox(height: 10),
-                  PhasesWidget(phases: _schedule, showDuration: true),
+                  PhasesWidget(phases: _phases, showDuration: true),
                   SizedBox(height: 20),
                   TextFormField(
-                    initialValue: _schedule.phaseDuration.toString(),
+                    initialValue: _phases.phaseDuration.toString(),
                     keyboardType: TextInputType.number,
                     onChanged: _updatePhaseDuration,
                     decoration:
                         InputDecoration(labelText: 'Phase Duration (in days)'),
                   ),
                   TextFormField(
-                    initialValue: _schedule.numberOfCycles.toString(),
+                    initialValue: _phases.numberOfCycles.toString(),
                     keyboardType: TextInputType.number,
                     onChanged: _updateNumberOfCycles,
                     decoration: InputDecoration(labelText: 'Number of Pairs'),
                   ),
                   DropdownButtonFormField<PhaseOrder>(
                     decoration: InputDecoration(labelText: 'Phase Order'),
-                    value: _schedule.phaseOrder,
+                    value: _phases.phaseOrder,
                     onChanged: _updatePhaseOrder,
                     items: [PhaseOrder.alternating, PhaseOrder.counterbalanced]
                         .map<DropdownMenuItem<PhaseOrder>>((value) {
@@ -94,16 +94,16 @@ class _PhaseEditorState extends State<PhaseEditor> {
   }
 
   _canSubmit() {
-    return _schedule.totalDuration > 0 &&
-        _schedule.totalDuration < 1000 &&
-        _schedule.phaseDuration <= 365 &&
-        _schedule.numberOfCycles < 100;
+    return _phases.totalDuration > 0 &&
+        _phases.totalDuration < 1000 &&
+        _phases.phaseDuration <= 365 &&
+        _phases.numberOfCycles < 100;
   }
 
   _updateNumberOfCycles(text) {
     textToIntSetter(text, (int number) {
       setState(() {
-        _schedule.updateNumberOfCycles(number);
+        _phases.updateNumberOfCycles(number);
       });
     });
   }
@@ -111,19 +111,19 @@ class _PhaseEditorState extends State<PhaseEditor> {
   _updatePhaseDuration(text) {
     textToIntSetter(text, (int number) {
       setState(() {
-        _schedule.phaseDuration = number;
+        _phases.phaseDuration = number;
       });
     });
   }
 
   _updatePhaseOrder(phaseOrder) {
     setState(() {
-      _schedule.updatePhaseOrder(phaseOrder);
+      _phases.updatePhaseOrder(phaseOrder);
     });
   }
 
   _save() {
-    Provider.of<AppData>(context, listen: false).updateSchedule(_schedule);
+    Provider.of<AppData>(context, listen: false).updateSchedule(_phases);
     Navigator.pop(context, true);
   }
 }

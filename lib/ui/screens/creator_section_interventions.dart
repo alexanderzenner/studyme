@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/intervention_editor_number_of.dart';
 import 'package:studyme/ui/screens/intervention_library.dart';
-import 'package:studyme/ui/widgets/intervention_card.dart';
 import 'package:studyme/ui/widgets/intervention_card_new.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 
@@ -13,7 +12,7 @@ class CreatorInterventionSection extends StatelessWidget {
   final AppData model;
   final bool isActive;
 
-  CreatorInterventionSection(this.model, {this.isActive});
+  CreatorInterventionSection(this.model, {this.isActive = true});
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +44,15 @@ class CreatorInterventionSection extends StatelessWidget {
                     icon: Icon(Icons.add),
                     label: Text('Select'),
                     onPressed: () =>
-                        _navigateToGoalNumberOfInterventionsEditor(context)),
+                        _navigateToGoalNumberOfInterventionsEditor(
+                            context)),
               ],
             ),
           if (model.trial.numberOfInterventions != null)
             Card(
               child: ListTile(
-                title:
-                    Text(model.trial.numberOfInterventions == 1 ? 'No' : 'Yes'),
+                title: Text(
+                    model.trial.numberOfInterventions == 1 ? 'No' : 'Yes'),
                 trailing: Icon(Icons.chevron_right),
                 onTap: () =>
                     _navigateToGoalNumberOfInterventionsEditor(context),

@@ -20,11 +20,24 @@ class AppData extends ChangeNotifier {
   static const interventionALetter = 'a';
   static const interventionBLetter = 'b';
 
+  loadAppState() async {
+    box = await Hive.openBox('app_data');
+    _trial = box.get(activeTrialKey);
+
+    // first time app is started, initialize state and trial
+    if (state == null) {
+      saveAppState(AppState.ONBOARDING);
+    }
+    if (_trial == null) {
+      createNewTrial();
+    }
+  }
+
   Box box;
   Trial _trial;
   List<Measure> _measures;
-  AppState get state => box.get(stateKey);
 
+  AppState get state => box.get(stateKey);
   Trial get trial => _trial;
   List<Measure> get measures => _measures;
 
@@ -103,17 +116,15 @@ class AppData extends ChangeNotifier {
     notifyListeners();
   }
 
-  loadAppState() async {
-    box = await Hive.openBox('app_data');
-    _trial = box.get(activeTrialKey);
+  createNewTrial() {
+    _trial = Trial();
+    box.put(activeTrialKey, _trial);
+  }
 
-    // first time app is started, initialize state and trial
-    if (state == null) {
-      saveAppState(AppState.ONBOARDING);
-    }
-    if (_trial == null) {
-      createNewTrial();
-    }
+  finishEditingDetails() {
+    saveAppState(AppState.CREATING_PHASES);
+    _trial.phases = Phases.createDefault();
+    _trial.save();
   }
 
   startTrial() {
@@ -126,11 +137,6 @@ class AppData extends ChangeNotifier {
 
   saveAppState(AppState state) {
     box.put(stateKey, state);
-  }
-
-  createNewTrial() {
-    _trial = Trial();
-    box.put(activeTrialKey, _trial);
   }
 
   void scheduleNotificationsFor(DateTime date) async {
