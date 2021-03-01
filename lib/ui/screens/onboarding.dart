@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/app_state.dart';
-import 'package:studyme/models/measure/choice_measure.dart';
+import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/models/measure/synced_measure.dart';
@@ -201,7 +201,7 @@ class _OnboardingState extends State<Onboarding> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             TimelineCard(cardChild: Icon(FreeMeasure.icon)),
-                            TimelineCard(cardChild: Icon(ChoiceMeasure.icon)),
+                            TimelineCard(cardChild: Icon(ListMeasure.icon)),
                             TimelineCard(cardChild: Icon(ScaleMeasure.icon)),
                             TimelineCard(cardChild: Icon(SyncedMeasure.icon)),
                           ],

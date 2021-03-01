@@ -10,14 +10,14 @@ import 'package:uuid/uuid.dart';
 import '../schedule.dart';
 import '../task/task.dart';
 import 'aggregations.dart';
-import 'choice_measure.dart';
+import 'list_measure.dart';
 import 'free_measure.dart';
 
 typedef MeasureTaskParser = Measure Function(Map<String, dynamic> data);
 
 abstract class Measure with HasSchedule {
   static Map<String, MeasureTaskParser> measureTypes = {
-    ChoiceMeasure.measureType: (json) => ChoiceMeasure.fromJson(json),
+    ListMeasure.measureType: (json) => ListMeasure.fromJson(json),
     FreeMeasure.measureType: (json) => FreeMeasure.fromJson(json),
     ScaleMeasure.measureType: (json) => ScaleMeasure.fromJson(json),
     SyncedMeasure.measureType: (json) => SyncedMeasure.fromJson(json),
@@ -69,8 +69,8 @@ abstract class Measure with HasSchedule {
     switch (this.runtimeType) {
       case FreeMeasure:
         return FreeMeasure.icon;
-      case ChoiceMeasure:
-        return ChoiceMeasure.icon;
+      case ListMeasure:
+        return ListMeasure.icon;
       case ScaleMeasure:
         return ScaleMeasure.icon;
       case SyncedMeasure:
@@ -84,22 +84,12 @@ abstract class Measure with HasSchedule {
     switch (this.runtimeType) {
       case FreeMeasure:
         return FreeMeasure.clone(this);
-      case ChoiceMeasure:
-        return ChoiceMeasure.clone(this);
+      case ListMeasure:
+        return ListMeasure.clone(this);
       case ScaleMeasure:
         return ScaleMeasure.clone(this);
     }
   }
-
-  static String getTitleFor(String name) {
-    String title = '';
-    if (name != null && name.length > 0) {
-      title += "\"$name\" ";
-    }
-    return title + "Measure";
-  }
-
-  String get title => getTitleFor(this.name);
 
   Future<bool> get canAdd => Future.value(true);
 

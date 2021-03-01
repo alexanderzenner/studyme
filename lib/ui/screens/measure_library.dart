@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
+import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/ui/screens/measure_creator_type.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
+import 'package:studyme/ui/screens/measure_editor_name.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 
 import 'measure_overview.dart';
@@ -92,7 +92,8 @@ class MeasureLibrary extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MeasureCreatorType(onSave: saveFunction),
+        builder: (context) => MeasureEditorName(
+            measure: FreeMeasure(), onSave: saveFunction, save: false),
       ),
     );
   }

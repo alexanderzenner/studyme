@@ -14,6 +14,7 @@ class ChoiceCard<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ListTile(
             leading: Icon(_isSelected()

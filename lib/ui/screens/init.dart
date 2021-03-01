@@ -26,7 +26,8 @@ class _InitState extends State<Init> {
     AppState state = appData.state;
     if (state == AppState.ONBOARDING) {
       Navigator.pushReplacementNamed(context, Routes.onboarding);
-    } else if (state == AppState.CREATING_DETAILS) {
+    } else if (state == AppState.CREATING_DETAILS ||
+        state == AppState.CREATING_PHASES) {
       Navigator.pushReplacementNamed(context, Routes.creator);
     } else if (state == AppState.DOING) {
       // sync measures

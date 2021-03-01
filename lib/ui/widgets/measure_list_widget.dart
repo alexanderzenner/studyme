@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/measure/choice_measure.dart';
+import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/ui/widgets/choice_card.dart';
 
-class ChoiceMeasureWidget extends StatefulWidget {
-  final ChoiceMeasure measure;
+class ListMeasureWidget extends StatefulWidget {
+  final ListMeasure measure;
 
   final void Function(num value) updateValue;
 
-  ChoiceMeasureWidget(this.measure, this.updateValue);
+  ListMeasureWidget(this.measure, this.updateValue);
 
   @override
-  _ChoiceMeasureWidgetState createState() => _ChoiceMeasureWidgetState();
+  _ListMeasureWidgetState createState() => _ListMeasureWidgetState();
 }
 
-class _ChoiceMeasureWidgetState extends State<ChoiceMeasureWidget> {
+class _ListMeasureWidgetState extends State<ListMeasureWidget> {
   num _state;
 
   @override

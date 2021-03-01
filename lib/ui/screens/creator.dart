@@ -30,36 +30,28 @@ class Creator extends StatelessWidget {
                   CreatorInterventionSection(model),
                   Divider(height: 30),
                   CreatorMeasureSection(model),
+                  SizedBox(height: 20),
                   SizedBox(height: 60),
-                  ButtonTheme(
-                    minWidth: 100,
-                    height: 45,
-                    child: RaisedButton.icon(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0),
-                      ),
-                      color: Colors.green,
-                      icon: Icon(Icons.check, color: Colors.white),
-                      label: Text(
-                        'Next',
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                      onPressed: model.canStartTrial()
-                          ? () => _navigateToCreatorPhases(context)
-                          : null,
-                    ),
-                  ),
-                  SizedBox(height: 10),
                 ]),
               ),
             ),
           ),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: model.canStartTrial()
+              ? () => _navigateToCreatorPhases(context, model)
+              : null,
+          icon: Icon(Icons.arrow_forward),
+          label: Text('Create Trial'),
+          backgroundColor: model.canStartTrial() ? Colors.green : null,
+        ),
       );
     });
   }
 
-  _navigateToCreatorPhases(BuildContext context) {
+  _navigateToCreatorPhases(BuildContext context, AppData model) {
+    model.finishEditingDetails();
     Navigator.push(
       context,
       MaterialPageRoute(

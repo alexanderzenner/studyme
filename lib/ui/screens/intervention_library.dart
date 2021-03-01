@@ -30,7 +30,7 @@ class InterventionLibrary extends StatelessWidget {
               Text(
                   isA
                       ? "What is one thing you want to try out to achieve your goal (${model.trial.outcome})?"
-                      : 'What is the other thing you want to try out and compare to "${model.trial.a.name}", to see which of the two options is better for achieving your goal?',
+                      : 'What is the other thing you want to try out and compare to "${model.trial.a.name}"?',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,

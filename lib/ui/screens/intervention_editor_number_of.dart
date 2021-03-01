@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/choice_card.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
 
 class InterventionEditorNumberOf extends StatefulWidget {
   final int numberOfInterventions;

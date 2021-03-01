@@ -3,23 +3,23 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:studyme/models/measure/choice.dart';
+import 'package:studyme/models/measure/list_item.dart';
 import 'package:studyme/models/measure/measure.dart';
 
 import '../schedule.dart';
 import 'aggregations.dart';
 
-part 'choice_measure.g.dart';
+part 'list_measure.g.dart';
 
 @JsonSerializable()
 @HiveType(typeId: 3)
-class ChoiceMeasure extends Measure {
-  static const String measureType = 'choice';
+class ListMeasure extends Measure {
+  static const String measureType = 'list';
 
   static const IconData icon = Icons.list;
 
   @HiveField(6)
-  List<Choice> choices;
+  List<ListItem> choices;
 
   String get choicesString => choices.fold(
       '',
@@ -28,11 +28,11 @@ class ChoiceMeasure extends Measure {
           (previousValue.length > 0 ? ', ' : '') +
           element.value);
 
-  ChoiceMeasure(
+  ListMeasure(
       {String id,
       String name,
       String description,
-      List<Choice> choices,
+      List<ListItem> choices,
       ValueAggregation aggregation,
       Schedule schedule})
       : this.choices = choices ?? [],
@@ -44,7 +44,7 @@ class ChoiceMeasure extends Measure {
             aggregation: aggregation,
             schedule: schedule);
 
-  ChoiceMeasure.clone(ChoiceMeasure measure)
+  ListMeasure.clone(ListMeasure measure)
       : choices = List.of(measure.choices),
         super.clone(measure);
 
@@ -60,7 +60,7 @@ class ChoiceMeasure extends Measure {
         ),
       );
 
-  factory ChoiceMeasure.fromJson(Map<String, dynamic> json) =>
-      _$ChoiceMeasureFromJson(json);
-  Map<String, dynamic> toJson() => _$ChoiceMeasureToJson(this);
+  factory ListMeasure.fromJson(Map<String, dynamic> json) =>
+      _$ListMeasureFromJson(json);
+  Map<String, dynamic> toJson() => _$ListMeasureToJson(this);
 }

@@ -43,19 +43,21 @@ class CreatorInterventionSection extends StatelessWidget {
                 OutlineButton.icon(
                     icon: Icon(Icons.add),
                     label: Text('Select'),
-                    onPressed: () =>
-                        _navigateToGoalNumberOfInterventionsEditor(
-                            context)),
+                    onPressed: _firstInterventionSet()
+                        ? () =>
+                            _navigateToGoalNumberOfInterventionsEditor(context)
+                        : null),
               ],
             ),
           if (model.trial.numberOfInterventions != null)
             Card(
               child: ListTile(
-                title: Text(
-                    model.trial.numberOfInterventions == 1 ? 'No' : 'Yes'),
+                title:
+                    Text(model.trial.numberOfInterventions == 1 ? 'No' : 'Yes'),
                 trailing: Icon(Icons.chevron_right),
-                onTap: () =>
-                    _navigateToGoalNumberOfInterventionsEditor(context),
+                onTap: _firstInterventionSet()
+                    ? () => _navigateToGoalNumberOfInterventionsEditor(context)
+                    : null,
               ),
             ),
           if (model.trial.numberOfInterventions == 2) ...[
@@ -66,7 +68,9 @@ class CreatorInterventionSection extends StatelessWidget {
                   OutlineButton.icon(
                       icon: Icon(Icons.add),
                       label: Text('Select'),
-                      onPressed: () => _addIntervention(context, false)),
+                      onPressed: _firstInterventionSet()
+                          ? () => _addIntervention(context, false)
+                          : null),
                 ],
               ),
             if (model.trial.b != null)
@@ -78,6 +82,10 @@ class CreatorInterventionSection extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _firstInterventionSet() {
+    return model.trial.a != null;
   }
 
   _viewIntervention(context, isA) {

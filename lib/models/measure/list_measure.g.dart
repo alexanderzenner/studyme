@@ -1,33 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'choice_measure.dart';
+part of 'list_measure.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ChoiceMeasureAdapter extends TypeAdapter<ChoiceMeasure> {
+class ListMeasureAdapter extends TypeAdapter<ListMeasure> {
   @override
   final int typeId = 3;
 
   @override
-  ChoiceMeasure read(BinaryReader reader) {
+  ListMeasure read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ChoiceMeasure(
+    return ListMeasure(
       id: fields[0] as String,
       name: fields[2] as String,
       description: fields[3] as String,
-      choices: (fields[6] as List)?.cast<Choice>(),
+      choices: (fields[6] as List)?.cast<ListItem>(),
       aggregation: fields[4] as ValueAggregation,
       schedule: fields[5] as Schedule,
     )..type = fields[1] as String;
   }
 
   @override
-  void write(BinaryWriter writer, ChoiceMeasure obj) {
+  void write(BinaryWriter writer, ListMeasure obj) {
     writer
       ..writeByte(7)
       ..writeByte(6)
@@ -52,7 +52,7 @@ class ChoiceMeasureAdapter extends TypeAdapter<ChoiceMeasure> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ChoiceMeasureAdapter &&
+      other is ListMeasureAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -61,14 +61,14 @@ class ChoiceMeasureAdapter extends TypeAdapter<ChoiceMeasure> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-ChoiceMeasure _$ChoiceMeasureFromJson(Map<String, dynamic> json) {
-  return ChoiceMeasure(
+ListMeasure _$ListMeasureFromJson(Map<String, dynamic> json) {
+  return ListMeasure(
     id: json['id'] as String,
     name: json['name'] as String,
     description: json['description'] as String,
     choices: (json['choices'] as List)
         ?.map((e) =>
-            e == null ? null : Choice.fromJson(e as Map<String, dynamic>))
+            e == null ? null : ListItem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     aggregation:
         _$enumDecodeNullable(_$ValueAggregationEnumMap, json['aggregation']),
@@ -78,7 +78,7 @@ ChoiceMeasure _$ChoiceMeasureFromJson(Map<String, dynamic> json) {
   )..type = json['type'] as String;
 }
 
-Map<String, dynamic> _$ChoiceMeasureToJson(ChoiceMeasure instance) =>
+Map<String, dynamic> _$ListMeasureToJson(ListMeasure instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': instance.type,

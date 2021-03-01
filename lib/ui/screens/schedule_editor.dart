@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:studyme/models/mixins/has_schedule.dart';
 import 'package:studyme/models/schedule.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
-import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/util/notifications.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 

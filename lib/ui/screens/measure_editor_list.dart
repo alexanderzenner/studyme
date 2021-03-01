@@ -1,27 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/measure/choice.dart';
-import 'package:studyme/models/measure/choice_measure.dart';
+import 'package:studyme/models/measure/list_item.dart';
+import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/screens/schedule_editor.dart';
 
 import '../widgets/action_button.dart';
-import '../widgets/section_title.dart';
 
-class MeasureEditorChoice extends StatefulWidget {
-  final ChoiceMeasure measure;
+class MeasureEditorList extends StatefulWidget {
+  final ListMeasure measure;
   final Function(Measure measure) onSave;
   final bool save;
 
-  const MeasureEditorChoice(
+  const MeasureEditorList(
       {@required this.measure, @required this.onSave, @required this.save});
 
   @override
-  _MeasureEditorChoiceState createState() => _MeasureEditorChoiceState();
+  _MeasureEditorListState createState() => _MeasureEditorListState();
 }
 
-class _MeasureEditorChoiceState extends State<MeasureEditorChoice> {
-  List<Choice> _choices;
+class _MeasureEditorListState extends State<MeasureEditorList> {
+  List<ListItem> _choices;
   String _editedChoice;
 
   @override
@@ -39,11 +38,11 @@ class _MeasureEditorChoiceState extends State<MeasureEditorChoice> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(widget.measure.title),
+              Text(widget.measure.name),
               Visibility(
                 visible: true,
                 child: Text(
-                  'Choices',
+                  'List Items',
                   style: TextStyle(
                     fontSize: 12.0,
                   ),
@@ -63,16 +62,18 @@ class _MeasureEditorChoiceState extends State<MeasureEditorChoice> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                SectionTitle("Choices",
-                    isSubtitle: true,
-                    action: IconButton(
-                        icon: Icon(Icons.add), onPressed: _addChoice)),
+                Text('Add the items you want your list to have',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor)),
+                SizedBox(height: 10),
                 ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: _choices.length,
                     itemBuilder: (content, index) {
-                      Choice choice = _choices[index];
+                      ListItem choice = _choices[index];
 
                       return Card(
                           child: ListTile(
@@ -83,6 +84,14 @@ class _MeasureEditorChoiceState extends State<MeasureEditorChoice> {
                         ),
                       ));
                     }),
+                ButtonBar(
+                  children: [
+                    OutlineButton.icon(
+                        icon: Icon(Icons.add),
+                        label: Text('Add Item'),
+                        onPressed: _addChoice),
+                  ],
+                ),
               ],
             ),
           ),
@@ -96,7 +105,7 @@ class _MeasureEditorChoiceState extends State<MeasureEditorChoice> {
     await showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              title: Text("Add Choice"),
+              title: Text("Add Option"),
               content: TextFormField(
                 autofocus: true,
                 initialValue: null,
@@ -116,7 +125,7 @@ class _MeasureEditorChoiceState extends State<MeasureEditorChoice> {
             ));
     if (_editedChoice != null && _editedChoice.length > 0) {
       setState(() {
-        _choices.add(Choice(value: _editedChoice));
+        _choices.add(ListItem(value: _editedChoice));
       });
     }
   }
@@ -146,7 +155,7 @@ class _MeasureEditorChoiceState extends State<MeasureEditorChoice> {
             context,
             MaterialPageRoute(
               builder: (context) => ScheduleEditor(
-                  title: widget.measure.title,
+                  title: widget.measure.name,
                   objectWithSchedule: widget.measure,
                   onSave: widget.onSave),
             ));

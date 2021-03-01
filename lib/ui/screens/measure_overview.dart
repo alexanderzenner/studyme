@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/measure/choice_measure.dart';
+import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/models/measure/synced_measure.dart';
@@ -13,7 +13,7 @@ import 'package:studyme/util/string_extension.dart';
 
 import 'package:studyme/util/util.dart';
 
-import 'measure_editor_choice.dart';
+import 'measure_editor_list.dart';
 import 'measure_editor_name.dart';
 import 'schedule_editor.dart';
 
@@ -52,7 +52,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
 
   Widget _buildMeasureOverview(Measure measure) {
     return Scaffold(
-        appBar: AppBar(brightness: Brightness.dark, title: Text(measure.title)),
+        appBar: AppBar(brightness: Brightness.dark, title: Text(measure.name)),
         body: SingleChildScrollView(
           child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -66,8 +66,13 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                             "This measure requires using the third party Google Fit or Apple Health app. Any measurement you add to the third party app during the trial is automatically fetched.")
                       ],
                     ),
+                  EditableListTile(
+                      title: Text("Name"),
+                      subtitle: Text(measure.name),
+                      canEdit: !widget.isPreview && measure.canEdit,
+                      onTap: () => _editName(measure)),
                   ListTile(
-                    title: Text("Type"),
+                    title: Text("Input Type"),
                     subtitle: Row(
                       children: [
                         Icon(measure.getIcon()),
@@ -76,14 +81,9 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                       ],
                     ),
                   ),
-                  EditableListTile(
-                      title: Text("Name"),
-                      subtitle: Text(measure.name),
-                      canEdit: !widget.isPreview && measure.canEdit,
-                      onTap: () => _editName(measure)),
-                  if (measure is ChoiceMeasure)
+                  if (measure is ListMeasure)
                     EditableListTile(
-                        title: Text("Choices"),
+                        title: Text("List Items"),
                         subtitle: Text(measure.choicesString),
                         canEdit: !widget.isPreview,
                         onTap: () => _editChoices(measure)),
@@ -130,7 +130,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
             context,
             MaterialPageRoute(
               builder: (context) => ScheduleEditor(
-                  title: widget.measure.title,
+                  title: widget.measure.name,
                   objectWithSchedule: widget.measure,
                   onSave: saveFunction),
             ));
@@ -163,18 +163,18 @@ class _MeasureOverviewState extends State<MeasureOverview> {
         context,
         MaterialPageRoute(
           builder: (context) => ScheduleEditor(
-            title: measure.title,
+            title: measure.name,
             objectWithSchedule: measure,
             onSave: _getSaveFunction(),
           ),
         ));
   }
 
-  _editChoices(ChoiceMeasure measure) {
+  _editChoices(ListMeasure measure) {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => MeasureEditorChoice(
+          builder: (context) => MeasureEditorList(
               measure: measure.clone(), onSave: _getSaveFunction(), save: true),
         ));
   }

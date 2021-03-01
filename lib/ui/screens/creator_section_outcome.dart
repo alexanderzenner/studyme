@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/goal_editor_outcome.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
 
 class CreatorGoalSection extends StatelessWidget {
@@ -15,16 +14,6 @@ class CreatorGoalSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (!_outcomeIsSet())
-          HintCard(
-            titleText: "Set Goal",
-            body: [
-              Text(
-                  "Let's start setting up your trial. First you need to set a goal you want to achieve."),
-              Text(''),
-              Text("Click on the + below to set your goal.")
-            ],
-          ),
         SectionTitle("My goal"),
         if (!_outcomeIsSet())
           ButtonBar(
@@ -38,7 +27,7 @@ class CreatorGoalSection extends StatelessWidget {
         if (_outcomeIsSet())
           Card(
             child: ListTile(
-              leading: Icon(Icons.star_border),
+              leading: Icon(Icons.star, color: Colors.yellow),
               title: Text(model.trial.outcome),
               trailing: Icon(Icons.chevron_right),
               onTap: () => _navigateToGoalOutcomeEditor(context),

@@ -50,7 +50,7 @@ class Settings extends StatelessWidget {
     Provider.of<AppData>(context, listen: false).cancelAllNotifications();
     deleteLogs(Provider.of<AppData>(context, listen: false).trial);
     Provider.of<AppData>(context, listen: false)
-        .saveAppState(AppState.ONBOARDING);
+        .saveAppState(AppState.CREATING_DETAILS);
     Navigator.pushReplacementNamed(context, Routes.onboarding);
   }
 

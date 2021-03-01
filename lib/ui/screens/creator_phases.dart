@@ -47,29 +47,18 @@ class CreatorPhases extends StatelessWidget {
                       CreatorPhasesSection(model, isActive: true),
                       Text(
                           'You will complete a total of ${model.trial.phases.numberOfPhases} phases. Each phase is ${model.trial.phases.phaseDuration} days long. The trial will take ${model.trial.phases.totalDuration} days.'),
-                      SizedBox(height: 100),
-                      Center(
-                        child: ButtonTheme(
-                          minWidth: 100,
-                          height: 45,
-                          child: RaisedButton.icon(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                              ),
-                              color: Colors.green,
-                              icon: Icon(Icons.check, color: Colors.white),
-                              label: Text(
-                                'Start Trial',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
-                              ),
-                              onPressed: () => _startTrial(context, model)),
-                        ),
-                      ),
+                      SizedBox(height: 60),
                     ]),
               ),
             ),
           ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () => _startTrial(context, model),
+          icon: Icon(Icons.check),
+          label: Text('Start Trial'),
+          backgroundColor: Colors.green,
         ),
       );
     });

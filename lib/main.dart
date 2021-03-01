@@ -11,8 +11,8 @@ import 'models/intervention/intervention.dart';
 import 'models/intervention/no_intervention.dart';
 import 'models/log/trial_log.dart';
 import 'models/measure/aggregations.dart';
-import 'models/measure/choice.dart';
-import 'models/measure/choice_measure.dart';
+import 'models/measure/list_item.dart';
+import 'models/measure/list_measure.dart';
 import 'models/measure/free_measure.dart';
 import 'models/measure/scale_measure.dart';
 import 'models/measure/synced_measure.dart';
@@ -56,8 +56,8 @@ _setupHive() async {
 
   Hive.registerAdapter<ValueAggregation>(ValueAggregationAdapter());
   Hive.registerAdapter<FreeMeasure>(FreeMeasureAdapter());
-  Hive.registerAdapter<Choice>(ChoiceAdapter());
-  Hive.registerAdapter<ChoiceMeasure>(ChoiceMeasureAdapter());
+  Hive.registerAdapter<ListItem>(ListItemAdapter());
+  Hive.registerAdapter<ListMeasure>(ListMeasureAdapter());
   Hive.registerAdapter<ScaleMeasure>(ScaleMeasureAdapter());
   Hive.registerAdapter<SyncedMeasure>(SyncedMeasureAdapter());
 
