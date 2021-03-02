@@ -23,7 +23,7 @@ class MeasureLibrary extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                  "What ${(model.trial.measures.length > 0) ? 'other ' : ''}data do you want to collect to assess if you are achieving your goal (${model.trial.outcome})?",
+                  "What ${(model.trial.measures.length > 0) ? 'other ' : ''}data do you want to collect to assess if you are achieving your goal?",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,

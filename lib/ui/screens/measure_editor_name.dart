@@ -58,6 +58,11 @@ class _MeasureEditorNameState extends State<MeasureEditorName> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
+              Text('Name the data you want to collect',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Theme.of(context).primaryColor)),
               SizedBox(
                 height: 10,
               ),

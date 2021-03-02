@@ -123,7 +123,7 @@ class AppData extends ChangeNotifier {
 
   finishEditingDetails() {
     saveAppState(AppState.CREATING_PHASES);
-    _trial.phases = Phases.createDefault();
+    _trial.generateWithSetInfos();
     _trial.save();
   }
 

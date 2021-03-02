@@ -5,6 +5,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/phases/phase_order.dart';
 import 'package:studyme/models/phases/phases.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
+import 'package:studyme/ui/widgets/editable_list_tile.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/ui/widgets/phases_widget.dart';
 import 'package:studyme/util/util.dart';
@@ -33,7 +34,6 @@ class _PhaseEditorState extends State<PhaseEditor> {
     return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
-          title: Text('Phases'),
           actions: <Widget>[
             ActionButton(
                 icon: Icons.check, canPress: _canSubmit(), onPressed: _save)
@@ -44,20 +44,13 @@ class _PhaseEditorState extends State<PhaseEditor> {
             padding: const EdgeInsets.all(10.0),
             child: Consumer<AppData>(builder: (context, model, child) {
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  HintCard(
-                    titleText: "Set Phases",
-                    body: [
-                      Text('Note:',
-                          style: TextStyle(fontStyle: FontStyle.italic)),
-                      Text(
-                          '\u2022 The phases are paired, meaning for every A phase there is a B phase.',
-                          style: TextStyle(fontStyle: FontStyle.italic)),
-                      Text(
-                          '\u2022 Under the flag in the phase overview below you can see the total duration of your trial.',
-                          style: TextStyle(fontStyle: FontStyle.italic)),
-                    ],
-                  ),
+                  Text("Set trial schedule and phases",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Theme.of(context).primaryColor)),
                   SizedBox(height: 10),
                   PhasesWidget(phases: _phases, showDuration: true),
                   SizedBox(height: 20),
@@ -68,12 +61,18 @@ class _PhaseEditorState extends State<PhaseEditor> {
                     decoration:
                         InputDecoration(labelText: 'Phase Duration (in days)'),
                   ),
+                  SizedBox(width: 5),
                   TextFormField(
                     initialValue: _phases.numberOfCycles.toString(),
                     keyboardType: TextInputType.number,
                     onChanged: _updateNumberOfCycles,
-                    decoration: InputDecoration(labelText: 'Number of Pairs'),
+                    decoration:
+                        InputDecoration(labelText: 'Number of Phase Pairs'),
                   ),
+                  SizedBox(width: 5),
+                  SizedBox(height: 30),
+                  Text('Advanced Settings',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   DropdownButtonFormField<PhaseOrder>(
                     decoration: InputDecoration(labelText: 'Phase Order'),
                     value: _phases.phaseOrder,

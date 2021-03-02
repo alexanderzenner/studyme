@@ -1,18 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention/intervention.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
 
 import '../widgets/action_button.dart';
 import 'schedule_editor.dart';
 
 class InterventionEditorName extends StatefulWidget {
   final Intervention intervention;
+  final bool isA;
   final Function(Intervention intervention) onSave;
   final bool save;
 
   const InterventionEditorName(
       {@required this.intervention,
+      @required this.isA,
       @required this.onSave,
       @required this.save});
 
@@ -62,10 +63,14 @@ class _InterventionEditorNameState extends State<InterventionEditorName> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                HintCard(titleText: "Set Intervention Name", body: [
-                  Text(
-                      "Choose a short name that describes the Intervention for you. Some suggested formats are \"Do X\" or \"Take Y\".")
-                ]),
+                Text(
+                    widget.isA
+                        ? 'Name the one thing you want to try out to achieve your goal'
+                        : 'Name the other thing you want to try out to achieve your goal',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor)),
                 SizedBox(
                   height: 10,
                 ),

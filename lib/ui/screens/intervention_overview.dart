@@ -110,6 +110,7 @@ class _InterventionOverviewState extends State<InterventionOverview> {
         context,
         MaterialPageRoute(
           builder: (context) => InterventionEditorName(
+              isA: widget.isA,
               intervention: intervention,
               onSave: (Intervention _intervention) {
                 _getSetter()(_intervention);

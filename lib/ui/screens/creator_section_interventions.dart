@@ -36,48 +36,45 @@ class CreatorInterventionSection extends StatelessWidget {
                 intervention: model.trial.a,
                 showSchedule: true,
                 onTap: () => _viewIntervention(context, true)),
-          SectionTitle("Compare to something else?"),
-          if (model.trial.numberOfInterventions == null)
-            ButtonBar(
-              children: [
-                OutlineButton.icon(
-                    icon: Icon(Icons.add),
-                    label: Text('Select'),
-                    onPressed: _firstInterventionSet()
-                        ? () =>
-                            _navigateToGoalNumberOfInterventionsEditor(context)
-                        : null),
-              ],
-            ),
-          if (model.trial.numberOfInterventions != null)
-            Card(
-              child: ListTile(
-                title:
-                    Text(model.trial.numberOfInterventions == 1 ? 'No' : 'Yes'),
-                trailing: Icon(Icons.chevron_right),
-                onTap: _firstInterventionSet()
-                    ? () => _navigateToGoalNumberOfInterventionsEditor(context)
-                    : null,
-              ),
-            ),
-          if (model.trial.numberOfInterventions == 2) ...[
-            SectionTitle("Compare to"),
-            if (model.trial.b == null)
+          if (_firstInterventionSet()) ...[
+            SectionTitle("Compare to something else?"),
+            if (model.trial.numberOfInterventions == null)
               ButtonBar(
                 children: [
                   OutlineButton.icon(
                       icon: Icon(Icons.add),
                       label: Text('Select'),
-                      onPressed: _firstInterventionSet()
-                          ? () => _addIntervention(context, false)
-                          : null),
+                      onPressed: () =>
+                          _navigateToGoalNumberOfInterventionsEditor(context)),
                 ],
               ),
-            if (model.trial.b != null)
-              InterventionCardNew(
-                  showSchedule: true,
-                  intervention: model.trial.b,
-                  onTap: () => _viewIntervention(context, false)),
+            if (model.trial.numberOfInterventions != null)
+              Card(
+                child: ListTile(
+                  title: Text(
+                      model.trial.numberOfInterventions == 1 ? 'No' : 'Yes'),
+                  trailing: Icon(Icons.chevron_right),
+                  onTap: () =>
+                      _navigateToGoalNumberOfInterventionsEditor(context),
+                ),
+              ),
+            if (model.trial.numberOfInterventions == 2) ...[
+              SectionTitle("Compare to"),
+              if (model.trial.b == null)
+                ButtonBar(
+                  children: [
+                    OutlineButton.icon(
+                        icon: Icon(Icons.add),
+                        label: Text('Select'),
+                        onPressed: () => _addIntervention(context, false)),
+                  ],
+                ),
+              if (model.trial.b != null)
+                InterventionCardNew(
+                    showSchedule: true,
+                    intervention: model.trial.b,
+                    onTap: () => _viewIntervention(context, false)),
+            ]
           ],
         ],
       ),

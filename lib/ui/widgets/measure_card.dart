@@ -15,7 +15,7 @@ class MeasureCard extends StatelessWidget {
       leading: Icon(measure.getIcon()),
       title: Text(measure.name),
       subtitle: _getSubtitle(),
-      trailing: Icon(Icons.chevron_right),
+      trailing: onTap != null ? Icon(Icons.chevron_right) : null,
       onTap: onTap,
     ));
   }

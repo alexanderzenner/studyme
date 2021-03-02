@@ -2,19 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/ui/screens/creator_phases.dart';
+import 'package:studyme/ui/screens/creator_2_setup.dart';
 
 import 'creator_section_interventions.dart';
 import 'creator_section_measures.dart';
 import 'creator_section_outcome.dart';
 
-class Creator extends StatelessWidget {
+class CreatorDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppData>(builder: (context, model, child) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Create Trial'),
+          title: Text('Experiment Details'),
           brightness: Brightness.dark,
         ),
         body: SafeArea(
@@ -26,11 +26,11 @@ class Creator extends StatelessWidget {
                   CreatorGoalSection(
                     model,
                   ),
-                  Divider(height: 30),
-                  CreatorInterventionSection(model),
-                  Divider(height: 30),
-                  CreatorMeasureSection(model),
-                  SizedBox(height: 20),
+                  SizedBox(height: 30),
+                  if (model.canDefineInterventions())
+                    CreatorInterventionSection(model),
+                  SizedBox(height: 30),
+                  if (model.canDefineMeasures()) CreatorMeasureSection(model),
                   SizedBox(height: 60),
                 ]),
               ),
@@ -43,7 +43,7 @@ class Creator extends StatelessWidget {
               ? () => _navigateToCreatorPhases(context, model)
               : null,
           icon: Icon(Icons.arrow_forward),
-          label: Text('Create Trial'),
+          label: Text('Set Up Experiment'),
           backgroundColor: model.canStartTrial() ? Colors.green : null,
         ),
       );
@@ -55,7 +55,7 @@ class Creator extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CreatorPhases(),
+        builder: (context) => CreatorSetup(),
       ),
     );
   }

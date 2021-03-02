@@ -29,8 +29,8 @@ class InterventionLibrary extends StatelessWidget {
             children: [
               Text(
                   isA
-                      ? "What is one thing you want to try out to achieve your goal (${model.trial.outcome})?"
-                      : 'What is the other thing you want to try out and compare to "${model.trial.a.name}"?',
+                      ? "What is one thing you want to try out to achieve your goal?"
+                      : 'What is the other thing you want to try out?',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -101,7 +101,10 @@ class InterventionLibrary extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => InterventionEditorName(
-            intervention: Intervention(), onSave: saveFunction, save: false),
+            intervention: Intervention(),
+            isA: isA,
+            onSave: saveFunction,
+            save: false),
       ),
     );
   }

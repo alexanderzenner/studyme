@@ -112,6 +112,13 @@ class Trial extends HiveObject {
     return test ~/ phases.phaseDuration;
   }
 
+  generateWithSetInfos() {
+    this.phases = Phases.createDefault();
+    if (this.numberOfInterventions == 1) {
+      this.b.name = 'Without "${this.a.name}"';
+    }
+  }
+
   factory Trial.fromJson(Map<String, dynamic> json) => _$TrialFromJson(json);
   Map<String, dynamic> toJson() => _$TrialToJson(this);
 }
