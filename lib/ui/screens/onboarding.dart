@@ -11,7 +11,7 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
-  final int _numPages = 4;
+  final int _numPages = 5;
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
 
@@ -40,7 +40,7 @@ class _OnboardingState extends State<Onboarding> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 40.0),
+        padding: EdgeInsets.symmetric(vertical: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -55,30 +55,33 @@ class _OnboardingState extends State<Onboarding> {
                 },
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.all(40.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    padding: EdgeInsets.symmetric(horizontal: 40.0),
+                    child: ListView(children: [
+                      Text("Welcome to StudyMe",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 32,
+                              color: Colors.green)),
+                      SizedBox(height: 10),
+                      Text(
+                          "Have you ever tried something to improve your health or wellbeing but weren't sure if it worked?",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                              color: Theme.of(context).primaryColor)),
+                      SizedBox(height: 10),
+                      Text(
+                          "Or maybe you tried multiple things and didn’t know which worked better?",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                              color: Theme.of(context).primaryColor)),
+                    ]),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40.0),
+                    child: ListView(
                       children: <Widget>[
-                        Text("Welcome to StudyMe",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 32,
-                                color: Colors.green)),
-                        SizedBox(height: 10),
-                        Text(
-                            "Have you ever tried something to improve your health or wellbeing but weren't sure whether it worked?",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                                color: Theme.of(context).primaryColor)),
-                        SizedBox(height: 10),
-                        Text(
-                            "Or maybe you tried multiple things and didn’t know which worked better?",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                                color: Theme.of(context).primaryColor)),
-                        SizedBox(height: 10),
                         Text(
                             "With StudyMe, you can run your own experiments to gather real evidence about whether something you do is helping you achieve your health goals.",
                             style: TextStyle(
@@ -89,9 +92,9 @@ class _OnboardingState extends State<Onboarding> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(40.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    padding: EdgeInsets.symmetric(horizontal: 40.0),
+                    child: ListView(
+                      shrinkWrap: true,
                       children: <Widget>[
                         Text(
                             "There are 3 main steps to create your experiment:",
@@ -141,9 +144,8 @@ class _OnboardingState extends State<Onboarding> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(40.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    padding: EdgeInsets.symmetric(horizontal: 40.0),
+                    child: ListView(
                       children: <Widget>[
                         Text(
                             "Using this information, StudyMe will help you set up an experiment that keeps you on schedule and organizes your data based on scientific methods.",
@@ -155,7 +157,7 @@ class _OnboardingState extends State<Onboarding> {
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.all(40.0),
+                      padding: EdgeInsets.symmetric(horizontal: 40.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -169,6 +171,7 @@ class _OnboardingState extends State<Onboarding> {
                 ],
               ),
             ),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

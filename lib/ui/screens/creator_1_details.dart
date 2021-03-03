@@ -44,7 +44,8 @@ class CreatorDetails extends StatelessWidget {
               : null,
           icon: Icon(Icons.arrow_forward),
           label: Text('Set Up Experiment'),
-          backgroundColor: model.canStartTrial() ? Colors.green : null,
+          backgroundColor:
+              model.canStartTrial() ? Colors.green : Colors.grey[300],
         ),
       );
     });
