@@ -26,10 +26,8 @@ class CreatorDetails extends StatelessWidget {
                   CreatorGoalSection(
                     model,
                   ),
-                  SizedBox(height: 30),
                   if (model.canDefineInterventions())
                     CreatorInterventionSection(model),
-                  SizedBox(height: 30),
                   if (model.canDefineMeasures()) CreatorMeasureSection(model),
                   SizedBox(height: 60),
                 ]),

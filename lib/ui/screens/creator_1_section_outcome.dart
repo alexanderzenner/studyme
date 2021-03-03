@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/outcome_library.dart';
 import 'package:studyme/ui/widgets/outcome_card.dart';
-import 'package:studyme/ui/widgets/section_title.dart';
 
 import 'outcome_overview.dart';
 
@@ -17,7 +16,11 @@ class CreatorGoalSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionTitle("Your goal"),
+        Text('Your goal',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Theme.of(context).primaryColor)),
         if (!_outcomeIsSet())
           ButtonBar(
             children: [

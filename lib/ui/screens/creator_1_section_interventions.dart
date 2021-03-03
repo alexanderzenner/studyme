@@ -4,7 +4,6 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/intervention_editor_number_of.dart';
 import 'package:studyme/ui/screens/intervention_library.dart';
 import 'package:studyme/ui/widgets/intervention_card_new.dart';
-import 'package:studyme/ui/widgets/section_title.dart';
 
 import '../screens/intervention_overview.dart';
 
@@ -21,7 +20,11 @@ class CreatorInterventionSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionTitle("What you want to try out"),
+          Text('What you want to try out',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Theme.of(context).primaryColor)),
           if (model.trial.a == null)
             ButtonBar(
               children: [
@@ -37,7 +40,11 @@ class CreatorInterventionSection extends StatelessWidget {
                 showSchedule: true,
                 onTap: () => _viewIntervention(context, true)),
           if (_firstInterventionSet()) ...[
-            SectionTitle("Compare to something else?"),
+            Text('Compare to something else?',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Theme.of(context).primaryColor)),
             if (model.trial.numberOfInterventions == null)
               ButtonBar(
                 children: [
@@ -59,7 +66,11 @@ class CreatorInterventionSection extends StatelessWidget {
                 ),
               ),
             if (model.trial.numberOfInterventions == 2) ...[
-              SectionTitle("Compare to"),
+              Text('Compare to',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Theme.of(context).primaryColor)),
               if (model.trial.b == null)
                 ButtonBar(
                   children: [
