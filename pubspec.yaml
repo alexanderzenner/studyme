@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  provider: ^3.0.0
+  provider: ^4.3.3
   timeline_tile: ^1.0.0
   uuid: ^2.2.2
   intl: ^0.16.1
