@@ -79,7 +79,7 @@ class CreatorSetup extends StatelessWidget {
                       SizedBox(height: 20),
                       if (model.trial.numberOfInterventions == 1)
                         Text(
-                            '** If there is no difference "Arnika" likely doesn\'t help you achieve your goal.',
+                            '** If there is no difference "${model.trial.a.name}" likely doesn\'t help you achieve your goal.',
                             style: TextStyle(
                                 fontStyle: FontStyle.italic,
                                 fontSize: 20,

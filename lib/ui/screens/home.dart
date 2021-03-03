@@ -45,9 +45,9 @@ class Home extends StatelessWidget {
   _buildBeforeStartBody(Trial trial) {
     return Column(children: [
       SizedBox(height: 20),
-      HintCard(titleText: "Trial hasn't started yet", body: [
+      HintCard(titleText: "Experiment hasn't started yet", body: [
         Text(
-            "Your trial will start on ${DateFormat(DateFormat.YEAR_MONTH_DAY).format(trial.startDate)}")
+            "Your experiment will start on ${DateFormat(DateFormat.YEAR_MONTH_DAY).format(trial.startDate)}")
       ])
     ]);
   }
@@ -57,7 +57,7 @@ class Home extends StatelessWidget {
       SizedBox(height: 20),
       HintCard(titleText: "Trial ended", body: [
         Text(
-            "Your trial ended on ${DateFormat(DateFormat.YEAR_MONTH_DAY).format(trial.endDate)}")
+            "Your experiment ended on ${DateFormat(DateFormat.YEAR_MONTH_DAY).format(trial.endDate)}")
       ])
     ]);
   }
