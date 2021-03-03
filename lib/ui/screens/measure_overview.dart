@@ -101,12 +101,12 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                   ButtonBar(
                     children: [
                       if (widget.isPreview)
-                        OutlineButton.icon(
+                        OutlinedButton.icon(
                             icon: Icon(Icons.add),
                             label: Text("Add to trial"),
                             onPressed: _addMeasure),
                       if (!widget.isPreview)
-                        OutlineButton.icon(
+                        OutlinedButton.icon(
                             icon: Icon(Icons.delete),
                             label: Text("Remove"),
                             onPressed: _removeMeasure),

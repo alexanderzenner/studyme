@@ -39,7 +39,7 @@ class CreatorMeasureSection extends StatelessWidget {
         ),
         ButtonBar(
           children: [
-            OutlineButton.icon(
+            OutlinedButton.icon(
                 icon: Icon(Icons.add),
                 label: Text('Add' +
                     (model.trial.measures.length > 0 ? ' another' : '')),

@@ -86,7 +86,7 @@ class _MeasureEditorListState extends State<MeasureEditorList> {
                     }),
                 ButtonBar(
                   children: [
-                    OutlineButton.icon(
+                    OutlinedButton.icon(
                         icon: Icon(Icons.add),
                         label: Text('Add Item'),
                         onPressed: _addChoice),
@@ -112,13 +112,13 @@ class _MeasureEditorListState extends State<MeasureEditorList> {
                 onChanged: _updateEditedChoice,
               ),
               actions: [
-                FlatButton(
+                TextButton(
                     onPressed: () {
                       _updateEditedChoice(null);
                       Navigator.pop(context);
                     },
                     child: Text("Cancel")),
-                FlatButton(
+                TextButton(
                     onPressed: () => Navigator.pop(context, true),
                     child: Text("Confirm"))
               ],

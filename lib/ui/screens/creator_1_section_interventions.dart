@@ -28,7 +28,7 @@ class CreatorInterventionSection extends StatelessWidget {
           if (model.trial.a == null)
             ButtonBar(
               children: [
-                OutlineButton.icon(
+                OutlinedButton.icon(
                     icon: Icon(Icons.add),
                     label: Text('Select'),
                     onPressed: () => _addIntervention(context, true)),
@@ -48,7 +48,7 @@ class CreatorInterventionSection extends StatelessWidget {
             if (model.trial.numberOfInterventions == null)
               ButtonBar(
                 children: [
-                  OutlineButton.icon(
+                  OutlinedButton.icon(
                       icon: Icon(Icons.add),
                       label: Text('Select'),
                       onPressed: () =>
@@ -74,7 +74,7 @@ class CreatorInterventionSection extends StatelessWidget {
               if (model.trial.b == null)
                 ButtonBar(
                   children: [
-                    OutlineButton.icon(
+                    OutlinedButton.icon(
                         icon: Icon(Icons.add),
                         label: Text('Select'),
                         onPressed: () => _addIntervention(context, false)),

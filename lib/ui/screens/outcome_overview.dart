@@ -45,14 +45,14 @@ class _OutcomeOverviewState extends State<OutcomeOverview> {
                 ButtonBar(
                   children: [
                     if (widget.isPreview)
-                      OutlineButton.icon(
+                      OutlinedButton.icon(
                           icon: Icon(Icons.add),
                           label: Text("Select"),
                           onPressed: () {
                             _addOutcome();
                           }),
                     if (!widget.isPreview)
-                      OutlineButton.icon(
+                      OutlinedButton.icon(
                           icon: Icon(Icons.delete),
                           label: Text("Remove"),
                           onPressed: _remove),

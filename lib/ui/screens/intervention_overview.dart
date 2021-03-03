@@ -70,14 +70,14 @@ class _InterventionOverviewState extends State<InterventionOverview> {
                 ButtonBar(
                   children: [
                     if (widget.isPreview)
-                      OutlineButton.icon(
+                      OutlinedButton.icon(
                           icon: Icon(Icons.add),
                           label: Text("Add to trial"),
                           onPressed: () {
                             _addIntervention();
                           }),
                     if (!widget.isPreview)
-                      OutlineButton.icon(
+                      OutlinedButton.icon(
                           icon: Icon(Icons.delete),
                           label: Text("Remove"),
                           onPressed: _remove),

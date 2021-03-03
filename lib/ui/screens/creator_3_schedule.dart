@@ -26,7 +26,7 @@ class CreatorSchedule extends StatelessWidget {
                     children: [
                       ButtonBar(
                         children: [
-                          OutlineButton.icon(
+                          OutlinedButton.icon(
                               icon: Icon(Icons.edit),
                               label: Text("Edit Schedule"),
                               onPressed: () =>

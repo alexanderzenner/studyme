@@ -93,7 +93,7 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
                     }),
                 ButtonBar(
                   children: [
-                    OutlineButton.icon(
+                    OutlinedButton.icon(
                         icon: Icon(Icons.add),
                         label: Text("Add Time"),
                         onPressed: _addTime),

@@ -24,7 +24,7 @@ class CreatorGoalSection extends StatelessWidget {
         if (!_outcomeIsSet())
           ButtonBar(
             children: [
-              OutlineButton.icon(
+              OutlinedButton.icon(
                   icon: Icon(Icons.add),
                   label: Text('Select'),
                   onPressed: () => _addOutcome(context)),

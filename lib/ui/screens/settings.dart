@@ -19,12 +19,12 @@ class Settings extends StatelessWidget {
         children: [
           ButtonBar(
             children: [
-              OutlineButton.icon(
+              OutlinedButton.icon(
                 icon: Icon(Icons.edit),
                 label: Text("Edit Experiment"),
                 onPressed: () => _editTrial(context),
               ),
-              OutlineButton.icon(
+              OutlinedButton.icon(
                 icon: Icon(Icons.cancel),
                 label: Text("Cancel Experiment"),
                 onPressed: () => _cancelTrial(context),
@@ -34,7 +34,7 @@ class Settings extends StatelessWidget {
           SizedBox(height: 50),
           ButtonBar(
             children: [
-              OutlineButton.icon(
+              OutlinedButton.icon(
                 icon: Icon(Icons.share),
                 label: Text("Export Trial Info"),
                 onPressed: () => _exportTrialInfo(context),
@@ -60,10 +60,10 @@ class Settings extends StatelessWidget {
         builder: (context) => AlertDialog(
               title: Text("Cancel Experiment"),
               actions: [
-                FlatButton(
+                TextButton(
                     onPressed: () => Navigator.pop(context),
                     child: Text("Cancel")),
-                FlatButton(
+                TextButton(
                     onPressed: () => Navigator.pop(context, true),
                     child: Text("Confirm"))
               ],

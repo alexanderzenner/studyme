@@ -6,7 +6,6 @@ import 'package:studyme/models/task/measure_task.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
-import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/ui/widgets/task_card.dart';
 
 class TaskList extends StatefulWidget {
@@ -50,11 +49,7 @@ class _TaskListState extends State<TaskList> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      SectionTitle('Today'),
-      if (_isLoading) CircularProgressIndicator(),
-      if (!_isLoading) _buildTaskList()
-    ]);
+    return _isLoading ? CircularProgressIndicator() : _buildTaskList();
   }
 
   _buildTaskList() {

@@ -8,7 +8,6 @@ import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/measure/aggregations.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/trial.dart';
-import 'package:studyme/ui/widgets/section_title.dart';
 import "package:collection/collection.dart";
 
 class MeasureChart extends StatefulWidget {
@@ -55,8 +54,11 @@ class _MeasureChartState extends State<MeasureChart> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      SectionTitle(
-          "${widget.measure.name} (${widget.measure.aggregation.readable})"),
+      Text('${widget.measure.name} (${widget.measure.aggregation.readable})',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Theme.of(context).primaryColor)),
       if (_isLoading) CircularProgressIndicator(),
       if (!_isLoading)
         Container(height: _getContainerHeight(), child: _buildChart())

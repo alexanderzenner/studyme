@@ -4,8 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/log_data.dart';
+import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
+import 'package:studyme/ui/widgets/intervention_card.dart';
 import 'package:studyme/ui/widgets/phases_widget.dart';
 import 'package:studyme/ui/widgets/task_list.dart';
 
@@ -27,7 +29,7 @@ class Home extends StatelessWidget {
       _body = _buildAfterEndBody(_trial);
       _activeIndex = _trial.phases.totalDuration;
     } else {
-      _body = TaskList(trial: _trial, date: _dateToday);
+      _body = _buildActiveBody(context, _trial, _dateToday);
       _activeIndex = _trial.getPhaseIndexForDate(_dateToday);
     }
 
@@ -40,6 +42,21 @@ class Home extends StatelessWidget {
         ]),
       ),
     );
+  }
+
+  _buildActiveBody(BuildContext context, Trial trial, DateTime date) {
+    Intervention _intervention = trial.getInterventionForDate(date);
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      InterventionCard(
+          letter: _intervention.letter, intervention: _intervention),
+      SizedBox(height: 20),
+      Text('Today',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Theme.of(context).primaryColor)),
+      TaskList(trial: trial, date: date),
+    ]);
   }
 
   _buildBeforeStartBody(Trial trial) {

@@ -11,11 +11,13 @@ class LibraryCreateButton extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 10),
-          RaisedButton.icon(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
+          ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
               ),
-              color: Colors.green,
               icon: Icon(Icons.add, color: Colors.white),
               label: Text(
                 'Create your own',
