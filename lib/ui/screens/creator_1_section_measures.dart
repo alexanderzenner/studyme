@@ -18,7 +18,7 @@ class CreatorMeasureSection extends StatelessWidget {
         Container(
           margin: EdgeInsets.symmetric(vertical: 4),
           child: Text(
-              "Data collected to assess if what I am trying is helping me achieve my goal",
+              "Data collected to assess if what your are trying is helping you achieve your goal",
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

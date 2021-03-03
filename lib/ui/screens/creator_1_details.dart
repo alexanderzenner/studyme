@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/creator_2_setup.dart';
 
-import 'creator_section_interventions.dart';
-import 'creator_section_measures.dart';
-import 'creator_section_outcome.dart';
+import 'creator_1_section_interventions.dart';
+import 'creator_1_section_measures.dart';
+import 'creator_1_section_outcome.dart';
 
 class CreatorDetails extends StatelessWidget {
   @override

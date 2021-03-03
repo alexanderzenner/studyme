@@ -21,7 +21,7 @@ class CreatorInterventionSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionTitle("What I want to try out"),
+          SectionTitle("What you want to try out"),
           if (model.trial.a == null)
             ButtonBar(
               children: [

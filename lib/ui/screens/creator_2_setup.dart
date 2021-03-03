@@ -24,30 +24,19 @@ class CreatorSetup extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('You will collect the following data:',
-                          style: TextStyle(fontSize: 20)),
+                      Text('You will compare data on',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Theme.of(context).primaryColor)),
                       ...model.trial.measures
                           .map((measure) => MeasureCard(measure: measure))
                           .toList(),
-                      Text('to see if', style: TextStyle(fontSize: 20)),
-                      InterventionCardNew(intervention: model.trial.a),
-                      if (model.trial.numberOfInterventions == 2) ...[
-                        Text('or', style: TextStyle(fontSize: 20)),
-                        InterventionCardNew(intervention: model.trial.b),
-                      ],
-                      Text('helps you to achieve your goal',
-                          style: TextStyle(fontSize: 20)),
-                      Card(
-                        child: ListTile(
-                          leading: Icon(Icons.star, color: Colors.yellow),
-                          title: Text(model.trial.outcome),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                          'To do this, we will compare your data from two different phases:',
-                          style: TextStyle(fontSize: 20)),
-                      SizedBox(height: 20),
+                      Text('between two different phases*',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Theme.of(context).primaryColor)),
                       InterventionCard(
                           letter: 'a',
                           intervention: model.trial.a,
@@ -63,10 +52,41 @@ class CreatorSetup extends StatelessWidget {
                           letter: 'b',
                           intervention: model.trial.b,
                           showSchedule: true),
+                      if (model.trial.numberOfInterventions == 2)
+                        Text(
+                            'to see if A or B is better for achieving your goal',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Theme.of(context).primaryColor)),
+                      if (model.trial.numberOfInterventions == 1)
+                        Text(
+                            'to see if there is a difference** between A or B for achieving your goal',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Theme.of(context).primaryColor)),
+                      Card(
+                        child: ListTile(
+                          leading: Icon(Icons.star, color: Colors.yellow),
+                          title: Text(model.trial.outcome),
+                        ),
+                      ),
                       SizedBox(height: 20),
                       Text(
-                          'You will complete a series of these phases, and in each phase you do either A or B.',
-                          style: TextStyle(fontSize: 20)),
+                          '* For a good comparison, you will complete a series of the two phases and compare A and B multiple times.',
+                          style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontSize: 20,
+                              color: Theme.of(context).primaryColor)),
+                      SizedBox(height: 20),
+                      if (model.trial.numberOfInterventions == 1)
+                        Text(
+                            '** If there is no difference "Arnika" likely doesn\'t help you achieve your goal.',
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: 20,
+                                color: Theme.of(context).primaryColor)),
                       SizedBox(height: 100),
                     ]),
               ),

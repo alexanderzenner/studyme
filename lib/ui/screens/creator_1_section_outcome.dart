@@ -14,7 +14,7 @@ class CreatorGoalSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionTitle("My goal"),
+        SectionTitle("Your goal"),
         if (!_outcomeIsSet())
           ButtonBar(
             children: [
