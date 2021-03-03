@@ -61,20 +61,30 @@ class _OnboardingState extends State<Onboarding> {
                       children: <Widget>[
                         Text("Welcome to StudyMe",
                             style: TextStyle(
-                              fontSize: 23,
-                              fontWeight: FontWeight.bold,
-                            )),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 32,
+                                color: Colors.green)),
+                        SizedBox(height: 10),
                         Text(
                             "Have you ever tried something to improve your health or wellbeing but weren't sure whether it worked?",
-                            style: TextStyle(fontSize: 23)),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                color: Theme.of(context).primaryColor)),
                         SizedBox(height: 10),
                         Text(
                             "Or maybe you tried multiple things and didn’t know which worked better?",
-                            style: TextStyle(fontSize: 23)),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                color: Theme.of(context).primaryColor)),
                         SizedBox(height: 10),
                         Text(
                             "With StudyMe, you can run your own experiments to gather real evidence about whether something you do is helping you achieve your health goals.",
-                            style: TextStyle(fontSize: 23)),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                color: Theme.of(context).primaryColor)),
                       ],
                     ),
                   ),
@@ -85,29 +95,48 @@ class _OnboardingState extends State<Onboarding> {
                       children: <Widget>[
                         Text(
                             "There are 3 main steps to create your experiment:",
-                            style: TextStyle(fontSize: 23)),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                color: Theme.of(context).primaryColor)),
                         SizedBox(height: 10),
-                        Text("1. Set a goal ", style: TextStyle(fontSize: 23)),
+                        Text("1. Set a goal ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                color: Theme.of(context).primaryColor)),
                         SizedBox(height: 5),
                         Text("Example: Lose weight",
                             style: TextStyle(
-                                fontStyle: FontStyle.italic, fontSize: 23)),
+                                fontStyle: FontStyle.italic,
+                                fontSize: 23,
+                                color: Theme.of(context).primaryColor)),
                         SizedBox(height: 10),
                         Text(
                             "2. Pick something you want to try out to achieve that goal",
-                            style: TextStyle(fontSize: 23)),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                color: Theme.of(context).primaryColor)),
                         SizedBox(height: 5),
                         Text("Example: Run for half an hour every two days",
                             style: TextStyle(
-                                fontStyle: FontStyle.italic, fontSize: 23)),
+                                fontStyle: FontStyle.italic,
+                                fontSize: 23,
+                                color: Theme.of(context).primaryColor)),
                         SizedBox(height: 10),
                         Text(
                             "2. Choose the type of data you want to collect, to see if you are achieving your goal",
-                            style: TextStyle(fontSize: 23)),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                color: Theme.of(context).primaryColor)),
                         SizedBox(height: 5),
                         Text("Example: Weight (kg)",
                             style: TextStyle(
-                                fontStyle: FontStyle.italic, fontSize: 23)),
+                                fontStyle: FontStyle.italic,
+                                fontSize: 23,
+                                color: Theme.of(context).primaryColor)),
                       ],
                     ),
                   ),
@@ -118,7 +147,10 @@ class _OnboardingState extends State<Onboarding> {
                       children: <Widget>[
                         Text(
                             "Using this information, StudyMe will help you set up an experiment that keeps you on schedule and organizes your data based on scientific methods.",
-                            style: TextStyle(fontSize: 23))
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                color: Theme.of(context).primaryColor))
                       ],
                     ),
                   ),
@@ -128,32 +160,59 @@ class _OnboardingState extends State<Onboarding> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text("Ready? Let's get started!",
-                              style: TextStyle(fontSize: 23))
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 40,
+                                  color: Theme.of(context).primaryColor))
                         ],
                       ))
                 ],
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: _buildPageIndicator(),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Opacity(
+                  opacity: _currentPage > 0 ? 1 : 0,
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      _pageController.previousPage(
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.ease,
+                      );
+                    },
+                    elevation: 2.0,
+                    fillColor: Colors.blueGrey,
+                    child: Icon(Icons.arrow_back, color: Colors.white),
+                    padding: EdgeInsets.all(15.0),
+                    shape: CircleBorder(),
+                  ),
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: _buildPageIndicator()),
+                RawMaterialButton(
+                  onPressed: () {
+                    if (_isAtEnd()) {
+                      _navigateToCreator();
+                    } else {
+                      _pageController.nextPage(
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.ease,
+                      );
+                    }
+                  },
+                  elevation: 2.0,
+                  fillColor: _isAtEnd() ? Colors.green : Colors.blueGrey,
+                  child: Icon(_isAtEnd() ? Icons.check : Icons.arrow_forward,
+                      color: Colors.white),
+                  padding: EdgeInsets.all(15.0),
+                  shape: CircleBorder(),
+                )
+              ],
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (_isAtEnd()) {
-            _navigateToCreator();
-          } else {
-            _pageController.nextPage(
-              duration: Duration(milliseconds: 500),
-              curve: Curves.ease,
-            );
-          }
-        },
-        backgroundColor: _isAtEnd() ? Colors.green : Colors.blueGrey,
-        child: Icon(_isAtEnd() ? Icons.check : Icons.arrow_forward),
       ),
     );
   }
@@ -165,6 +224,6 @@ class _OnboardingState extends State<Onboarding> {
   _navigateToCreator() {
     Provider.of<AppData>(context, listen: false)
         .saveAppState(AppState.CREATING_DETAILS);
-    Navigator.pushNamed(context, Routes.creator);
+    Navigator.pushReplacementNamed(context, Routes.creator);
   }
 }

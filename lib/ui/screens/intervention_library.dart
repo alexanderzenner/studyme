@@ -7,6 +7,7 @@ import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/screens/intervention_overview.dart';
 import 'package:studyme/ui/widgets/intervention_card_new.dart';
+import 'package:studyme/ui/widgets/library_create_button.dart';
 
 import 'intervention_editor_name.dart';
 
@@ -35,32 +36,8 @@ class InterventionLibrary extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       color: Theme.of(context).primaryColor)),
-              Center(
-                child: Column(
-                  children: [
-                    SizedBox(height: 10),
-                    RaisedButton.icon(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        color: Colors.green,
-                        icon: Icon(Icons.add, color: Colors.white),
-                        label: Text(
-                          'Create your own',
-                          style: TextStyle(color: Colors.white, fontSize: 15),
-                        ),
-                        onPressed: () {
-                          _createIntervention(context);
-                        }),
-                    Text('or select existing:',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: Theme.of(context).primaryColor)),
-                    SizedBox(height: 10),
-                  ],
-                ),
-              ),
+              LibraryCreateButton(
+                  onPressed: () => _createIntervention(context)),
               Expanded(
                 child: ListView.builder(
                   shrinkWrap: true,

@@ -10,7 +10,6 @@ import 'package:studyme/ui/screens/measure_editor_scale.dart';
 import 'package:studyme/ui/widgets/editable_list_tile.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/util/string_extension.dart';
-
 import 'package:studyme/util/util.dart';
 
 import 'measure_editor_list.dart';

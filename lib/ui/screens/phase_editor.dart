@@ -5,8 +5,6 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/phases/phase_order.dart';
 import 'package:studyme/models/phases/phases.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
-import 'package:studyme/ui/widgets/editable_list_tile.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/ui/widgets/phases_widget.dart';
 import 'package:studyme/util/util.dart';
 
@@ -46,7 +44,7 @@ class _PhaseEditorState extends State<PhaseEditor> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Set trial schedule and phases",
+                  Text("Edit trial schedule and phases",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,

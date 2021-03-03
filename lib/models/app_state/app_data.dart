@@ -11,6 +11,8 @@ import 'package:studyme/models/trial.dart';
 import 'package:studyme/util/notifications.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 
+import '../outcome.dart';
+
 class AppData extends ChangeNotifier {
   static const activeTrialKey = 'trial';
   static const stateKey = 'state';
@@ -48,7 +50,7 @@ class AppData extends ChangeNotifier {
     return measures;
   }
 
-  void setOutcome(String outcome) {
+  void setOutcome(Outcome outcome) {
     _trial.outcome = outcome;
     _trial.save();
     notifyListeners();

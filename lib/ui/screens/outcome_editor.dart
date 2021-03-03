@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:studyme/models/outcome.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 
-class GoalEditorOutcome extends StatefulWidget {
-  final String outcome;
-  final Function(String outcome) onSave;
+class OutcomeEditor extends StatefulWidget {
+  final Outcome outcome;
+  final Function(Outcome outcome) onSave;
 
-  GoalEditorOutcome({this.outcome, this.onSave});
+  OutcomeEditor({@required this.outcome, @required this.onSave});
 
   @override
-  _GoalEditorOutcomeState createState() => _GoalEditorOutcomeState();
+  _OutcomeEditorState createState() => _OutcomeEditorState();
 }
 
-class _GoalEditorOutcomeState extends State<GoalEditorOutcome> {
+class _OutcomeEditorState extends State<OutcomeEditor> {
   String _outcome;
 
   @override
   void initState() {
-    _outcome = widget.outcome;
+    _outcome = widget.outcome.outcome;
     super.initState();
   }
 
@@ -29,7 +30,7 @@ class _GoalEditorOutcomeState extends State<GoalEditorOutcome> {
             ActionButton(
                 icon: Icons.check,
                 canPress: _canSubmit(),
-                onPressed: () => widget.onSave(_outcome)),
+                onPressed: () => widget.onSave(Outcome(outcome: _outcome))),
           ],
         ),
         body: SingleChildScrollView(

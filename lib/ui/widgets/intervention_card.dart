@@ -27,7 +27,6 @@ class InterventionCard extends StatelessWidget {
   }
 
   Widget _getTitle() {
-    print(intervention is NoIntervention);
     return intervention != null
         ? Text(intervention.name,
             style: (intervention is NoIntervention)

@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/log/completed_task_log.dart';
+import 'package:studyme/models/outcome.dart';
 import 'package:studyme/ui/screens/creator_1_details.dart';
 
 import 'models/app_state/app_data.dart';
@@ -48,6 +49,7 @@ _setupHive() async {
 
   Hive.registerAdapter<Trial>(TrialAdapter());
   Hive.registerAdapter<Phases>(PhasesAdapter());
+  Hive.registerAdapter<Outcome>(OutcomeAdapter());
   Hive.registerAdapter<PhaseOrder>(PhaseOrderAdapter());
 
   Hive.registerAdapter<Schedule>(ScheduleAdapter());

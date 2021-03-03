@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/ui/screens/goal_editor_outcome.dart';
+import 'package:studyme/ui/screens/outcome_library.dart';
+import 'package:studyme/ui/widgets/outcome_card.dart';
 import 'package:studyme/ui/widgets/section_title.dart';
+
+import 'outcome_overview.dart';
 
 class CreatorGoalSection extends StatelessWidget {
   final AppData model;
@@ -21,18 +24,12 @@ class CreatorGoalSection extends StatelessWidget {
               OutlineButton.icon(
                   icon: Icon(Icons.add),
                   label: Text('Select'),
-                  onPressed: () => _navigateToGoalOutcomeEditor(context)),
+                  onPressed: () => _addOutcome(context)),
             ],
           ),
         if (_outcomeIsSet())
-          Card(
-            child: ListTile(
-              leading: Icon(Icons.star, color: Colors.yellow),
-              title: Text(model.trial.outcome),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () => _navigateToGoalOutcomeEditor(context),
-            ),
-          ),
+          OutcomeCard(
+              outcome: model.trial.outcome, onTap: () => _viewOutcome(context))
       ],
     );
   }
@@ -41,17 +38,21 @@ class CreatorGoalSection extends StatelessWidget {
     return model.trial.outcome != null;
   }
 
-  _navigateToGoalOutcomeEditor(context) {
+  _addOutcome(context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => GoalEditorOutcome(
-            outcome: model.trial.outcome,
-            onSave: (String _outcome) {
-              model.setOutcome(_outcome);
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/creator', (r) => false);
-            }),
+        builder: (context) => OutcomeLibrary(),
+      ),
+    );
+  }
+
+  _viewOutcome(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            OutcomeOverview(isPreview: false, outcome: model.trial.outcome),
       ),
     );
   }

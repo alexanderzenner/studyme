@@ -85,15 +85,6 @@ class CreatorInterventionSection extends StatelessWidget {
     return model.trial.a != null;
   }
 
-  _viewIntervention(context, isA) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => InterventionOverview(isPreview: false, isA: isA),
-      ),
-    );
-  }
-
   _addIntervention(context, isA) {
     Navigator.push(
       context,
@@ -101,6 +92,15 @@ class CreatorInterventionSection extends StatelessWidget {
         builder: (context) => InterventionLibrary(
           isA: isA,
         ),
+      ),
+    );
+  }
+
+  _viewIntervention(context, isA) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => InterventionOverview(isPreview: false, isA: isA),
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/screens/measure_editor_name.dart';
+import 'package:studyme/ui/widgets/library_create_button.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 
 import 'measure_overview.dart';
@@ -28,32 +29,7 @@ class MeasureLibrary extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       color: Theme.of(context).primaryColor)),
-              Center(
-                child: Column(
-                  children: [
-                    SizedBox(height: 10),
-                    RaisedButton.icon(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        color: Colors.green,
-                        icon: Icon(Icons.add, color: Colors.white),
-                        label: Text(
-                          'Create your own',
-                          style: TextStyle(color: Colors.white, fontSize: 15),
-                        ),
-                        onPressed: () {
-                          _createMeasure(context);
-                        }),
-                    Text('or select existing:',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: Theme.of(context).primaryColor)),
-                    SizedBox(height: 10),
-                  ],
-                ),
-              ),
+              LibraryCreateButton(onPressed: () => _createMeasure(context)),
               Expanded(
                 child: ListView.builder(
                   shrinkWrap: true,

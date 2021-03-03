@@ -33,7 +33,7 @@ class CreatorMeasureSection extends StatelessWidget {
                 showSchedule: true,
                 measure: model.trial.measures[index],
                 onTap: () {
-                  _previewMeasure(context, index);
+                  _viewMeasure(context, index);
                 });
           },
         ),
@@ -54,7 +54,7 @@ class CreatorMeasureSection extends StatelessWidget {
     Navigator.pushNamed(context, Routes.measure_library);
   }
 
-  _previewMeasure(context, int index) {
+  _viewMeasure(context, int index) {
     Navigator.push(
       context,
       MaterialPageRoute(

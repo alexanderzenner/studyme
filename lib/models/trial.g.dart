@@ -17,7 +17,7 @@ class TrialAdapter extends TypeAdapter<Trial> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Trial()
-      ..outcome = fields[0] as String
+      ..outcome = fields[0] as Outcome
       ..numberOfInterventions = fields[1] as int
       ..a = fields[2] as Intervention
       ..b = fields[3] as Intervention
@@ -63,7 +63,9 @@ class TrialAdapter extends TypeAdapter<Trial> {
 
 Trial _$TrialFromJson(Map<String, dynamic> json) {
   return Trial()
-    ..outcome = json['outcome'] as String
+    ..outcome = json['outcome'] == null
+        ? null
+        : Outcome.fromJson(json['outcome'] as Map<String, dynamic>)
     ..numberOfInterventions = json['numberOfInterventions'] as int
     ..a = json['a'] == null
         ? null

@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/creator_3_schedule.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
-import 'package:studyme/ui/widgets/intervention_card_new.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
+import 'package:studyme/ui/widgets/outcome_card.dart';
 
 class CreatorSetup extends StatelessWidget {
   @override
@@ -66,11 +66,8 @@ class CreatorSetup extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                                 color: Theme.of(context).primaryColor)),
-                      Card(
-                        child: ListTile(
-                          leading: Icon(Icons.star, color: Colors.yellow),
-                          title: Text(model.trial.outcome),
-                        ),
+                      OutcomeCard(
+                        outcome: model.trial.outcome,
                       ),
                       SizedBox(height: 20),
                       Text(
