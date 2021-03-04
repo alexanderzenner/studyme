@@ -6,11 +6,7 @@ import 'package:studyme/ui/screens/outcome_editor.dart';
 import 'package:studyme/ui/widgets/editable_list_tile.dart';
 
 class OutcomeOverview extends StatefulWidget {
-  final bool isPreview;
-  final Outcome outcome;
-  final Function() onSave;
-
-  const OutcomeOverview({this.isPreview, this.outcome, this.onSave});
+  const OutcomeOverview();
 
   @override
   _OutcomeOverviewState createState() => _OutcomeOverviewState();
@@ -27,54 +23,46 @@ class _OutcomeOverviewState extends State<OutcomeOverview> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          brightness: Brightness.dark,
-          title: Text(widget.outcome.outcome),
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                EditableListTile(
-                    title: Text("Goal"),
-                    subtitle: Text(widget.outcome.outcome),
-                    canEdit: !widget.isPreview,
-                    onTap: _editOutcome),
-                ButtonBar(
-                  children: [
-                    if (widget.isPreview)
-                      OutlinedButton.icon(
-                          icon: Icon(Icons.add),
-                          label: Text("Select"),
-                          onPressed: () {
-                            _addOutcome();
-                          }),
-                    if (!widget.isPreview)
-                      OutlinedButton.icon(
-                          icon: Icon(Icons.delete),
-                          label: Text("Remove"),
-                          onPressed: _remove),
-                  ],
+    return _isDeleting
+        ? Text('')
+        : Consumer<AppData>(builder: (context, model, child) {
+            Outcome outcome = model.trial.outcome;
+            return Scaffold(
+                appBar: AppBar(
+                  brightness: Brightness.dark,
+                  title: Text(outcome.outcome),
                 ),
-              ],
-            ),
-          ),
-        ));
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        EditableListTile(
+                            title: Text("Goal"),
+                            subtitle: Text(outcome.outcome),
+                            canEdit: true,
+                            onTap: () => _editOutcome(outcome)),
+                        ButtonBar(
+                          children: [
+                            OutlinedButton.icon(
+                                icon: Icon(Icons.delete),
+                                label: Text("Remove"),
+                                onPressed: _remove),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ));
+          });
   }
 
-  _addOutcome() {
-    _getSetter()(widget.outcome);
-    Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
-  }
-
-  _editOutcome() {
+  _editOutcome(Outcome outcome) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => OutcomeEditor(
-            outcome: widget.outcome,
+            outcome: outcome,
             onSave: (Outcome _outcome) {
               _getSetter()(_outcome);
               Navigator.pop(context);

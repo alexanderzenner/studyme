@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/outcome_library.dart';
+import 'package:studyme/ui/screens/outcome_preview.dart';
 import 'package:studyme/ui/widgets/outcome_card.dart';
 
 import 'outcome_overview.dart';
@@ -54,8 +55,7 @@ class CreatorGoalSection extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            OutcomeOverview(isPreview: false, outcome: model.trial.outcome),
+        builder: (context) => OutcomeOverview(),
       ),
     );
   }

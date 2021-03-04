@@ -5,7 +5,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/default_outcomes.dart';
 import 'package:studyme/models/outcome.dart';
 import 'package:studyme/ui/screens/outcome_editor.dart';
-import 'package:studyme/ui/screens/outcome_overview.dart';
+import 'package:studyme/ui/screens/outcome_preview.dart';
 import 'package:studyme/ui/widgets/library_create_button.dart';
 import 'package:studyme/ui/widgets/outcome_card.dart';
 
@@ -51,8 +51,7 @@ class OutcomeLibrary extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            OutcomeOverview(isPreview: true, outcome: outcome),
+        builder: (context) => OutcomePreview(outcome: outcome),
       ),
     );
   }
