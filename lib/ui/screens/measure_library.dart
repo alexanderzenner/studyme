@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
+import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/ui/screens/measure_creator_type.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
+import 'package:studyme/ui/screens/measure_editor_name.dart';
+import 'package:studyme/ui/widgets/library_create_button.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 
-import 'measure_overview.dart';
+import 'measure_preview.dart';
 
 class MeasureLibrary extends StatelessWidget {
   @override
@@ -17,39 +18,32 @@ class MeasureLibrary extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
-          title: Text("Add Measure"),
         ),
-        body: SingleChildScrollView(
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              HintCard(
-                titleText: "Add existing or new measure",
-                body: [
-                  Text(
-                      "You can choose from a set of predefined measures or create your own."),
-                ],
+              Text(
+                  "What ${(model.trial.measures.length > 0) ? 'other ' : ''}data do you want to collect to assess if you are achieving your goal?",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Theme.of(context).primaryColor)),
+              LibraryCreateButton(onPressed: () => _createMeasure(context)),
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: _unaddedMeasures.length,
+                  itemBuilder: (context, index) {
+                    Measure _measure = _unaddedMeasures[index];
+                    return MeasureCard(
+                        measure: _measure,
+                        onTap: () => _previewMeasure(context, _measure));
+                  },
+                ),
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: _unaddedMeasures.length,
-                itemBuilder: (context, index) {
-                  Measure _measure = _unaddedMeasures[index];
-                  return MeasureCard(
-                      measure: _measure,
-                      onTap: () => _previewMeasure(context, _measure));
-                },
-              ),
-              SizedBox(height: 90)
             ],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _createMeasure(context);
-          },
-          child: Icon(Icons.add),
-          backgroundColor: Colors.green,
         ),
       );
     });
@@ -59,8 +53,7 @@ class MeasureLibrary extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            MeasureOverview(isPreview: true, measure: measure),
+        builder: (context) => MeasurePreview(measure: measure),
       ),
     );
   }
@@ -74,7 +67,8 @@ class MeasureLibrary extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MeasureCreatorType(onSave: saveFunction),
+        builder: (context) => MeasureEditorName(
+            measure: FreeMeasure(), onSave: saveFunction, save: false),
       ),
     );
   }

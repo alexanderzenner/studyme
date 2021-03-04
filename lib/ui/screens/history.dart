@@ -45,6 +45,7 @@ class _HistoryState extends State<History> {
                   );
                 }).toList(),
               ),
+              SizedBox(height: 20),
               ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
@@ -56,6 +57,7 @@ class _HistoryState extends State<History> {
                       timeAggregation: _timeAggregation,
                     );
                   }),
+              SizedBox(height: 120)
             ],
           ),
         ),

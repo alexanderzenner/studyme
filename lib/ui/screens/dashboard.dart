@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/settings.dart';
+import 'dart:convert';
+
+import 'package:studyme/util/util.dart';
 
 import 'history.dart';
 import 'home.dart';
@@ -28,6 +34,7 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       body: SafeArea(child: _body[_currentIndex]()),
       bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           currentIndex: _currentIndex,
           onTap: (index) {
             setState(() {
@@ -48,6 +55,22 @@ class _DashboardState extends State<Dashboard> {
               label: _titles[2],
             )
           ]),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.share),
+        label: Text(
+          'Copy Settings For Survey',
+        ),
+        onPressed: () => _exportTrialInfo(context),
+      ),
     );
+  }
+
+  _exportTrialInfo(BuildContext context) {
+    Clipboard.setData(new ClipboardData(
+        text: json.encode(
+            Provider.of<AppData>(context, listen: false).trial.toJson())));
+    toast(context,
+        "Settings copied to clipboard. Please paste them into the corresponding survey field.");
   }
 }

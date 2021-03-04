@@ -19,21 +19,25 @@ class NoInterventionAdapter extends TypeAdapter<NoIntervention> {
     return NoIntervention(
       letter: fields[4] as dynamic,
     )
-      ..name = fields[2] as String
-      ..description = fields[3] as String
       ..schedule = fields[5] as Schedule
       ..type = fields[0] as String
-      ..id = fields[1] as String;
+      ..id = fields[1] as String
+      ..name = fields[2] as String
+      ..description = fields[3] as String;
   }
 
   @override
   void write(BinaryWriter writer, NoIntervention obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.type)
       ..writeByte(1)
       ..write(obj.id)
+      ..writeByte(2)
+      ..write(obj.name)
+      ..writeByte(3)
+      ..write(obj.description)
       ..writeByte(4)
       ..write(obj.letter);
   }
@@ -70,8 +74,8 @@ Map<String, dynamic> _$NoInterventionToJson(NoIntervention instance) =>
     <String, dynamic>{
       'type': instance.type,
       'id': instance.id,
-      'letter': instance.letter,
       'name': instance.name,
       'description': instance.description,
+      'letter': instance.letter,
       'schedule': instance.schedule,
     };

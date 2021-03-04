@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 toast(context, text) {
-  Scaffold.of(context).showSnackBar(
+  ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(text),
     ),

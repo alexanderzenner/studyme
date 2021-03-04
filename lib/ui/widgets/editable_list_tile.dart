@@ -6,14 +6,15 @@ class EditableListTile extends StatelessWidget {
   final bool canEdit;
   final void Function() onTap;
 
-  EditableListTile({this.title, this.subtitle, this.canEdit, this.onTap});
+  EditableListTile(
+      {this.title, this.subtitle, this.onTap, this.canEdit = true});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
         title: title,
         subtitle: subtitle,
-        trailing: canEdit ? Icon(Icons.chevron_right) : null,
+        trailing: canEdit && onTap != null ? Icon(Icons.chevron_right) : null,
         onTap: canEdit ? onTap : null);
   }
 }

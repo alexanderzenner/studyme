@@ -1,19 +1,19 @@
 import 'package:health/health.dart';
-import 'package:studyme/models/measure/choice.dart';
-import 'package:studyme/models/measure/choice_measure.dart';
+import 'package:studyme/models/measure/list_item.dart';
+import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/synced_measure.dart';
 
 List<Measure> get defaultMeasures {
   int id = 0;
   return [
-    ChoiceMeasure(
+    ListMeasure(
       id: (id++).toString(),
       name: 'Pain',
       choices: [
-        Choice(value: 'Low'),
-        Choice(value: 'Medium'),
-        Choice(value: 'High')
+        ListItem(value: 'Low'),
+        ListItem(value: 'Medium'),
+        ListItem(value: 'High')
       ],
     ),
     SyncedMeasure(

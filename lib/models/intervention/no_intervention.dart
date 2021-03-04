@@ -11,9 +11,6 @@ part 'no_intervention.g.dart';
 class NoIntervention extends Intervention {
   static const String interventionType = 'no_intervention';
 
-  final name = 'Baseline';
-  final description = 'TBD';
-
   NoIntervention({letter}) : super(type: interventionType, letter: letter);
 
   @override

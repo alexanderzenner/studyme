@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/task/task.dart';
-
 import 'package:studyme/util/time_of_day_extension.dart';
 
 class MeasureTask extends Task {

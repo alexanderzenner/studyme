@@ -7,6 +7,7 @@ import 'package:studyme/util/time_of_day_extension.dart';
 import './measure/measure.dart';
 import 'intervention/intervention.dart';
 import 'measure/synced_measure.dart';
+import 'outcome.dart';
 
 part 'trial.g.dart';
 
@@ -14,7 +15,7 @@ part 'trial.g.dart';
 @HiveType(typeId: 200)
 class Trial extends HiveObject {
   @HiveField(0)
-  String outcome;
+  Outcome outcome;
 
   @HiveField(1)
   int numberOfInterventions;
@@ -33,6 +34,9 @@ class Trial extends HiveObject {
 
   @HiveField(6)
   DateTime startDate;
+
+  @HiveField(7)
+  Map<DateTime, String> stepsLogForSurvey;
 
   List<Task> getTasksForDate(DateTime date) {
     DateTime _cleanDate = DateTime(date.year, date.month, date.day);
@@ -70,7 +74,9 @@ class Trial extends HiveObject {
     return measures.whereType<SyncedMeasure>().toList();
   }
 
-  Trial() : this.measures = [];
+  Trial()
+      : this.measures = [],
+        this.stepsLogForSurvey = {};
 
   DateTime get endDate {
     return startDate
@@ -110,6 +116,13 @@ class Trial extends HiveObject {
   int getPhaseIndexForDate(DateTime date) {
     final test = date.differenceInDays(startDate).inDays;
     return test ~/ phases.phaseDuration;
+  }
+
+  generateWithSetInfos() {
+    this.phases = Phases.createDefault();
+    if (this.numberOfInterventions == 1) {
+      this.b.name = 'Without "${this.a.name}"';
+    }
   }
 
   factory Trial.fromJson(Map<String, dynamic> json) => _$TrialFromJson(json);

@@ -1,0 +1,15 @@
+Text(
+                          'You will complete a total of ${model.trial.phases.numberOfPhases} phases.',
+                          style: TextStyle(fontSize: 18)),
+                      Text(
+                          'Each phase is ${model.trial.phases.phaseDuration} days long.',
+                          style: TextStyle(fontSize: 18)),
+                      Text(
+                          'The trial will take ${model.trial.phases.totalDuration} days in total.',
+                          style: TextStyle(fontSize: 18)),
+
+
+
+SectionTitle(model.trial.numberOfInterventions == 1
+                          ? "Does it help? Let's find out"
+                          : "What works better? Let's find out"),

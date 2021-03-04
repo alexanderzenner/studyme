@@ -22,11 +22,14 @@ class _InitState extends State<Init> {
   _initAppState() async {
     // first make sure app data is fetched from box
     await Provider.of<AppData>(context, listen: false).loadAppState();
+    Provider.of<AppData>(context, listen: false)
+        .addStepLogForSurvey('opened app');
     AppData appData = Provider.of<AppData>(context, listen: false);
     AppState state = appData.state;
     if (state == AppState.ONBOARDING) {
       Navigator.pushReplacementNamed(context, Routes.onboarding);
-    } else if (state == AppState.CREATING) {
+    } else if (state == AppState.CREATING_DETAILS ||
+        state == AppState.CREATING_PHASES) {
       Navigator.pushReplacementNamed(context, Routes.creator);
     } else if (state == AppState.DOING) {
       // sync measures

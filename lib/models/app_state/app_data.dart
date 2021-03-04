@@ -11,6 +11,8 @@ import 'package:studyme/models/trial.dart';
 import 'package:studyme/util/notifications.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 
+import '../outcome.dart';
+
 class AppData extends ChangeNotifier {
   static const activeTrialKey = 'trial';
   static const stateKey = 'state';
@@ -23,8 +25,8 @@ class AppData extends ChangeNotifier {
   Box box;
   Trial _trial;
   List<Measure> _measures;
-  AppState get state => box.get(stateKey);
 
+  AppState get state => box.get(stateKey);
   Trial get trial => _trial;
   List<Measure> get measures => _measures;
 
@@ -35,7 +37,25 @@ class AppData extends ChangeNotifier {
     return measures;
   }
 
-  void setOutcome(String outcome) {
+  loadAppState() async {
+    box = await Hive.openBox('app_data');
+    _trial = box.get(activeTrialKey);
+
+    // first time app is started, initialize state and trial
+    if (state == null) {
+      saveAppState(AppState.ONBOARDING);
+    }
+    if (_trial == null) {
+      createNewTrial();
+    }
+  }
+
+  void addStepLogForSurvey(String logMessage) {
+    _trial.stepsLogForSurvey[DateTime.now()] = logMessage;
+    _trial.save();
+  }
+
+  void setOutcome(Outcome outcome) {
     _trial.outcome = outcome;
     _trial.save();
     notifyListeners();
@@ -103,17 +123,15 @@ class AppData extends ChangeNotifier {
     notifyListeners();
   }
 
-  loadAppState() async {
-    box = await Hive.openBox('app_data');
-    _trial = box.get(activeTrialKey);
+  createNewTrial() {
+    _trial = Trial();
+    box.put(activeTrialKey, _trial);
+  }
 
-    // first time app is started, initialize state and trial
-    if (state == null) {
-      saveAppState(AppState.ONBOARDING);
-    }
-    if (_trial == null) {
-      createNewTrial();
-    }
+  finishEditingDetails() {
+    saveAppState(AppState.CREATING_PHASES);
+    _trial.generateWithSetInfos();
+    _trial.save();
   }
 
   startTrial() {
@@ -126,11 +144,6 @@ class AppData extends ChangeNotifier {
 
   saveAppState(AppState state) {
     box.put(stateKey, state);
-  }
-
-  createNewTrial() {
-    _trial = Trial();
-    box.put(activeTrialKey, _trial);
   }
 
   void scheduleNotificationsFor(DateTime date) async {
@@ -166,12 +179,8 @@ class AppData extends ChangeNotifier {
     return _trial.outcome != null;
   }
 
-  bool canDefinePhases() {
-    return _trial.a != null && _trial.b != null;
-  }
-
   bool canDefineMeasures() {
-    return canDefinePhases() && _trial.phases != null;
+    return canDefineInterventions() && _trial.a != null && _trial.b != null;
   }
 
   bool canStartTrial() {

@@ -1,14 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/measure/choice_measure.dart';
-import 'package:studyme/models/measure/free_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/ui/screens/schedule_editor.dart';
 
 import '../widgets/action_button.dart';
-import 'measure_editor_choice.dart';
-import 'measure_editor_scale.dart';
+import 'measure_editor_type.dart';
 
 class MeasureEditorName extends StatefulWidget {
   final Measure measure;
@@ -40,7 +35,7 @@ class _MeasureEditorNameState extends State<MeasureEditorName> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(Measure.getTitleFor(_name)),
+              Text(_name ?? ''),
               Visibility(
                 visible: true,
                 child: Text(
@@ -63,6 +58,11 @@ class _MeasureEditorNameState extends State<MeasureEditorName> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
+              Text('Name the data you want to collect',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Theme.of(context).primaryColor)),
               SizedBox(
                 height: 10,
               ),
@@ -88,30 +88,12 @@ class _MeasureEditorNameState extends State<MeasureEditorName> {
     if (widget.save) {
       widget.onSave(widget.measure);
     } else {
-      if (widget.measure is ChoiceMeasure) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MeasureEditorChoice(
-                  measure: widget.measure, onSave: widget.onSave, save: false),
-            ));
-      } else if (widget.measure is ScaleMeasure) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MeasureEditorScale(
-                  measure: widget.measure, onSave: widget.onSave, save: false),
-            ));
-      } else if (widget.measure is FreeMeasure) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ScheduleEditor(
-                  title: widget.measure.title,
-                  objectWithSchedule: widget.measure,
-                  onSave: widget.onSave),
-            ));
-      }
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MeasureEditorType(
+                measure: widget.measure, onSave: widget.onSave),
+          ));
     }
   }
 

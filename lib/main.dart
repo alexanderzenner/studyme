@@ -3,6 +3,8 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/log/completed_task_log.dart';
+import 'package:studyme/models/outcome.dart';
+import 'package:studyme/ui/screens/creator_1_details.dart';
 
 import 'models/app_state/app_data.dart';
 import 'models/app_state/app_state.dart';
@@ -11,8 +13,8 @@ import 'models/intervention/intervention.dart';
 import 'models/intervention/no_intervention.dart';
 import 'models/log/trial_log.dart';
 import 'models/measure/aggregations.dart';
-import 'models/measure/choice.dart';
-import 'models/measure/choice_measure.dart';
+import 'models/measure/list_item.dart';
+import 'models/measure/list_measure.dart';
 import 'models/measure/free_measure.dart';
 import 'models/measure/scale_measure.dart';
 import 'models/measure/synced_measure.dart';
@@ -21,7 +23,6 @@ import 'models/phases/phase_order.dart';
 import 'models/phases/phases.dart';
 import 'models/trial.dart';
 import 'routes.dart';
-import 'ui/screens/creator.dart';
 import 'ui/screens/dashboard.dart';
 import 'ui/screens/init.dart';
 import 'ui/screens/measure_library.dart';
@@ -48,6 +49,7 @@ _setupHive() async {
 
   Hive.registerAdapter<Trial>(TrialAdapter());
   Hive.registerAdapter<Phases>(PhasesAdapter());
+  Hive.registerAdapter<Outcome>(OutcomeAdapter());
   Hive.registerAdapter<PhaseOrder>(PhaseOrderAdapter());
 
   Hive.registerAdapter<Schedule>(ScheduleAdapter());
@@ -56,8 +58,8 @@ _setupHive() async {
 
   Hive.registerAdapter<ValueAggregation>(ValueAggregationAdapter());
   Hive.registerAdapter<FreeMeasure>(FreeMeasureAdapter());
-  Hive.registerAdapter<Choice>(ChoiceAdapter());
-  Hive.registerAdapter<ChoiceMeasure>(ChoiceMeasureAdapter());
+  Hive.registerAdapter<ListItem>(ListItemAdapter());
+  Hive.registerAdapter<ListMeasure>(ListMeasureAdapter());
   Hive.registerAdapter<ScaleMeasure>(ScaleMeasureAdapter());
   Hive.registerAdapter<SyncedMeasure>(SyncedMeasureAdapter());
 
@@ -77,7 +79,7 @@ class MyApp extends StatelessWidget {
         routes: {
           Routes.init: (context) => Init(),
           Routes.onboarding: (context) => Onboarding(),
-          Routes.creator: (context) => Creator(),
+          Routes.creator: (context) => CreatorDetails(),
           Routes.measure_library: (context) => MeasureLibrary(),
           Routes.dashboard: (context) => Dashboard(),
         });

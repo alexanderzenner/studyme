@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
+import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/task/intervention_task.dart';
 import 'package:studyme/models/task/measure_task.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
-import 'package:studyme/ui/widgets/section_title.dart';
 import 'package:studyme/ui/widgets/task_card.dart';
 
 class TaskList extends StatefulWidget {
@@ -50,23 +50,21 @@ class _TaskListState extends State<TaskList> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      SectionTitle('Today'),
-      if (_isLoading) CircularProgressIndicator(),
-      if (!_isLoading) _buildTaskList()
-    ]);
+    return _isLoading ? CircularProgressIndicator() : _buildTaskList();
   }
 
   _buildTaskList() {
+    Intervention _currentIntervention =
+        widget.trial.getInterventionForDate(widget.date);
     return Column(
       children: [
         if (!_todaysTasks.any((element) => element is InterventionTask))
           HintCard(
-            titleText: "No intervention today",
+            titleText: 'No tasks for "${_currentIntervention.name}" today!',
           ),
         if (!_todaysTasks.any((element) => element is MeasureTask))
           HintCard(
-            titleText: "No measures today",
+            titleText: "No data collected today!",
           ),
         if (_todaysTasks.length > 0)
           ListView.builder(

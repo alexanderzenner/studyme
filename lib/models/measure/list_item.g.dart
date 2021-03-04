@@ -1,28 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'choice.dart';
+part of 'list_item.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ChoiceAdapter extends TypeAdapter<Choice> {
+class ListItemAdapter extends TypeAdapter<ListItem> {
   @override
   final int typeId = 4;
 
   @override
-  Choice read(BinaryReader reader) {
+  ListItem read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Choice(
+    return ListItem(
       value: fields[0] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Choice obj) {
+  void write(BinaryWriter writer, ListItem obj) {
     writer
       ..writeByte(1)
       ..writeByte(0)
@@ -35,7 +35,7 @@ class ChoiceAdapter extends TypeAdapter<Choice> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ChoiceAdapter &&
+      other is ListItemAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -44,12 +44,12 @@ class ChoiceAdapter extends TypeAdapter<Choice> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-Choice _$ChoiceFromJson(Map<String, dynamic> json) {
-  return Choice(
+ListItem _$ListItemFromJson(Map<String, dynamic> json) {
+  return ListItem(
     value: json['value'] as String,
   );
 }
 
-Map<String, dynamic> _$ChoiceToJson(Choice instance) => <String, dynamic>{
+Map<String, dynamic> _$ListItemToJson(ListItem instance) => <String, dynamic>{
       'value': instance.value,
     };

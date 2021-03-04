@@ -48,7 +48,7 @@ class _InterventionInteractorState extends State<InterventionInteractor> {
                 ),
               ),
               SwitchListTile(
-                title: Text("I completed the intervention"),
+                title: Text("Done"),
                 value: _confirmed,
                 onChanged: (value) {
                   setState(() {

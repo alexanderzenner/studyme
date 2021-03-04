@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:studyme/models/measure/measure.dart';
+import 'package:studyme/models/intervention/intervention.dart';
 
-class MeasureCard extends StatelessWidget {
-  final Measure measure;
+class InterventionCardNew extends StatelessWidget {
+  final Intervention intervention;
   final bool showSchedule;
   final void Function() onTap;
 
-  MeasureCard({this.measure, this.onTap, this.showSchedule = false});
+  InterventionCardNew(
+      {this.intervention, this.onTap, this.showSchedule = false});
 
   @override
   Widget build(BuildContext context) {
     return Card(
         child: ListTile(
-      leading: Icon(measure.getIcon()),
-      title: Text(measure.name),
+      title: Text(intervention.name),
       subtitle: _getSubtitle(),
       trailing: onTap != null ? Icon(Icons.chevron_right) : null,
       onTap: onTap,
@@ -21,8 +21,8 @@ class MeasureCard extends StatelessWidget {
   }
 
   _getSubtitle() {
-    if (showSchedule && measure.schedule != null) {
-      return Text(measure.schedule.readable);
+    if (showSchedule && intervention.schedule != null) {
+      return Text(intervention.schedule.readable);
     } else {
       return null;
     }

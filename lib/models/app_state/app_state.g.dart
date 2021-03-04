@@ -16,8 +16,10 @@ class AppStateAdapter extends TypeAdapter<AppState> {
       case 0:
         return AppState.ONBOARDING;
       case 1:
-        return AppState.CREATING;
+        return AppState.CREATING_DETAILS;
       case 2:
+        return AppState.CREATING_PHASES;
+      case 3:
         return AppState.DOING;
       default:
         return null;
@@ -30,11 +32,14 @@ class AppStateAdapter extends TypeAdapter<AppState> {
       case AppState.ONBOARDING:
         writer.writeByte(0);
         break;
-      case AppState.CREATING:
+      case AppState.CREATING_DETAILS:
         writer.writeByte(1);
         break;
-      case AppState.DOING:
+      case AppState.CREATING_PHASES:
         writer.writeByte(2);
+        break;
+      case AppState.DOING:
+        writer.writeByte(3);
         break;
     }
   }

@@ -5,8 +5,9 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/default_interventions.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/ui/screens/intervention_overview.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
+import 'package:studyme/ui/screens/intervention_preview.dart';
+import 'package:studyme/ui/widgets/intervention_card_new.dart';
+import 'package:studyme/ui/widgets/library_create_button.dart';
 
 import 'intervention_editor_name.dart';
 
@@ -22,41 +23,36 @@ class InterventionLibrary extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
-          title: Text("Add Intervention"),
         ),
-        body: SingleChildScrollView(
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              HintCard(
-                titleText: "Add existing or new intervention",
-                body: [
-                  Text(
-                      "You can choose from a set of predefined interventions or create your own."),
-                ],
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: defaultInterventions.length,
-                itemBuilder: (context, index) {
-                  Intervention _intervention = defaultInterventions[index];
-                  return Card(
-                      child: ListTile(
-                          title: Text(_intervention.name),
-                          onTap: () =>
-                              _previewIntervention(context, _intervention)));
-                },
-              ),
-              SizedBox(height: 90)
+              Text(
+                  isA
+                      ? "What is one thing you want to try out to achieve your goal?"
+                      : 'What is the other thing you want to try out?',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Theme.of(context).primaryColor)),
+              LibraryCreateButton(
+                  onPressed: () => _createIntervention(context)),
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: defaultInterventions.length,
+                  itemBuilder: (context, index) {
+                    Intervention _intervention = defaultInterventions[index];
+                    return InterventionCardNew(
+                        intervention: _intervention,
+                        onTap: () =>
+                            _previewIntervention(context, _intervention));
+                  },
+                ),
+              )
             ],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _createIntervention(context);
-          },
-          child: Icon(Icons.add),
-          backgroundColor: Colors.green,
         ),
       );
     });
@@ -66,8 +62,8 @@ class InterventionLibrary extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => InterventionOverview(
-            isPreview: true, isA: isA, intervention: intervention),
+        builder: (context) =>
+            InterventionPreview(isA: isA, intervention: intervention),
       ),
     );
   }
@@ -82,7 +78,10 @@ class InterventionLibrary extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => InterventionEditorName(
-            intervention: Intervention(), onSave: saveFunction, save: false),
+            intervention: Intervention(),
+            isA: isA,
+            onSave: saveFunction,
+            save: false),
       ),
     );
   }

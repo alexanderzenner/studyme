@@ -38,7 +38,7 @@ class _MeasureEditorScaleState extends State<MeasureEditorScale> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(widget.measure.title),
+              Text(widget.measure.name),
               Visibility(
                 visible: true,
                 child: Text(
@@ -61,7 +61,14 @@ class _MeasureEditorScaleState extends State<MeasureEditorScale> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text('Define your scale',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor)),
+                SizedBox(height: 10),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   initialValue: _min.toInt().toString(),
@@ -109,7 +116,7 @@ class _MeasureEditorScaleState extends State<MeasureEditorScale> {
             context,
             MaterialPageRoute(
               builder: (context) => ScheduleEditor(
-                  title: widget.measure.title,
+                  title: widget.measure.name,
                   objectWithSchedule: widget.measure,
                   onSave: widget.onSave),
             ));
