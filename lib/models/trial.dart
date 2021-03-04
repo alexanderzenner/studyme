@@ -1,5 +1,8 @@
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:studyme/models/phase/phase_intervention.dart';
+import 'package:studyme/models/phase/phase.dart';
+import 'package:studyme/models/phase/phase_withdrawal.dart';
 import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:studyme/models/trial_type.dart';
@@ -22,10 +25,16 @@ class Trial extends HiveObject {
   TrialType type;
 
   @HiveField(2)
-  Intervention a;
+  Intervention interventionA;
+
+  @JsonKey(ignore: true)
+  Phase a;
 
   @HiveField(3)
-  Intervention b;
+  Intervention interventionB;
+
+  @JsonKey(ignore: true)
+  Phase b;
 
   @HiveField(4)
   List<Measure> measures;
@@ -107,9 +116,9 @@ class Trial extends HiveObject {
     final interventionLetter = schedule.phaseSequence[index];
 
     if (interventionLetter == 'a')
-      return a;
+      return interventionA;
     else if (interventionLetter == 'b')
-      return b;
+      return interventionB;
     else
       return null;
   }
@@ -121,8 +130,12 @@ class Trial extends HiveObject {
 
   generateWithSetInfos() {
     this.schedule = TrialSchedule.createDefault();
+    this.a = InterventionPhase(letter: 'a', intervention: this.interventionA);
     if (this.type == TrialType.introductionWithdrawal) {
-      this.b.name = 'Without "${this.a.name}"';
+      this.b = WithdrawalPhase(
+          letter: 'b', withdrawnIntervention: this.interventionA);
+    } else {
+      this.b = InterventionPhase(letter: 'b', intervention: this.interventionA);
     }
   }
 

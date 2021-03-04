@@ -1,43 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:studyme/models/intervention/intervention.dart';
-import 'package:studyme/models/intervention/no_intervention.dart';
+import 'package:studyme/models/phase/phase_intervention.dart';
+import 'package:studyme/models/phase/phase.dart';
+import 'package:studyme/models/phase/phase_withdrawal.dart';
 import 'package:studyme/ui/widgets/intervention_letter.dart';
 
 class InterventionCard extends StatelessWidget {
-  final String letter;
-  final Intervention intervention;
+  final Phase phase;
   final bool showSchedule;
+  final Widget trailing;
   final void Function() onTap;
 
   InterventionCard(
-      {@required this.letter,
-      @required this.intervention,
+      {@required this.phase,
       this.onTap,
-      this.showSchedule = false});
+      this.showSchedule = false,
+      this.trailing});
 
   @override
   Widget build(BuildContext context) {
     return Card(
         child: ListTile(
-            leading: InterventionLetter(letter),
+            leading: InterventionLetter(phase.letter),
             title: _getTitle(),
-            subtitle: _getSubtitle(),
-            trailing: onTap != null ? Icon(Icons.chevron_right) : null,
+            subtitle: _getSubtitle(phase),
+            trailing:
+                trailing ?? (onTap != null ? Icon(Icons.chevron_right) : null),
             onTap: onTap));
   }
 
   Widget _getTitle() {
-    return intervention != null
-        ? Text(intervention.name,
-            style: (intervention is NoIntervention)
+    return phase != null
+        ? Text(phase.name,
+            style: (phase is WithdrawalPhase)
                 ? TextStyle(fontStyle: FontStyle.italic)
                 : null)
         : null;
   }
 
-  Widget _getSubtitle() {
-    if (intervention != null && showSchedule && intervention.schedule != null) {
-      return Text(intervention.schedule.readable);
+  Widget _getSubtitle(Phase phase) {
+    if (phase != null && showSchedule && phase is InterventionPhase) {
+      return Text(phase.intervention.schedule.readable);
     } else {
       return null;
     }

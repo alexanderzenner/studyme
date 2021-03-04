@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/models/phase/phase.dart';
 import 'package:studyme/routes.dart';
 import 'package:studyme/ui/screens/trial_schedule_editor.dart';
 import 'package:studyme/ui/widgets/hightlighted_action_button.dart';
-import 'package:studyme/ui/widgets/intervention_letter.dart';
+import 'package:studyme/ui/widgets/intervention_card.dart';
 
 class CreatorSchedule extends StatelessWidget {
   @override
@@ -47,17 +47,13 @@ class CreatorSchedule extends StatelessWidget {
                         itemBuilder: (context, index) {
                           String letter =
                               model.trial.schedule.phaseSequence[index];
-                          Intervention _intervention =
+                          Phase _phase =
                               letter == 'a' ? model.trial.a : model.trial.b;
-                          return Card(
-                              child: ListTile(
-                                  leading: InterventionLetter(letter),
-                                  title: Text(_intervention.name),
-                                  subtitle: _intervention.schedule != null
-                                      ? Text(_intervention.schedule.readable)
-                                      : null,
-                                  trailing: Text(
-                                      'for ${model.trial.schedule.phaseDuration} days')));
+                          return InterventionCard(
+                              phase: _phase,
+                              showSchedule: true,
+                              trailing: Text(
+                                  'for ${model.trial.schedule.phaseDuration} days'));
                         },
                       ),
                       Card(

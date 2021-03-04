@@ -40,9 +40,7 @@ class CreatorSetup extends StatelessWidget {
                               fontSize: 20,
                               color: Theme.of(context).primaryColor)),
                       InterventionCard(
-                          letter: 'a',
-                          intervention: model.trial.a,
-                          showSchedule: true),
+                          phase: model.trial.a, showSchedule: true),
                       Center(
                         child: Text('vs.',
                             style: TextStyle(
@@ -51,9 +49,7 @@ class CreatorSetup extends StatelessWidget {
                                 color: Theme.of(context).primaryColor)),
                       ),
                       InterventionCard(
-                          letter: 'b',
-                          intervention: model.trial.b,
-                          showSchedule: true),
+                          phase: model.trial.b, showSchedule: true),
                       if (model.trial.type == TrialType.alternativeTreatment)
                         Text(
                             'to see if A or B is better for achieving your goal',
@@ -81,7 +77,7 @@ class CreatorSetup extends StatelessWidget {
                       SizedBox(height: 20),
                       if (model.trial.type == TrialType.introductionWithdrawal)
                         Text(
-                            '** If there is no difference "${model.trial.a.name}" likely doesn\'t help you achieve your goal.',
+                            '** If there is no difference "${model.trial.interventionA.name}" likely doesn\'t help you achieve your goal.',
                             style: TextStyle(
                                 fontStyle: FontStyle.italic,
                                 fontSize: 18,

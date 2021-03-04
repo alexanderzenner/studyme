@@ -30,8 +30,9 @@ class _InterventionOverviewState extends State<InterventionOverview> {
     return _isDeleting
         ? Text('')
         : Consumer<AppData>(builder: (context, model, child) {
-            Intervention intervention =
-                widget.isA ? model.trial.a : model.trial.b;
+            Intervention intervention = widget.isA
+                ? model.trial.interventionA
+                : model.trial.interventionB;
             return Scaffold(
                 appBar: AppBar(
                   brightness: Brightness.dark,

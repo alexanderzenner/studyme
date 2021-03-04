@@ -3,7 +3,6 @@ import 'package:hive/hive.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
 import 'package:studyme/models/intervention/intervention.dart';
-import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/models/task/task.dart';
@@ -63,13 +62,6 @@ class AppData extends ChangeNotifier {
   }
 
   void setTrialType(TrialType type) {
-    if (type == TrialType.introductionWithdrawal) {
-      _trial.b = NoIntervention(letter: interventionBLetter);
-    }
-    if (type == TrialType.alternativeTreatment) {
-      _trial.b = null;
-    }
-
     _trial.type = type;
 
     _trial.save();
@@ -80,7 +72,7 @@ class AppData extends ChangeNotifier {
     if (intervention != null) {
       intervention.letter = interventionALetter;
     }
-    _trial.a = intervention;
+    _trial.interventionA = intervention;
     _trial.save();
     notifyListeners();
   }
@@ -89,7 +81,7 @@ class AppData extends ChangeNotifier {
     if (intervention != null) {
       intervention.letter = interventionBLetter;
     }
-    _trial.b = intervention;
+    _trial.interventionB = intervention;
     _trial.save();
     notifyListeners();
   }
@@ -179,7 +171,9 @@ class AppData extends ChangeNotifier {
   }
 
   bool canDefineMeasures() {
-    return canDefineInterventions() && _trial.a != null && _trial.b != null;
+    return canDefineInterventions() &&
+        _trial.interventionA != null &&
+        _trial.interventionB != null;
   }
 
   bool canStartTrial() {

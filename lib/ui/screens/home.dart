@@ -48,8 +48,7 @@ class Home extends StatelessWidget {
   _buildActiveBody(BuildContext context, Trial trial, DateTime date) {
     Intervention _intervention = trial.getInterventionForDate(date);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      InterventionCard(
-          letter: _intervention.letter, intervention: _intervention),
+      //InterventionCard(phase: _intervention),
       SizedBox(height: 20),
       Text('Today',
           style: TextStyle(

@@ -26,7 +26,7 @@ class _TrialTypeEditorState extends State<TrialTypeEditor> {
 
   @override
   Widget build(BuildContext context) {
-    String interventionAName = Provider.of<AppData>(context).trial.a.name;
+    String interventionAName = Provider.of<AppData>(context).trial.interventionA.name;
     return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,

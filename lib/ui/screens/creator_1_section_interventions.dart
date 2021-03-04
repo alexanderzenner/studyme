@@ -26,7 +26,7 @@ class CreatorInterventionSection extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                   color: Theme.of(context).primaryColor)),
-          if (model.trial.a == null)
+          if (model.trial.interventionA == null)
             ButtonBar(
               alignment: MainAxisAlignment.center,
               children: [
@@ -36,9 +36,9 @@ class CreatorInterventionSection extends StatelessWidget {
                     onPressed: () => _addIntervention(context, true)),
               ],
             ),
-          if (model.trial.a != null)
+          if (model.trial.interventionA != null)
             InterventionCardNew(
-                intervention: model.trial.a,
+                intervention: model.trial.interventionA,
                 showSchedule: true,
                 onTap: () => _viewIntervention(context, true)),
           if (_firstInterventionSet()) ...[
@@ -74,7 +74,7 @@ class CreatorInterventionSection extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       color: Theme.of(context).primaryColor)),
-              if (model.trial.b == null)
+              if (model.trial.interventionB == null)
                 ButtonBar(
                   alignment: MainAxisAlignment.center,
                   children: [
@@ -84,10 +84,10 @@ class CreatorInterventionSection extends StatelessWidget {
                         onPressed: () => _addIntervention(context, false)),
                   ],
                 ),
-              if (model.trial.b != null)
+              if (model.trial.interventionB != null)
                 InterventionCardNew(
                     showSchedule: true,
-                    intervention: model.trial.b,
+                    intervention: model.trial.interventionB,
                     onTap: () => _viewIntervention(context, false)),
             ]
           ],
@@ -97,7 +97,7 @@ class CreatorInterventionSection extends StatelessWidget {
   }
 
   _firstInterventionSet() {
-    return model.trial.a != null;
+    return model.trial.interventionA != null;
   }
 
   _addIntervention(context, isA) {

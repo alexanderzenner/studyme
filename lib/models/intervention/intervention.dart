@@ -7,8 +7,6 @@ import 'package:studyme/models/task/intervention_task.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:uuid/uuid.dart';
 
-import 'no_intervention.dart';
-
 part 'intervention.g.dart';
 
 @JsonSerializable()
@@ -57,12 +55,7 @@ class Intervention with HasSchedule {
   }
 
   clone() {
-    switch (this.runtimeType) {
-      case NoIntervention:
-        return NoIntervention.clone(this);
-      default:
-        return Intervention.clone(this);
-    }
+    Intervention.clone(this);
   }
 
   factory Intervention.fromJson(Map<String, dynamic> json) =>

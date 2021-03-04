@@ -11,7 +11,6 @@ import 'models/app_state/app_data.dart';
 import 'models/app_state/app_state.dart';
 import 'models/app_state/log_data.dart';
 import 'models/intervention/intervention.dart';
-import 'models/intervention/no_intervention.dart';
 import 'models/log/trial_log.dart';
 import 'models/measure/aggregations.dart';
 import 'models/measure/list_item.dart';
@@ -55,7 +54,6 @@ _setupHive() async {
   Hive.registerAdapter<PhaseOrder>(PhaseOrderAdapter());
 
   Hive.registerAdapter<Schedule>(ScheduleAdapter());
-  Hive.registerAdapter<NoIntervention>(NoInterventionAdapter());
   Hive.registerAdapter<Intervention>(InterventionAdapter());
 
   Hive.registerAdapter<ValueAggregation>(ValueAggregationAdapter());

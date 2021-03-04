@@ -19,8 +19,8 @@ class TrialAdapter extends TypeAdapter<Trial> {
     return Trial()
       ..outcome = fields[0] as Outcome
       ..type = fields[1] as TrialType
-      ..a = fields[2] as Intervention
-      ..b = fields[3] as Intervention
+      ..interventionA = fields[2] as Intervention
+      ..interventionB = fields[3] as Intervention
       ..measures = (fields[4] as List)?.cast<Measure>()
       ..schedule = fields[5] as TrialSchedule
       ..startDate = fields[6] as DateTime
@@ -36,9 +36,9 @@ class TrialAdapter extends TypeAdapter<Trial> {
       ..writeByte(1)
       ..write(obj.type)
       ..writeByte(2)
-      ..write(obj.a)
+      ..write(obj.interventionA)
       ..writeByte(3)
-      ..write(obj.b)
+      ..write(obj.interventionB)
       ..writeByte(4)
       ..write(obj.measures)
       ..writeByte(5)
@@ -70,12 +70,12 @@ Trial _$TrialFromJson(Map<String, dynamic> json) {
         ? null
         : Outcome.fromJson(json['outcome'] as Map<String, dynamic>)
     ..type = _$enumDecodeNullable(_$TrialTypeEnumMap, json['type'])
-    ..a = json['a'] == null
+    ..interventionA = json['interventionA'] == null
         ? null
-        : Intervention.fromJson(json['a'] as Map<String, dynamic>)
-    ..b = json['b'] == null
+        : Intervention.fromJson(json['interventionA'] as Map<String, dynamic>)
+    ..interventionB = json['interventionB'] == null
         ? null
-        : Intervention.fromJson(json['b'] as Map<String, dynamic>)
+        : Intervention.fromJson(json['interventionB'] as Map<String, dynamic>)
     ..measures = (json['measures'] as List)
         ?.map((e) =>
             e == null ? null : Measure.fromJson(e as Map<String, dynamic>))
@@ -95,8 +95,8 @@ Trial _$TrialFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$TrialToJson(Trial instance) => <String, dynamic>{
       'outcome': instance.outcome,
       'type': _$TrialTypeEnumMap[instance.type],
-      'a': instance.a,
-      'b': instance.b,
+      'interventionA': instance.interventionA,
+      'interventionB': instance.interventionB,
       'measures': instance.measures,
       'schedule': instance.schedule,
       'startDate': instance.startDate?.toIso8601String(),
