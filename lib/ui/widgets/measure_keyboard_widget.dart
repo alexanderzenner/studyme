@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/measure/free_measure.dart';
+import 'package:studyme/models/measure/keyboard_measure.dart';
 
-class FreeMeasureWidget extends StatelessWidget {
-  final FreeMeasure measure;
+class KeyboardMeasureWidget extends StatelessWidget {
+  final KeyboardMeasure measure;
 
   final void Function(num value) updateValue;
 
-  FreeMeasureWidget(this.measure, this.updateValue);
+  KeyboardMeasureWidget(this.measure, this.updateValue);
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ part of 'automatic_measure.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SyncedMeasureAdapter extends TypeAdapter<AutomaticMeasure> {
+class AutomaticMeasureAdapter extends TypeAdapter<AutomaticMeasure> {
   @override
   final int typeId = 5;
 
@@ -53,7 +53,7 @@ class SyncedMeasureAdapter extends TypeAdapter<AutomaticMeasure> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SyncedMeasureAdapter &&
+      other is AutomaticMeasureAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -62,7 +62,7 @@ class SyncedMeasureAdapter extends TypeAdapter<AutomaticMeasure> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-AutomaticMeasure _$SyncedMeasureFromJson(Map<String, dynamic> json) {
+AutomaticMeasure _$AutomaticMeasureFromJson(Map<String, dynamic> json) {
   return AutomaticMeasure(
     id: json['id'] as String,
     name: json['name'] as String,
@@ -77,7 +77,7 @@ AutomaticMeasure _$SyncedMeasureFromJson(Map<String, dynamic> json) {
     ..trackedHealthDataTypeName = json['trackedHealthDataTypeName'] as String;
 }
 
-Map<String, dynamic> _$SyncedMeasureToJson(AutomaticMeasure instance) =>
+Map<String, dynamic> _$AutomaticMeasureToJson(AutomaticMeasure instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': instance.type,

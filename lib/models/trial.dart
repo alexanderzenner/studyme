@@ -6,7 +6,7 @@ import 'package:studyme/util/time_of_day_extension.dart';
 
 import './measure/measure.dart';
 import 'intervention/intervention.dart';
-import 'measure/synced_measure.dart';
+import 'measure/automatic_measure.dart';
 import 'outcome.dart';
 
 part 'trial.g.dart';
@@ -70,8 +70,8 @@ class Trial extends HiveObject {
     return _tasks;
   }
 
-  List<SyncedMeasure> get syncedMeasures {
-    return measures.whereType<SyncedMeasure>().toList();
+  List<AutomaticMeasure> get syncedMeasures {
+    return measures.whereType<AutomaticMeasure>().toList();
   }
 
   Trial()

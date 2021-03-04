@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:studyme/models/measure/synced_measure.dart';
+import 'package:studyme/models/measure/automatic_measure.dart';
 
-class SyncedMeasureWidget extends StatelessWidget {
-  final SyncedMeasure measure;
+class AutomaticMeasureWidget extends StatelessWidget {
+  final AutomaticMeasure measure;
 
   final bool confirmed;
 
   final void Function(bool) setConfirmed;
 
-  SyncedMeasureWidget({this.measure, this.confirmed, this.setConfirmed});
+  AutomaticMeasureWidget({this.measure, this.confirmed, this.setConfirmed});
 
   @override
   Widget build(BuildContext context) {

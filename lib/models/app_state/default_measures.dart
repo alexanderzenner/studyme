@@ -2,7 +2,7 @@ import 'package:health/health.dart';
 import 'package:studyme/models/measure/list_item.dart';
 import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/models/measure/synced_measure.dart';
+import 'package:studyme/models/measure/automatic_measure.dart';
 
 List<Measure> get defaultMeasures {
   int id = 0;
@@ -16,41 +16,41 @@ List<Measure> get defaultMeasures {
         ListItem(value: 'High')
       ],
     ),
-    SyncedMeasure(
+    AutomaticMeasure(
       id: (id++).toString(),
       name: 'Weight',
       healthDataType: HealthDataType.WEIGHT,
     ),
-    SyncedMeasure(
+    AutomaticMeasure(
       id: (id++).toString(),
       name: 'Heart Rate',
       healthDataType: HealthDataType.HEART_RATE,
     ),
-    SyncedMeasure(
+    AutomaticMeasure(
       id: (id++).toString(),
       name: 'Blood Glucose',
       healthDataType: HealthDataType.BLOOD_GLUCOSE,
     ),
-    SyncedMeasure(
+    AutomaticMeasure(
       id: (id++).toString(),
       name: 'Blood Oxygen',
       healthDataType: HealthDataType.BLOOD_OXYGEN,
     ),
-    SyncedMeasure(
+    AutomaticMeasure(
       id: (id++).toString(),
       name: 'Blood Pressure Diastolic',
       healthDataType: HealthDataType.BLOOD_PRESSURE_DIASTOLIC,
     ),
-    SyncedMeasure(
+    AutomaticMeasure(
       id: (id++).toString(),
       name: 'Blood Pressure Systolic',
       healthDataType: HealthDataType.BLOOD_PRESSURE_SYSTOLIC,
     ),
-    SyncedMeasure(
+    AutomaticMeasure(
         id: (id++).toString(),
         name: 'Body Temperature',
         healthDataType: HealthDataType.BODY_TEMPERATURE),
-    SyncedMeasure(
+    AutomaticMeasure(
         id: (id++).toString(),
         name: 'Body Fat Percentage',
         healthDataType: HealthDataType.BODY_FAT_PERCENTAGE),

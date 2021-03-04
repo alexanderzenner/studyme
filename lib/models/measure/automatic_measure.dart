@@ -10,12 +10,12 @@ import 'package:studyme/util/health_connector.dart';
 
 import 'aggregations.dart';
 
-part 'synced_measure.g.dart';
+part 'automatic_measure.g.dart';
 
 @JsonSerializable()
 @HiveType(typeId: 5)
-class SyncedMeasure extends Measure {
-  static const String measureType = 'synced';
+class AutomaticMeasure extends Measure {
+  static const String measureType = 'automatic';
 
   static const IconData icon = Icons.devices_other;
 
@@ -25,7 +25,7 @@ class SyncedMeasure extends Measure {
   HealthDataType get trackedHealthDataType => HealthDataType.values
       .firstWhere((t) => t.toString() == this.trackedHealthDataTypeName);
 
-  SyncedMeasure(
+  AutomaticMeasure(
       {String id,
       String name,
       HealthDataType healthDataType,
@@ -53,7 +53,7 @@ class SyncedMeasure extends Measure {
     return TrialLog(this.id, dataPoint.dateTo, dataPoint.value);
   }
 
-  factory SyncedMeasure.fromJson(Map<String, dynamic> json) =>
-      _$SyncedMeasureFromJson(json);
-  Map<String, dynamic> toJson() => _$SyncedMeasureToJson(this);
+  factory AutomaticMeasure.fromJson(Map<String, dynamic> json) =>
+      _$AutomaticMeasureFromJson(json);
+  Map<String, dynamic> toJson() => _$AutomaticMeasureToJson(this);
 }

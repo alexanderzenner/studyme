@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/measure/free_measure.dart';
+import 'package:studyme/models/measure/keyboard_measure.dart';
 import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
@@ -73,12 +73,12 @@ class _MeasureEditorTypeState extends State<MeasureEditorType> {
                         color: Theme.of(context).primaryColor)),
                 SizedBox(height: 10),
                 ChoiceCard<String>(
-                    value: FreeMeasure.measureType,
+                    value: KeyboardMeasure.measureType,
                     selectedValue: _measure.type,
                     onSelect: _changeMeasureType,
                     title: Row(
                       children: [
-                        Icon(FreeMeasure.icon),
+                        Icon(KeyboardMeasure.icon),
                         SizedBox(width: 5),
                         Text("Keyboard"),
                       ],
@@ -142,7 +142,7 @@ class _MeasureEditorTypeState extends State<MeasureEditorType> {
             builder: (context) => MeasureEditorScale(
                 measure: _measure, onSave: widget.onSave, save: false),
           ));
-    } else if (_measure is FreeMeasure) {
+    } else if (_measure is KeyboardMeasure) {
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -157,8 +157,8 @@ class _MeasureEditorTypeState extends State<MeasureEditorType> {
   _changeMeasureType(String type) {
     if (type != _measure.type) {
       Measure _newMeasure;
-      if (type == FreeMeasure.measureType) {
-        _newMeasure = FreeMeasure();
+      if (type == KeyboardMeasure.measureType) {
+        _newMeasure = KeyboardMeasure();
       } else if (type == ListMeasure.measureType) {
         _newMeasure = ListMeasure();
       } else if (type == ScaleMeasure.measureType) {

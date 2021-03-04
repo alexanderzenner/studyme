@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'free_measure.dart';
+part of 'keyboard_measure.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

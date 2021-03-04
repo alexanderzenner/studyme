@@ -6,16 +6,16 @@ import 'package:studyme/models/schedule.dart';
 
 import 'aggregations.dart';
 
-part 'free_measure.g.dart';
+part 'keyboard_measure.g.dart';
 
 @JsonSerializable()
 @HiveType(typeId: 1)
-class FreeMeasure extends Measure {
-  static const String measureType = 'free';
+class KeyboardMeasure extends Measure {
+  static const String measureType = 'keyboard';
 
   static const IconData icon = Icons.dialpad;
 
-  FreeMeasure(
+  KeyboardMeasure(
       {String id,
       String name,
       String description,
@@ -29,9 +29,9 @@ class FreeMeasure extends Measure {
             aggregation: aggregation,
             schedule: schedule);
 
-  FreeMeasure.clone(FreeMeasure measure) : super.clone(measure);
+  KeyboardMeasure.clone(KeyboardMeasure measure) : super.clone(measure);
 
-  factory FreeMeasure.fromJson(Map<String, dynamic> json) =>
-      _$FreeMeasureFromJson(json);
-  Map<String, dynamic> toJson() => _$FreeMeasureToJson(this);
+  factory KeyboardMeasure.fromJson(Map<String, dynamic> json) =>
+      _$KeyboardMeasureFromJson(json);
+  Map<String, dynamic> toJson() => _$KeyboardMeasureToJson(this);
 }

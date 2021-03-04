@@ -1,7 +1,7 @@
 import "package:collection/collection.dart";
 import 'package:health/health.dart';
 import 'package:studyme/models/log/trial_log.dart';
-import 'package:studyme/models/measure/synced_measure.dart';
+import 'package:studyme/models/measure/automatic_measure.dart';
 import 'package:studyme/models/trial.dart';
 
 class HealthConnector {
@@ -30,12 +30,12 @@ class HealthConnector {
   }
 
   syncMeasures(Trial trial, Function saveCallback) async {
-    List<SyncedMeasure> _measures = trial.syncedMeasures;
+    List<AutomaticMeasure> _measures = trial.syncedMeasures;
 
     if (_measures.length > 0) {
-      Map<HealthDataType, SyncedMeasure> dataTypeToMeasureMap = {};
+      Map<HealthDataType, AutomaticMeasure> dataTypeToMeasureMap = {};
 
-      _measures.forEach((SyncedMeasure measure) {
+      _measures.forEach((AutomaticMeasure measure) {
         dataTypeToMeasureMap.putIfAbsent(
             measure.trackedHealthDataType, () => measure);
       });
@@ -46,7 +46,7 @@ class HealthConnector {
           .removeWhere((element) => element.dateTo.isAfter(DateTime.now()));
       groupBy(dataPoints, (HealthDataPoint point) => point.type)
           .forEach((dataType, healthPoints) {
-        SyncedMeasure _measure = dataTypeToMeasureMap[dataType];
+        AutomaticMeasure _measure = dataTypeToMeasureMap[dataType];
         List<TrialLog> _measureLogs = healthPoints
             .map((_point) => _measure.createLogFrom(_point))
             .toList();

@@ -1,38 +1,34 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'automatic_measure.dart';
+part of 'keyboard_measure.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SyncedMeasureAdapter extends TypeAdapter<AutomaticMeasure> {
+class KeyboardMeasureAdapter extends TypeAdapter<KeyboardMeasure> {
   @override
-  final int typeId = 5;
+  final int typeId = 1;
 
   @override
-  AutomaticMeasure read(BinaryReader reader) {
+  KeyboardMeasure read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return AutomaticMeasure(
+    return KeyboardMeasure(
       id: fields[0] as String,
       name: fields[2] as String,
       description: fields[3] as String,
       aggregation: fields[4] as ValueAggregation,
       schedule: fields[5] as Schedule,
-    )
-      ..trackedHealthDataTypeName = fields[6] as String
-      ..type = fields[1] as String;
+    )..type = fields[1] as String;
   }
 
   @override
-  void write(BinaryWriter writer, AutomaticMeasure obj) {
+  void write(BinaryWriter writer, KeyboardMeasure obj) {
     writer
-      ..writeByte(7)
       ..writeByte(6)
-      ..write(obj.trackedHealthDataTypeName)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -53,7 +49,7 @@ class SyncedMeasureAdapter extends TypeAdapter<AutomaticMeasure> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SyncedMeasureAdapter &&
+      other is KeyboardMeasureAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -62,8 +58,8 @@ class SyncedMeasureAdapter extends TypeAdapter<AutomaticMeasure> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-AutomaticMeasure _$SyncedMeasureFromJson(Map<String, dynamic> json) {
-  return AutomaticMeasure(
+KeyboardMeasure _$KeyboardMeasureFromJson(Map<String, dynamic> json) {
+  return KeyboardMeasure(
     id: json['id'] as String,
     name: json['name'] as String,
     description: json['description'] as String,
@@ -72,12 +68,10 @@ AutomaticMeasure _$SyncedMeasureFromJson(Map<String, dynamic> json) {
     schedule: json['schedule'] == null
         ? null
         : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
-  )
-    ..type = json['type'] as String
-    ..trackedHealthDataTypeName = json['trackedHealthDataTypeName'] as String;
+  )..type = json['type'] as String;
 }
 
-Map<String, dynamic> _$SyncedMeasureToJson(AutomaticMeasure instance) =>
+Map<String, dynamic> _$KeyboardMeasureToJson(KeyboardMeasure instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': instance.type,
@@ -85,7 +79,6 @@ Map<String, dynamic> _$SyncedMeasureToJson(AutomaticMeasure instance) =>
       'description': instance.description,
       'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
       'schedule': instance.schedule,
-      'trackedHealthDataTypeName': instance.trackedHealthDataTypeName,
     };
 
 T _$enumDecode<T>(

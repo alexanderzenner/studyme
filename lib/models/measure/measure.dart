@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/models/measure/synced_measure.dart';
+import 'package:studyme/models/measure/automatic_measure.dart';
 import 'package:studyme/models/mixins/has_schedule.dart';
 import 'package:studyme/models/task/measure_task.dart';
 import 'package:uuid/uuid.dart';
@@ -11,16 +11,16 @@ import '../schedule.dart';
 import '../task/task.dart';
 import 'aggregations.dart';
 import 'list_measure.dart';
-import 'free_measure.dart';
+import 'keyboard_measure.dart';
 
 typedef MeasureTaskParser = Measure Function(Map<String, dynamic> data);
 
 abstract class Measure with HasSchedule {
   static Map<String, MeasureTaskParser> measureTypes = {
     ListMeasure.measureType: (json) => ListMeasure.fromJson(json),
-    FreeMeasure.measureType: (json) => FreeMeasure.fromJson(json),
+    KeyboardMeasure.measureType: (json) => KeyboardMeasure.fromJson(json),
     ScaleMeasure.measureType: (json) => ScaleMeasure.fromJson(json),
-    SyncedMeasure.measureType: (json) => SyncedMeasure.fromJson(json),
+    AutomaticMeasure.measureType: (json) => AutomaticMeasure.fromJson(json),
   };
 
   @HiveField(0)
@@ -67,14 +67,14 @@ abstract class Measure with HasSchedule {
 
   getIcon() {
     switch (this.runtimeType) {
-      case FreeMeasure:
-        return FreeMeasure.icon;
+      case KeyboardMeasure:
+        return KeyboardMeasure.icon;
       case ListMeasure:
         return ListMeasure.icon;
       case ScaleMeasure:
         return ScaleMeasure.icon;
-      case SyncedMeasure:
-        return SyncedMeasure.icon;
+      case AutomaticMeasure:
+        return AutomaticMeasure.icon;
       default:
         return null;
     }
@@ -82,8 +82,8 @@ abstract class Measure with HasSchedule {
 
   clone() {
     switch (this.runtimeType) {
-      case FreeMeasure:
-        return FreeMeasure.clone(this);
+      case KeyboardMeasure:
+        return KeyboardMeasure.clone(this);
       case ListMeasure:
         return ListMeasure.clone(this);
       case ScaleMeasure:

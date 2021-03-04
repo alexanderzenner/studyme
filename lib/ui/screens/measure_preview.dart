@@ -4,7 +4,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/models/measure/synced_measure.dart';
+import 'package:studyme/models/measure/automatic_measure.dart';
 import 'package:studyme/ui/screens/schedule_editor.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/util/string_extension.dart';
@@ -25,7 +25,7 @@ class MeasurePreview extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
-                  if (_measure is SyncedMeasure)
+                  if (_measure is AutomaticMeasure)
                     HintCard(
                       titleText: "Synced measure",
                       body: [

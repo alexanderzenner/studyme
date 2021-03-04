@@ -15,9 +15,9 @@ import 'models/log/trial_log.dart';
 import 'models/measure/aggregations.dart';
 import 'models/measure/list_item.dart';
 import 'models/measure/list_measure.dart';
-import 'models/measure/free_measure.dart';
+import 'models/measure/keyboard_measure.dart';
 import 'models/measure/scale_measure.dart';
-import 'models/measure/synced_measure.dart';
+import 'models/measure/automatic_measure.dart';
 import 'models/schedule.dart';
 import 'models/phase_order.dart';
 import 'models/trial_schedule.dart';
@@ -57,11 +57,11 @@ _setupHive() async {
   Hive.registerAdapter<Intervention>(InterventionAdapter());
 
   Hive.registerAdapter<ValueAggregation>(ValueAggregationAdapter());
-  Hive.registerAdapter<FreeMeasure>(FreeMeasureAdapter());
+  Hive.registerAdapter<KeyboardMeasure>(KeyboardMeasureAdapter());
   Hive.registerAdapter<ListItem>(ListItemAdapter());
   Hive.registerAdapter<ListMeasure>(ListMeasureAdapter());
   Hive.registerAdapter<ScaleMeasure>(ScaleMeasureAdapter());
-  Hive.registerAdapter<SyncedMeasure>(SyncedMeasureAdapter());
+  Hive.registerAdapter<AutomaticMeasure>(AutomaticMeasureAdapter());
 
   Hive.registerAdapter<TrialLog>(TrialLogAdapter());
   Hive.registerAdapter<CompletedTaskLog>(CompletedTaskLogAdapter());
