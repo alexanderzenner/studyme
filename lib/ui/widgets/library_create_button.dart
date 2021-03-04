@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studyme/ui/widgets/hightlighted_action_button.dart';
 
 class LibraryCreateButton extends StatelessWidget {
   final Function() onPressed;
@@ -11,18 +12,9 @@ class LibraryCreateButton extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 10),
-          ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ),
-              ),
-              icon: Icon(Icons.add, color: Colors.white),
-              label: Text(
-                'Create your own',
-                style: TextStyle(color: Colors.white, fontSize: 15),
-              ),
+          HighlightedActionButton(
+              icon: Icons.add,
+              labelText: 'Create your own',
               onPressed: onPressed),
           Text('or select existing:',
               style: TextStyle(

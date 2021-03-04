@@ -94,6 +94,7 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
                       );
                     }),
                 ButtonBar(
+                  alignment: MainAxisAlignment.center,
                   children: [
                     OutlinedButton.icon(
                         icon: Icon(Icons.add),

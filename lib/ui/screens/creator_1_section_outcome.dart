@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/outcome_library.dart';
-import 'package:studyme/ui/screens/outcome_preview.dart';
 import 'package:studyme/ui/widgets/outcome_card.dart';
 
 import 'outcome_overview.dart';
@@ -24,6 +23,7 @@ class CreatorGoalSection extends StatelessWidget {
                 color: Theme.of(context).primaryColor)),
         if (!_outcomeIsSet())
           ButtonBar(
+            alignment: MainAxisAlignment.center,
             children: [
               OutlinedButton.icon(
                   icon: Icon(Icons.add),

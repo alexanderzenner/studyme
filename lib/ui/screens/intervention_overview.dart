@@ -54,6 +54,7 @@ class _InterventionOverviewState extends State<InterventionOverview> {
                               trailing: Icon(Icons.chevron_right),
                               onTap: () => _editSchedule(intervention)),
                         ButtonBar(
+                          alignment: MainAxisAlignment.center,
                           children: [
                             OutlinedButton.icon(
                                 icon: Icon(Icons.delete),

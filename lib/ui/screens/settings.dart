@@ -14,6 +14,7 @@ class Settings extends StatelessWidget {
       child: Column(
         children: [
           ButtonBar(
+            alignment: MainAxisAlignment.center,
             children: [
               OutlinedButton.icon(
                 icon: Icon(Icons.edit),

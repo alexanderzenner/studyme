@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/creator_3_schedule.dart';
-import 'package:studyme/ui/widgets/confirm_button.dart';
+import 'package:studyme/ui/widgets/hightlighted_action_button.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 import 'package:studyme/ui/widgets/outcome_card.dart';
@@ -86,11 +86,13 @@ class CreatorSetup extends StatelessWidget {
                                 fontSize: 18,
                                 color: Theme.of(context).primaryColor)),
                       SizedBox(height: 30),
-                      ConfirmButton(
-                          icon: Icons.arrow_forward,
-                          labelText: 'Schedule Experiment',
-                          onPressed: () =>
-                              _navigateToCreatorPhases(context, model)),
+                      Center(
+                        child: HighlightedActionButton(
+                            icon: Icons.arrow_forward,
+                            labelText: 'Schedule Experiment',
+                            onPressed: () =>
+                                _navigateToCreatorPhases(context, model)),
+                      ),
                       SizedBox(height: 60),
                     ]),
               ),

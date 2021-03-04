@@ -25,10 +25,11 @@ class OutcomePreview extends StatelessWidget {
                   subtitle: Text(outcome.outcome),
                 ),
                 ButtonBar(
+                  alignment: MainAxisAlignment.center,
                   children: [
                     OutlinedButton.icon(
                         icon: Icon(Icons.add),
-                        label: Text("Select"),
+                        label: Text("Add to Experiment"),
                         onPressed: () => _addOutcome(context)),
                   ],
                 ),

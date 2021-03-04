@@ -74,6 +74,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                               subtitle: Text(measure.schedule.readable),
                               onTap: () => _editSchedule(measure)),
                           ButtonBar(
+                             alignment: MainAxisAlignment.center,
                             children: [
                               OutlinedButton.icon(
                                   icon: Icon(Icons.delete),

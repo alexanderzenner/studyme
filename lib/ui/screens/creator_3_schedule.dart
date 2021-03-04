@@ -5,7 +5,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/routes.dart';
 import 'package:studyme/ui/screens/phase_editor.dart';
-import 'package:studyme/ui/widgets/confirm_button.dart';
+import 'package:studyme/ui/widgets/hightlighted_action_button.dart';
 import 'package:studyme/ui/widgets/intervention_letter.dart';
 
 class CreatorSchedule extends StatelessWidget {
@@ -26,6 +26,7 @@ class CreatorSchedule extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ButtonBar(
+                        alignment: MainAxisAlignment.center,
                         children: [
                           OutlinedButton.icon(
                               icon: Icon(Icons.edit),
@@ -66,10 +67,12 @@ class CreatorSchedule extends StatelessWidget {
                               trailing: Text(
                                   "after ${model.trial.phases.totalDuration} days"))),
                       SizedBox(height: 30),
-                      ConfirmButton(
-                          icon: Icons.check,
-                          labelText: 'Start Experiment',
-                          onPressed: () => _startTrial(context, model)),
+                      Center(
+                        child: HighlightedActionButton(
+                            icon: Icons.check,
+                            labelText: 'Start Experiment',
+                            onPressed: () => _startTrial(context, model)),
+                      ),
                       SizedBox(height: 60),
                     ]),
               ),

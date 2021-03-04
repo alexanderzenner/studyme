@@ -27,6 +27,7 @@ class CreatorInterventionSection extends StatelessWidget {
                   color: Theme.of(context).primaryColor)),
           if (model.trial.a == null)
             ButtonBar(
+              alignment: MainAxisAlignment.center,
               children: [
                 OutlinedButton.icon(
                     icon: Icon(Icons.add),
@@ -47,6 +48,7 @@ class CreatorInterventionSection extends StatelessWidget {
                     color: Theme.of(context).primaryColor)),
             if (model.trial.numberOfInterventions == null)
               ButtonBar(
+                alignment: MainAxisAlignment.center,
                 children: [
                   OutlinedButton.icon(
                       icon: Icon(Icons.add),
@@ -73,6 +75,7 @@ class CreatorInterventionSection extends StatelessWidget {
                       color: Theme.of(context).primaryColor)),
               if (model.trial.b == null)
                 ButtonBar(
+                  alignment: MainAxisAlignment.center,
                   children: [
                     OutlinedButton.icon(
                         icon: Icon(Icons.add),

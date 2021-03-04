@@ -42,6 +42,7 @@ class _OutcomeOverviewState extends State<OutcomeOverview> {
                             subtitle: Text(outcome.outcome),
                             onTap: () => _editOutcome(outcome)),
                         ButtonBar(
+                          alignment: MainAxisAlignment.center,
                           children: [
                             OutlinedButton.icon(
                                 icon: Icon(Icons.delete),

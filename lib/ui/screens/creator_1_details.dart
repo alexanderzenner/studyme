@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/creator_2_setup.dart';
-import 'package:studyme/ui/widgets/confirm_button.dart';
+import 'package:studyme/ui/widgets/hightlighted_action_button.dart';
 
 import 'creator_1_section_interventions.dart';
 import 'creator_1_section_measures.dart';
@@ -30,13 +30,19 @@ class CreatorDetails extends StatelessWidget {
                   if (model.canDefineInterventions())
                     CreatorInterventionSection(model),
                   if (model.canDefineMeasures()) CreatorMeasureSection(model),
-                  SizedBox(height: 30),
-                  if (model.canStartTrial())
-                    ConfirmButton(
+                  if (model.canStartTrial()) ...[
+                    Text('or go to next step:',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            color: Theme.of(context).primaryColor)),
+                    SizedBox(height: 5),
+                    HighlightedActionButton(
                         icon: Icons.arrow_forward,
                         labelText: 'Set Up Experiment',
                         onPressed: () =>
-                            _navigateToCreatorPhases(context, model)),
+                            _navigateToCreatorPhases(context, model))
+                  ],
                   SizedBox(height: 60),
                 ]),
               ),

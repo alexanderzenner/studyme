@@ -27,6 +27,7 @@ class InterventionPreview extends StatelessWidget {
                   subtitle: Text(intervention.name),
                 ),
                 ButtonBar(
+                  alignment: MainAxisAlignment.center,
                   children: [
                     OutlinedButton.icon(
                         icon: Icon(Icons.add),

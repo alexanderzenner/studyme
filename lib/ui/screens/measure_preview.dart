@@ -58,6 +58,7 @@ class MeasurePreview extends StatelessWidget {
                       subtitle: Text(_measure.scaleString),
                     ),
                   ButtonBar(
+                    alignment: MainAxisAlignment.center,
                     children: [
                       OutlinedButton.icon(
                           icon: Icon(Icons.add),
