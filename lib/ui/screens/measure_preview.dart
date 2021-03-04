@@ -61,7 +61,7 @@ class MeasurePreview extends StatelessWidget {
                     children: [
                       OutlinedButton.icon(
                           icon: Icon(Icons.add),
-                          label: Text("Add to experiment"),
+                          label: Text("Add to Experiment"),
                           onPressed: () => _addMeasure(context)),
                     ],
                   ),

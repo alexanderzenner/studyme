@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/creator_3_schedule.dart';
+import 'package:studyme/ui/widgets/confirm_button.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 import 'package:studyme/ui/widgets/outcome_card.dart';
@@ -74,7 +75,7 @@ class CreatorSetup extends StatelessWidget {
                           '* For a good comparison, you will complete a series of the two phases and compare A and B multiple times.',
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
-                              fontSize: 20,
+                              fontSize: 18,
                               color: Theme.of(context).primaryColor)),
                       SizedBox(height: 20),
                       if (model.trial.numberOfInterventions == 1)
@@ -82,20 +83,19 @@ class CreatorSetup extends StatelessWidget {
                             '** If there is no difference "${model.trial.a.name}" likely doesn\'t help you achieve your goal.',
                             style: TextStyle(
                                 fontStyle: FontStyle.italic,
-                                fontSize: 20,
+                                fontSize: 18,
                                 color: Theme.of(context).primaryColor)),
-                      SizedBox(height: 100),
+                      SizedBox(height: 30),
+                      ConfirmButton(
+                          icon: Icons.arrow_forward,
+                          labelText: 'Schedule Experiment',
+                          onPressed: () =>
+                              _navigateToCreatorPhases(context, model)),
+                      SizedBox(height: 60),
                     ]),
               ),
             ),
           ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => _navigateToCreatorPhases(context, model),
-          icon: Icon(Icons.arrow_forward),
-          label: Text('Schedule Experiment'),
-          backgroundColor: Colors.green,
         ),
       );
     });

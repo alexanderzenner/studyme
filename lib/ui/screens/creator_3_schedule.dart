@@ -5,6 +5,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/routes.dart';
 import 'package:studyme/ui/screens/phase_editor.dart';
+import 'package:studyme/ui/widgets/confirm_button.dart';
 import 'package:studyme/ui/widgets/intervention_letter.dart';
 
 class CreatorSchedule extends StatelessWidget {
@@ -64,18 +65,16 @@ class CreatorSchedule extends StatelessWidget {
                               title: Text("End"),
                               trailing: Text(
                                   "after ${model.trial.phases.totalDuration} days"))),
+                      SizedBox(height: 30),
+                      ConfirmButton(
+                          icon: Icons.check,
+                          labelText: 'Start Experiment',
+                          onPressed: () => _startTrial(context, model)),
                       SizedBox(height: 60),
                     ]),
               ),
             ),
           ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => _startTrial(context, model),
-          icon: Icon(Icons.check),
-          label: Text('Start Experiment'),
-          backgroundColor: Colors.green,
         ),
       );
     });
