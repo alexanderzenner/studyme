@@ -79,7 +79,7 @@ class CreatorSetup extends StatelessWidget {
                               fontSize: 18,
                               color: Theme.of(context).primaryColor)),
                       SizedBox(height: 20),
-                      if (model.trial.type == TrialType.alternativeTreatment)
+                      if (model.trial.type == TrialType.introductionWithdrawal)
                         Text(
                             '** If there is no difference "${model.trial.a.name}" likely doesn\'t help you achieve your goal.',
                             style: TextStyle(

@@ -133,7 +133,7 @@ class _MeasureEditorAutomaticTypeState
             ));
       } else {
         toast(context,
-            "Access denied. In order for StudyMe to track your ${_measure.name} automatically you need to grant permissions.");
+            "Permission denied. In order for StudyMe to track your ${_measure.name} automatically, you need to grant permissions.");
       }
     });
   }
