@@ -39,12 +39,14 @@ class MeasurePreview extends StatelessWidget {
                             Icon(_measure.getIcon()),
                             SizedBox(width: 5),
                             Text(_measure.type.capitalize()),
-                            SizedBox(width: 5),
-                            Text('/'),
-                            SizedBox(width: 5),
-                            Icon(KeyboardMeasure.icon),
-                            SizedBox(width: 5),
-                            Text(KeyboardMeasure.measureType.capitalize()),
+                            if (_measure is AutomaticMeasure) ...[
+                              SizedBox(width: 5),
+                              Text('/'),
+                              SizedBox(width: 5),
+                              Icon(KeyboardMeasure.icon),
+                              SizedBox(width: 5),
+                              Text(KeyboardMeasure.measureType.capitalize())
+                            ]
                           ],
                         ),
                       ],
