@@ -5,22 +5,17 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/models/measure/synced_measure.dart';
 import 'package:studyme/ui/screens/measure_editor_scale.dart';
 import 'package:studyme/ui/widgets/editable_list_tile.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/util/string_extension.dart';
-import 'package:studyme/util/util.dart';
 
 import 'measure_editor_list.dart';
 import 'measure_editor_name.dart';
 import 'schedule_editor.dart';
 
 class MeasureOverview extends StatefulWidget {
-  final bool isPreview;
-  final Measure measure;
   final int index;
-  const MeasureOverview({@required this.isPreview, this.measure, this.index});
+  const MeasureOverview({@required this.index});
 
   @override
   _MeasureOverviewState createState() => _MeasureOverviewState();
@@ -37,107 +32,59 @@ class _MeasureOverviewState extends State<MeasureOverview> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.measure != null) {
-      return _buildMeasureOverview(widget.measure);
-    } else {
-      return _isDeleting
-          ? Text('')
-          : Consumer<AppData>(builder: (context, model, child) {
-              Measure measure = model.trial.measures[widget.index];
-              return _buildMeasureOverview(measure);
-            });
-    }
-  }
-
-  Widget _buildMeasureOverview(Measure measure) {
-    return Scaffold(
-        appBar: AppBar(brightness: Brightness.dark, title: Text(measure.name)),
-        body: SingleChildScrollView(
-          child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  if (widget.isPreview && measure is SyncedMeasure)
-                    HintCard(
-                      titleText: "Synced measure",
-                      body: [
-                        Text(
-                            "This measure requires using the third party Google Fit or Apple Health app. Any measurement you add to the third party app during the trial is automatically fetched.")
-                      ],
-                    ),
-                  EditableListTile(
-                      title: Text("Name"),
-                      subtitle: Text(measure.name),
-                      canEdit: !widget.isPreview && measure.canEdit,
-                      onTap: () => _editName(measure)),
-                  ListTile(
-                    title: Text("Input Type"),
-                    subtitle: Row(
-                      children: [
-                        Icon(measure.getIcon()),
-                        SizedBox(width: 5),
-                        Text(measure.type.capitalize()),
-                      ],
-                    ),
-                  ),
-                  if (measure is ListMeasure)
-                    EditableListTile(
-                        title: Text("List Items"),
-                        subtitle: Text(measure.choicesString),
-                        canEdit: !widget.isPreview,
-                        onTap: () => _editChoices(measure)),
-                  if (measure is ScaleMeasure)
-                    EditableListTile(
-                        title: Text("Scale"),
-                        subtitle: Text(measure.scaleString),
-                        canEdit: !widget.isPreview,
-                        onTap: () => _editScale(measure)),
-                  if (!widget.isPreview)
-                    EditableListTile(
-                        title: Text("Schedule"),
-                        subtitle: Text(measure.schedule.readable),
-                        canEdit: true,
-                        onTap: () => _editSchedule(measure)),
-                  ButtonBar(
-                    children: [
-                      if (widget.isPreview)
-                        OutlinedButton.icon(
-                            icon: Icon(Icons.add),
-                            label: Text("Add to trial"),
-                            onPressed: _addMeasure),
-                      if (!widget.isPreview)
-                        OutlinedButton.icon(
-                            icon: Icon(Icons.delete),
-                            label: Text("Remove"),
-                            onPressed: _removeMeasure),
-                    ],
-                  ),
-                ],
-              )),
-        ));
-  }
-
-  _addMeasure() {
-    Function saveFunction = (Measure measure) {
-      Provider.of<AppData>(context, listen: false).addMeasure(measure);
-      Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
-    };
-
-    widget.measure.canAdd.then((value) {
-      if (value) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ScheduleEditor(
-                  title: widget.measure.name,
-                  objectWithSchedule: widget.measure,
-                  onSave: saveFunction),
-            ));
-      } else {
-        toast(context,
-            "Access denied. In order for StudyMe to track your ${widget.measure.name} automatically you need to grant permissions.");
-      }
-    });
+    return _isDeleting
+        ? Text('')
+        : Consumer<AppData>(builder: (context, model, child) {
+            Measure measure = model.trial.measures[widget.index];
+            return Scaffold(
+                appBar: AppBar(
+                    brightness: Brightness.dark, title: Text(measure.name)),
+                body: SingleChildScrollView(
+                  child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          EditableListTile(
+                              title: Text("Name"),
+                              subtitle: Text(measure.name),
+                              canEdit: measure.canEdit,
+                              onTap: () => _editName(measure)),
+                          ListTile(
+                            title: Text("Input Type"),
+                            subtitle: Row(
+                              children: [
+                                Icon(measure.getIcon()),
+                                SizedBox(width: 5),
+                                Text(measure.type.capitalize()),
+                              ],
+                            ),
+                          ),
+                          if (measure is ListMeasure)
+                            EditableListTile(
+                                title: Text("List Items"),
+                                subtitle: Text(measure.choicesString),
+                                onTap: () => _editChoices(measure)),
+                          if (measure is ScaleMeasure)
+                            EditableListTile(
+                                title: Text("Scale"),
+                                subtitle: Text(measure.scaleString),
+                                onTap: () => _editScale(measure)),
+                          EditableListTile(
+                              title: Text("Schedule"),
+                              subtitle: Text(measure.schedule.readable),
+                              onTap: () => _editSchedule(measure)),
+                          ButtonBar(
+                            children: [
+                              OutlinedButton.icon(
+                                  icon: Icon(Icons.delete),
+                                  label: Text("Remove"),
+                                  onPressed: _removeMeasure),
+                            ],
+                          ),
+                        ],
+                      )),
+                ));
+          });
   }
 
   _removeMeasure() {

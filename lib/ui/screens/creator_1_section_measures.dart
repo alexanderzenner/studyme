@@ -58,7 +58,7 @@ class CreatorMeasureSection extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MeasureOverview(isPreview: false, index: index),
+        builder: (context) => MeasureOverview(index: index),
       ),
     );
   }

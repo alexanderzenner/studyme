@@ -111,7 +111,7 @@ class CreatorInterventionSection extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => InterventionOverview(isPreview: false, isA: isA),
+        builder: (context) => InterventionOverview(isA: isA),
       ),
     );
   }

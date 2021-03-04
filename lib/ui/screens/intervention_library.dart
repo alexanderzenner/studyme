@@ -5,7 +5,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/default_interventions.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/ui/screens/intervention_overview.dart';
+import 'package:studyme/ui/screens/intervention_preview.dart';
 import 'package:studyme/ui/widgets/intervention_card_new.dart';
 import 'package:studyme/ui/widgets/library_create_button.dart';
 
@@ -62,8 +62,8 @@ class InterventionLibrary extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => InterventionOverview(
-            isPreview: true, isA: isA, intervention: intervention),
+        builder: (context) =>
+            InterventionPreview(isA: isA, intervention: intervention),
       ),
     );
   }

@@ -8,12 +8,9 @@ import 'intervention_editor_name.dart';
 import 'schedule_editor.dart';
 
 class InterventionOverview extends StatefulWidget {
-  final bool isPreview;
   final bool isA;
-  final Intervention intervention;
 
-  const InterventionOverview(
-      {@required this.isPreview, @required this.isA, this.intervention});
+  const InterventionOverview({@required this.isA});
 
   @override
   _InterventionOverviewState createState() => _InterventionOverviewState();
@@ -30,79 +27,45 @@ class _InterventionOverviewState extends State<InterventionOverview> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.intervention != null) {
-      return _buildInterventionOverview(widget.intervention);
-    } else {
-      if (_isDeleting) {
-        return Text('');
-      } else {
-        return Consumer<AppData>(builder: (context, model, child) {
-          Intervention intervention =
-              widget.isA ? model.trial.a : model.trial.b;
-          return _buildInterventionOverview(intervention);
-        });
-      }
-    }
-  }
-
-  Widget _buildInterventionOverview(Intervention intervention) {
-    return Scaffold(
-        appBar: AppBar(
-          brightness: Brightness.dark,
-          title: Text(intervention.name),
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                EditableListTile(
-                    title: Text("Name"),
-                    subtitle: Text(intervention.name),
-                    canEdit: !widget.isPreview,
-                    onTap: () => _editName(intervention)),
-                if (!widget.isPreview && intervention.schedule != null)
-                  ListTile(
-                      title: Text("Schedule"),
-                      subtitle: Text(intervention.schedule.readable),
-                      trailing: Icon(Icons.chevron_right),
-                      onTap: () => _editSchedule(intervention)),
-                ButtonBar(
-                  children: [
-                    if (widget.isPreview)
-                      OutlinedButton.icon(
-                          icon: Icon(Icons.add),
-                          label: Text("Add to trial"),
-                          onPressed: () {
-                            _addIntervention();
-                          }),
-                    if (!widget.isPreview)
-                      OutlinedButton.icon(
-                          icon: Icon(Icons.delete),
-                          label: Text("Remove"),
-                          onPressed: _remove),
-                  ],
+    return _isDeleting
+        ? Text('')
+        : Consumer<AppData>(builder: (context, model, child) {
+            Intervention intervention =
+                widget.isA ? model.trial.a : model.trial.b;
+            return Scaffold(
+                appBar: AppBar(
+                  brightness: Brightness.dark,
+                  title: Text(intervention.name),
                 ),
-              ],
-            ),
-          ),
-        ));
-  }
-
-  _addIntervention() {
-    Function saveFunction = (Intervention intervention) {
-      _getSetter()(intervention);
-      Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
-    };
-
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ScheduleEditor(
-              title: widget.intervention.name,
-              objectWithSchedule: widget.intervention,
-              onSave: saveFunction),
-        ));
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        EditableListTile(
+                            title: Text("Name"),
+                            subtitle: Text(intervention.name),
+                            canEdit: true,
+                            onTap: () => _editName(intervention)),
+                        if (intervention.schedule != null)
+                          ListTile(
+                              title: Text("Schedule"),
+                              subtitle: Text(intervention.schedule.readable),
+                              trailing: Icon(Icons.chevron_right),
+                              onTap: () => _editSchedule(intervention)),
+                        ButtonBar(
+                          children: [
+                            OutlinedButton.icon(
+                                icon: Icon(Icons.delete),
+                                label: Text("Remove"),
+                                onPressed: _remove),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ));
+          });
   }
 
   _editName(intervention) {
