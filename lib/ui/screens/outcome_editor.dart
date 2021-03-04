@@ -28,9 +28,7 @@ class _OutcomeEditorState extends State<OutcomeEditor> {
           brightness: Brightness.dark,
           actions: <Widget>[
             ActionButton(
-                icon: Icons.check,
-                canPress: _canSubmit(),
-                onPressed: () => widget.onSave(Outcome(outcome: _outcome))),
+                icon: Icons.check, canPress: _canSubmit(), onPressed: _onSubmit)
           ],
         ),
         body: SingleChildScrollView(
@@ -65,6 +63,10 @@ class _OutcomeEditorState extends State<OutcomeEditor> {
 
   _canSubmit() {
     return _outcome != null && _outcome.length > 0;
+  }
+
+  _onSubmit() {
+    widget.onSave(Outcome(outcome: _outcome));
   }
 
   _changeOutcome(String value) {

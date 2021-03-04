@@ -23,13 +23,14 @@ class TrialAdapter extends TypeAdapter<Trial> {
       ..b = fields[3] as Intervention
       ..measures = (fields[4] as List)?.cast<Measure>()
       ..phases = fields[5] as Phases
-      ..startDate = fields[6] as DateTime;
+      ..startDate = fields[6] as DateTime
+      ..stepsLogForSurvey = (fields[7] as Map)?.cast<DateTime, String>();
   }
 
   @override
   void write(BinaryWriter writer, Trial obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.outcome)
       ..writeByte(1)
@@ -43,7 +44,9 @@ class TrialAdapter extends TypeAdapter<Trial> {
       ..writeByte(5)
       ..write(obj.phases)
       ..writeByte(6)
-      ..write(obj.startDate);
+      ..write(obj.startDate)
+      ..writeByte(7)
+      ..write(obj.stepsLogForSurvey);
   }
 
   @override
@@ -82,7 +85,11 @@ Trial _$TrialFromJson(Map<String, dynamic> json) {
         : Phases.fromJson(json['phases'] as Map<String, dynamic>)
     ..startDate = json['startDate'] == null
         ? null
-        : DateTime.parse(json['startDate'] as String);
+        : DateTime.parse(json['startDate'] as String)
+    ..stepsLogForSurvey =
+        (json['stepsLogForSurvey'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(DateTime.parse(k), e as String),
+    );
 }
 
 Map<String, dynamic> _$TrialToJson(Trial instance) => <String, dynamic>{
@@ -93,4 +100,6 @@ Map<String, dynamic> _$TrialToJson(Trial instance) => <String, dynamic>{
       'measures': instance.measures,
       'phases': instance.phases,
       'startDate': instance.startDate?.toIso8601String(),
+      'stepsLogForSurvey': instance.stepsLogForSurvey
+          ?.map((k, e) => MapEntry(k.toIso8601String(), e)),
     };

@@ -36,7 +36,7 @@ class OutcomeLibrary extends StatelessWidget {
                     Outcome _outcome = outcomes[index];
                     return OutcomeCard(
                         outcome: _outcome,
-                        onTap: () => _addOutcome(context, _outcome));
+                        onTap: () => _previewOutcome(context, _outcome));
                   },
                 ),
               ),
@@ -47,7 +47,7 @@ class OutcomeLibrary extends StatelessWidget {
     });
   }
 
-  _addOutcome(context, Outcome outcome) {
+  _previewOutcome(context, Outcome outcome) {
     Navigator.push(
       context,
       MaterialPageRoute(

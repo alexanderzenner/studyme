@@ -22,19 +22,6 @@ class AppData extends ChangeNotifier {
   static const interventionALetter = 'a';
   static const interventionBLetter = 'b';
 
-  loadAppState() async {
-    box = await Hive.openBox('app_data');
-    _trial = box.get(activeTrialKey);
-
-    // first time app is started, initialize state and trial
-    if (state == null) {
-      saveAppState(AppState.ONBOARDING);
-    }
-    if (_trial == null) {
-      createNewTrial();
-    }
-  }
-
   Box box;
   Trial _trial;
   List<Measure> _measures;
@@ -48,6 +35,24 @@ class AppData extends ChangeNotifier {
     measures.removeWhere(
         (i) => _trial.measures.map((x) => x.id).toList().contains(i.id));
     return measures;
+  }
+
+  loadAppState() async {
+    box = await Hive.openBox('app_data');
+    _trial = box.get(activeTrialKey);
+
+    // first time app is started, initialize state and trial
+    if (state == null) {
+      saveAppState(AppState.ONBOARDING);
+    }
+    if (_trial == null) {
+      createNewTrial();
+    }
+  }
+
+  void addStepLogForSurvey(String logMessage) {
+    _trial.stepsLogForSurvey[DateTime.now()] = logMessage;
+    _trial.save();
   }
 
   void setOutcome(Outcome outcome) {

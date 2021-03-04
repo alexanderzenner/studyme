@@ -50,6 +50,7 @@ class CreatorDetails extends StatelessWidget {
   }
 
   _navigateToCreatorPhases(BuildContext context, AppData model) {
+    model.addStepLogForSurvey('finish editing details');
     model.finishEditingDetails();
     Navigator.push(
       context,

@@ -34,7 +34,7 @@ class _PhaseEditorState extends State<PhaseEditor> {
           brightness: Brightness.dark,
           actions: <Widget>[
             ActionButton(
-                icon: Icons.check, canPress: _canSubmit(), onPressed: _save)
+                icon: Icons.check, canPress: _canSubmit(), onPressed: _onSubmit)
           ],
         ),
         body: SingleChildScrollView(
@@ -97,6 +97,11 @@ class _PhaseEditorState extends State<PhaseEditor> {
         _phases.numberOfCycles < 100;
   }
 
+  _onSubmit() {
+    Provider.of<AppData>(context, listen: false).updateSchedule(_phases);
+    Navigator.pop(context, true);
+  }
+
   _updateNumberOfCycles(text) {
     textToIntSetter(text, (int number) {
       setState(() {
@@ -117,10 +122,5 @@ class _PhaseEditorState extends State<PhaseEditor> {
     setState(() {
       _phases.updatePhaseOrder(phaseOrder);
     });
-  }
-
-  _save() {
-    Provider.of<AppData>(context, listen: false).updateSchedule(_phases);
-    Navigator.pop(context, true);
   }
 }

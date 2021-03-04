@@ -102,7 +102,8 @@ class CreatorSetup extends StatelessWidget {
   }
 
   _navigateToCreatorPhases(BuildContext context, AppData model) {
-    model.finishEditingDetails();
+    Provider.of<AppData>(context, listen: false)
+        .addStepLogForSurvey('finish viewing setup');
     Navigator.push(
       context,
       MaterialPageRoute(

@@ -35,7 +35,7 @@ class _InterventionEditorNumberOfState
             ActionButton(
                 icon: Icons.check,
                 canPress: _canSubmit(),
-                onPressed: () => widget.onSave(_numberOfInterventions)),
+                onPressed: _onSubmit),
           ],
         ),
         body: SingleChildScrollView(
@@ -78,6 +78,10 @@ class _InterventionEditorNumberOfState
 
   _canSubmit() {
     return _numberOfInterventions != null;
+  }
+
+  _onSubmit() {
+    widget.onSave(_numberOfInterventions);
   }
 
   _selectOption(int number) {

@@ -22,6 +22,8 @@ class _InitState extends State<Init> {
   _initAppState() async {
     // first make sure app data is fetched from box
     await Provider.of<AppData>(context, listen: false).loadAppState();
+    Provider.of<AppData>(context, listen: false)
+        .addStepLogForSurvey('opened app');
     AppData appData = Provider.of<AppData>(context, listen: false);
     AppState state = appData.state;
     if (state == AppState.ONBOARDING) {

@@ -81,11 +81,6 @@ class CreatorSchedule extends StatelessWidget {
     });
   }
 
-  _startTrial(context, model) {
-    model.startTrial();
-    Navigator.pushNamedAndRemoveUntil(context, Routes.dashboard, (r) => false);
-  }
-
   _navigateToScheduleEditor(context) {
     Navigator.push(
       context,
@@ -93,5 +88,12 @@ class CreatorSchedule extends StatelessWidget {
         builder: (context) => PhaseEditor(),
       ),
     );
+  }
+
+  _startTrial(context, model) {
+    Provider.of<AppData>(context, listen: false)
+        .addStepLogForSurvey('start trial');
+    model.startTrial();
+    Navigator.pushNamedAndRemoveUntil(context, Routes.dashboard, (r) => false);
   }
 }

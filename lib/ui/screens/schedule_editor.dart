@@ -59,7 +59,9 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
           ),
           actions: <Widget>[
             ActionButton(
-                icon: Icons.check, canPress: _canSubmit(), onPressed: _submit),
+                icon: Icons.check,
+                canPress: _canSubmit(),
+                onPressed: _onSubmit),
           ],
         ),
         body: SingleChildScrollView(
@@ -105,13 +107,13 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
         ));
   }
 
-  _submit() {
-    widget.objectWithSchedule.schedule = _schedule;
-    widget.onSave(widget.objectWithSchedule);
-  }
-
   _canSubmit() {
     return _schedule.times.length > 0;
+  }
+
+  _onSubmit() {
+    widget.objectWithSchedule.schedule = _schedule;
+    widget.onSave(widget.objectWithSchedule);
   }
 
   _buildFrequencySelector() {

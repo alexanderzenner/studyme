@@ -35,6 +35,9 @@ class Trial extends HiveObject {
   @HiveField(6)
   DateTime startDate;
 
+  @HiveField(7)
+  Map<DateTime, String> stepsLogForSurvey;
+
   List<Task> getTasksForDate(DateTime date) {
     DateTime _cleanDate = DateTime(date.year, date.month, date.day);
     List<Task> _tasks = [];
@@ -71,7 +74,9 @@ class Trial extends HiveObject {
     return measures.whereType<SyncedMeasure>().toList();
   }
 
-  Trial() : this.measures = [];
+  Trial()
+      : this.measures = [],
+        this.stepsLogForSurvey = {};
 
   DateTime get endDate {
     return startDate
