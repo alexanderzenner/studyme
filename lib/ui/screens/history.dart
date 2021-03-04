@@ -57,6 +57,7 @@ class _HistoryState extends State<History> {
                       timeAggregation: _timeAggregation,
                     );
                   }),
+              SizedBox(height: 120)
             ],
           ),
         ),

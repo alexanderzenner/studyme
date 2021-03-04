@@ -3,10 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/util/debug_functions.dart';
-import 'package:flutter/services.dart';
-import 'dart:convert';
-
-import 'package:studyme/util/util.dart';
 
 import '../../routes.dart';
 
@@ -31,16 +27,6 @@ class Settings extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 50),
-          ButtonBar(
-            children: [
-              OutlinedButton.icon(
-                icon: Icon(Icons.share),
-                label: Text("Export Trial Info"),
-                onPressed: () => _exportTrialInfo(context),
-              ),
-            ],
-          )
         ],
       ),
     );
@@ -77,11 +63,5 @@ class Settings extends StatelessWidget {
       Provider.of<AppData>(context, listen: false).createNewTrial();
       Navigator.pushReplacementNamed(context, Routes.onboarding);
     }
-  }
-
-  _exportTrialInfo(BuildContext context) {
-    Clipboard.setData(new ClipboardData(
-        text: json.encode(Provider.of<AppData>(context).trial.toJson())));
-    toast(context, "Data copied to clipboard. Please share as instructed.");
   }
 }
