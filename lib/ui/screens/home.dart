@@ -8,7 +8,7 @@ import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
-import 'package:studyme/ui/widgets/phases_widget.dart';
+import 'package:studyme/ui/widgets/trial_schedule_widget.dart';
 import 'package:studyme/ui/widgets/task_list.dart';
 
 class Home extends StatelessWidget {
@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
       _activeIndex = -1;
     } else if (_dateToday.isAfter(_trial.endDate)) {
       _body = _buildAfterEndBody(_trial);
-      _activeIndex = _trial.phases.totalDuration;
+      _activeIndex = _trial.schedule.totalDuration;
     } else {
       _body = _buildActiveBody(context, _trial, _dateToday);
       _activeIndex = _trial.getPhaseIndexForDate(_dateToday);
@@ -37,7 +37,8 @@ class Home extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          PhasesWidget(phases: _trial.phases, activeIndex: _activeIndex),
+          TrialScheduleWidget(
+              schedule: _trial.schedule, activeIndex: _activeIndex),
           _body,
         ]),
       ),

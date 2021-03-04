@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/routes.dart';
-import 'package:studyme/ui/screens/phase_editor.dart';
+import 'package:studyme/ui/screens/trial_schedule_editor.dart';
 import 'package:studyme/ui/widgets/hightlighted_action_button.dart';
 import 'package:studyme/ui/widgets/intervention_letter.dart';
 
@@ -43,10 +43,10 @@ class CreatorSchedule extends StatelessWidget {
                       ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: model.trial.phases.phaseSequence.length,
+                        itemCount: model.trial.schedule.phaseSequence.length,
                         itemBuilder: (context, index) {
                           String letter =
-                              model.trial.phases.phaseSequence[index];
+                              model.trial.schedule.phaseSequence[index];
                           Intervention _intervention =
                               letter == 'a' ? model.trial.a : model.trial.b;
                           return Card(
@@ -57,7 +57,7 @@ class CreatorSchedule extends StatelessWidget {
                                       ? Text(_intervention.schedule.readable)
                                       : null,
                                   trailing: Text(
-                                      'for ${model.trial.phases.phaseDuration} days')));
+                                      'for ${model.trial.schedule.phaseDuration} days')));
                         },
                       ),
                       Card(
@@ -65,7 +65,7 @@ class CreatorSchedule extends StatelessWidget {
                               leading: Icon(Icons.flag),
                               title: Text("End"),
                               trailing: Text(
-                                  "after ${model.trial.phases.totalDuration} days"))),
+                                  "after ${model.trial.schedule.totalDuration} days"))),
                       SizedBox(height: 30),
                       Center(
                         child: HighlightedActionButton(
@@ -87,7 +87,7 @@ class CreatorSchedule extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PhaseEditor(),
+        builder: (context) => TrialScheduleEditor(),
       ),
     );
   }

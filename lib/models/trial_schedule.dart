@@ -1,12 +1,12 @@
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:studyme/models/phases/phase_order.dart';
+import 'package:studyme/models/phase_order.dart';
 
-part 'phases.g.dart';
+part 'trial_schedule.g.dart';
 
 @JsonSerializable()
 @HiveType(typeId: 201)
-class Phases extends HiveObject {
+class TrialSchedule extends HiveObject {
   @HiveField(0)
   PhaseOrder phaseOrder;
 
@@ -21,23 +21,23 @@ class Phases extends HiveObject {
 
   int get numberOfPhases => phaseSequence.length;
 
-  Phases();
+  TrialSchedule();
 
-  Phases.createDefault() {
+  TrialSchedule.createDefault() {
     this.phaseOrder = PhaseOrder.alternating;
     this.phaseDuration = 7;
     this.numberOfCycles = 2;
     _updatePhaseSequence();
   }
 
-  Phases.clone(Phases schedule)
+  TrialSchedule.clone(TrialSchedule schedule)
       : phaseOrder = schedule.phaseOrder,
         phaseDuration = schedule.phaseDuration,
         phaseSequence = schedule.phaseSequence,
         numberOfCycles = schedule.numberOfCycles;
 
   clone() {
-    return Phases.clone(this);
+    return TrialSchedule.clone(this);
   }
 
   int get totalDuration => phaseDuration * numberOfPhases;
@@ -65,6 +65,7 @@ class Phases extends HiveObject {
     phaseSequence = newPhaseSequence;
   }
 
-  factory Phases.fromJson(Map<String, dynamic> json) => _$PhasesFromJson(json);
-  Map<String, dynamic> toJson() => _$PhasesToJson(this);
+  factory TrialSchedule.fromJson(Map<String, dynamic> json) =>
+      _$TrialScheduleFromJson(json);
+  Map<String, dynamic> toJson() => _$TrialScheduleToJson(this);
 }

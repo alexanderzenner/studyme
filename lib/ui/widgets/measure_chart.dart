@@ -104,9 +104,9 @@ class _MeasureChartState extends State<MeasureChart> {
   charts.RangeAnnotation _getSeperators() {
     if (widget.timeAggregation == TimeAggregation.Day) {
       return charts.RangeAnnotation(
-        Iterable.generate(widget.trial.phases.numberOfPhases + 1)
+        Iterable.generate(widget.trial.schedule.numberOfPhases + 1)
             .map((i) => charts.LineAnnotationSegment<num>(
-                  i * widget.trial.phases.phaseDuration - 0.5,
+                  i * widget.trial.schedule.phaseDuration - 0.5,
                   charts.RangeAnnotationAxisType.domain,
                   color: charts.MaterialPalette.gray.shade400,
                   strokeWidthPx: 1,
@@ -122,11 +122,11 @@ class _MeasureChartState extends State<MeasureChart> {
     if (widget.timeAggregation == TimeAggregation.Day) {
       return charts.NumericExtents(
           0,
-          widget.trial.phases.numberOfPhases *
-                  widget.trial.phases.phaseDuration -
+          widget.trial.schedule.numberOfPhases *
+                  widget.trial.schedule.phaseDuration -
               1);
     } else if (widget.timeAggregation == TimeAggregation.Phase) {
-      return charts.NumericExtents(0, widget.trial.phases.numberOfPhases - 1);
+      return charts.NumericExtents(0, widget.trial.schedule.numberOfPhases - 1);
     } else if (widget.timeAggregation == TimeAggregation.Intervention) {
       return charts.NumericExtents(0, 1);
     } else {
@@ -153,7 +153,7 @@ class _MeasureChartState extends State<MeasureChart> {
           (value) => (value + 1).toInt().toString());
     } else if (widget.timeAggregation == TimeAggregation.Phase) {
       return charts.BasicNumericTickFormatterSpec((value) =>
-          "${(value + 1).toString()} (${widget.trial.phases.phaseSequence[value].toUpperCase()})");
+          "${(value + 1).toString()} (${widget.trial.schedule.phaseSequence[value].toUpperCase()})");
     } else if (widget.timeAggregation == TimeAggregation.Intervention) {
       return charts.BasicNumericTickFormatterSpec((value) {
         if (value == 0) return 'A';
@@ -170,7 +170,7 @@ class _MeasureChartState extends State<MeasureChart> {
   charts.NumericTickProviderSpec _getProviderSpec() {
     if (widget.timeAggregation == TimeAggregation.Phase) {
       return charts.StaticNumericTickProviderSpec(
-          Iterable.generate(widget.trial.phases.numberOfPhases)
+          Iterable.generate(widget.trial.schedule.numberOfPhases)
               .map((e) => charts.TickSpec<num>(e))
               .toList());
     } else if (widget.timeAggregation == TimeAggregation.Intervention) {

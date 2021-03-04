@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:studyme/models/phases/phases.dart';
+import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 
@@ -30,7 +30,7 @@ class Trial extends HiveObject {
   List<Measure> measures;
 
   @HiveField(5)
-  Phases phases;
+  TrialSchedule schedule;
 
   @HiveField(6)
   DateTime startDate;
@@ -45,7 +45,7 @@ class Trial extends HiveObject {
     if (date.isAfter(startDate) && date.isBefore(endDate)) {
       int daysSinceBeginningOfTrial = _cleanDate.difference(startDate).inDays;
       int daysSinceBeginningOfPhase =
-          daysSinceBeginningOfTrial % phases.phaseDuration;
+          daysSinceBeginningOfTrial % schedule.phaseDuration;
 
       Intervention _intervention = getInterventionForDate(_cleanDate);
 
@@ -80,7 +80,7 @@ class Trial extends HiveObject {
 
   DateTime get endDate {
     return startDate
-        .add(Duration(days: phases.totalDuration))
+        .add(Duration(days: schedule.totalDuration))
         .subtract(Duration(seconds: 1));
   }
 
@@ -99,11 +99,11 @@ class Trial extends HiveObject {
   }
 
   Intervention getInterventionForPhaseIndex(int index) {
-    if (index < 0 || index >= phases.numberOfPhases) {
+    if (index < 0 || index >= schedule.numberOfPhases) {
       print('trial is over or has not begun.');
       return null;
     }
-    final interventionLetter = phases.phaseSequence[index];
+    final interventionLetter = schedule.phaseSequence[index];
 
     if (interventionLetter == 'a')
       return a;
@@ -115,11 +115,11 @@ class Trial extends HiveObject {
 
   int getPhaseIndexForDate(DateTime date) {
     final test = date.differenceInDays(startDate).inDays;
-    return test ~/ phases.phaseDuration;
+    return test ~/ schedule.phaseDuration;
   }
 
   generateWithSetInfos() {
-    this.phases = Phases.createDefault();
+    this.schedule = TrialSchedule.createDefault();
     if (this.numberOfInterventions == 1) {
       this.b.name = 'Without "${this.a.name}"';
     }

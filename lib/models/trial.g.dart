@@ -22,7 +22,7 @@ class TrialAdapter extends TypeAdapter<Trial> {
       ..a = fields[2] as Intervention
       ..b = fields[3] as Intervention
       ..measures = (fields[4] as List)?.cast<Measure>()
-      ..phases = fields[5] as Phases
+      ..schedule = fields[5] as TrialSchedule
       ..startDate = fields[6] as DateTime
       ..stepsLogForSurvey = (fields[7] as Map)?.cast<DateTime, String>();
   }
@@ -42,7 +42,7 @@ class TrialAdapter extends TypeAdapter<Trial> {
       ..writeByte(4)
       ..write(obj.measures)
       ..writeByte(5)
-      ..write(obj.phases)
+      ..write(obj.schedule)
       ..writeByte(6)
       ..write(obj.startDate)
       ..writeByte(7)
@@ -80,9 +80,9 @@ Trial _$TrialFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : Measure.fromJson(e as Map<String, dynamic>))
         ?.toList()
-    ..phases = json['phases'] == null
+    ..schedule = json['schedule'] == null
         ? null
-        : Phases.fromJson(json['phases'] as Map<String, dynamic>)
+        : TrialSchedule.fromJson(json['schedule'] as Map<String, dynamic>)
     ..startDate = json['startDate'] == null
         ? null
         : DateTime.parse(json['startDate'] as String)
@@ -98,7 +98,7 @@ Map<String, dynamic> _$TrialToJson(Trial instance) => <String, dynamic>{
       'a': instance.a,
       'b': instance.b,
       'measures': instance.measures,
-      'phases': instance.phases,
+      'schedule': instance.schedule,
       'startDate': instance.startDate?.toIso8601String(),
       'stepsLogForSurvey': instance.stepsLogForSurvey
           ?.map((k, e) => MapEntry(k.toIso8601String(), e)),

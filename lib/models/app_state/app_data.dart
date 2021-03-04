@@ -5,7 +5,7 @@ import 'package:studyme/models/app_state/default_measures.dart';
 import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/intervention/no_intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/models/phases/phases.dart';
+import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/util/notifications.dart';
@@ -117,8 +117,8 @@ class AppData extends ChangeNotifier {
     }
   }
 
-  void updateSchedule(Phases schedule) {
-    _trial.phases = schedule;
+  void updateSchedule(TrialSchedule schedule) {
+    _trial.schedule = schedule;
     _trial.save();
     notifyListeners();
   }

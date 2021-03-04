@@ -2,27 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/phases/phase_order.dart';
-import 'package:studyme/models/phases/phases.dart';
+import 'package:studyme/models/phase_order.dart';
+import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
-import 'package:studyme/ui/widgets/phases_widget.dart';
+import 'package:studyme/ui/widgets/trial_schedule_widget.dart';
 import 'package:studyme/util/util.dart';
 
-class PhaseEditor extends StatefulWidget {
+class TrialScheduleEditor extends StatefulWidget {
   @override
-  _PhaseEditorState createState() => _PhaseEditorState();
+  _TrialScheduleEditorState createState() => _TrialScheduleEditorState();
 }
 
-class _PhaseEditorState extends State<PhaseEditor> {
-  Phases _phases;
+class _TrialScheduleEditorState extends State<TrialScheduleEditor> {
+  TrialSchedule _phases;
 
   @override
   void initState() {
     final trial = Provider.of<AppData>(context, listen: false).trial;
-    if (trial.phases != null) {
-      _phases = trial.phases.clone();
+    if (trial.schedule != null) {
+      _phases = trial.schedule.clone();
     } else {
-      _phases = Phases.createDefault();
+      _phases = TrialSchedule.createDefault();
     }
     super.initState();
   }
@@ -50,7 +50,7 @@ class _PhaseEditorState extends State<PhaseEditor> {
                           fontSize: 20,
                           color: Theme.of(context).primaryColor)),
                   SizedBox(height: 10),
-                  PhasesWidget(phases: _phases, showDuration: true),
+                  TrialScheduleWidget(schedule: _phases, showDuration: true),
                   SizedBox(height: 20),
                   TextFormField(
                     initialValue: _phases.phaseDuration.toString(),

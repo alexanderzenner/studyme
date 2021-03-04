@@ -19,8 +19,8 @@ import 'models/measure/free_measure.dart';
 import 'models/measure/scale_measure.dart';
 import 'models/measure/synced_measure.dart';
 import 'models/schedule.dart';
-import 'models/phases/phase_order.dart';
-import 'models/phases/phases.dart';
+import 'models/phase_order.dart';
+import 'models/trial_schedule.dart';
 import 'models/trial.dart';
 import 'routes.dart';
 import 'ui/screens/dashboard.dart';
@@ -48,7 +48,7 @@ _setupHive() async {
   Hive.registerAdapter<AppState>(AppStateAdapter());
 
   Hive.registerAdapter<Trial>(TrialAdapter());
-  Hive.registerAdapter<Phases>(PhasesAdapter());
+  Hive.registerAdapter<TrialSchedule>(TrialScheduleAdapter());
   Hive.registerAdapter<Outcome>(OutcomeAdapter());
   Hive.registerAdapter<PhaseOrder>(PhaseOrderAdapter());
 
