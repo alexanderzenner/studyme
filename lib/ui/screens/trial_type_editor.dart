@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
+import 'package:studyme/models/trial_type.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/choice_card.dart';
 
-class InterventionEditorNumberOf extends StatefulWidget {
-  final int numberOfInterventions;
-  final Function(int numberOfInterventions) onSave;
+class TrialTypeEditor extends StatefulWidget {
+  final TrialType type;
+  final Function(TrialType type) onSave;
 
-  InterventionEditorNumberOf({this.numberOfInterventions, this.onSave});
+  TrialTypeEditor({this.type, this.onSave});
 
   @override
-  _InterventionEditorNumberOfState createState() =>
-      _InterventionEditorNumberOfState();
+  _TrialTypeEditorState createState() => _TrialTypeEditorState();
 }
 
-class _InterventionEditorNumberOfState
-    extends State<InterventionEditorNumberOf> {
-  int _numberOfInterventions;
+class _TrialTypeEditorState extends State<TrialTypeEditor> {
+  TrialType _type;
 
   @override
   void initState() {
-    _numberOfInterventions = widget.numberOfInterventions;
+    _type = widget.type;
     super.initState();
   }
 
@@ -51,9 +50,9 @@ class _InterventionEditorNumberOfState
                         fontSize: 20,
                         color: Theme.of(context).primaryColor)),
                 SizedBox(height: 10),
-                ChoiceCard<int>(
-                  value: 1,
-                  selectedValue: _numberOfInterventions,
+                ChoiceCard<TrialType>(
+                  value: TrialType.introductionWithdrawal,
+                  selectedValue: _type,
                   onSelect: _selectOption,
                   title: Text('No'),
                   body: [
@@ -61,9 +60,9 @@ class _InterventionEditorNumberOfState
                         'I just want to find out if “$interventionAName” helps me achieve my goal')
                   ],
                 ),
-                ChoiceCard<int>(
-                    value: 2,
-                    selectedValue: _numberOfInterventions,
+                ChoiceCard<TrialType>(
+                    value: TrialType.alternativeTreatment,
+                    selectedValue: _type,
                     onSelect: _selectOption,
                     title: Text('Yes'),
                     body: [
@@ -77,16 +76,16 @@ class _InterventionEditorNumberOfState
   }
 
   _canSubmit() {
-    return _numberOfInterventions != null;
+    return _type != null;
   }
 
   _onSubmit() {
-    widget.onSave(_numberOfInterventions);
+    widget.onSave(_type);
   }
 
-  _selectOption(int number) {
+  _selectOption(TrialType type) {
     setState(() {
-      _numberOfInterventions = number;
+      _type = type;
     });
   }
 }

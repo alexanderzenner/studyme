@@ -18,7 +18,7 @@ class TrialAdapter extends TypeAdapter<Trial> {
     };
     return Trial()
       ..outcome = fields[0] as Outcome
-      ..numberOfInterventions = fields[1] as int
+      ..type = fields[1] as TrialType
       ..a = fields[2] as Intervention
       ..b = fields[3] as Intervention
       ..measures = (fields[4] as List)?.cast<Measure>()
@@ -34,7 +34,7 @@ class TrialAdapter extends TypeAdapter<Trial> {
       ..writeByte(0)
       ..write(obj.outcome)
       ..writeByte(1)
-      ..write(obj.numberOfInterventions)
+      ..write(obj.type)
       ..writeByte(2)
       ..write(obj.a)
       ..writeByte(3)
@@ -69,7 +69,7 @@ Trial _$TrialFromJson(Map<String, dynamic> json) {
     ..outcome = json['outcome'] == null
         ? null
         : Outcome.fromJson(json['outcome'] as Map<String, dynamic>)
-    ..numberOfInterventions = json['numberOfInterventions'] as int
+    ..type = _$enumDecodeNullable(_$TrialTypeEnumMap, json['type'])
     ..a = json['a'] == null
         ? null
         : Intervention.fromJson(json['a'] as Map<String, dynamic>)
@@ -94,7 +94,7 @@ Trial _$TrialFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$TrialToJson(Trial instance) => <String, dynamic>{
       'outcome': instance.outcome,
-      'numberOfInterventions': instance.numberOfInterventions,
+      'type': _$TrialTypeEnumMap[instance.type],
       'a': instance.a,
       'b': instance.b,
       'measures': instance.measures,
@@ -103,3 +103,40 @@ Map<String, dynamic> _$TrialToJson(Trial instance) => <String, dynamic>{
       'stepsLogForSurvey': instance.stepsLogForSurvey
           ?.map((k, e) => MapEntry(k.toIso8601String(), e)),
     };
+
+T _$enumDecode<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError('A value must be provided. Supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+
+  final value = enumValues.entries
+      .singleWhere((e) => e.value == source, orElse: () => null)
+      ?.key;
+
+  if (value == null && unknownValue == null) {
+    throw ArgumentError('`$source` is not one of the supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+  return value ?? unknownValue;
+}
+
+T _$enumDecodeNullable<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+}
+
+const _$TrialTypeEnumMap = {
+  TrialType.introductionWithdrawal: 'introductionWithdrawal',
+  TrialType.alternativeTreatment: 'alternativeTreatment',
+};

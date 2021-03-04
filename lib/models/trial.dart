@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/models/task/task.dart';
+import 'package:studyme/models/trial_type.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 
 import './measure/measure.dart';
@@ -18,7 +19,7 @@ class Trial extends HiveObject {
   Outcome outcome;
 
   @HiveField(1)
-  int numberOfInterventions;
+  TrialType type;
 
   @HiveField(2)
   Intervention a;
@@ -120,7 +121,7 @@ class Trial extends HiveObject {
 
   generateWithSetInfos() {
     this.schedule = TrialSchedule.createDefault();
-    if (this.numberOfInterventions == 1) {
+    if (this.type == TrialType.introductionWithdrawal) {
       this.b.name = 'Without "${this.a.name}"';
     }
   }

@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/ui/screens/intervention_editor_number_of.dart';
+import 'package:studyme/models/trial_type.dart';
+import 'package:studyme/ui/screens/trial_type_editor.dart';
 import 'package:studyme/ui/screens/intervention_library.dart';
 import 'package:studyme/ui/widgets/intervention_card_new.dart';
 
@@ -46,28 +47,28 @@ class CreatorInterventionSection extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                     color: Theme.of(context).primaryColor)),
-            if (model.trial.numberOfInterventions == null)
+            if (model.trial.type == null)
               ButtonBar(
                 alignment: MainAxisAlignment.center,
                 children: [
                   OutlinedButton.icon(
                       icon: Icon(Icons.add),
                       label: Text('Select'),
-                      onPressed: () =>
-                          _navigateToGoalNumberOfInterventionsEditor(context)),
+                      onPressed: () => _navigateToTrialTypeEditor(context)),
                 ],
               ),
-            if (model.trial.numberOfInterventions != null)
+            if (model.trial.type != null)
               Card(
                 child: ListTile(
                   title: Text(
-                      model.trial.numberOfInterventions == 1 ? 'No' : 'Yes'),
+                      model.trial.type == TrialType.introductionWithdrawal
+                          ? 'No'
+                          : 'Yes'),
                   trailing: Icon(Icons.chevron_right),
-                  onTap: () =>
-                      _navigateToGoalNumberOfInterventionsEditor(context),
+                  onTap: () => _navigateToTrialTypeEditor(context),
                 ),
               ),
-            if (model.trial.numberOfInterventions == 2) ...[
+            if (model.trial.type == TrialType.alternativeTreatment) ...[
               Text('Compare to',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -119,14 +120,14 @@ class CreatorInterventionSection extends StatelessWidget {
     );
   }
 
-  _navigateToGoalNumberOfInterventionsEditor(context) {
+  _navigateToTrialTypeEditor(context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => InterventionEditorNumberOf(
-            numberOfInterventions: model.trial.numberOfInterventions,
-            onSave: (int number) {
-              model.setNumberOfInterventions(number);
+        builder: (context) => TrialTypeEditor(
+            type: model.trial.type,
+            onSave: (TrialType type) {
+              model.setTrialType(type);
               Navigator.pushNamedAndRemoveUntil(
                   context, '/creator', (r) => false);
             }),

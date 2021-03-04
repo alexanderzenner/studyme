@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
+import 'package:studyme/models/trial_type.dart';
 import 'package:studyme/ui/screens/creator_3_schedule.dart';
 import 'package:studyme/ui/widgets/hightlighted_action_button.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
@@ -53,14 +54,14 @@ class CreatorSetup extends StatelessWidget {
                           letter: 'b',
                           intervention: model.trial.b,
                           showSchedule: true),
-                      if (model.trial.numberOfInterventions == 2)
+                      if (model.trial.type == TrialType.alternativeTreatment)
                         Text(
                             'to see if A or B is better for achieving your goal',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                                 color: Theme.of(context).primaryColor)),
-                      if (model.trial.numberOfInterventions == 1)
+                      if (model.trial.type == TrialType.introductionWithdrawal)
                         Text(
                             'to see if there is a difference** between A or B for achieving your goal',
                             style: TextStyle(
@@ -78,7 +79,7 @@ class CreatorSetup extends StatelessWidget {
                               fontSize: 18,
                               color: Theme.of(context).primaryColor)),
                       SizedBox(height: 20),
-                      if (model.trial.numberOfInterventions == 1)
+                      if (model.trial.type == TrialType.alternativeTreatment)
                         Text(
                             '** If there is no difference "${model.trial.a.name}" likely doesn\'t help you achieve your goal.',
                             style: TextStyle(

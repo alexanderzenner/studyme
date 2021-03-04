@@ -8,6 +8,7 @@ import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:studyme/models/trial.dart';
+import 'package:studyme/models/trial_type.dart';
 import 'package:studyme/util/notifications.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 
@@ -61,20 +62,18 @@ class AppData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setNumberOfInterventions(int number) {
-    if (number == 1 || number == 2) {
-      if (number == 1) {
-        _trial.b = NoIntervention(letter: interventionBLetter);
-      }
-      if (number == 2) {
-        _trial.b = null;
-      }
-
-      _trial.numberOfInterventions = number;
-
-      _trial.save();
-      notifyListeners();
+  void setTrialType(TrialType type) {
+    if (type == TrialType.introductionWithdrawal) {
+      _trial.b = NoIntervention(letter: interventionBLetter);
     }
+    if (type == TrialType.alternativeTreatment) {
+      _trial.b = null;
+    }
+
+    _trial.type = type;
+
+    _trial.save();
+    notifyListeners();
   }
 
   void setInterventionA(Intervention intervention) {
