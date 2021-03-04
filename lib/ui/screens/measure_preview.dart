@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
+import 'package:studyme/models/measure/automatic_measure.dart';
+import 'package:studyme/models/measure/keyboard_measure.dart';
 import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
-import 'package:studyme/models/measure/automatic_measure.dart';
 import 'package:studyme/ui/screens/schedule_editor.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/util/string_extension.dart';
-import 'package:studyme/util/util.dart';
+
+import 'measure_editor_automatic_type.dart';
 
 class MeasurePreview extends StatelessWidget {
   final Measure measure;
@@ -25,25 +26,27 @@ class MeasurePreview extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
-                  if (_measure is AutomaticMeasure)
-                    HintCard(
-                      titleText: "Synced measure",
-                      body: [
-                        Text(
-                            "This measure requires using the third party Google Fit or Apple Health app. Any measurement you add to the third party app during the trial is automatically fetched.")
-                      ],
-                    ),
                   ListTile(
                     title: Text("Name"),
                     subtitle: Text(_measure.name),
                   ),
                   ListTile(
                     title: Text("Input Type"),
-                    subtitle: Row(
+                    subtitle: Column(
                       children: [
-                        Icon(_measure.getIcon()),
-                        SizedBox(width: 5),
-                        Text(_measure.type.capitalize()),
+                        Row(
+                          children: [
+                            Icon(_measure.getIcon()),
+                            SizedBox(width: 5),
+                            Text(_measure.type.capitalize()),
+                            SizedBox(width: 5),
+                            Text('/'),
+                            SizedBox(width: 5),
+                            Icon(KeyboardMeasure.icon),
+                            SizedBox(width: 5),
+                            Text(KeyboardMeasure.measureType.capitalize()),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -77,20 +80,22 @@ class MeasurePreview extends StatelessWidget {
       Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
     };
 
-    measure.canAdd.then((value) {
-      if (value) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ScheduleEditor(
-                  title: measure.name,
-                  objectWithSchedule: measure,
-                  onSave: saveFunction),
-            ));
-      } else {
-        toast(context,
-            "Access denied. In order for StudyMe to track your ${measure.name} automatically you need to grant permissions.");
-      }
-    });
+    if (measure is AutomaticMeasure) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MeasureEditorAutomaticType(
+                measure: measure, onSave: saveFunction),
+          ));
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ScheduleEditor(
+                title: measure.name,
+                objectWithSchedule: measure,
+                onSave: saveFunction),
+          ));
+    }
   }
 }

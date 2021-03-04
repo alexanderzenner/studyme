@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 toast(context, text) {
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(text),
-    ),
+    SnackBar(content: Text(text), duration: Duration(seconds: 10)),
   );
 }
 
