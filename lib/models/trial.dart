@@ -64,7 +64,7 @@ class Trial extends HiveObject {
         }
       });
     } else {
-      print("trial has ended");
+      print("experiment has ended");
     }
 
     return _tasks;

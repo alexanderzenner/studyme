@@ -30,7 +30,7 @@ class InterventionPreview extends StatelessWidget {
                   children: [
                     OutlinedButton.icon(
                         icon: Icon(Icons.add),
-                        label: Text("Add to trial"),
+                        label: Text("Add to experiment"),
                         onPressed: () {
                           _addIntervention(context);
                         }),
