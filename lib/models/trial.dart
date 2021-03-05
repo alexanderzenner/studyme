@@ -135,7 +135,7 @@ class Trial extends HiveObject {
       this.b = WithdrawalPhase.fromIntervention(
           letter: 'b', withdrawnIntervention: this.interventionA);
     } else {
-      this.b = InterventionPhase(letter: 'b', intervention: this.interventionA);
+      this.b = InterventionPhase(letter: 'b', intervention: this.interventionB);
     }
   }
 
