@@ -4,12 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/log_data.dart';
-import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/models/phase/phase.dart';
 import 'package:studyme/models/trial.dart';
 import 'package:studyme/ui/widgets/hint_card.dart';
-import 'package:studyme/ui/widgets/intervention_card.dart';
-import 'package:studyme/ui/widgets/trial_schedule_widget.dart';
+import 'package:studyme/ui/widgets/phase_card.dart';
 import 'package:studyme/ui/widgets/task_list.dart';
+import 'package:studyme/ui/widgets/trial_schedule_widget.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
     // listen to log data so screen is rebuilt when logs are added
     Provider.of<LogData>(context);
     final Trial _trial = Provider.of<AppData>(context).trial;
-    final _dateToday = DateTime.now().add(Duration(days: 0));
+    final _dateToday = DateTime.now().add(Duration(days: 1));
 
     Widget _body;
     int _activeIndex;
@@ -46,9 +46,9 @@ class Home extends StatelessWidget {
   }
 
   _buildActiveBody(BuildContext context, Trial trial, DateTime date) {
-    Intervention _intervention = trial.getInterventionForDate(date);
+    Phase _phase = trial.getPhaseForDate(date);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      //InterventionCard(phase: _intervention),
+      if (_phase != null) PhaseCard(phase: _phase),
       SizedBox(height: 20),
       Text('Today',
           style: TextStyle(
@@ -72,7 +72,7 @@ class Home extends StatelessWidget {
   _buildAfterEndBody(Trial trial) {
     return Column(children: [
       SizedBox(height: 20),
-      HintCard(titleText: "Trial ended", body: [
+      HintCard(titleText: "Experiment ended", body: [
         Text(
             "Your experiment ended on ${DateFormat(DateFormat.YEAR_MONTH_DAY).format(trial.endDate)}")
       ])

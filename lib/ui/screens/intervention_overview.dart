@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/models/intervention.dart';
 import 'package:studyme/ui/widgets/editable_list_tile.dart';
 
 import 'intervention_editor_name.dart';

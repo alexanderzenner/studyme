@@ -6,7 +6,7 @@ import 'package:studyme/models/phase/phase.dart';
 import 'package:studyme/routes.dart';
 import 'package:studyme/ui/screens/trial_schedule_editor.dart';
 import 'package:studyme/ui/widgets/hightlighted_action_button.dart';
-import 'package:studyme/ui/widgets/intervention_card.dart';
+import 'package:studyme/ui/widgets/phase_card.dart';
 
 class CreatorSchedule extends StatelessWidget {
   @override
@@ -49,7 +49,7 @@ class CreatorSchedule extends StatelessWidget {
                               model.trial.schedule.phaseSequence[index];
                           Phase _phase =
                               letter == 'a' ? model.trial.a : model.trial.b;
-                          return InterventionCard(
+                          return PhaseCard(
                               phase: _phase,
                               showSchedule: true,
                               trailing: Text(

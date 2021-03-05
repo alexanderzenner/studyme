@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/models/intervention.dart';
 import 'package:studyme/models/task/task.dart';
 
 import 'package:studyme/util/time_of_day_extension.dart';

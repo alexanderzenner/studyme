@@ -5,7 +5,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/trial_type.dart';
 import 'package:studyme/ui/screens/creator_3_schedule.dart';
 import 'package:studyme/ui/widgets/hightlighted_action_button.dart';
-import 'package:studyme/ui/widgets/intervention_card.dart';
+import 'package:studyme/ui/widgets/phase_card.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
 import 'package:studyme/ui/widgets/outcome_card.dart';
 
@@ -39,7 +39,7 @@ class CreatorSetup extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                               color: Theme.of(context).primaryColor)),
-                      InterventionCard(
+                      PhaseCard(
                           phase: model.trial.a, showSchedule: true),
                       Center(
                         child: Text('vs.',
@@ -48,7 +48,7 @@ class CreatorSetup extends StatelessWidget {
                                 fontSize: 20,
                                 color: Theme.of(context).primaryColor)),
                       ),
-                      InterventionCard(
+                      PhaseCard(
                           phase: model.trial.b, showSchedule: true),
                       if (model.trial.type == TrialType.alternativeTreatment)
                         Text(

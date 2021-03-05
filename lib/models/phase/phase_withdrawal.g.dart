@@ -8,7 +8,7 @@ part of 'phase_withdrawal.dart';
 
 class WithdrawalPhaseAdapter extends TypeAdapter<WithdrawalPhase> {
   @override
-  final int typeId = 206;
+  final int typeId = 207;
 
   @override
   WithdrawalPhase read(BinaryReader reader) {

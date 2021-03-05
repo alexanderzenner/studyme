@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/measure/aggregations.dart';
-import 'package:studyme/ui/widgets/intervention_card.dart';
+import 'package:studyme/ui/widgets/phase_card.dart';
 import 'package:studyme/ui/widgets/measure_chart.dart';
 
 class History extends StatefulWidget {
@@ -28,8 +28,8 @@ class _HistoryState extends State<History> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              InterventionCard(phase: appState.trial.a),
-              InterventionCard(phase: appState.trial.b),
+              PhaseCard(phase: appState.trial.a),
+              PhaseCard(phase: appState.trial.b),
               DropdownButtonFormField<TimeAggregation>(
                 decoration: InputDecoration(labelText: 'Aggregate by'),
                 value: _timeAggregation,

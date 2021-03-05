@@ -4,7 +4,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/trial_type.dart';
 import 'package:studyme/ui/screens/trial_type_editor.dart';
 import 'package:studyme/ui/screens/intervention_library.dart';
-import 'package:studyme/ui/widgets/intervention_card_new.dart';
+import 'package:studyme/ui/widgets/intervention_card.dart';
 
 import '../screens/intervention_overview.dart';
 
@@ -37,7 +37,7 @@ class CreatorInterventionSection extends StatelessWidget {
               ],
             ),
           if (model.trial.interventionA != null)
-            InterventionCardNew(
+            InterventionCard(
                 intervention: model.trial.interventionA,
                 showSchedule: true,
                 onTap: () => _viewIntervention(context, true)),
@@ -85,7 +85,7 @@ class CreatorInterventionSection extends StatelessWidget {
                   ],
                 ),
               if (model.trial.interventionB != null)
-                InterventionCardNew(
+                InterventionCard(
                     showSchedule: true,
                     intervention: model.trial.interventionB,
                     onTap: () => _viewIntervention(context, false)),

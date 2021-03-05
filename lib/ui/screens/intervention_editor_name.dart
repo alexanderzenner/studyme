@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/models/intervention.dart';
 
 import '../widgets/action_button.dart';
 import 'schedule_editor.dart';

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/default_interventions.dart';
-import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/models/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/screens/intervention_preview.dart';
-import 'package:studyme/ui/widgets/intervention_card_new.dart';
+import 'package:studyme/ui/widgets/intervention_card.dart';
 import 'package:studyme/ui/widgets/library_create_button.dart';
 
 import 'intervention_editor_name.dart';
@@ -44,7 +44,7 @@ class InterventionLibrary extends StatelessWidget {
                   itemCount: defaultInterventions.length,
                   itemBuilder: (context, index) {
                     Intervention _intervention = defaultInterventions[index];
-                    return InterventionCardNew(
+                    return InterventionCard(
                         intervention: _intervention,
                         onTap: () =>
                             _previewIntervention(context, _intervention));

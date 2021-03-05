@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:studyme/models/app_state/app_state.dart';
 import 'package:studyme/models/app_state/default_measures.dart';
-import 'package:studyme/models/intervention/intervention.dart';
+import 'package:studyme/models/intervention.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/trial_schedule.dart';
 import 'package:studyme/models/task/task.dart';
@@ -172,8 +172,11 @@ class AppData extends ChangeNotifier {
 
   bool canDefineMeasures() {
     return canDefineInterventions() &&
-        _trial.interventionA != null &&
-        _trial.interventionB != null;
+        ((_trial.type == TrialType.introductionWithdrawal &&
+                _trial.interventionA != null) ||
+            (_trial.type == TrialType.alternativeTreatment &&
+                _trial.interventionA != null &&
+                _trial.interventionB != null));
   }
 
   bool canStartTrial() {

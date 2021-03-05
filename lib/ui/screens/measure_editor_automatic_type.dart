@@ -5,7 +5,6 @@ import 'package:studyme/models/measure/keyboard_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/screens/schedule_editor.dart';
 import 'package:studyme/ui/widgets/choice_card.dart';
-import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/util/string_extension.dart';
 import 'package:studyme/util/util.dart';
 

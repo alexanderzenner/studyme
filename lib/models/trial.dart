@@ -9,7 +9,7 @@ import 'package:studyme/models/trial_type.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 
 import './measure/measure.dart';
-import 'intervention/intervention.dart';
+import 'intervention.dart';
 import 'measure/automatic_measure.dart';
 import 'outcome.dart';
 
@@ -27,25 +27,25 @@ class Trial extends HiveObject {
   @HiveField(2)
   Intervention interventionA;
 
-  @JsonKey(ignore: true)
-  Phase a;
-
   @HiveField(3)
   Intervention interventionB;
 
-  @JsonKey(ignore: true)
-  Phase b;
-
   @HiveField(4)
-  List<Measure> measures;
+  Phase a;
 
   @HiveField(5)
-  TrialSchedule schedule;
+  Phase b;
 
   @HiveField(6)
-  DateTime startDate;
+  List<Measure> measures;
 
   @HiveField(7)
+  TrialSchedule schedule;
+
+  @HiveField(8)
+  DateTime startDate;
+
+  @HiveField(9)
   Map<DateTime, String> stepsLogForSurvey;
 
   List<Task> getTasksForDate(DateTime date) {
@@ -57,9 +57,9 @@ class Trial extends HiveObject {
       int daysSinceBeginningOfPhase =
           daysSinceBeginningOfTrial % schedule.phaseDuration;
 
-      Intervention _intervention = getInterventionForDate(_cleanDate);
+      Phase _phase = getPhaseForDate(_cleanDate);
 
-      _tasks.addAll(_intervention.getTasksFor(daysSinceBeginningOfPhase));
+      _tasks.addAll(_phase.getTasksFor(daysSinceBeginningOfPhase));
       measures.forEach((measure) {
         _tasks.addAll(measure.getTasksFor(daysSinceBeginningOfTrial));
       });
@@ -102,23 +102,23 @@ class Trial extends HiveObject {
     return date.isAfter(startDate) && date.isBefore(endDate);
   }
 
-  Intervention getInterventionForDate(DateTime date) {
+  Phase getPhaseForDate(DateTime date) {
     final index = getPhaseIndexForDate(date);
 
-    return getInterventionForPhaseIndex(index);
+    return getPhaseForPhaseIndex(index);
   }
 
-  Intervention getInterventionForPhaseIndex(int index) {
+  Phase getPhaseForPhaseIndex(int index) {
     if (index < 0 || index >= schedule.numberOfPhases) {
       print('trial is over or has not begun.');
       return null;
     }
-    final interventionLetter = schedule.phaseSequence[index];
+    final _letter = schedule.phaseSequence[index];
 
-    if (interventionLetter == 'a')
-      return interventionA;
-    else if (interventionLetter == 'b')
-      return interventionB;
+    if (_letter == 'a')
+      return a;
+    else if (_letter == 'b')
+      return b;
     else
       return null;
   }
@@ -132,7 +132,7 @@ class Trial extends HiveObject {
     this.schedule = TrialSchedule.createDefault();
     this.a = InterventionPhase(letter: 'a', intervention: this.interventionA);
     if (this.type == TrialType.introductionWithdrawal) {
-      this.b = WithdrawalPhase(
+      this.b = WithdrawalPhase.fromIntervention(
           letter: 'b', withdrawnIntervention: this.interventionA);
     } else {
       this.b = InterventionPhase(letter: 'b', intervention: this.interventionA);

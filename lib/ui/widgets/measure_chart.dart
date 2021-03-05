@@ -1,14 +1,14 @@
 import 'package:charts_flutter/flutter.dart' as charts;
+import "package:collection/collection.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
-import 'package:studyme/models/intervention/intervention.dart';
 import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/measure/aggregations.dart';
 import 'package:studyme/models/measure/measure.dart';
+import 'package:studyme/models/phase/phase.dart';
 import 'package:studyme/models/trial.dart';
-import "package:collection/collection.dart";
 
 class MeasureChart extends StatefulWidget {
   final Measure measure;
@@ -208,23 +208,21 @@ class _MeasureChartState extends State<MeasureChart> {
               log.dateTime.year, log.dateTime.month, log.dateTime.day));
       return _logsGroupedByDate.entries.map((entry) {
         num _aggregationUnit = widget.trial.getDayOfStudyFor(entry.key);
-        Intervention _intervention =
-            widget.trial.getInterventionForDate(entry.key);
+        Phase _phase = widget.trial.getPhaseForDate(entry.key);
         return _ChartValue(_aggregationUnit,
-            _aggregate(_getValuesFromLogs(entry.value)), _intervention.letter);
+            _aggregate(_getValuesFromLogs(entry.value)), _phase.letter);
       }).toList();
     } else if (widget.timeAggregation == TimeAggregation.Phase) {
       final _logsGroupedByPhase = groupBy(_logs,
           (TrialLog log) => widget.trial.getPhaseIndexForDate(log.dateTime));
       return _logsGroupedByPhase.entries.map((entry) {
-        Intervention _intervention =
-            widget.trial.getInterventionForPhaseIndex(entry.key);
+        Phase _phase = widget.trial.getPhaseForPhaseIndex(entry.key);
         return _ChartValue(entry.key,
-            _aggregate(_getValuesFromLogs(entry.value)), _intervention.letter);
+            _aggregate(_getValuesFromLogs(entry.value)), _phase.letter);
       }).toList();
     } else if (widget.timeAggregation == TimeAggregation.Intervention) {
-      final _logsGroupedByIntervention = groupBy(_logs,
-          (TrialLog log) => widget.trial.getInterventionForDate(log.dateTime));
+      final _logsGroupedByIntervention = groupBy(
+          _logs, (TrialLog log) => widget.trial.getPhaseForDate(log.dateTime));
       return _logsGroupedByIntervention.entries.map((entry) {
         int aggregationUnit;
         if (entry.key.letter == 'a') {

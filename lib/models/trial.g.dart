@@ -21,16 +21,18 @@ class TrialAdapter extends TypeAdapter<Trial> {
       ..type = fields[1] as TrialType
       ..interventionA = fields[2] as Intervention
       ..interventionB = fields[3] as Intervention
-      ..measures = (fields[4] as List)?.cast<Measure>()
-      ..schedule = fields[5] as TrialSchedule
-      ..startDate = fields[6] as DateTime
-      ..stepsLogForSurvey = (fields[7] as Map)?.cast<DateTime, String>();
+      ..a = fields[4] as Phase
+      ..b = fields[5] as Phase
+      ..measures = (fields[6] as List)?.cast<Measure>()
+      ..schedule = fields[7] as TrialSchedule
+      ..startDate = fields[8] as DateTime
+      ..stepsLogForSurvey = (fields[9] as Map)?.cast<DateTime, String>();
   }
 
   @override
   void write(BinaryWriter writer, Trial obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.outcome)
       ..writeByte(1)
@@ -40,12 +42,16 @@ class TrialAdapter extends TypeAdapter<Trial> {
       ..writeByte(3)
       ..write(obj.interventionB)
       ..writeByte(4)
-      ..write(obj.measures)
+      ..write(obj.a)
       ..writeByte(5)
-      ..write(obj.schedule)
+      ..write(obj.b)
       ..writeByte(6)
-      ..write(obj.startDate)
+      ..write(obj.measures)
       ..writeByte(7)
+      ..write(obj.schedule)
+      ..writeByte(8)
+      ..write(obj.startDate)
+      ..writeByte(9)
       ..write(obj.stepsLogForSurvey);
   }
 
@@ -76,6 +82,12 @@ Trial _$TrialFromJson(Map<String, dynamic> json) {
     ..interventionB = json['interventionB'] == null
         ? null
         : Intervention.fromJson(json['interventionB'] as Map<String, dynamic>)
+    ..a = json['a'] == null
+        ? null
+        : Phase.fromJson(json['a'] as Map<String, dynamic>)
+    ..b = json['b'] == null
+        ? null
+        : Phase.fromJson(json['b'] as Map<String, dynamic>)
     ..measures = (json['measures'] as List)
         ?.map((e) =>
             e == null ? null : Measure.fromJson(e as Map<String, dynamic>))
@@ -97,6 +109,8 @@ Map<String, dynamic> _$TrialToJson(Trial instance) => <String, dynamic>{
       'type': _$TrialTypeEnumMap[instance.type],
       'interventionA': instance.interventionA,
       'interventionB': instance.interventionB,
+      'a': instance.a,
+      'b': instance.b,
       'measures': instance.measures,
       'schedule': instance.schedule,
       'startDate': instance.startDate?.toIso8601String(),
