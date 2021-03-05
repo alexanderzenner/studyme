@@ -80,7 +80,7 @@ class _MeasureChartState extends State<MeasureChart> {
         behaviors: [
           if (_seperators != null) (() => _seperators)(),
           charts.ChartTitle(
-            _getDomainAxisTitle(),
+            widget.timeAggregation.readable,
             outerPadding: 0,
             innerPadding: 2,
             behaviorPosition: charts.BehaviorPosition.bottom,
@@ -125,25 +125,12 @@ class _MeasureChartState extends State<MeasureChart> {
           widget.trial.schedule.numberOfPhases *
                   widget.trial.schedule.phaseDuration -
               1);
-    } else if (widget.timeAggregation == TimeAggregation.Phase) {
+    } else if (widget.timeAggregation == TimeAggregation.Phases) {
       return charts.NumericExtents(0, widget.trial.schedule.numberOfPhases - 1);
-    } else if (widget.timeAggregation == TimeAggregation.Intervention) {
+    } else if (widget.timeAggregation == TimeAggregation.Phase) {
       return charts.NumericExtents(0, 1);
     } else {
       return null;
-    }
-  }
-
-  String _getDomainAxisTitle() {
-    switch (widget.timeAggregation) {
-      case TimeAggregation.Day:
-        return "Day";
-      case TimeAggregation.Phase:
-        return "Phase";
-      case TimeAggregation.Intervention:
-        return "Intervention";
-      default:
-        return "";
     }
   }
 
@@ -151,10 +138,10 @@ class _MeasureChartState extends State<MeasureChart> {
     if (widget.timeAggregation == TimeAggregation.Day) {
       return charts.BasicNumericTickFormatterSpec(
           (value) => (value + 1).toInt().toString());
-    } else if (widget.timeAggregation == TimeAggregation.Phase) {
+    } else if (widget.timeAggregation == TimeAggregation.Phases) {
       return charts.BasicNumericTickFormatterSpec((value) =>
           "${(value + 1).toString()} (${widget.trial.schedule.phaseSequence[value].toUpperCase()})");
-    } else if (widget.timeAggregation == TimeAggregation.Intervention) {
+    } else if (widget.timeAggregation == TimeAggregation.Phase) {
       return charts.BasicNumericTickFormatterSpec((value) {
         if (value == 0) return 'A';
         if (value == 1)
@@ -168,12 +155,12 @@ class _MeasureChartState extends State<MeasureChart> {
   }
 
   charts.NumericTickProviderSpec _getProviderSpec() {
-    if (widget.timeAggregation == TimeAggregation.Phase) {
+    if (widget.timeAggregation == TimeAggregation.Phases) {
       return charts.StaticNumericTickProviderSpec(
           Iterable.generate(widget.trial.schedule.numberOfPhases)
               .map((e) => charts.TickSpec<num>(e))
               .toList());
-    } else if (widget.timeAggregation == TimeAggregation.Intervention) {
+    } else if (widget.timeAggregation == TimeAggregation.Phase) {
       return charts.StaticNumericTickProviderSpec(
           [charts.TickSpec<num>(0), charts.TickSpec<num>(1)]);
     } else {
@@ -212,7 +199,7 @@ class _MeasureChartState extends State<MeasureChart> {
         return _ChartValue(_aggregationUnit,
             _aggregate(_getValuesFromLogs(entry.value)), _phase.letter);
       }).toList();
-    } else if (widget.timeAggregation == TimeAggregation.Phase) {
+    } else if (widget.timeAggregation == TimeAggregation.Phases) {
       final _logsGroupedByPhase = groupBy(_logs,
           (TrialLog log) => widget.trial.getPhaseIndexForDate(log.dateTime));
       return _logsGroupedByPhase.entries.map((entry) {
@@ -220,7 +207,7 @@ class _MeasureChartState extends State<MeasureChart> {
         return _ChartValue(entry.key,
             _aggregate(_getValuesFromLogs(entry.value)), _phase.letter);
       }).toList();
-    } else if (widget.timeAggregation == TimeAggregation.Intervention) {
+    } else if (widget.timeAggregation == TimeAggregation.Phase) {
       final _logsGroupedByIntervention = groupBy(
           _logs, (TrialLog log) => widget.trial.getPhaseForDate(log.dateTime));
       return _logsGroupedByIntervention.entries.map((entry) {
