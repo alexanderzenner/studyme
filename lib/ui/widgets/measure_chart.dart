@@ -54,7 +54,7 @@ class _MeasureChartState extends State<MeasureChart> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text('${widget.measure.name} (${widget.measure.aggregation.readable})',
+      Text('${widget.measure.name}',
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,

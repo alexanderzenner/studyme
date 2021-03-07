@@ -31,7 +31,7 @@ class _HistoryState extends State<History> {
               PhaseCard(phase: appState.trial.a),
               PhaseCard(phase: appState.trial.b),
               DropdownButtonFormField<TimeAggregation>(
-                decoration: InputDecoration(labelText: 'Aggregate by'),
+                decoration: InputDecoration(labelText: 'Average per'),
                 value: _timeAggregation,
                 onChanged: _changeTimeAggregation,
                 items: [
