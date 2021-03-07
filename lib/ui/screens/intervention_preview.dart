@@ -24,17 +24,20 @@ class InterventionPreview extends StatelessWidget {
               children: [
                 ListTile(
                   title: Text("Name"),
-                  subtitle: Text(intervention.name),
+                  subtitle:
+                      Text(intervention.name, style: TextStyle(fontSize: 16)),
                 ),
                 if (intervention.description != null)
                   ListTile(
                     title: Text("Description"),
-                    subtitle: Text(intervention.description),
+                    subtitle: Text(intervention.description,
+                        style: TextStyle(fontSize: 16)),
                   ),
                 if (intervention.instructions != null)
                   ListTile(
                     title: Text("Instructions"),
-                    subtitle: Text(intervention.instructions),
+                    subtitle: Text(intervention.instructions,
+                        style: TextStyle(fontSize: 16)),
                   ),
                 ButtonBar(
                   alignment: MainAxisAlignment.center,

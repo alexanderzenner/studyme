@@ -45,13 +45,15 @@ class _InterventionOverviewState extends State<InterventionOverview> {
                       children: [
                         EditableListTile(
                             title: Text("Name"),
-                            subtitle: Text(intervention.name),
+                            subtitle: Text(intervention.name,
+                                style: TextStyle(fontSize: 16)),
                             canEdit: true,
                             onTap: () => _editName(intervention)),
                         if (intervention.schedule != null)
                           ListTile(
                               title: Text("Schedule"),
-                              subtitle: Text(intervention.schedule.readable),
+                              subtitle: Text(intervention.schedule.readable,
+                                  style: TextStyle(fontSize: 16)),
                               trailing: Icon(Icons.chevron_right),
                               onTap: () => _editSchedule(intervention)),
                         ButtonBar(

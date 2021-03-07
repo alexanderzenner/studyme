@@ -15,15 +15,13 @@ class CreatorMeasureSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 4),
-          child: Text(
-              "Data collected to assess if what you are trying is helping you achieve your goal",
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor)),
-        ),
+        SizedBox(height: 10),
+        Text(
+            "Data collected to assess if what you are trying is helping you achieve your goal",
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor)),
         ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),

@@ -46,7 +46,8 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                         children: [
                           EditableListTile(
                               title: Text("Name"),
-                              subtitle: Text(measure.name),
+                              subtitle: Text(measure.name,
+                                  style: TextStyle(fontSize: 16)),
                               canEdit: measure.canEdit,
                               onTap: () => _editName(measure)),
                           ListTile(
@@ -55,23 +56,27 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                               children: [
                                 Icon(measure.getIcon()),
                                 SizedBox(width: 5),
-                                Text(measure.type.capitalize()),
+                                Text(measure.type.capitalize(),
+                                    style: TextStyle(fontSize: 16)),
                               ],
                             ),
                           ),
                           if (measure is ListMeasure)
                             EditableListTile(
                                 title: Text("List Items"),
-                                subtitle: Text(measure.itemsString),
+                                subtitle: Text(measure.itemsString,
+                                    style: TextStyle(fontSize: 16)),
                                 onTap: () => _editItems(measure)),
                           if (measure is ScaleMeasure)
                             EditableListTile(
                                 title: Text("Scale"),
-                                subtitle: Text(measure.scaleString),
+                                subtitle: Text(measure.scaleString,
+                                    style: TextStyle(fontSize: 16)),
                                 onTap: () => _editScale(measure)),
                           EditableListTile(
                               title: Text("Schedule"),
-                              subtitle: Text(measure.schedule.readable),
+                              subtitle: Text(measure.schedule.readable,
+                                  style: TextStyle(fontSize: 16)),
                               onTap: () => _editSchedule(measure)),
                           ButtonBar(
                             alignment: MainAxisAlignment.center,

@@ -40,23 +40,24 @@ class InterventionLibrary extends StatelessWidget {
               ListView(
                 shrinkWrap: true,
                 children: [
-                  Text('Suggestions for "${model.trial.outcome.outcome}"',
+                  Text('Suggestions',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
                           color: Theme.of(context).primaryColor)),
                   if (!model.trial.outcome.hasSuggestions)
-                    HintCard(titleText: 'No suggestions available'),
+                    HintCard(
+                        titleText:
+                            'No suggestions for "${model.trial.outcome.outcome}" available'),
                   if (model.trial.outcome.hasSuggestions)
-                    Expanded(
-                        child: _buildListWith(
-                            model.trial.outcome.suggestedInterventions)),
+                    _buildListWith(model.trial.outcome.suggestedInterventions),
+                  SizedBox(height: 10),
                   Text('Other',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
                           color: Theme.of(context).primaryColor)),
-                  Expanded(child: _buildListWith(defaultInterventions))
+                  _buildListWith(defaultInterventions)
                 ],
               ),
             ],

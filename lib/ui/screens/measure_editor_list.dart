@@ -77,7 +77,8 @@ class _MeasureEditorListState extends State<MeasureEditorList> {
 
                       return Card(
                           child: ListTile(
-                        title: Text(choice.value),
+                        title:
+                            Text(choice.value, style: TextStyle(fontSize: 20)),
                         trailing: IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () => _removeChoice(index),

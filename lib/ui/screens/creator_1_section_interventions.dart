@@ -21,6 +21,7 @@ class CreatorInterventionSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: 10),
           Text('What you want to try out',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -42,6 +43,7 @@ class CreatorInterventionSection extends StatelessWidget {
                 showSchedule: true,
                 onTap: () => _viewIntervention(context, true)),
           if (_firstInterventionSet()) ...[
+            SizedBox(height: 10),
             Text('Compare to something else?',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -69,6 +71,7 @@ class CreatorInterventionSection extends StatelessWidget {
                 ),
               ),
             if (model.trial.type == TrialType.alternativeTreatment) ...[
+              SizedBox(height: 10),
               Text('Compare to',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,

@@ -34,13 +34,13 @@ class CreatorSetup extends StatelessWidget {
                       ...model.trial.measures
                           .map((measure) => MeasureCard(measure: measure))
                           .toList(),
+                      SizedBox(height: 10),
                       Text('between two different phases*',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                               color: Theme.of(context).primaryColor)),
-                      PhaseCard(
-                          phase: model.trial.a, showSchedule: true),
+                      PhaseCard(phase: model.trial.a, showSchedule: true),
                       Center(
                         child: Text('vs.',
                             style: TextStyle(
@@ -48,8 +48,8 @@ class CreatorSetup extends StatelessWidget {
                                 fontSize: 20,
                                 color: Theme.of(context).primaryColor)),
                       ),
-                      PhaseCard(
-                          phase: model.trial.b, showSchedule: true),
+                      PhaseCard(phase: model.trial.b, showSchedule: true),
+                      SizedBox(height: 10),
                       if (model.trial.type == TrialType.alternativeTreatment)
                         Text(
                             'to see if A or B is better for achieving your goal',
