@@ -55,7 +55,7 @@ class MeasurePreview extends StatelessWidget {
                   if (_measure is ListMeasure)
                     ListTile(
                       title: Text("List Items"),
-                      subtitle: Text(_measure.choicesString),
+                      subtitle: Text(_measure.itemsString),
                     ),
                   if (_measure is ScaleMeasure)
                     ListTile(

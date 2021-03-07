@@ -3,19 +3,19 @@ import 'package:studyme/models/measure/list_item.dart';
 import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/automatic_measure.dart';
+import 'package:studyme/models/measure/scale_measure.dart';
 
 List<Measure> get defaultMeasures {
   int id = 0;
   return [
-    ListMeasure(
-      id: (id++).toString(),
-      name: 'Pain',
-      choices: [
-        ListItem(value: 'Low'),
-        ListItem(value: 'Medium'),
-        ListItem(value: 'High')
-      ],
-    ),
+    ScaleMeasure(id: (id++).toString(), name: 'Pain', min: 0, max: 10),
+    ListMeasure(id: (id++).toString(), name: 'Mood', items: [
+      ListItem(value: '😫'),
+      ListItem(value: '🙁'),
+      ListItem(value: '😐'),
+      ListItem(value: '🙂'),
+      ListItem(value: '😃')
+    ]),
     AutomaticMeasure(
       id: (id++).toString(),
       name: 'Weight',

@@ -27,13 +27,22 @@ class Intervention with HasSchedule {
   String description;
 
   @HiveField(4)
-  String letter;
+  String instructions;
 
   @HiveField(5)
+  String letter;
+
+  @HiveField(6)
   Schedule schedule;
 
   Intervention(
-      {id, type, this.name, this.description, this.letter, Schedule schedule}) {
+      {id,
+      type,
+      this.name,
+      this.description,
+      this.instructions,
+      this.letter,
+      Schedule schedule}) {
     this.type = type ?? interventionType;
     this.id = id ?? Uuid().v4();
     this.schedule = schedule ?? Schedule();
@@ -44,6 +53,7 @@ class Intervention with HasSchedule {
     this.type = intervention.type;
     this.name = intervention.name;
     this.description = intervention.description;
+    this.instructions = intervention.instructions;
     this.letter = intervention.letter;
     this.schedule = intervention.schedule;
   }

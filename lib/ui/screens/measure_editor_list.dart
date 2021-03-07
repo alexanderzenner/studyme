@@ -20,12 +20,12 @@ class MeasureEditorList extends StatefulWidget {
 }
 
 class _MeasureEditorListState extends State<MeasureEditorList> {
-  List<ListItem> _choices;
+  List<ListItem> _items;
   String _editedChoice;
 
   @override
   void initState() {
-    _choices = widget.measure.choices.toList();
+    _items = widget.measure.items.toList();
     super.initState();
   }
 
@@ -71,9 +71,9 @@ class _MeasureEditorListState extends State<MeasureEditorList> {
                 ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: _choices.length,
+                    itemCount: _items.length,
                     itemBuilder: (content, index) {
-                      ListItem choice = _choices[index];
+                      ListItem choice = _items[index];
 
                       return Card(
                           child: ListTile(
@@ -126,7 +126,7 @@ class _MeasureEditorListState extends State<MeasureEditorList> {
             ));
     if (_editedChoice != null && _editedChoice.length > 0) {
       setState(() {
-        _choices.add(ListItem(value: _editedChoice));
+        _items.add(ListItem(value: _editedChoice));
       });
     }
   }
@@ -139,17 +139,17 @@ class _MeasureEditorListState extends State<MeasureEditorList> {
 
   _removeChoice(int index) {
     setState(() {
-      _choices.removeAt(index);
+      _items.removeAt(index);
     });
   }
 
   _canSubmit() {
-    return _choices.length > 0 &&
-        _choices.every((element) => element.value != null);
+    return _items.length > 0 &&
+        _items.every((element) => element.value != null);
   }
 
   _submit() {
-    widget.measure.choices = _choices;
+    widget.measure.items = _items;
     widget.save
         ? widget.onSave(widget.measure)
         : Navigator.push(

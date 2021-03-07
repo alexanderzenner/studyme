@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:studyme/models/intervention.dart';
 import 'package:uuid/uuid.dart';
 
 part 'outcome.g.dart';
@@ -13,7 +14,14 @@ class Outcome {
   @HiveField(1)
   String outcome;
 
-  Outcome({id, this.outcome}) : this.id = id ?? Uuid().v4();
+  @JsonKey(ignore: true)
+  List<Intervention> suggestedInterventions;
+
+  bool get hasSuggestions =>
+      suggestedInterventions != null && suggestedInterventions.length > 0;
+
+  Outcome({id, this.outcome, this.suggestedInterventions})
+      : this.id = id ?? Uuid().v4();
 
   factory Outcome.fromJson(Map<String, dynamic> json) =>
       _$OutcomeFromJson(json);

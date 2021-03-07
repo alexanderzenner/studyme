@@ -62,8 +62,8 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                           if (measure is ListMeasure)
                             EditableListTile(
                                 title: Text("List Items"),
-                                subtitle: Text(measure.choicesString),
-                                onTap: () => _editChoices(measure)),
+                                subtitle: Text(measure.itemsString),
+                                onTap: () => _editItems(measure)),
                           if (measure is ScaleMeasure)
                             EditableListTile(
                                 title: Text("Scale"),
@@ -117,7 +117,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
         ));
   }
 
-  _editChoices(ListMeasure measure) {
+  _editItems(ListMeasure measure) {
     Navigator.push(
         context,
         MaterialPageRoute(

@@ -20,7 +20,7 @@ class ListMeasureAdapter extends TypeAdapter<ListMeasure> {
       id: fields[0] as String,
       name: fields[2] as String,
       description: fields[3] as String,
-      choices: (fields[6] as List)?.cast<ListItem>(),
+      items: (fields[6] as List)?.cast<ListItem>(),
       aggregation: fields[4] as ValueAggregation,
       schedule: fields[5] as Schedule,
     )..type = fields[1] as String;
@@ -31,7 +31,7 @@ class ListMeasureAdapter extends TypeAdapter<ListMeasure> {
     writer
       ..writeByte(7)
       ..writeByte(6)
-      ..write(obj.choices)
+      ..write(obj.items)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -66,7 +66,7 @@ ListMeasure _$ListMeasureFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     name: json['name'] as String,
     description: json['description'] as String,
-    choices: (json['choices'] as List)
+    items: (json['items'] as List)
         ?.map((e) =>
             e == null ? null : ListItem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -86,7 +86,7 @@ Map<String, dynamic> _$ListMeasureToJson(ListMeasure instance) =>
       'description': instance.description,
       'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
       'schedule': instance.schedule,
-      'choices': instance.choices,
+      'items': instance.items,
     };
 
 T _$enumDecode<T>(

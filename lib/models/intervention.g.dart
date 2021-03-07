@@ -21,15 +21,16 @@ class InterventionAdapter extends TypeAdapter<Intervention> {
       type: fields[0] as dynamic,
       name: fields[2] as String,
       description: fields[3] as String,
-      letter: fields[4] as String,
-      schedule: fields[5] as Schedule,
+      instructions: fields[4] as String,
+      letter: fields[5] as String,
+      schedule: fields[6] as Schedule,
     );
   }
 
   @override
   void write(BinaryWriter writer, Intervention obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.type)
       ..writeByte(1)
@@ -39,8 +40,10 @@ class InterventionAdapter extends TypeAdapter<Intervention> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.letter)
+      ..write(obj.instructions)
       ..writeByte(5)
+      ..write(obj.letter)
+      ..writeByte(6)
       ..write(obj.schedule);
   }
 
@@ -65,6 +68,7 @@ Intervention _$InterventionFromJson(Map<String, dynamic> json) {
     type: json['type'],
     name: json['name'] as String,
     description: json['description'] as String,
+    instructions: json['instructions'] as String,
     letter: json['letter'] as String,
     schedule: json['schedule'] == null
         ? null
@@ -78,6 +82,7 @@ Map<String, dynamic> _$InterventionToJson(Intervention instance) =>
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
+      'instructions': instance.instructions,
       'letter': instance.letter,
       'schedule': instance.schedule,
     };

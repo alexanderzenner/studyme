@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/default_interventions.dart';
 import 'package:studyme/models/intervention.dart';
-import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/ui/screens/intervention_preview.dart';
+import 'package:studyme/ui/widgets/hint_card.dart';
 import 'package:studyme/ui/widgets/intervention_card.dart';
 import 'package:studyme/ui/widgets/library_create_button.dart';
 
@@ -19,7 +19,6 @@ class InterventionLibrary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppData>(builder: (context, model, child) {
-      List<Measure> _unaddedMeasures = model.unaddedMeasures;
       return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
@@ -38,24 +37,47 @@ class InterventionLibrary extends StatelessWidget {
                       color: Theme.of(context).primaryColor)),
               LibraryCreateButton(
                   onPressed: () => _createIntervention(context)),
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: defaultInterventions.length,
-                  itemBuilder: (context, index) {
-                    Intervention _intervention = defaultInterventions[index];
-                    return InterventionCard(
-                        intervention: _intervention,
-                        onTap: () =>
-                            _previewIntervention(context, _intervention));
-                  },
-                ),
-              )
+              ListView(
+                shrinkWrap: true,
+                children: [
+                  Text('Suggestions for "${model.trial.outcome.outcome}"',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: Theme.of(context).primaryColor)),
+                  if (!model.trial.outcome.hasSuggestions)
+                    HintCard(titleText: 'No suggestions available'),
+                  if (model.trial.outcome.hasSuggestions)
+                    Expanded(
+                        child: _buildListWith(
+                            model.trial.outcome.suggestedInterventions)),
+                  Text('Other',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: Theme.of(context).primaryColor)),
+                  Expanded(child: _buildListWith(defaultInterventions))
+                ],
+              ),
             ],
           ),
         ),
       );
     });
+  }
+
+  _buildListWith(List<Intervention> interventions) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: interventions.length,
+      itemBuilder: (context, index) {
+        Intervention _intervention = interventions[index];
+        return InterventionCard(
+            intervention: _intervention,
+            onTap: () => _previewIntervention(context, _intervention));
+      },
+    );
   }
 
   _previewIntervention(context, Intervention intervention) {

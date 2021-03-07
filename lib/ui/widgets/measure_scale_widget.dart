@@ -43,10 +43,10 @@ class _ScaleMeasureWidgetState extends State<ScaleMeasureWidget> {
           children: [
             SizedBox(width: 20),
             Text(widget.measure.min.toInt().toString(),
-                style: Theme.of(context).textTheme.headline6),
+                style: TextStyle(fontSize: 20)),
             Spacer(),
             Text(widget.measure.max.toInt().toString(),
-                style: Theme.of(context).textTheme.headline6),
+                style: TextStyle(fontSize: 20)),
             SizedBox(width: 20),
           ],
         ),

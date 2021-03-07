@@ -130,11 +130,12 @@ class Trial extends HiveObject {
 
   generateWithSetInfos() {
     this.schedule = TrialSchedule.createDefault();
-    this.a = InterventionPhase(letter: 'a', intervention: this.interventionA);
     if (this.type == TrialType.introductionWithdrawal) {
-      this.b = WithdrawalPhase.fromIntervention(
-          letter: 'b', withdrawnIntervention: this.interventionA);
+      this.a = WithdrawalPhase.fromIntervention(
+          letter: 'a', withdrawnIntervention: this.interventionA);
+      this.b = InterventionPhase(letter: 'b', intervention: this.interventionA);
     } else {
+      this.a = InterventionPhase(letter: 'a', intervention: this.interventionA);
       this.b = InterventionPhase(letter: 'b', intervention: this.interventionB);
     }
   }

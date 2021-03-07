@@ -28,12 +28,13 @@ class _ListMeasureWidgetState extends State<ListMeasureWidget> {
     return Expanded(
       child: ListView.builder(
           shrinkWrap: true,
-          itemCount: widget.measure.choices.length,
+          itemCount: widget.measure.items.length,
           itemBuilder: (context, index) {
             return ChoiceCard<num>(
                 value: index,
                 selectedValue: _state,
-                title: Text('${widget.measure.choices[index].value}'),
+                title: Text('${widget.measure.items[index].value}',
+                    style: TextStyle(fontSize: 20)),
                 onSelect: _updateValue);
           }),
     );

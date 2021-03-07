@@ -26,6 +26,16 @@ class InterventionPreview extends StatelessWidget {
                   title: Text("Name"),
                   subtitle: Text(intervention.name),
                 ),
+                if (intervention.description != null)
+                  ListTile(
+                    title: Text("Description"),
+                    subtitle: Text(intervention.description),
+                  ),
+                if (intervention.instructions != null)
+                  ListTile(
+                    title: Text("Instructions"),
+                    subtitle: Text(intervention.instructions),
+                  ),
                 ButtonBar(
                   alignment: MainAxisAlignment.center,
                   children: [

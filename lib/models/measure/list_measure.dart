@@ -19,9 +19,9 @@ class ListMeasure extends Measure {
   static const IconData icon = Icons.list;
 
   @HiveField(6)
-  List<ListItem> choices;
+  List<ListItem> items;
 
-  String get choicesString => choices.fold(
+  String get itemsString => items.fold(
       '',
       (previousValue, element) =>
           previousValue +
@@ -32,10 +32,10 @@ class ListMeasure extends Measure {
       {String id,
       String name,
       String description,
-      List<ListItem> choices,
+      List<ListItem> items,
       ValueAggregation aggregation,
       Schedule schedule})
-      : this.choices = choices ?? [],
+      : this.items = items ?? [],
         super(
             id: id,
             type: measureType,
@@ -45,13 +45,13 @@ class ListMeasure extends Measure {
             schedule: schedule);
 
   ListMeasure.clone(ListMeasure measure)
-      : choices = List.of(measure.choices),
+      : items = List.of(measure.items),
         super.clone(measure);
 
   dynamic get tickProvider => new charts.NumericAxisSpec(
         tickProviderSpec: new charts.StaticNumericTickProviderSpec(
           <charts.TickSpec<num>>[
-            ...choices
+            ...items
                 .asMap()
                 .entries
                 .map((e) => TickSpec<num>(e.key, label: e.value.value))
