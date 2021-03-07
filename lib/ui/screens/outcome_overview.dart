@@ -39,7 +39,8 @@ class _OutcomeOverviewState extends State<OutcomeOverview> {
                       children: [
                         EditableListTile(
                             title: Text("Goal"),
-                            subtitle: Text(outcome.outcome),
+                            subtitle: Text(outcome.outcome,
+                                style: TextStyle(fontSize: 16)),
                             onTap: () => _editOutcome(outcome)),
                         ButtonBar(
                           alignment: MainAxisAlignment.center,

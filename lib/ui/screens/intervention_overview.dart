@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/intervention.dart';
+import 'package:studyme/ui/screens/intervention_editor_instructions.dart';
 import 'package:studyme/ui/widgets/editable_list_tile.dart';
 
 import 'intervention_editor_name.dart';
@@ -49,6 +50,12 @@ class _InterventionOverviewState extends State<InterventionOverview> {
                                 style: TextStyle(fontSize: 16)),
                             canEdit: true,
                             onTap: () => _editName(intervention)),
+                        EditableListTile(
+                            title: Text("Instructions"),
+                            subtitle: Text(intervention.instructions,
+                                style: TextStyle(fontSize: 16)),
+                            canEdit: true,
+                            onTap: () => _editInstructions(intervention)),
                         if (intervention.schedule != null)
                           ListTile(
                               title: Text("Schedule"),
@@ -78,6 +85,20 @@ class _InterventionOverviewState extends State<InterventionOverview> {
         MaterialPageRoute(
           builder: (context) => InterventionEditorName(
               isA: widget.isA,
+              intervention: intervention,
+              onSave: (Intervention _intervention) {
+                _getSetter()(_intervention);
+                Navigator.pop(context);
+              },
+              save: true),
+        ));
+  }
+
+  _editInstructions(intervention) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => InterventionEditorInstructions(
               intervention: intervention,
               onSave: (Intervention _intervention) {
                 _getSetter()(_intervention);

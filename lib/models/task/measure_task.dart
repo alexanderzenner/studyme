@@ -7,7 +7,7 @@ class MeasureTask extends Task {
   Measure measure;
 
   MeasureTask(this.measure, TimeOfDay time)
-      : super(title: "Log your \"${measure.name}\"", time: time);
+      : super(title: "Log your ${measure.name}", time: time);
 
   @override
   String get id => measure.id + time.combined.toString();

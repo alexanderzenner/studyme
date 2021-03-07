@@ -7,7 +7,7 @@ import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/task/measure_task.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/ui/widgets/measure_widget.dart';
-import 'package:studyme/util/time_of_day_extension.dart';
+import 'package:studyme/ui/widgets/task_header.dart';
 
 class MeasureInteractor extends StatefulWidget {
   final MeasureTask task;
@@ -44,16 +44,7 @@ class _MeasureInteractorState extends State<MeasureInteractor> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Icon(Icons.alarm),
-                    SizedBox(width: 10),
-                    Text(widget.task.time.readable),
-                  ],
-                ),
-              ),
+              TaskHeader(task: widget.task),
               MeasureWidget(
                 measure: widget.task.measure,
                 updateValue: _updateValue,

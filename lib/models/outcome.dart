@@ -15,13 +15,13 @@ class Outcome {
   String outcome;
 
   @JsonKey(ignore: true)
-  List<Intervention> suggestedInterventions;
+  List<Intervention> _suggestedInterventions;
 
-  bool get hasSuggestions =>
-      suggestedInterventions != null && suggestedInterventions.length > 0;
+  List<Intervention> get suggestedInterventions => _suggestedInterventions;
 
-  Outcome({id, this.outcome, this.suggestedInterventions})
-      : this.id = id ?? Uuid().v4();
+  Outcome({id, this.outcome, suggestedInterventions})
+      : this.id = id ?? Uuid().v4(),
+        this._suggestedInterventions = suggestedInterventions ?? [];
 
   factory Outcome.fromJson(Map<String, dynamic> json) =>
       _$OutcomeFromJson(json);

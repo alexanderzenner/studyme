@@ -22,7 +22,8 @@ class OutcomePreview extends StatelessWidget {
               children: [
                 ListTile(
                   title: Text("Goal"),
-                  subtitle: Text(outcome.outcome),
+                  subtitle:
+                      Text(outcome.outcome, style: TextStyle(fontSize: 16)),
                 ),
                 ButtonBar(
                   alignment: MainAxisAlignment.center,

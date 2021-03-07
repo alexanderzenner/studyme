@@ -8,7 +8,7 @@ class InterventionTask extends Task {
   Intervention intervention;
 
   InterventionTask(this.intervention, TimeOfDay time)
-      : super(title: intervention.name, time: time);
+      : super(title: intervention.instructions, time: time);
 
   @override
   String get id => intervention.id + time.combined.toString();

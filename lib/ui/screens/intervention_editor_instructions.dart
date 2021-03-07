@@ -1,33 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/intervention.dart';
-import 'package:studyme/ui/screens/intervention_editor_instructions.dart';
 
 import '../widgets/action_button.dart';
 import 'schedule_editor.dart';
 
-class InterventionEditorName extends StatefulWidget {
+class InterventionEditorInstructions extends StatefulWidget {
   final Intervention intervention;
-  final bool isA;
+
   final Function(Intervention intervention) onSave;
   final bool save;
 
-  const InterventionEditorName(
+  const InterventionEditorInstructions(
       {@required this.intervention,
-      @required this.isA,
       @required this.onSave,
       @required this.save});
 
   @override
-  _InterventionEditorNameState createState() => _InterventionEditorNameState();
+  _InterventionEditorInstructionsState createState() =>
+      _InterventionEditorInstructionsState();
 }
 
-class _InterventionEditorNameState extends State<InterventionEditorName> {
-  String _name;
+class _InterventionEditorInstructionsState
+    extends State<InterventionEditorInstructions> {
+  String _instructions;
 
   @override
   void initState() {
-    _name = widget.intervention.name;
+    _instructions = widget.intervention.instructions;
     super.initState();
   }
 
@@ -40,11 +40,11 @@ class _InterventionEditorNameState extends State<InterventionEditorName> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(_name ?? ''),
+              Text(_instructions ?? ''),
               Visibility(
                 visible: true,
                 child: Text(
-                  'Name',
+                  'Instructions',
                   style: TextStyle(
                     fontSize: 12.0,
                   ),
@@ -63,12 +63,9 @@ class _InterventionEditorNameState extends State<InterventionEditorName> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                    widget.isA
-                        ? 'Name the one thing you want to try out to achieve your goal'
-                        : 'Name the other thing you want to try out to achieve your goal',
+                Text('Enter instructions* for yourself',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -77,13 +74,20 @@ class _InterventionEditorNameState extends State<InterventionEditorName> {
                   height: 10,
                 ),
                 TextFormField(
-                  autofocus: _name == null,
-                  initialValue: _name,
+                  autofocus: _instructions == null,
+                  initialValue: _instructions,
                   onChanged: _changeName,
                   decoration: InputDecoration(
-                    labelText: 'Name',
+                    labelText: 'Instructions',
                   ),
                 ),
+                SizedBox(height: 20),
+                Text(
+                    '* The instructions will be shown to you when it is time for "${widget.intervention.name}".\nAim to be specific enough so you will know what to do.',
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor)),
               ],
             ),
           ),
@@ -91,26 +95,26 @@ class _InterventionEditorNameState extends State<InterventionEditorName> {
   }
 
   _canSubmit() {
-    return _name != null && _name.length > 0;
+    return _instructions != null && _instructions.length > 0;
   }
 
   _submit() {
-    widget.intervention.name = _name;
+    widget.intervention.instructions = _instructions;
     widget.save
         ? widget.onSave(widget.intervention)
         : Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => InterventionEditorInstructions(
-                  intervention: widget.intervention,
-                  save: false,
+              builder: (context) => ScheduleEditor(
+                  title: widget.intervention.name,
+                  objectWithSchedule: widget.intervention,
                   onSave: widget.onSave),
             ));
   }
 
   _changeName(text) {
     setState(() {
-      _name = text;
+      _instructions = text;
     });
   }
 }

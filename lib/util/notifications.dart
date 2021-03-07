@@ -53,12 +53,16 @@ class Notifications {
     if (!scheduledTime.isBefore(now)) {
       await _flutterLocalNotificationsPlugin.zonedSchedule(
           id,
+          'Time for your experiment',
           reminder.title,
-          reminder.body,
           scheduledTime,
           const NotificationDetails(
-              android: AndroidNotificationDetails('your channel id',
-                  'your channel name', 'your channel description')),
+              android: AndroidNotificationDetails(
+            'studyme_app',
+            'StudyMe Notifications',
+            'StudyMe Notifications',
+            styleInformation: BigTextStyleInformation(''),
+          )),
           androidAllowWhileIdle: true,
           uiLocalNotificationDateInterpretation:
               UILocalNotificationDateInterpretation.absoluteTime);

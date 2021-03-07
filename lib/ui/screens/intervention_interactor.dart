@@ -5,8 +5,7 @@ import 'package:studyme/models/app_state/log_data.dart';
 import 'package:studyme/models/log/completed_task_log.dart';
 import 'package:studyme/models/task/intervention_task.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
-
-import 'package:studyme/util/time_of_day_extension.dart';
+import 'package:studyme/ui/widgets/task_header.dart';
 
 class InterventionInteractor extends StatefulWidget {
   final InterventionTask task;
@@ -37,16 +36,7 @@ class _InterventionInteractorState extends State<InterventionInteractor> {
           padding: EdgeInsets.all(8),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Icon(Icons.alarm),
-                    SizedBox(width: 10),
-                    Text(widget.task.time.readable),
-                  ],
-                ),
-              ),
+              TaskHeader(task: widget.task),
               SwitchListTile(
                 title: Text("Done"),
                 value: _confirmed,
