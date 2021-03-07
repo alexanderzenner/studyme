@@ -74,7 +74,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                               subtitle: Text(measure.schedule.readable),
                               onTap: () => _editSchedule(measure)),
                           ButtonBar(
-                             alignment: MainAxisAlignment.center,
+                            alignment: MainAxisAlignment.center,
                             children: [
                               OutlinedButton.icon(
                                   icon: Icon(Icons.delete),
@@ -137,7 +137,8 @@ class _MeasureOverviewState extends State<MeasureOverview> {
 
   _getSaveFunction() {
     return (Measure _measure) {
-      Provider.of<AppData>(context).updateMeasure(widget.index, _measure);
+      Provider.of<AppData>(context, listen: false)
+          .updateMeasure(widget.index, _measure);
       Navigator.pop(context);
     };
   }
