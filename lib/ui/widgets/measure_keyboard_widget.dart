@@ -17,7 +17,7 @@ class KeyboardMeasureWidget extends StatelessWidget {
           keyboardType: TextInputType.number,
           decoration: InputDecoration(labelText: 'Value'),
           onChanged: (text) {
-            int value;
+            num value;
             if (updateValue != null) {
               try {
                 value = text.length > 0 ? num.parse(text) : null;

@@ -61,7 +61,7 @@ class _MeasureInteractorState extends State<MeasureInteractor> {
   _updateValue(value) {
     setState(() {
       _value = value;
-      _confirmed = true;
+      _confirmed = value != null ? true : false;
     });
   }
 
