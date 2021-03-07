@@ -74,9 +74,11 @@ class _InterventionEditorInstructionsState
                   height: 10,
                 ),
                 TextFormField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
                   autofocus: _instructions == null,
                   initialValue: _instructions,
-                  onChanged: _changeName,
+                  onChanged: _changeInstructions,
                   decoration: InputDecoration(
                     labelText: 'Instructions',
                   ),
@@ -112,7 +114,7 @@ class _InterventionEditorInstructionsState
             ));
   }
 
-  _changeName(text) {
+  _changeInstructions(text) {
     setState(() {
       _instructions = text;
     });
