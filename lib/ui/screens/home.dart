@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
     // listen to log data so screen is rebuilt when logs are added
     Provider.of<LogData>(context);
     final Trial _trial = Provider.of<AppData>(context).trial;
-    final _dateToday = DateTime.now().add(Duration(days: 1));
+    final _dateToday = DateTime.now().add(Duration(days: 0));
 
     Widget _body;
     int _activeIndex;
