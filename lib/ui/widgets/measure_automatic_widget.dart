@@ -16,8 +16,8 @@ class AutomaticMeasureWidget extends StatelessWidget {
       children: [
         if (setConfirmed != null)
           SwitchListTile(
-            title: Text(
-                "I logged my ${measure.name} in my Google Fit / Apple Health app"),
+            title:
+                Text("I entered the data in my Google Fit / Apple Health app"),
             value: confirmed,
             onChanged: setConfirmed,
           )
