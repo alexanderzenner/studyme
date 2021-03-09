@@ -51,12 +51,10 @@ Outcome _$OutcomeFromJson(Map<String, dynamic> json) {
   return Outcome(
     id: json['id'],
     outcome: json['outcome'] as String,
-    suggestedInterventions: json['suggestedInterventions'],
   );
 }
 
 Map<String, dynamic> _$OutcomeToJson(Outcome instance) => <String, dynamic>{
       'id': instance.id,
       'outcome': instance.outcome,
-      'suggestedInterventions': instance.suggestedInterventions,
     };

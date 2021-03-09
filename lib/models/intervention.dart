@@ -12,49 +12,33 @@ part 'intervention.g.dart';
 @JsonSerializable()
 @HiveType(typeId: 101)
 class Intervention with HasSchedule {
-  static const String interventionType = 'intervention';
-
   @HiveField(0)
-  String type;
-
-  @HiveField(1)
   String id;
 
-  @HiveField(2)
+  @HiveField(1)
   String name;
 
-  @HiveField(3)
+  @JsonKey(ignore: true)
+  @HiveField(2)
   String description;
 
-  @HiveField(4)
+  @HiveField(3)
   String instructions;
 
-  @HiveField(5)
-  String letter;
-
-  @HiveField(6)
+  @HiveField(4)
   Schedule schedule;
 
   Intervention(
-      {id,
-      type,
-      this.name,
-      this.description,
-      this.instructions,
-      this.letter,
-      Schedule schedule}) {
-    this.type = type ?? interventionType;
+      {id, this.name, this.description, this.instructions, Schedule schedule}) {
     this.id = id ?? Uuid().v4();
     this.schedule = schedule ?? Schedule();
   }
 
   Intervention.clone(Intervention intervention) {
     this.id = Uuid().v4();
-    this.type = intervention.type;
     this.name = intervention.name;
     this.description = intervention.description;
     this.instructions = intervention.instructions;
-    this.letter = intervention.letter;
     this.schedule = intervention.schedule;
   }
 
@@ -65,7 +49,7 @@ class Intervention with HasSchedule {
   }
 
   clone() {
-    Intervention.clone(this);
+    return Intervention.clone(this);
   }
 
   factory Intervention.fromJson(Map<String, dynamic> json) =>

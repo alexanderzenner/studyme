@@ -17,6 +17,7 @@ class Outcome {
   @JsonKey(ignore: true)
   List<Intervention> _suggestedInterventions;
 
+  @JsonKey(ignore: true)
   List<Intervention> get suggestedInterventions => _suggestedInterventions;
 
   Outcome({id, this.outcome, suggestedInterventions})

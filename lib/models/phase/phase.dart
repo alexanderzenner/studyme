@@ -11,14 +11,16 @@ abstract class Phase {
     InterventionPhase.phaseType: (json) => InterventionPhase.fromJson(json),
     WithdrawalPhase.phaseType: (json) => WithdrawalPhase.fromJson(json),
   };
-
   @HiveField(0)
-  String name;
+  String type;
 
   @HiveField(1)
+  String name;
+
+  @HiveField(2)
   String letter;
 
-  Phase({this.name, this.letter});
+  Phase({this.type, this.name, this.letter});
 
   List<Task> getTasksFor(int daysSinceBeginningOfTimeRange);
 

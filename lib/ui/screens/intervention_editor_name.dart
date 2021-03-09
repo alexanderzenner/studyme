@@ -4,7 +4,6 @@ import 'package:studyme/models/intervention.dart';
 import 'package:studyme/ui/screens/intervention_editor_instructions.dart';
 
 import '../widgets/action_button.dart';
-import 'schedule_editor.dart';
 
 class InterventionEditorName extends StatefulWidget {
   final Intervention intervention;

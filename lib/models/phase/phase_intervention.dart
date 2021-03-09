@@ -11,12 +11,13 @@ part 'phase_intervention.g.dart';
 class InterventionPhase extends Phase {
   static const String phaseType = 'intervention';
 
+  @JsonKey(ignore: true)
   @HiveField(3)
   Intervention intervention;
 
   InterventionPhase({String letter, Intervention intervention})
       : this.intervention = intervention,
-        super(name: intervention.name, letter: letter);
+        super(type: phaseType, name: intervention.name, letter: letter);
 
   List<Task> getTasksFor(int daysSinceBeginningOfTimeRange) {
     return this.intervention.getTasksFor(daysSinceBeginningOfTimeRange);

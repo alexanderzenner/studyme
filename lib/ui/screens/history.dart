@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/measure/aggregations.dart';
+import 'package:studyme/models/measure/time_aggregation.dart';
 import 'package:studyme/ui/widgets/phase_card.dart';
 import 'package:studyme/ui/widgets/measure_chart.dart';
 

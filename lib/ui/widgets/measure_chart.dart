@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/log_data.dart';
 import 'package:studyme/models/log/trial_log.dart';
-import 'package:studyme/models/measure/aggregations.dart';
+import 'package:studyme/models/measure/time_aggregation.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/phase/phase.dart';
 import 'package:studyme/models/trial.dart';
@@ -238,16 +238,12 @@ class _MeasureChartState extends State<MeasureChart> {
   }
 
   _aggregate(List<num> values) {
-    if (widget.measure.aggregation == ValueAggregation.Average) {
-      return _calculateMean(values);
-    } else if (widget.measure.aggregation == ValueAggregation.Sum) {
-      return _calculateSum(values);
-    }
+    return _calculateMean(values);
   }
 
-  _calculateSum(List<num> values) => values.reduce((a, b) => a + b);
-
   _calculateMean(List<num> values) => _calculateSum(values) / values.length;
+
+  _calculateSum(List<num> values) => values.reduce((a, b) => a + b);
 }
 
 class _ChartValue {

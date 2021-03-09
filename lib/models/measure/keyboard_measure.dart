@@ -4,8 +4,6 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/schedule.dart';
 
-import 'aggregations.dart';
-
 part 'keyboard_measure.g.dart';
 
 @JsonSerializable()
@@ -20,15 +18,12 @@ class KeyboardMeasure extends Measure {
       String name,
       String description,
       String unit,
-      ValueAggregation aggregation,
       Schedule schedule})
       : super(
             id: id,
             type: measureType,
             name: name,
             unit: unit,
-            description: description,
-            aggregation: aggregation,
             schedule: schedule);
 
   KeyboardMeasure.clone(KeyboardMeasure measure) : super.clone(measure);

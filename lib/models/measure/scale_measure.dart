@@ -4,7 +4,6 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/measure/measure.dart';
 
 import '../schedule.dart';
-import 'aggregations.dart';
 
 part 'scale_measure.g.dart';
 
@@ -15,19 +14,19 @@ class ScaleMeasure extends Measure {
 
   static const IconData icon = Icons.linear_scale;
 
-  @HiveField(7)
+  @HiveField(5)
   double min;
 
-  @HiveField(8)
+  @HiveField(6)
   String minLabel;
 
-  @HiveField(9)
+  @HiveField(7)
   double max;
 
-  @HiveField(10)
+  @HiveField(8)
   String maxLabel;
 
-  @HiveField(11)
+  @HiveField(9)
   double initial;
 
   String get scaleString =>
@@ -41,17 +40,10 @@ class ScaleMeasure extends Measure {
       this.minLabel,
       double max,
       this.maxLabel,
-      ValueAggregation aggregation,
       Schedule schedule})
       : this.min = min ?? 0.0,
         this.max = max ?? 10.0,
-        super(
-            id: id,
-            type: measureType,
-            name: name,
-            description: description,
-            aggregation: aggregation,
-            schedule: schedule);
+        super(id: id, type: measureType, name: name, schedule: schedule);
 
   ScaleMeasure.clone(ScaleMeasure measure)
       : min = measure.min,

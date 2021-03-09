@@ -19,20 +19,18 @@ class AutomaticMeasureAdapter extends TypeAdapter<AutomaticMeasure> {
     return AutomaticMeasure(
       id: fields[0] as String,
       name: fields[2] as String,
-      unit: fields[4] as String,
-      description: fields[3] as String,
-      aggregation: fields[5] as ValueAggregation,
-      schedule: fields[6] as Schedule,
+      unit: fields[3] as String,
+      schedule: fields[4] as Schedule,
     )
-      ..trackedHealthDataTypeName = fields[7] as String
+      ..trackedHealthDataTypeName = fields[5] as String
       ..type = fields[1] as String;
   }
 
   @override
   void write(BinaryWriter writer, AutomaticMeasure obj) {
     writer
-      ..writeByte(8)
-      ..writeByte(7)
+      ..writeByte(6)
+      ..writeByte(5)
       ..write(obj.trackedHealthDataTypeName)
       ..writeByte(0)
       ..write(obj.id)
@@ -41,12 +39,8 @@ class AutomaticMeasureAdapter extends TypeAdapter<AutomaticMeasure> {
       ..writeByte(2)
       ..write(obj.name)
       ..writeByte(3)
-      ..write(obj.description)
-      ..writeByte(4)
       ..write(obj.unit)
-      ..writeByte(5)
-      ..write(obj.aggregation)
-      ..writeByte(6)
+      ..writeByte(4)
       ..write(obj.schedule);
   }
 
@@ -70,9 +64,6 @@ AutomaticMeasure _$AutomaticMeasureFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     name: json['name'] as String,
     unit: json['unit'] as String,
-    description: json['description'] as String,
-    aggregation:
-        _$enumDecodeNullable(_$ValueAggregationEnumMap, json['aggregation']),
     schedule: json['schedule'] == null
         ? null
         : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
@@ -86,46 +77,7 @@ Map<String, dynamic> _$AutomaticMeasureToJson(AutomaticMeasure instance) =>
       'id': instance.id,
       'type': instance.type,
       'name': instance.name,
-      'description': instance.description,
       'unit': instance.unit,
-      'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
       'schedule': instance.schedule,
       'trackedHealthDataTypeName': instance.trackedHealthDataTypeName,
     };
-
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
-}
-
-const _$ValueAggregationEnumMap = {
-  ValueAggregation.Average: 'Average',
-  ValueAggregation.Sum: 'Sum',
-};

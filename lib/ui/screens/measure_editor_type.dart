@@ -5,7 +5,6 @@ import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/ui/screens/measure_editor_unit.dart';
-import 'package:studyme/ui/screens/schedule_editor.dart';
 import 'package:studyme/ui/widgets/choice_card.dart';
 
 import '../widgets/action_button.dart';
@@ -164,7 +163,6 @@ class _MeasureEditorTypeState extends State<MeasureEditorType> {
         _newMeasure = ScaleMeasure();
       }
       _newMeasure.name = _measure.name;
-      _newMeasure.description = _measure.description;
       setState(() {
         _measure = _newMeasure;
       });

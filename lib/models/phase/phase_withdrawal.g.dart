@@ -17,17 +17,21 @@ class WithdrawalPhaseAdapter extends TypeAdapter<WithdrawalPhase> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return WithdrawalPhase(
-      letter: fields[1] as String,
-    )..name = fields[0] as String;
+      letter: fields[2] as String,
+    )
+      ..type = fields[0] as String
+      ..name = fields[1] as String;
   }
 
   @override
   void write(BinaryWriter writer, WithdrawalPhase obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.type)
       ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
       ..write(obj.letter);
   }
 
@@ -49,11 +53,14 @@ class WithdrawalPhaseAdapter extends TypeAdapter<WithdrawalPhase> {
 WithdrawalPhase _$WithdrawalPhaseFromJson(Map<String, dynamic> json) {
   return WithdrawalPhase(
     letter: json['letter'] as String,
-  )..name = json['name'] as String;
+  )
+    ..type = json['type'] as String
+    ..name = json['name'] as String;
 }
 
 Map<String, dynamic> _$WithdrawalPhaseToJson(WithdrawalPhase instance) =>
     <String, dynamic>{
+      'type': instance.type,
       'name': instance.name,
       'letter': instance.letter,
     };

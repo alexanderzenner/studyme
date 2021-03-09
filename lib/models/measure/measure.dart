@@ -1,17 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/models/measure/automatic_measure.dart';
+import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/models/mixins/has_schedule.dart';
 import 'package:studyme/models/task/measure_task.dart';
 import 'package:uuid/uuid.dart';
 
 import '../schedule.dart';
 import '../task/task.dart';
-import 'aggregations.dart';
-import 'list_measure.dart';
 import 'keyboard_measure.dart';
+import 'list_measure.dart';
 
 typedef MeasureTaskParser = Measure Function(Map<String, dynamic> data);
 
@@ -33,29 +32,14 @@ abstract class Measure with HasSchedule {
   String name;
 
   @HiveField(3)
-  String description;
-
-  @HiveField(4)
   String unit;
 
-  // TODO: this isn't used anymore in the moment, leaving it for now as it might be used in the future
-  @HiveField(5)
-  ValueAggregation aggregation;
-
-  @HiveField(6)
+  @HiveField(4)
   Schedule schedule;
 
   static IconData icon;
 
-  Measure(
-      {this.id,
-      this.type,
-      this.name,
-      this.unit,
-      this.description,
-      ValueAggregation aggregation,
-      Schedule schedule}) {
-    this.aggregation = aggregation ?? ValueAggregation.Average;
+  Measure({this.id, this.type, this.name, this.unit, Schedule schedule}) {
     this.id = id ?? Uuid().v4();
     this.schedule = schedule ?? Schedule();
   }
@@ -65,8 +49,6 @@ abstract class Measure with HasSchedule {
     this.type = measure.type;
     this.name = measure.name;
     this.unit = measure.unit;
-    this.description = measure.description;
-    this.aggregation = measure.aggregation;
     this.schedule = measure.schedule;
   }
 

@@ -13,7 +13,6 @@ import 'models/app_state/app_state.dart';
 import 'models/app_state/log_data.dart';
 import 'models/intervention.dart';
 import 'models/log/trial_log.dart';
-import 'models/measure/aggregations.dart';
 import 'models/measure/automatic_measure.dart';
 import 'models/measure/keyboard_measure.dart';
 import 'models/measure/list_item.dart';
@@ -60,7 +59,6 @@ _setupHive() async {
   Hive.registerAdapter<Schedule>(ScheduleAdapter());
   Hive.registerAdapter<Intervention>(InterventionAdapter());
 
-  Hive.registerAdapter<ValueAggregation>(ValueAggregationAdapter());
   Hive.registerAdapter<KeyboardMeasure>(KeyboardMeasureAdapter());
   Hive.registerAdapter<ListItem>(ListItemAdapter());
   Hive.registerAdapter<ListMeasure>(ListMeasureAdapter());
@@ -75,7 +73,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,
         title: 'Study Me',
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,

@@ -16,7 +16,10 @@ class WithdrawalPhase extends Phase {
 
   WithdrawalPhase.fromIntervention(
       {String letter, Intervention withdrawnIntervention})
-      : super(name: 'Without "${withdrawnIntervention.name}"', letter: letter);
+      : super(
+            type: phaseType,
+            name: 'Without "${withdrawnIntervention.name}"',
+            letter: letter);
 
   List<Task> getTasksFor(int daysSinceBeginningOfTimeRange) {
     return [];

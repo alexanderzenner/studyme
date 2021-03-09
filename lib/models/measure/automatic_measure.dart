@@ -8,8 +8,6 @@ import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/schedule.dart';
 import 'package:studyme/util/health_connector.dart';
 
-import 'aggregations.dart';
-
 part 'automatic_measure.g.dart';
 
 @JsonSerializable()
@@ -19,7 +17,7 @@ class AutomaticMeasure extends Measure {
 
   static const IconData icon = Icons.devices_other;
 
-  @HiveField(7)
+  @HiveField(5)
   String trackedHealthDataTypeName;
 
   HealthDataType get trackedHealthDataType => HealthDataType.values
@@ -31,7 +29,6 @@ class AutomaticMeasure extends Measure {
       String unit,
       HealthDataType healthDataType,
       String description,
-      ValueAggregation aggregation,
       Schedule schedule})
       : trackedHealthDataTypeName = healthDataType.toString(),
         super(
@@ -39,8 +36,6 @@ class AutomaticMeasure extends Measure {
             type: measureType,
             name: name,
             unit: unit,
-            description: description,
-            aggregation: aggregation,
             schedule: schedule);
 
   @override

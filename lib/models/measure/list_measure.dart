@@ -7,7 +7,6 @@ import 'package:studyme/models/measure/list_item.dart';
 import 'package:studyme/models/measure/measure.dart';
 
 import '../schedule.dart';
-import 'aggregations.dart';
 
 part 'list_measure.g.dart';
 
@@ -18,7 +17,7 @@ class ListMeasure extends Measure {
 
   static const IconData icon = Icons.list;
 
-  @HiveField(7)
+  @HiveField(5)
   List<ListItem> items;
 
   String get itemsString => items.fold(
@@ -33,16 +32,9 @@ class ListMeasure extends Measure {
       String name,
       String description,
       List<ListItem> items,
-      ValueAggregation aggregation,
       Schedule schedule})
       : this.items = items ?? [],
-        super(
-            id: id,
-            type: measureType,
-            name: name,
-            description: description,
-            aggregation: aggregation,
-            schedule: schedule);
+        super(id: id, type: measureType, name: name, schedule: schedule);
 
   ListMeasure.clone(ListMeasure measure)
       : items = List.of(measure.items),

@@ -17,20 +17,24 @@ class InterventionPhaseAdapter extends TypeAdapter<InterventionPhase> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return InterventionPhase(
-      letter: fields[1] as String,
+      letter: fields[2] as String,
       intervention: fields[3] as Intervention,
-    )..name = fields[0] as String;
+    )
+      ..type = fields[0] as String
+      ..name = fields[1] as String;
   }
 
   @override
   void write(BinaryWriter writer, InterventionPhase obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(3)
       ..write(obj.intervention)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.type)
       ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
       ..write(obj.letter);
   }
 
@@ -52,15 +56,14 @@ class InterventionPhaseAdapter extends TypeAdapter<InterventionPhase> {
 InterventionPhase _$InterventionPhaseFromJson(Map<String, dynamic> json) {
   return InterventionPhase(
     letter: json['letter'] as String,
-    intervention: json['intervention'] == null
-        ? null
-        : Intervention.fromJson(json['intervention'] as Map<String, dynamic>),
-  )..name = json['name'] as String;
+  )
+    ..type = json['type'] as String
+    ..name = json['name'] as String;
 }
 
 Map<String, dynamic> _$InterventionPhaseToJson(InterventionPhase instance) =>
     <String, dynamic>{
+      'type': instance.type,
       'name': instance.name,
       'letter': instance.letter,
-      'intervention': instance.intervention,
     };

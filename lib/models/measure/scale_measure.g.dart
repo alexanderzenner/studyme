@@ -19,32 +19,30 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
     return ScaleMeasure(
       id: fields[0] as String,
       name: fields[2] as String,
-      description: fields[3] as String,
-      min: fields[7] as double,
-      minLabel: fields[8] as String,
-      max: fields[9] as double,
-      maxLabel: fields[10] as String,
-      aggregation: fields[5] as ValueAggregation,
-      schedule: fields[6] as Schedule,
+      min: fields[5] as double,
+      minLabel: fields[6] as String,
+      max: fields[7] as double,
+      maxLabel: fields[8] as String,
+      schedule: fields[4] as Schedule,
     )
-      ..initial = fields[11] as double
+      ..initial = fields[9] as double
       ..type = fields[1] as String
-      ..unit = fields[4] as String;
+      ..unit = fields[3] as String;
   }
 
   @override
   void write(BinaryWriter writer, ScaleMeasure obj) {
     writer
-      ..writeByte(12)
-      ..writeByte(7)
-      ..write(obj.min)
-      ..writeByte(8)
-      ..write(obj.minLabel)
-      ..writeByte(9)
-      ..write(obj.max)
       ..writeByte(10)
+      ..writeByte(5)
+      ..write(obj.min)
+      ..writeByte(6)
+      ..write(obj.minLabel)
+      ..writeByte(7)
+      ..write(obj.max)
+      ..writeByte(8)
       ..write(obj.maxLabel)
-      ..writeByte(11)
+      ..writeByte(9)
       ..write(obj.initial)
       ..writeByte(0)
       ..write(obj.id)
@@ -53,12 +51,8 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       ..writeByte(2)
       ..write(obj.name)
       ..writeByte(3)
-      ..write(obj.description)
-      ..writeByte(4)
       ..write(obj.unit)
-      ..writeByte(5)
-      ..write(obj.aggregation)
-      ..writeByte(6)
+      ..writeByte(4)
       ..write(obj.schedule);
   }
 
@@ -81,13 +75,10 @@ ScaleMeasure _$ScaleMeasureFromJson(Map<String, dynamic> json) {
   return ScaleMeasure(
     id: json['id'] as String,
     name: json['name'] as String,
-    description: json['description'] as String,
     min: (json['min'] as num)?.toDouble(),
     minLabel: json['minLabel'] as String,
     max: (json['max'] as num)?.toDouble(),
     maxLabel: json['maxLabel'] as String,
-    aggregation:
-        _$enumDecodeNullable(_$ValueAggregationEnumMap, json['aggregation']),
     schedule: json['schedule'] == null
         ? null
         : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
@@ -102,9 +93,7 @@ Map<String, dynamic> _$ScaleMeasureToJson(ScaleMeasure instance) =>
       'id': instance.id,
       'type': instance.type,
       'name': instance.name,
-      'description': instance.description,
       'unit': instance.unit,
-      'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
       'schedule': instance.schedule,
       'min': instance.min,
       'minLabel': instance.minLabel,
@@ -112,40 +101,3 @@ Map<String, dynamic> _$ScaleMeasureToJson(ScaleMeasure instance) =>
       'maxLabel': instance.maxLabel,
       'initial': instance.initial,
     };
-
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
-}
-
-const _$ValueAggregationEnumMap = {
-  ValueAggregation.Average: 'Average',
-  ValueAggregation.Sum: 'Sum',
-};
