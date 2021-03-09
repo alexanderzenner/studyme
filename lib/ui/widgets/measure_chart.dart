@@ -86,6 +86,14 @@ class _MeasureChartState extends State<MeasureChart> {
             behaviorPosition: charts.BehaviorPosition.bottom,
             titleStyleSpec: charts.TextStyleSpec(fontSize: 15),
           ),
+          if (widget.measure.unit != null)
+            charts.ChartTitle(
+              widget.measure.unit,
+              outerPadding: 0,
+              innerPadding: 2,
+              behaviorPosition: charts.BehaviorPosition.start,
+              titleStyleSpec: charts.TextStyleSpec(fontSize: 15),
+            ),
         ],
         defaultInteractions: false,
         defaultRenderer: new charts.BarRendererConfig(),
