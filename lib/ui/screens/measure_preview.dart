@@ -28,7 +28,8 @@ class MeasurePreview extends StatelessWidget {
                 children: [
                   ListTile(
                     title: Text("Name"),
-                    subtitle: Text(_measure.name),
+                    subtitle:
+                        Text(_measure.name, style: TextStyle(fontSize: 16)),
                   ),
                   ListTile(
                     title: Text("Input Type"),
@@ -38,14 +39,16 @@ class MeasurePreview extends StatelessWidget {
                           children: [
                             Icon(_measure.getIcon()),
                             SizedBox(width: 5),
-                            Text(_measure.type.capitalize()),
+                            Text(_measure.type.capitalize(),
+                                style: TextStyle(fontSize: 16)),
                             if (_measure is AutomaticMeasure) ...[
                               SizedBox(width: 5),
-                              Text('/'),
+                              Text('/', style: TextStyle(fontSize: 16)),
                               SizedBox(width: 5),
                               Icon(KeyboardMeasure.icon),
                               SizedBox(width: 5),
-                              Text(KeyboardMeasure.measureType.capitalize())
+                              Text(KeyboardMeasure.measureType.capitalize(),
+                                  style: TextStyle(fontSize: 16))
                             ]
                           ],
                         ),
@@ -55,12 +58,14 @@ class MeasurePreview extends StatelessWidget {
                   if (_measure is ListMeasure)
                     ListTile(
                       title: Text("List Items"),
-                      subtitle: Text(_measure.itemsString),
+                      subtitle: Text(_measure.itemsString,
+                          style: TextStyle(fontSize: 16)),
                     ),
                   if (_measure is ScaleMeasure)
                     ListTile(
                       title: Text("Scale"),
-                      subtitle: Text(_measure.scaleString),
+                      subtitle: Text(_measure.scaleString,
+                          style: TextStyle(fontSize: 16)),
                     ),
                   ButtonBar(
                     alignment: MainAxisAlignment.center,

@@ -57,6 +57,7 @@ class _MeasureEditorNameState extends State<MeasureEditorName> {
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Name the data you want to collect',
                   style: TextStyle(
