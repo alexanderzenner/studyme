@@ -133,7 +133,7 @@ class _MeasureChartState extends State<MeasureChart> {
           widget.trial.schedule.numberOfPhases *
                   widget.trial.schedule.phaseDuration -
               1);
-    } else if (widget.timeAggregation == TimeAggregation.Phases) {
+    } else if (widget.timeAggregation == TimeAggregation.Segment) {
       return charts.NumericExtents(0, widget.trial.schedule.numberOfPhases - 1);
     } else if (widget.timeAggregation == TimeAggregation.Phase) {
       return charts.NumericExtents(0, 1);
@@ -146,7 +146,7 @@ class _MeasureChartState extends State<MeasureChart> {
     if (widget.timeAggregation == TimeAggregation.Day) {
       return charts.BasicNumericTickFormatterSpec(
           (value) => (value + 1).toInt().toString());
-    } else if (widget.timeAggregation == TimeAggregation.Phases) {
+    } else if (widget.timeAggregation == TimeAggregation.Segment) {
       return charts.BasicNumericTickFormatterSpec((value) =>
           "${(value + 1).toString()} (${widget.trial.schedule.phaseSequence[value].toUpperCase()})");
     } else if (widget.timeAggregation == TimeAggregation.Phase) {
@@ -163,7 +163,7 @@ class _MeasureChartState extends State<MeasureChart> {
   }
 
   charts.NumericTickProviderSpec _getProviderSpec() {
-    if (widget.timeAggregation == TimeAggregation.Phases) {
+    if (widget.timeAggregation == TimeAggregation.Segment) {
       return charts.StaticNumericTickProviderSpec(
           Iterable.generate(widget.trial.schedule.numberOfPhases)
               .map((e) => charts.TickSpec<num>(e))
@@ -207,7 +207,7 @@ class _MeasureChartState extends State<MeasureChart> {
         return _ChartValue(_aggregationUnit,
             _aggregate(_getValuesFromLogs(entry.value)), _phase.letter);
       }).toList();
-    } else if (widget.timeAggregation == TimeAggregation.Phases) {
+    } else if (widget.timeAggregation == TimeAggregation.Segment) {
       final _logsGroupedByPhase = groupBy(_logs,
           (TrialLog log) => widget.trial.getPhaseIndexForDate(log.dateTime));
       return _logsGroupedByPhase.entries.map((entry) {

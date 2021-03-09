@@ -15,7 +15,7 @@ extension AggregationExtension on ValueAggregation {
   String get readable => this.toString().split('.').last.capitalize();
 }
 
-enum TimeAggregation { Day, Phases, Phase }
+enum TimeAggregation { Day, Segment, Phase }
 
 extension TimeAggregationExtension on TimeAggregation {
   String get readable => this.toString().split('.').last.capitalize();

@@ -36,7 +36,7 @@ class _HistoryState extends State<History> {
                 onChanged: _changeTimeAggregation,
                 items: [
                   TimeAggregation.Day,
-                  TimeAggregation.Phases,
+                  TimeAggregation.Segment,
                   TimeAggregation.Phase,
                 ].map<DropdownMenuItem<TimeAggregation>>((value) {
                   return DropdownMenuItem<TimeAggregation>(
