@@ -15,24 +15,32 @@ class ScaleMeasure extends Measure {
 
   static const IconData icon = Icons.linear_scale;
 
-  @HiveField(6)
+  @HiveField(7)
   double min;
 
-  @HiveField(7)
+  @HiveField(8)
+  String minLabel;
+
+  @HiveField(9)
   double max;
 
-  @HiveField(8)
+  @HiveField(10)
+  String maxLabel;
+
+  @HiveField(11)
   double initial;
 
   String get scaleString =>
-      "min: " + min.toInt().toString() + ", max: " + max.toInt().toString();
+      "From:\t${min.toInt().toString()} ($minLabel), To: ${max.toInt().toString()} ($maxLabel) ";
 
   ScaleMeasure(
       {String id,
       String name,
       String description,
       double min,
+      this.minLabel,
       double max,
+      this.maxLabel,
       ValueAggregation aggregation,
       Schedule schedule})
       : this.min = min ?? 0.0,

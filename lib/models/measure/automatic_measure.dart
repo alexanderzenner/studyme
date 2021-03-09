@@ -19,7 +19,7 @@ class AutomaticMeasure extends Measure {
 
   static const IconData icon = Icons.devices_other;
 
-  @HiveField(6)
+  @HiveField(7)
   String trackedHealthDataTypeName;
 
   HealthDataType get trackedHealthDataType => HealthDataType.values
@@ -28,6 +28,7 @@ class AutomaticMeasure extends Measure {
   AutomaticMeasure(
       {String id,
       String name,
+      String unit,
       HealthDataType healthDataType,
       String description,
       ValueAggregation aggregation,
@@ -37,6 +38,7 @@ class AutomaticMeasure extends Measure {
             id: id,
             type: measureType,
             name: name,
+            unit: unit,
             description: description,
             aggregation: aggregation,
             schedule: schedule);

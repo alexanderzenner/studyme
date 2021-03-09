@@ -20,15 +20,16 @@ class KeyboardMeasureAdapter extends TypeAdapter<KeyboardMeasure> {
       id: fields[0] as String,
       name: fields[2] as String,
       description: fields[3] as String,
-      aggregation: fields[4] as ValueAggregation,
-      schedule: fields[5] as Schedule,
+      unit: fields[4] as String,
+      aggregation: fields[5] as ValueAggregation,
+      schedule: fields[6] as Schedule,
     )..type = fields[1] as String;
   }
 
   @override
   void write(BinaryWriter writer, KeyboardMeasure obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -38,8 +39,10 @@ class KeyboardMeasureAdapter extends TypeAdapter<KeyboardMeasure> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.aggregation)
+      ..write(obj.unit)
       ..writeByte(5)
+      ..write(obj.aggregation)
+      ..writeByte(6)
       ..write(obj.schedule);
   }
 
@@ -63,6 +66,7 @@ KeyboardMeasure _$KeyboardMeasureFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     name: json['name'] as String,
     description: json['description'] as String,
+    unit: json['unit'] as String,
     aggregation:
         _$enumDecodeNullable(_$ValueAggregationEnumMap, json['aggregation']),
     schedule: json['schedule'] == null
@@ -77,6 +81,7 @@ Map<String, dynamic> _$KeyboardMeasureToJson(KeyboardMeasure instance) =>
       'type': instance.type,
       'name': instance.name,
       'description': instance.description,
+      'unit': instance.unit,
       'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
       'schedule': instance.schedule,
     };

@@ -19,19 +19,20 @@ class AutomaticMeasureAdapter extends TypeAdapter<AutomaticMeasure> {
     return AutomaticMeasure(
       id: fields[0] as String,
       name: fields[2] as String,
+      unit: fields[4] as String,
       description: fields[3] as String,
-      aggregation: fields[4] as ValueAggregation,
-      schedule: fields[5] as Schedule,
+      aggregation: fields[5] as ValueAggregation,
+      schedule: fields[6] as Schedule,
     )
-      ..trackedHealthDataTypeName = fields[6] as String
+      ..trackedHealthDataTypeName = fields[7] as String
       ..type = fields[1] as String;
   }
 
   @override
   void write(BinaryWriter writer, AutomaticMeasure obj) {
     writer
+      ..writeByte(8)
       ..writeByte(7)
-      ..writeByte(6)
       ..write(obj.trackedHealthDataTypeName)
       ..writeByte(0)
       ..write(obj.id)
@@ -42,8 +43,10 @@ class AutomaticMeasureAdapter extends TypeAdapter<AutomaticMeasure> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.aggregation)
+      ..write(obj.unit)
       ..writeByte(5)
+      ..write(obj.aggregation)
+      ..writeByte(6)
       ..write(obj.schedule);
   }
 
@@ -66,6 +69,7 @@ AutomaticMeasure _$AutomaticMeasureFromJson(Map<String, dynamic> json) {
   return AutomaticMeasure(
     id: json['id'] as String,
     name: json['name'] as String,
+    unit: json['unit'] as String,
     description: json['description'] as String,
     aggregation:
         _$enumDecodeNullable(_$ValueAggregationEnumMap, json['aggregation']),
@@ -83,6 +87,7 @@ Map<String, dynamic> _$AutomaticMeasureToJson(AutomaticMeasure instance) =>
       'type': instance.type,
       'name': instance.name,
       'description': instance.description,
+      'unit': instance.unit,
       'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
       'schedule': instance.schedule,
       'trackedHealthDataTypeName': instance.trackedHealthDataTypeName,

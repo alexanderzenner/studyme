@@ -31,6 +31,13 @@ class MeasurePreview extends StatelessWidget {
                     subtitle:
                         Text(_measure.name, style: TextStyle(fontSize: 16)),
                   ),
+                  if (_measure is AutomaticMeasure ||
+                      _measure is KeyboardMeasure)
+                    ListTile(
+                      title: Text("Unit"),
+                      subtitle:
+                          Text(_measure.unit, style: TextStyle(fontSize: 16)),
+                    ),
                   ListTile(
                     title: Text("Input Type"),
                     subtitle: Column(

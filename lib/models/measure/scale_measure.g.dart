@@ -20,24 +20,31 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       id: fields[0] as String,
       name: fields[2] as String,
       description: fields[3] as String,
-      min: fields[6] as double,
-      max: fields[7] as double,
-      aggregation: fields[4] as ValueAggregation,
-      schedule: fields[5] as Schedule,
+      min: fields[7] as double,
+      minLabel: fields[8] as String,
+      max: fields[9] as double,
+      maxLabel: fields[10] as String,
+      aggregation: fields[5] as ValueAggregation,
+      schedule: fields[6] as Schedule,
     )
-      ..initial = fields[8] as double
-      ..type = fields[1] as String;
+      ..initial = fields[11] as double
+      ..type = fields[1] as String
+      ..unit = fields[4] as String;
   }
 
   @override
   void write(BinaryWriter writer, ScaleMeasure obj) {
     writer
-      ..writeByte(9)
-      ..writeByte(6)
-      ..write(obj.min)
+      ..writeByte(12)
       ..writeByte(7)
-      ..write(obj.max)
+      ..write(obj.min)
       ..writeByte(8)
+      ..write(obj.minLabel)
+      ..writeByte(9)
+      ..write(obj.max)
+      ..writeByte(10)
+      ..write(obj.maxLabel)
+      ..writeByte(11)
       ..write(obj.initial)
       ..writeByte(0)
       ..write(obj.id)
@@ -48,8 +55,10 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.aggregation)
+      ..write(obj.unit)
       ..writeByte(5)
+      ..write(obj.aggregation)
+      ..writeByte(6)
       ..write(obj.schedule);
   }
 
@@ -74,7 +83,9 @@ ScaleMeasure _$ScaleMeasureFromJson(Map<String, dynamic> json) {
     name: json['name'] as String,
     description: json['description'] as String,
     min: (json['min'] as num)?.toDouble(),
+    minLabel: json['minLabel'] as String,
     max: (json['max'] as num)?.toDouble(),
+    maxLabel: json['maxLabel'] as String,
     aggregation:
         _$enumDecodeNullable(_$ValueAggregationEnumMap, json['aggregation']),
     schedule: json['schedule'] == null
@@ -82,6 +93,7 @@ ScaleMeasure _$ScaleMeasureFromJson(Map<String, dynamic> json) {
         : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
   )
     ..type = json['type'] as String
+    ..unit = json['unit'] as String
     ..initial = (json['initial'] as num)?.toDouble();
 }
 
@@ -91,10 +103,13 @@ Map<String, dynamic> _$ScaleMeasureToJson(ScaleMeasure instance) =>
       'type': instance.type,
       'name': instance.name,
       'description': instance.description,
+      'unit': instance.unit,
       'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
       'schedule': instance.schedule,
       'min': instance.min,
+      'minLabel': instance.minLabel,
       'max': instance.max,
+      'maxLabel': instance.maxLabel,
       'initial': instance.initial,
     };
 

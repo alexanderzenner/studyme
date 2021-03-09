@@ -18,7 +18,7 @@ class ListMeasure extends Measure {
 
   static const IconData icon = Icons.list;
 
-  @HiveField(6)
+  @HiveField(7)
   List<ListItem> items;
 
   String get itemsString => items.fold(

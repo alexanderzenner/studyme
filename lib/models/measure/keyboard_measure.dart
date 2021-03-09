@@ -19,12 +19,14 @@ class KeyboardMeasure extends Measure {
       {String id,
       String name,
       String description,
+      String unit,
       ValueAggregation aggregation,
       Schedule schedule})
       : super(
             id: id,
             type: measureType,
             name: name,
+            unit: unit,
             description: description,
             aggregation: aggregation,
             schedule: schedule);

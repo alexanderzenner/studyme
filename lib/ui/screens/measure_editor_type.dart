@@ -4,6 +4,7 @@ import 'package:studyme/models/measure/keyboard_measure.dart';
 import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
+import 'package:studyme/ui/screens/measure_editor_unit.dart';
 import 'package:studyme/ui/screens/schedule_editor.dart';
 import 'package:studyme/ui/widgets/choice_card.dart';
 
@@ -146,10 +147,8 @@ class _MeasureEditorTypeState extends State<MeasureEditorType> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ScheduleEditor(
-                title: _measure.name,
-                objectWithSchedule: _measure,
-                onSave: widget.onSave),
+            builder: (context) => MeasureEditorUnit(
+                measure: widget.measure, onSave: widget.onSave, save: false),
           ));
     }
   }

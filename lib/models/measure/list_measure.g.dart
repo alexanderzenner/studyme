@@ -20,17 +20,19 @@ class ListMeasureAdapter extends TypeAdapter<ListMeasure> {
       id: fields[0] as String,
       name: fields[2] as String,
       description: fields[3] as String,
-      items: (fields[6] as List)?.cast<ListItem>(),
-      aggregation: fields[4] as ValueAggregation,
-      schedule: fields[5] as Schedule,
-    )..type = fields[1] as String;
+      items: (fields[7] as List)?.cast<ListItem>(),
+      aggregation: fields[5] as ValueAggregation,
+      schedule: fields[6] as Schedule,
+    )
+      ..type = fields[1] as String
+      ..unit = fields[4] as String;
   }
 
   @override
   void write(BinaryWriter writer, ListMeasure obj) {
     writer
+      ..writeByte(8)
       ..writeByte(7)
-      ..writeByte(6)
       ..write(obj.items)
       ..writeByte(0)
       ..write(obj.id)
@@ -41,8 +43,10 @@ class ListMeasureAdapter extends TypeAdapter<ListMeasure> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.aggregation)
+      ..write(obj.unit)
       ..writeByte(5)
+      ..write(obj.aggregation)
+      ..writeByte(6)
       ..write(obj.schedule);
   }
 
@@ -75,7 +79,9 @@ ListMeasure _$ListMeasureFromJson(Map<String, dynamic> json) {
     schedule: json['schedule'] == null
         ? null
         : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
-  )..type = json['type'] as String;
+  )
+    ..type = json['type'] as String
+    ..unit = json['unit'] as String;
 }
 
 Map<String, dynamic> _$ListMeasureToJson(ListMeasure instance) =>
@@ -84,6 +90,7 @@ Map<String, dynamic> _$ListMeasureToJson(ListMeasure instance) =>
       'type': instance.type,
       'name': instance.name,
       'description': instance.description,
+      'unit': instance.unit,
       'aggregation': _$ValueAggregationEnumMap[instance.aggregation],
       'schedule': instance.schedule,
       'items': instance.items,

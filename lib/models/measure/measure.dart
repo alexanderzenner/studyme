@@ -35,11 +35,14 @@ abstract class Measure with HasSchedule {
   @HiveField(3)
   String description;
 
-  // TODO: this isn't used anymore in the moment, leaving it for now as it might be used in the future
   @HiveField(4)
+  String unit;
+
+  // TODO: this isn't used anymore in the moment, leaving it for now as it might be used in the future
+  @HiveField(5)
   ValueAggregation aggregation;
 
-  @HiveField(5)
+  @HiveField(6)
   Schedule schedule;
 
   static IconData icon;
@@ -48,6 +51,7 @@ abstract class Measure with HasSchedule {
       {this.id,
       this.type,
       this.name,
+      this.unit,
       this.description,
       ValueAggregation aggregation,
       Schedule schedule}) {
@@ -60,6 +64,7 @@ abstract class Measure with HasSchedule {
     this.id = Uuid().v4();
     this.type = measure.type;
     this.name = measure.name;
+    this.unit = measure.unit;
     this.description = measure.description;
     this.aggregation = measure.aggregation;
     this.schedule = measure.schedule;

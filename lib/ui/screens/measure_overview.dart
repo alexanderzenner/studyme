@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
+import 'package:studyme/models/measure/automatic_measure.dart';
+import 'package:studyme/models/measure/keyboard_measure.dart';
 import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/ui/screens/measure_editor_scale.dart';
+import 'package:studyme/ui/screens/measure_editor_unit.dart';
 import 'package:studyme/ui/widgets/editable_list_tile.dart';
 import 'package:studyme/util/string_extension.dart';
 
@@ -50,6 +53,15 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                                   style: TextStyle(fontSize: 16)),
                               canEdit: measure.canEdit,
                               onTap: () => _editName(measure)),
+                          if (measure is AutomaticMeasure ||
+                              measure is KeyboardMeasure)
+                            EditableListTile(
+                              title: Text("Unit"),
+                              subtitle: Text(measure.unit,
+                                  style: TextStyle(fontSize: 16)),
+                              canEdit: measure.canEdit,
+                              onTap: () => _editUnit(measure),
+                            ),
                           ListTile(
                             title: Text("Input Type"),
                             subtitle: Row(
@@ -106,6 +118,15 @@ class _MeasureOverviewState extends State<MeasureOverview> {
         context,
         MaterialPageRoute(
           builder: (context) => MeasureEditorName(
+              measure: measure.clone(), onSave: _getSaveFunction(), save: true),
+        ));
+  }
+
+  _editUnit(Measure measure) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MeasureEditorUnit(
               measure: measure.clone(), onSave: _getSaveFunction(), save: true),
         ));
   }

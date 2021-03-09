@@ -143,10 +143,8 @@ class _MeasureEditorAutomaticTypeState
       if (type == AutomaticMeasure.measureType) {
         _newMeasure = widget.measure;
       } else if (type == KeyboardMeasure.measureType) {
-        _newMeasure = KeyboardMeasure();
-        _newMeasure.id = _measure.id;
-        _newMeasure.name = _measure.name;
-        _newMeasure.description = _measure.description;
+        _newMeasure = KeyboardMeasure(
+            id: _measure.id, name: _measure.name, unit: _measure.unit);
       }
       setState(() {
         _measure = _newMeasure;
