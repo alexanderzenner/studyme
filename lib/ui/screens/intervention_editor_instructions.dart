@@ -40,7 +40,7 @@ class _InterventionEditorInstructionsState
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(_instructions ?? ''),
+              Text(widget.intervention.name),
               Visibility(
                 visible: true,
                 child: Text(
