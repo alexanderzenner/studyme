@@ -4,7 +4,7 @@ import 'package:studyme/models/task/task.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 
 class TaskHeader extends StatelessWidget {
-  Task task;
+  final Task task;
 
   TaskHeader({@required this.task});
 

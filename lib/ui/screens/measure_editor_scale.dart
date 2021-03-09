@@ -20,12 +20,16 @@ class MeasureEditorScale extends StatefulWidget {
 
 class _MeasureEditorScaleState extends State<MeasureEditorScale> {
   double _min;
+  String _minLabel;
   double _max;
+  String _maxLabel;
 
   @override
   void initState() {
     _min = widget.measure.min;
+    _minLabel = widget.measure.minLabel;
     _max = widget.measure.max;
+    _maxLabel = widget.measure.maxLabel;
     super.initState();
   }
 
@@ -69,17 +73,38 @@ class _MeasureEditorScaleState extends State<MeasureEditorScale> {
                         fontSize: 20,
                         color: Theme.of(context).primaryColor)),
                 SizedBox(height: 10),
+                Text('Scale ranges from',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    )),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   initialValue: _min.toInt().toString(),
                   onChanged: _updateMin,
-                  decoration: InputDecoration(labelText: 'Min'),
+                  decoration: InputDecoration(labelText: 'Minimum Value'),
                 ),
+                TextFormField(
+                  initialValue: _minLabel,
+                  onChanged: _updateMinLabel,
+                  decoration:
+                      InputDecoration(labelText: 'Label for Minimum Value'),
+                ),
+                SizedBox(height: 20),
+                Text('to',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    )),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   initialValue: _max.toInt().toString(),
                   onChanged: _updateMax,
-                  decoration: InputDecoration(labelText: 'Max'),
+                  decoration: InputDecoration(labelText: 'Maximum Value'),
+                ),
+                TextFormField(
+                  initialValue: _maxLabel,
+                  onChanged: _updateMaxLabel,
+                  decoration:
+                      InputDecoration(labelText: 'Label for Maximum Value'),
                 ),
               ],
             ),
@@ -95,6 +120,12 @@ class _MeasureEditorScaleState extends State<MeasureEditorScale> {
     });
   }
 
+  _updateMinLabel(text) {
+    setState(() {
+      _minLabel = text;
+    });
+  }
+
   _updateMax(text) {
     textToDoubleSetter(text, (double number) {
       setState(() {
@@ -103,13 +134,27 @@ class _MeasureEditorScaleState extends State<MeasureEditorScale> {
     });
   }
 
+  _updateMaxLabel(text) {
+    setState(() {
+      _maxLabel = text;
+    });
+  }
+
   _canSubmit() {
-    return _min < _max;
+    return _min != null &&
+        _max != null &&
+        _min < _max &&
+        _minLabel != null &&
+        _minLabel.length > 0 &&
+        _maxLabel != null &&
+        _maxLabel.length > 0;
   }
 
   _submit() {
     widget.measure.min = _min;
+    widget.measure.minLabel = _minLabel;
     widget.measure.max = _max;
+    widget.measure.maxLabel = _maxLabel;
     widget.save
         ? widget.onSave(widget.measure)
         : Navigator.push(

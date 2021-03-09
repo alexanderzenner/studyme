@@ -42,11 +42,43 @@ class _ScaleMeasureWidgetState extends State<ScaleMeasureWidget> {
         Row(
           children: [
             SizedBox(width: 20),
-            Text(widget.measure.min.toInt().toString(),
-                style: TextStyle(fontSize: 20)),
-            Spacer(),
-            Text(widget.measure.max.toInt().toString(),
-                style: TextStyle(fontSize: 20)),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.measure.min.toInt().toString(),
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold)),
+                        Text(widget.measure.minLabel,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(fontSize: 18)),
+                      ],
+                    ),
+                  ),
+                  Spacer(),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(widget.measure.max.toInt().toString(),
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold)),
+                        Text(widget.measure.maxLabel,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(fontSize: 18)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
             SizedBox(width: 20),
           ],
         ),
