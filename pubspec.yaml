@@ -25,7 +25,6 @@ dependencies:
     sdk: flutter
 
   provider: ^4.3.3
-  timeline_tile: ^1.0.0
   uuid: ^2.2.2
   intl: ^0.16.1
   charts_flutter: ^0.9.0
@@ -35,7 +34,6 @@ dependencies:
   scrollable_positioned_list: ^0.1.9
   flutter_local_notifications: ^3.0.3
   flutter_native_timezone: ^1.0.4
-  date_time_picker: ^1.1.1
   json_serializable: ^3.5.1
 
   # The following adds the Cupertino Icons font to your application.
