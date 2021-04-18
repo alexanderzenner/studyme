@@ -15,7 +15,7 @@ class KeyboardMeasureWidget extends StatelessWidget {
       child: TextFormField(
           autofocus: this.updateValue != null ? true : false,
           keyboardType: TextInputType.number,
-          decoration: InputDecoration(labelText: 'Value'),
+          decoration: InputDecoration(labelText: measure.unit),
           onChanged: (text) {
             num value;
             if (updateValue != null) {
