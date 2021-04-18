@@ -70,7 +70,7 @@ class _ScheduleEditorState extends State<ScheduleEditor> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('At what time do you want to get reminded?',
+                Text('At what time do you want to be reminded?',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
