@@ -26,7 +26,8 @@ class _TrialTypeEditorState extends State<TrialTypeEditor> {
 
   @override
   Widget build(BuildContext context) {
-    String interventionAName = Provider.of<AppData>(context).trial.interventionA.name;
+    String interventionAName =
+        Provider.of<AppData>(context).trial.interventionA.name;
     return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
@@ -51,7 +52,7 @@ class _TrialTypeEditorState extends State<TrialTypeEditor> {
                         color: Theme.of(context).primaryColor)),
                 SizedBox(height: 10),
                 ChoiceCard<TrialType>(
-                  value: TrialType.introductionWithdrawal,
+                  value: TrialType.Reversal,
                   selectedValue: _type,
                   onSelect: _selectOption,
                   title: Text('No'),

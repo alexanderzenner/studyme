@@ -11,7 +11,7 @@ import 'package:studyme/models/trial_type.dart';
 import 'package:studyme/util/notifications.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 
-import '../outcome.dart';
+import '../goal.dart';
 
 class AppData extends ChangeNotifier {
   static const activeTrialKey = 'trial';
@@ -55,8 +55,8 @@ class AppData extends ChangeNotifier {
     _trial.save();
   }
 
-  void setOutcome(Outcome outcome) {
-    _trial.outcome = outcome;
+  void setGoal(Goal goal) {
+    _trial.goal = goal;
     _trial.save();
     notifyListeners();
   }
@@ -161,13 +161,12 @@ class AppData extends ChangeNotifier {
   }
 
   bool canDefineInterventions() {
-    return _trial.outcome != null;
+    return _trial.goal != null;
   }
 
   bool canDefineMeasures() {
     return canDefineInterventions() &&
-        ((_trial.type == TrialType.introductionWithdrawal &&
-                _trial.interventionA != null) ||
+        ((_trial.type == TrialType.Reversal && _trial.interventionA != null) ||
             (_trial.type == TrialType.alternativeTreatment &&
                 _trial.interventionA != null &&
                 _trial.interventionB != null));

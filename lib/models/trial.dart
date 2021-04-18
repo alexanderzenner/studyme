@@ -11,7 +11,7 @@ import 'package:studyme/util/time_of_day_extension.dart';
 import './measure/measure.dart';
 import 'intervention.dart';
 import 'measure/automatic_measure.dart';
-import 'outcome.dart';
+import 'goal.dart';
 
 part 'trial.g.dart';
 
@@ -19,7 +19,7 @@ part 'trial.g.dart';
 @HiveType(typeId: 200)
 class Trial extends HiveObject {
   @HiveField(0)
-  Outcome outcome;
+  Goal goal;
 
   @HiveField(1)
   TrialType type;
@@ -130,7 +130,7 @@ class Trial extends HiveObject {
 
   generateWithSetInfos() {
     this.schedule = TrialSchedule.createDefault();
-    if (this.type == TrialType.introductionWithdrawal) {
+    if (this.type == TrialType.Reversal) {
       this.a = WithdrawalPhase.fromIntervention(
           letter: 'a', withdrawnIntervention: this.interventionA);
       this.b = InterventionPhase(letter: 'b', intervention: this.interventionA);

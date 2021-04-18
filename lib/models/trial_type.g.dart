@@ -14,7 +14,7 @@ class TrialTypeAdapter extends TypeAdapter<TrialType> {
   TrialType read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return TrialType.introductionWithdrawal;
+        return TrialType.Reversal;
       case 1:
         return TrialType.alternativeTreatment;
       default:
@@ -25,7 +25,7 @@ class TrialTypeAdapter extends TypeAdapter<TrialType> {
   @override
   void write(BinaryWriter writer, TrialType obj) {
     switch (obj) {
-      case TrialType.introductionWithdrawal:
+      case TrialType.Reversal:
         writer.writeByte(0);
         break;
       case TrialType.alternativeTreatment:

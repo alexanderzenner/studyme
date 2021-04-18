@@ -46,13 +46,12 @@ class InterventionLibrary extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                             color: Theme.of(context).primaryColor)),
-                    if (model.trial.outcome.suggestedInterventions.length == 0)
+                    if (model.trial.goal.suggestedInterventions.length == 0)
                       HintCard(
                           titleText:
-                              'No suggestions for "${model.trial.outcome.outcome}" available'),
-                    if (model.trial.outcome.suggestedInterventions.length > 0)
-                      _buildListWith(
-                          model.trial.outcome.suggestedInterventions),
+                              'No suggestions for "${model.trial.goal.goal}" available'),
+                    if (model.trial.goal.suggestedInterventions.length > 0)
+                      _buildListWith(model.trial.goal.suggestedInterventions),
                     SizedBox(height: 10),
                     Text('Other',
                         style: TextStyle(

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:studyme/models/outcome.dart';
+import 'package:studyme/models/goal.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 
-class OutcomeEditor extends StatefulWidget {
-  final Outcome outcome;
-  final Function(Outcome outcome) onSave;
+class GoalEditor extends StatefulWidget {
+  final Goal goal;
+  final Function(Goal goal) onSave;
 
-  OutcomeEditor({@required this.outcome, @required this.onSave});
+  GoalEditor({@required this.goal, @required this.onSave});
 
   @override
-  _OutcomeEditorState createState() => _OutcomeEditorState();
+  _GoalEditorState createState() => _GoalEditorState();
 }
 
-class _OutcomeEditorState extends State<OutcomeEditor> {
-  String _outcome;
+class _GoalEditorState extends State<GoalEditor> {
+  String _goal;
 
   @override
   void initState() {
-    _outcome = widget.outcome.outcome;
+    _goal = widget.goal.goal;
     super.initState();
   }
 
@@ -51,9 +51,9 @@ class _OutcomeEditorState extends State<OutcomeEditor> {
                     style: TextStyle(
                         fontSize: 20, color: Theme.of(context).primaryColor)),
                 TextFormField(
-                  autofocus: _outcome == null,
-                  initialValue: _outcome,
-                  onChanged: _changeOutcome,
+                  autofocus: _goal == null,
+                  initialValue: _goal,
+                  onChanged: _changeGoal,
                 ),
               ],
             ),
@@ -62,16 +62,16 @@ class _OutcomeEditorState extends State<OutcomeEditor> {
   }
 
   _canSubmit() {
-    return _outcome != null && _outcome.length > 0;
+    return _goal != null && _goal.length > 0;
   }
 
   _onSubmit() {
-    widget.onSave(Outcome(outcome: _outcome));
+    widget.onSave(Goal(goal: _goal));
   }
 
-  _changeOutcome(String value) {
+  _changeGoal(String value) {
     setState(() {
-      _outcome = value;
+      _goal = value;
     });
   }
 }

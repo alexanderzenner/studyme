@@ -17,7 +17,7 @@ class TrialAdapter extends TypeAdapter<Trial> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Trial()
-      ..outcome = fields[0] as Outcome
+      ..goal = fields[0] as Goal
       ..type = fields[1] as TrialType
       ..interventionA = fields[2] as Intervention
       ..interventionB = fields[3] as Intervention
@@ -34,7 +34,7 @@ class TrialAdapter extends TypeAdapter<Trial> {
     writer
       ..writeByte(10)
       ..writeByte(0)
-      ..write(obj.outcome)
+      ..write(obj.goal)
       ..writeByte(1)
       ..write(obj.type)
       ..writeByte(2)
@@ -72,9 +72,9 @@ class TrialAdapter extends TypeAdapter<Trial> {
 
 Trial _$TrialFromJson(Map<String, dynamic> json) {
   return Trial()
-    ..outcome = json['outcome'] == null
+    ..goal = json['outcome'] == null
         ? null
-        : Outcome.fromJson(json['outcome'] as Map<String, dynamic>)
+        : Goal.fromJson(json['outcome'] as Map<String, dynamic>)
     ..type = _$enumDecodeNullable(_$TrialTypeEnumMap, json['type'])
     ..interventionA = json['interventionA'] == null
         ? null
@@ -105,7 +105,7 @@ Trial _$TrialFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$TrialToJson(Trial instance) => <String, dynamic>{
-      'outcome': instance.outcome,
+      'outcome': instance.goal,
       'type': _$TrialTypeEnumMap[instance.type],
       'interventionA': instance.interventionA,
       'interventionB': instance.interventionB,
@@ -151,6 +151,6 @@ T _$enumDecodeNullable<T>(
 }
 
 const _$TrialTypeEnumMap = {
-  TrialType.introductionWithdrawal: 'introductionWithdrawal',
+  TrialType.Reversal: 'Reversal',
   TrialType.alternativeTreatment: 'alternativeTreatment',
 };

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/outcome.dart';
-import 'package:studyme/ui/screens/outcome_editor.dart';
+import 'package:studyme/models/goal.dart';
+import 'package:studyme/ui/screens/goal_editor.dart';
 import 'package:studyme/ui/widgets/editable_list_tile.dart';
 
-class OutcomeOverview extends StatefulWidget {
-  const OutcomeOverview();
+class GoalOverview extends StatefulWidget {
+  const GoalOverview();
 
   @override
-  _OutcomeOverviewState createState() => _OutcomeOverviewState();
+  _GoalOverviewState createState() => _GoalOverviewState();
 }
 
-class _OutcomeOverviewState extends State<OutcomeOverview> {
+class _GoalOverviewState extends State<GoalOverview> {
   bool _isDeleting;
 
   @override
@@ -26,11 +26,11 @@ class _OutcomeOverviewState extends State<OutcomeOverview> {
     return _isDeleting
         ? Text('')
         : Consumer<AppData>(builder: (context, model, child) {
-            Outcome outcome = model.trial.outcome;
+            Goal goal = model.trial.goal;
             return Scaffold(
                 appBar: AppBar(
                   brightness: Brightness.dark,
-                  title: Text(outcome.outcome),
+                  title: Text(goal.goal),
                 ),
                 body: SingleChildScrollView(
                   child: Padding(
@@ -39,9 +39,9 @@ class _OutcomeOverviewState extends State<OutcomeOverview> {
                       children: [
                         EditableListTile(
                             title: Text("Goal"),
-                            subtitle: Text(outcome.outcome,
-                                style: TextStyle(fontSize: 16)),
-                            onTap: () => _editOutcome(outcome)),
+                            subtitle:
+                                Text(goal.goal, style: TextStyle(fontSize: 16)),
+                            onTap: () => _editGoal(goal)),
                         ButtonBar(
                           alignment: MainAxisAlignment.center,
                           children: [
@@ -58,14 +58,14 @@ class _OutcomeOverviewState extends State<OutcomeOverview> {
           });
   }
 
-  _editOutcome(Outcome outcome) {
+  _editGoal(Goal goal) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OutcomeEditor(
-            outcome: outcome,
-            onSave: (Outcome _outcome) {
-              _getSetter()(_outcome);
+        builder: (context) => GoalEditor(
+            goal: goal,
+            onSave: (Goal _goal) {
+              _getSetter()(_goal);
               Navigator.pop(context);
             }),
       ),
@@ -81,6 +81,6 @@ class _OutcomeOverviewState extends State<OutcomeOverview> {
   }
 
   _getSetter() {
-    return Provider.of<AppData>(context, listen: false).setOutcome;
+    return Provider.of<AppData>(context, listen: false).setGoal;
   }
 }

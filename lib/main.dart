@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/log/completed_task_log.dart';
-import 'package:studyme/models/outcome.dart';
+import 'package:studyme/models/goal.dart';
 import 'package:studyme/models/phase/phase_withdrawal.dart';
 import 'package:studyme/models/trial_type.dart';
 import 'package:studyme/ui/screens/creator_1_details.dart';
@@ -53,7 +53,7 @@ _setupHive() async {
   Hive.registerAdapter<WithdrawalPhase>(WithdrawalPhaseAdapter());
   Hive.registerAdapter<TrialType>(TrialTypeAdapter());
   Hive.registerAdapter<TrialSchedule>(TrialScheduleAdapter());
-  Hive.registerAdapter<Outcome>(OutcomeAdapter());
+  Hive.registerAdapter<Goal>(GoalAdapter());
   Hive.registerAdapter<PhaseOrder>(PhaseOrderAdapter());
 
   Hive.registerAdapter<Schedule>(ScheduleAdapter());

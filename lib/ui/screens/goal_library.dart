@@ -2,18 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/app_state/default_outcomes.dart';
-import 'package:studyme/models/outcome.dart';
-import 'package:studyme/ui/screens/outcome_editor.dart';
-import 'package:studyme/ui/screens/outcome_preview.dart';
+import 'package:studyme/models/app_state/default_goals.dart';
+import 'package:studyme/models/goal.dart';
+import 'package:studyme/ui/screens/goal_editor.dart';
+import 'package:studyme/ui/screens/goal_preview.dart';
 import 'package:studyme/ui/widgets/library_create_button.dart';
-import 'package:studyme/ui/widgets/outcome_card.dart';
+import 'package:studyme/ui/widgets/goal_card.dart';
 
-class OutcomeLibrary extends StatelessWidget {
+class GoalLibrary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppData>(builder: (context, model, child) {
-      List<Outcome> outcomes = defaultOutcomes;
+      List<Goal> goals = defaultGoals;
       return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
@@ -27,16 +27,15 @@ class OutcomeLibrary extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       color: Theme.of(context).primaryColor)),
-              LibraryCreateButton(onPressed: () => _createOutcome(context)),
+              LibraryCreateButton(onPressed: () => _createGoal(context)),
               Expanded(
                 child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: outcomes.length,
+                  itemCount: goals.length,
                   itemBuilder: (context, index) {
-                    Outcome _outcome = outcomes[index];
-                    return OutcomeCard(
-                        outcome: _outcome,
-                        onTap: () => _previewOutcome(context, _outcome));
+                    Goal _goal = goals[index];
+                    return GoalCard(
+                        goal: _goal, onTap: () => _previewGoal(context, _goal));
                   },
                 ),
               ),
@@ -47,28 +46,28 @@ class OutcomeLibrary extends StatelessWidget {
     });
   }
 
-  _previewOutcome(context, Outcome outcome) {
+  _previewGoal(context, Goal goal) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OutcomePreview(outcome: outcome),
+        builder: (context) => GoalPreview(goal: goal),
       ),
     );
   }
 
-  _createOutcome(context) {
+  _createGoal(context) {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => OutcomeEditor(
-                  outcome: Outcome(),
+            builder: (context) => GoalEditor(
+                  goal: Goal(),
                   onSave: _getSaveFunction(context),
                 )));
   }
 
   _getSaveFunction(context) {
-    return (Outcome outcome) {
-      Provider.of<AppData>(context, listen: false).setOutcome(outcome);
+    return (Goal goal) {
+      Provider.of<AppData>(context, listen: false).setGoal(goal);
       Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
     };
   }

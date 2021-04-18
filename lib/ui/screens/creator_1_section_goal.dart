@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/ui/screens/outcome_library.dart';
-import 'package:studyme/ui/widgets/outcome_card.dart';
+import 'package:studyme/ui/screens/goal_library.dart';
+import 'package:studyme/ui/widgets/goal_card.dart';
 
-import 'outcome_overview.dart';
+import 'goal_overview.dart';
 
 class CreatorGoalSection extends StatelessWidget {
   final AppData model;
@@ -21,41 +21,40 @@ class CreatorGoalSection extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
                 color: Theme.of(context).primaryColor)),
-        if (!_outcomeIsSet())
+        if (!_goalIsSet())
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: [
               OutlinedButton.icon(
                   icon: Icon(Icons.add),
                   label: Text('Select'),
-                  onPressed: () => _addOutcome(context)),
+                  onPressed: () => _addGoal(context)),
             ],
           ),
-        if (_outcomeIsSet())
-          OutcomeCard(
-              outcome: model.trial.outcome, onTap: () => _viewOutcome(context))
+        if (_goalIsSet())
+          GoalCard(goal: model.trial.goal, onTap: () => _viewGoal(context))
       ],
     );
   }
 
-  bool _outcomeIsSet() {
-    return model.trial.outcome != null;
+  bool _goalIsSet() {
+    return model.trial.goal != null;
   }
 
-  _addOutcome(context) {
+  _addGoal(context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OutcomeLibrary(),
+        builder: (context) => GoalLibrary(),
       ),
     );
   }
 
-  _viewOutcome(context) {
+  _viewGoal(context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OutcomeOverview(),
+        builder: (context) => GoalOverview(),
       ),
     );
   }

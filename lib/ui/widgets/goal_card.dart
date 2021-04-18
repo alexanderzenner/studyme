@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:studyme/models/outcome.dart';
+import 'package:studyme/models/goal.dart';
 
-class OutcomeCard extends StatelessWidget {
-  final Outcome outcome;
+class GoalCard extends StatelessWidget {
+  final Goal goal;
   final void Function() onTap;
 
-  OutcomeCard({this.outcome, this.onTap});
+  GoalCard({this.goal, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
         leading: Icon(Icons.star, color: Colors.yellow),
-        title: Text(outcome.outcome),
+        title: Text(goal.goal),
         trailing: onTap != null ? Icon(Icons.chevron_right) : null,
         onTap: onTap,
       ),

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/outcome.dart';
+import 'package:studyme/models/goal.dart';
 
-class OutcomePreview extends StatelessWidget {
-  final Outcome outcome;
+class GoalPreview extends StatelessWidget {
+  final Goal goal;
 
-  OutcomePreview({@required this.outcome});
+  GoalPreview({@required this.goal});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           brightness: Brightness.dark,
-          title: Text(outcome.outcome),
+          title: Text(goal.goal),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -22,8 +22,7 @@ class OutcomePreview extends StatelessWidget {
               children: [
                 ListTile(
                   title: Text("Goal"),
-                  subtitle:
-                      Text(outcome.outcome, style: TextStyle(fontSize: 16)),
+                  subtitle: Text(goal.goal, style: TextStyle(fontSize: 16)),
                 ),
                 ButtonBar(
                   alignment: MainAxisAlignment.center,
@@ -31,7 +30,7 @@ class OutcomePreview extends StatelessWidget {
                     OutlinedButton.icon(
                         icon: Icon(Icons.add),
                         label: Text("Add to Experiment"),
-                        onPressed: () => _addOutcome(context)),
+                        onPressed: () => _addGoal(context)),
                   ],
                 ),
               ],
@@ -40,8 +39,8 @@ class OutcomePreview extends StatelessWidget {
         ));
   }
 
-  _addOutcome(BuildContext context) {
-    Provider.of<AppData>(context, listen: false).setOutcome(outcome);
+  _addGoal(BuildContext context) {
+    Provider.of<AppData>(context, listen: false).setGoal(goal);
     Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
   }
 }

@@ -7,7 +7,7 @@ import 'package:studyme/ui/screens/creator_3_schedule.dart';
 import 'package:studyme/ui/widgets/hightlighted_action_button.dart';
 import 'package:studyme/ui/widgets/phase_card.dart';
 import 'package:studyme/ui/widgets/measure_card.dart';
-import 'package:studyme/ui/widgets/outcome_card.dart';
+import 'package:studyme/ui/widgets/goal_card.dart';
 
 class CreatorSetup extends StatelessWidget {
   @override
@@ -57,15 +57,15 @@ class CreatorSetup extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                                 color: Theme.of(context).primaryColor)),
-                      if (model.trial.type == TrialType.introductionWithdrawal)
+                      if (model.trial.type == TrialType.Reversal)
                         Text(
                             'to see if there is a difference** between A or B for achieving your goal',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                                 color: Theme.of(context).primaryColor)),
-                      OutcomeCard(
-                        outcome: model.trial.outcome,
+                      GoalCard(
+                        goal: model.trial.goal,
                       ),
                       SizedBox(height: 20),
                       Text(
@@ -75,7 +75,7 @@ class CreatorSetup extends StatelessWidget {
                               fontSize: 18,
                               color: Theme.of(context).primaryColor)),
                       SizedBox(height: 20),
-                      if (model.trial.type == TrialType.introductionWithdrawal)
+                      if (model.trial.type == TrialType.Reversal)
                         Text(
                             '** If there is no difference "${model.trial.interventionA.name}" likely doesn\'t help you achieve your goal.',
                             style: TextStyle(

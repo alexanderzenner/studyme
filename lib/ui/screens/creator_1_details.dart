@@ -7,7 +7,7 @@ import 'package:studyme/ui/widgets/hightlighted_action_button.dart';
 
 import 'creator_1_section_interventions.dart';
 import 'creator_1_section_measures.dart';
-import 'creator_1_section_outcome.dart';
+import 'creator_1_section_goal.dart';
 
 class CreatorDetails extends StatelessWidget {
   @override

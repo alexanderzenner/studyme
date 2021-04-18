@@ -1,35 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'outcome.dart';
+part of 'goal.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class OutcomeAdapter extends TypeAdapter<Outcome> {
+class GoalAdapter extends TypeAdapter<Goal> {
   @override
   final int typeId = 203;
 
   @override
-  Outcome read(BinaryReader reader) {
+  Goal read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Outcome(
+    return Goal(
       id: fields[0] as dynamic,
-      outcome: fields[1] as String,
+      goal: fields[1] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Outcome obj) {
+  void write(BinaryWriter writer, Goal obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.outcome);
+      ..write(obj.goal);
   }
 
   @override
@@ -38,7 +38,7 @@ class OutcomeAdapter extends TypeAdapter<Outcome> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is OutcomeAdapter &&
+      other is GoalAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -47,14 +47,14 @@ class OutcomeAdapter extends TypeAdapter<Outcome> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-Outcome _$OutcomeFromJson(Map<String, dynamic> json) {
-  return Outcome(
+Goal _$GoalFromJson(Map<String, dynamic> json) {
+  return Goal(
     id: json['id'],
-    outcome: json['outcome'] as String,
+    goal: json['outcome'] as String,
   );
 }
 
-Map<String, dynamic> _$OutcomeToJson(Outcome instance) => <String, dynamic>{
+Map<String, dynamic> _$GoalToJson(Goal instance) => <String, dynamic>{
       'id': instance.id,
-      'outcome': instance.outcome,
+      'outcome': instance.goal,
     };

@@ -63,9 +63,7 @@ class CreatorInterventionSection extends StatelessWidget {
               Card(
                 child: ListTile(
                   title: Text(
-                      model.trial.type == TrialType.introductionWithdrawal
-                          ? 'No'
-                          : 'Yes'),
+                      model.trial.type == TrialType.Reversal ? 'No' : 'Yes'),
                   trailing: Icon(Icons.chevron_right),
                   onTap: () => _navigateToTrialTypeEditor(context),
                 ),
