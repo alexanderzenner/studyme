@@ -201,6 +201,12 @@ class _OnboardingState extends State<Onboarding> {
                                   });
                                 },
                               ),
+                              SizedBox(height: 70),
+                              OutlinedButton.icon(
+                                icon: Icon(Icons.assignment_outlined),
+                                label: Text('OSS Acknowledgments'),
+                                onPressed: _showAcknowledgments,
+                              ),
                             ],
                           )
                         ],
@@ -280,6 +286,43 @@ class _OnboardingState extends State<Onboarding> {
     Provider.of<AppData>(context, listen: false)
         .saveAppState(AppState.CREATING_DETAILS);
     Navigator.pushReplacementNamed(context, Routes.creator);
+  }
+
+  _showAcknowledgments() {
+    _showDialog(Text("Open-source Software  Acknowledgements"), [
+      Text(
+          'The following are the names of and links to the open-source software and packages we used inside this app'),
+      Text('\n'),
+      Text('Dart programming language (https://dart.dev/)'),
+      Text('\n'),
+      Text('Flutter UI Toolkit (https://flutter.dev/)'),
+      Text('\n'),
+      Text(
+          'scrollable_positioned_list package (https://pub.dev/packages/scrollable_positioned_list)'),
+      Text('\n'),
+      Text(
+          'flutter_local_notifications package (https://pub.dev/packages/flutter_local_notifications)'),
+      Text('\n'),
+      Text(
+          'json_serializable package (https://pub.dev/packages/json_serializable)'),
+      Text('\n'),
+      Text('intl package (https://pub.dev/packages/intl)'),
+      Text('\n'),
+      Text('health package (https://pub.dev/packages/health)'),
+      Text('\n'),
+      Text('uuid package (https://pub.dev/packages/uuid)'),
+      Text('\n'),
+      Text('provider package (https://pub.dev/packages/provider)'),
+      Text('\n'),
+      Text(
+          'flutter_native_timezone package (https://pub.dev/packages/flutter_native_timezone)'),
+      Text('\n'),
+      Text('hive_flutter package (https://pub.dev/packages/hive_flutter)'),
+      Text('\n'),
+      Text('hive package (https://pub.dev/packages/hive)'),
+      Text('\n'),
+      Text('charts_flutter package (https://pub.dev/packages/charts_flutter)'),
+    ]);
   }
 
   _showTerms() {
