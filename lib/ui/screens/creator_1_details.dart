@@ -5,6 +5,7 @@ import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/ui/screens/creator_2_setup.dart';
 import 'package:studyme/ui/widgets/hightlighted_action_button.dart';
 
+import '../../routes.dart';
 import 'creator_1_section_interventions.dart';
 import 'creator_1_section_measures.dart';
 import 'creator_1_section_goal.dart';
@@ -44,6 +45,13 @@ class CreatorDetails extends StatelessWidget {
                             _navigateToCreatorPhases(context, model))
                   ],
                   SizedBox(height: 60),
+                  TextButton(
+                    child: Text('Repeat app onboarding'),
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                          context, Routes.onboarding);
+                    },
+                  ),
                 ]),
               ),
             ),
