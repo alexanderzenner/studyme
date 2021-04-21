@@ -289,7 +289,7 @@ class _OnboardingState extends State<Onboarding> {
   }
 
   _showAcknowledgments() {
-    _showDialog(Text("Open-source Software  Acknowledgements"), [
+    _showDialog(Text("Open-source Software Acknowledgements"), [
       Text(
           'The following are the names of and links to the open-source software and packages we used inside this app'),
       Text('\n'),
