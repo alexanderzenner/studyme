@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/measure/list_item.dart';
 import 'package:studyme/models/measure/measure.dart';
 
-import '../schedule.dart';
+import '../reminder.dart';
 
 part 'list_measure.g.dart';
 
@@ -32,7 +32,7 @@ class ListMeasure extends Measure {
       String name,
       String description,
       List<ListItem> items,
-      Schedule schedule})
+      Reminder schedule})
       : this.items = items ?? [],
         super(id: id, type: measureType, name: name, schedule: schedule);
 

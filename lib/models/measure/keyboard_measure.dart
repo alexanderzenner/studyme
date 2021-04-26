@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/models/schedule.dart';
+import 'package:studyme/models/reminder.dart';
 
 part 'keyboard_measure.g.dart';
 
@@ -18,7 +18,7 @@ class KeyboardMeasure extends Measure {
       String name,
       String description,
       String unit,
-      Schedule schedule})
+      Reminder schedule})
       : super(
             id: id,
             type: measureType,

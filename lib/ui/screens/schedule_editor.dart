@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studyme/models/mixins/has_schedule.dart';
-import 'package:studyme/models/schedule.dart';
+import 'package:studyme/models/reminder.dart';
 import 'package:studyme/ui/widgets/action_button.dart';
 import 'package:studyme/util/notifications.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
@@ -22,7 +22,7 @@ class ScheduleEditor extends StatefulWidget {
 
 class _ScheduleEditorState extends State<ScheduleEditor> {
   Frequency _frequency;
-  Schedule _schedule;
+  Reminder _schedule;
 
   @override
   initState() {

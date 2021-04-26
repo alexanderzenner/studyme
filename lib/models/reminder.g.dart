@@ -1,29 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'schedule.dart';
+part of 'reminder.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ScheduleAdapter extends TypeAdapter<Schedule> {
+class ReminderAdapter extends TypeAdapter<Reminder> {
   @override
   final int typeId = 204;
 
   @override
-  Schedule read(BinaryReader reader) {
+  Reminder read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Schedule(
+    return Reminder(
       frequency: fields[0] as int,
       timestamps: (fields[1] as List)?.cast<DateTime>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, Schedule obj) {
+  void write(BinaryWriter writer, Reminder obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)
@@ -38,7 +38,7 @@ class ScheduleAdapter extends TypeAdapter<Schedule> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ScheduleAdapter &&
+      other is ReminderAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -47,8 +47,8 @@ class ScheduleAdapter extends TypeAdapter<Schedule> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-Schedule _$ScheduleFromJson(Map<String, dynamic> json) {
-  return Schedule(
+Reminder _$ReminderFromJson(Map<String, dynamic> json) {
+  return Reminder(
     frequency: json['frequency'] as int,
     timestamps: (json['timestamps'] as List)
         ?.map((e) => e == null ? null : DateTime.parse(e as String))
@@ -56,7 +56,7 @@ Schedule _$ScheduleFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$ScheduleToJson(Schedule instance) => <String, dynamic>{
+Map<String, dynamic> _$ReminderToJson(Reminder instance) => <String, dynamic>{
       'frequency': instance.frequency,
       'timestamps':
           instance.timestamps?.map((e) => e?.toIso8601String())?.toList(),

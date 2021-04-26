@@ -20,7 +20,7 @@ class ListMeasureAdapter extends TypeAdapter<ListMeasure> {
       id: fields[0] as String,
       name: fields[2] as String,
       items: (fields[5] as List)?.cast<ListItem>(),
-      schedule: fields[4] as Schedule,
+      schedule: fields[4] as Reminder,
     )
       ..type = fields[1] as String
       ..unit = fields[3] as String;
@@ -69,7 +69,7 @@ ListMeasure _$ListMeasureFromJson(Map<String, dynamic> json) {
         ?.toList(),
     schedule: json['schedule'] == null
         ? null
-        : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
+        : Reminder.fromJson(json['schedule'] as Map<String, dynamic>),
   )
     ..type = json['type'] as String
     ..unit = json['unit'] as String;

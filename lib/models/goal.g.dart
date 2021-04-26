@@ -50,11 +50,11 @@ class GoalAdapter extends TypeAdapter<Goal> {
 Goal _$GoalFromJson(Map<String, dynamic> json) {
   return Goal(
     id: json['id'],
-    goal: json['outcome'] as String,
+    goal: json['goal'] as String,
   );
 }
 
 Map<String, dynamic> _$GoalToJson(Goal instance) => <String, dynamic>{
       'id': instance.id,
-      'outcome': instance.goal,
+      'goal': instance.goal,
     };

@@ -72,9 +72,9 @@ class TrialAdapter extends TypeAdapter<Trial> {
 
 Trial _$TrialFromJson(Map<String, dynamic> json) {
   return Trial()
-    ..goal = json['outcome'] == null
+    ..goal = json['goal'] == null
         ? null
-        : Goal.fromJson(json['outcome'] as Map<String, dynamic>)
+        : Goal.fromJson(json['goal'] as Map<String, dynamic>)
     ..type = _$enumDecodeNullable(_$TrialTypeEnumMap, json['type'])
     ..interventionA = json['interventionA'] == null
         ? null
@@ -105,7 +105,7 @@ Trial _$TrialFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$TrialToJson(Trial instance) => <String, dynamic>{
-      'outcome': instance.goal,
+      'goal': instance.goal,
       'type': _$TrialTypeEnumMap[instance.type],
       'interventionA': instance.interventionA,
       'interventionB': instance.interventionB,
@@ -151,6 +151,6 @@ T _$enumDecodeNullable<T>(
 }
 
 const _$TrialTypeEnumMap = {
-  TrialType.Reversal: 'Reversal',
-  TrialType.alternativeTreatment: 'alternativeTreatment',
+  TrialType.reversal: 'reversal',
+  TrialType.alternatingTreatment: 'alternatingTreatment',
 };

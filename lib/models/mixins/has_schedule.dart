@@ -1,5 +1,5 @@
-import 'package:studyme/models/schedule.dart';
+import 'package:studyme/models/reminder.dart';
 
 mixin HasSchedule {
-  Schedule schedule;
+  Reminder schedule;
 }

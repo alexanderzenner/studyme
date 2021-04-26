@@ -20,7 +20,7 @@ import 'models/measure/list_measure.dart';
 import 'models/measure/scale_measure.dart';
 import 'models/phase/phase_intervention.dart';
 import 'models/phase_order.dart';
-import 'models/schedule.dart';
+import 'models/reminder.dart';
 import 'models/trial.dart';
 import 'models/trial_schedule.dart';
 import 'routes.dart';
@@ -56,7 +56,7 @@ _setupHive() async {
   Hive.registerAdapter<Goal>(GoalAdapter());
   Hive.registerAdapter<PhaseOrder>(PhaseOrderAdapter());
 
-  Hive.registerAdapter<Schedule>(ScheduleAdapter());
+  Hive.registerAdapter<Reminder>(ReminderAdapter());
   Hive.registerAdapter<Intervention>(InterventionAdapter());
 
   Hive.registerAdapter<KeyboardMeasure>(KeyboardMeasureAdapter());

@@ -20,7 +20,7 @@ class AutomaticMeasureAdapter extends TypeAdapter<AutomaticMeasure> {
       id: fields[0] as String,
       name: fields[2] as String,
       unit: fields[3] as String,
-      schedule: fields[4] as Schedule,
+      schedule: fields[4] as Reminder,
     )
       ..trackedHealthDataTypeName = fields[5] as String
       ..type = fields[1] as String;
@@ -66,7 +66,7 @@ AutomaticMeasure _$AutomaticMeasureFromJson(Map<String, dynamic> json) {
     unit: json['unit'] as String,
     schedule: json['schedule'] == null
         ? null
-        : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
+        : Reminder.fromJson(json['schedule'] as Map<String, dynamic>),
   )
     ..type = json['type'] as String
     ..trackedHealthDataTypeName = json['trackedHealthDataTypeName'] as String;

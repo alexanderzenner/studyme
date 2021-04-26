@@ -5,7 +5,7 @@ part 'trial_type.g.dart';
 @HiveType(typeId: 205)
 enum TrialType {
   @HiveField(0)
-  Reversal,
+  reversal,
   @HiveField(1)
-  alternativeTreatment
+  alternatingTreatment
 }

@@ -3,11 +3,11 @@ import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/util/time_of_day_extension.dart';
 
-part 'schedule.g.dart';
+part 'reminder.g.dart';
 
 @JsonSerializable()
 @HiveType(typeId: 204)
-class Schedule {
+class Reminder {
   final year = 2000;
   final month = 1;
   final day = 1;
@@ -21,7 +21,7 @@ class Schedule {
     return timestamps.map((e) => TimeOfDay.fromDateTime(e)).toList();
   }
 
-  Schedule({this.frequency = 1, List<DateTime> timestamps})
+  Reminder({this.frequency = 1, List<DateTime> timestamps})
       : this.timestamps = timestamps ?? [];
 
   addTime(TimeOfDay time) {
@@ -95,12 +95,12 @@ class Schedule {
   }
 
   clone() {
-    return Schedule(
+    return Reminder(
         frequency: this.frequency,
         timestamps: List<DateTime>.from(this.timestamps));
   }
 
-  factory Schedule.fromJson(Map<String, dynamic> json) =>
-      _$ScheduleFromJson(json);
-  Map<String, dynamic> toJson() => _$ScheduleToJson(this);
+  factory Reminder.fromJson(Map<String, dynamic> json) =>
+      _$ReminderFromJson(json);
+  Map<String, dynamic> toJson() => _$ReminderToJson(this);
 }

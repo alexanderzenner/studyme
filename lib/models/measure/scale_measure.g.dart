@@ -23,7 +23,7 @@ class ScaleMeasureAdapter extends TypeAdapter<ScaleMeasure> {
       minLabel: fields[6] as String,
       max: fields[7] as double,
       maxLabel: fields[8] as String,
-      schedule: fields[4] as Schedule,
+      schedule: fields[4] as Reminder,
     )
       ..initial = fields[9] as double
       ..type = fields[1] as String
@@ -81,7 +81,7 @@ ScaleMeasure _$ScaleMeasureFromJson(Map<String, dynamic> json) {
     maxLabel: json['maxLabel'] as String,
     schedule: json['schedule'] == null
         ? null
-        : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
+        : Reminder.fromJson(json['schedule'] as Map<String, dynamic>),
   )
     ..type = json['type'] as String
     ..unit = json['unit'] as String

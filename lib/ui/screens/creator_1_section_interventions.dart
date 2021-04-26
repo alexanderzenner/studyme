@@ -63,12 +63,12 @@ class CreatorInterventionSection extends StatelessWidget {
               Card(
                 child: ListTile(
                   title: Text(
-                      model.trial.type == TrialType.Reversal ? 'No' : 'Yes'),
+                      model.trial.type == TrialType.reversal ? 'No' : 'Yes'),
                   trailing: Icon(Icons.chevron_right),
                   onTap: () => _navigateToTrialTypeEditor(context),
                 ),
               ),
-            if (model.trial.type == TrialType.alternativeTreatment) ...[
+            if (model.trial.type == TrialType.alternatingTreatment) ...[
               SizedBox(height: 10),
               Text('Compare to',
                   style: TextStyle(

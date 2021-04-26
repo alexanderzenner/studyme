@@ -20,7 +20,7 @@ class KeyboardMeasureAdapter extends TypeAdapter<KeyboardMeasure> {
       id: fields[0] as String,
       name: fields[2] as String,
       unit: fields[3] as String,
-      schedule: fields[4] as Schedule,
+      schedule: fields[4] as Reminder,
     )..type = fields[1] as String;
   }
 
@@ -62,7 +62,7 @@ KeyboardMeasure _$KeyboardMeasureFromJson(Map<String, dynamic> json) {
     unit: json['unit'] as String,
     schedule: json['schedule'] == null
         ? null
-        : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
+        : Reminder.fromJson(json['schedule'] as Map<String, dynamic>),
   )..type = json['type'] as String;
 }
 

@@ -7,7 +7,7 @@ import 'package:studyme/models/mixins/has_schedule.dart';
 import 'package:studyme/models/task/measure_task.dart';
 import 'package:uuid/uuid.dart';
 
-import '../schedule.dart';
+import '../reminder.dart';
 import '../task/task.dart';
 import 'keyboard_measure.dart';
 import 'list_measure.dart';
@@ -35,13 +35,13 @@ abstract class Measure with HasSchedule {
   String unit;
 
   @HiveField(4)
-  Schedule schedule;
+  Reminder schedule;
 
   static IconData icon;
 
-  Measure({this.id, this.type, this.name, this.unit, Schedule schedule}) {
+  Measure({this.id, this.type, this.name, this.unit, Reminder schedule}) {
     this.id = id ?? Uuid().v4();
-    this.schedule = schedule ?? Schedule();
+    this.schedule = schedule ?? Reminder();
   }
 
   Measure.clone(Measure measure) {

@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/measure/measure.dart';
 
-import '../schedule.dart';
+import '../reminder.dart';
 
 part 'scale_measure.g.dart';
 
@@ -40,7 +40,7 @@ class ScaleMeasure extends Measure {
       this.minLabel,
       double max,
       this.maxLabel,
-      Schedule schedule})
+      Reminder schedule})
       : this.min = min ?? 0.0,
         this.max = max ?? 10.0,
         super(id: id, type: measureType, name: name, schedule: schedule);

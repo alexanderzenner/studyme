@@ -21,7 +21,7 @@ class InterventionAdapter extends TypeAdapter<Intervention> {
       name: fields[1] as String,
       description: fields[2] as String,
       instructions: fields[3] as String,
-      schedule: fields[4] as Schedule,
+      schedule: fields[4] as Reminder,
     );
   }
 
@@ -63,7 +63,7 @@ Intervention _$InterventionFromJson(Map<String, dynamic> json) {
     instructions: json['instructions'] as String,
     schedule: json['schedule'] == null
         ? null
-        : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
+        : Reminder.fromJson(json['schedule'] as Map<String, dynamic>),
   );
 }
 

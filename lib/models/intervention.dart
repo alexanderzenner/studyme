@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/mixins/has_schedule.dart';
-import 'package:studyme/models/schedule.dart';
+import 'package:studyme/models/reminder.dart';
 import 'package:studyme/models/task/intervention_task.dart';
 import 'package:studyme/models/task/task.dart';
 import 'package:uuid/uuid.dart';
@@ -26,12 +26,12 @@ class Intervention with HasSchedule {
   String instructions;
 
   @HiveField(4)
-  Schedule schedule;
+  Reminder schedule;
 
   Intervention(
-      {id, this.name, this.description, this.instructions, Schedule schedule}) {
+      {id, this.name, this.description, this.instructions, Reminder schedule}) {
     this.id = id ?? Uuid().v4();
-    this.schedule = schedule ?? Schedule();
+    this.schedule = schedule ?? Reminder();
   }
 
   Intervention.clone(Intervention intervention) {

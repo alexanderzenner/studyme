@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:studyme/models/log/trial_log.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/models/schedule.dart';
+import 'package:studyme/models/reminder.dart';
 import 'package:studyme/util/health_connector.dart';
 
 part 'automatic_measure.g.dart';
@@ -29,7 +29,7 @@ class AutomaticMeasure extends Measure {
       String unit,
       HealthDataType healthDataType,
       String description,
-      Schedule schedule})
+      Reminder schedule})
       : trackedHealthDataTypeName = healthDataType.toString(),
         super(
             id: id,

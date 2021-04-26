@@ -166,8 +166,8 @@ class AppData extends ChangeNotifier {
 
   bool canDefineMeasures() {
     return canDefineInterventions() &&
-        ((_trial.type == TrialType.Reversal && _trial.interventionA != null) ||
-            (_trial.type == TrialType.alternativeTreatment &&
+        ((_trial.type == TrialType.reversal && _trial.interventionA != null) ||
+            (_trial.type == TrialType.alternatingTreatment &&
                 _trial.interventionA != null &&
                 _trial.interventionB != null));
   }

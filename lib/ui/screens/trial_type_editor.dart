@@ -52,7 +52,7 @@ class _TrialTypeEditorState extends State<TrialTypeEditor> {
                         color: Theme.of(context).primaryColor)),
                 SizedBox(height: 10),
                 ChoiceCard<TrialType>(
-                  value: TrialType.Reversal,
+                  value: TrialType.reversal,
                   selectedValue: _type,
                   onSelect: _selectOption,
                   title: Text('No'),
@@ -62,7 +62,7 @@ class _TrialTypeEditorState extends State<TrialTypeEditor> {
                   ],
                 ),
                 ChoiceCard<TrialType>(
-                    value: TrialType.alternativeTreatment,
+                    value: TrialType.alternatingTreatment,
                     selectedValue: _type,
                     onSelect: _selectOption,
                     title: Text('Yes'),

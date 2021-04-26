@@ -130,7 +130,7 @@ class Trial extends HiveObject {
 
   generateWithSetInfos() {
     this.schedule = TrialSchedule.createDefault();
-    if (this.type == TrialType.Reversal) {
+    if (this.type == TrialType.reversal) {
       this.a = WithdrawalPhase.fromIntervention(
           letter: 'a', withdrawnIntervention: this.interventionA);
       this.b = InterventionPhase(letter: 'b', intervention: this.interventionA);
