@@ -61,7 +61,7 @@ class _TrialScheduleEditorState extends State<TrialScheduleEditor> {
                   ),
                   SizedBox(width: 5),
                   TextFormField(
-                    initialValue: _phases.numberOfCycles.toString(),
+                    initialValue: _phases.numberOfPhasePairs.toString(),
                     keyboardType: TextInputType.number,
                     onChanged: _updateNumberOfCycles,
                     decoration:
@@ -94,7 +94,7 @@ class _TrialScheduleEditorState extends State<TrialScheduleEditor> {
     return _phases.totalDuration > 0 &&
         _phases.totalDuration < 1000 &&
         _phases.phaseDuration <= 365 &&
-        _phases.numberOfCycles < 100;
+        _phases.numberOfPhasePairs < 100;
   }
 
   _onSubmit() {

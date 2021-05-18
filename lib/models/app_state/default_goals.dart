@@ -48,14 +48,14 @@ List<Goal> get defaultGoals {
               "Apply 5 minutes of smooth massage movements to your affected legs.")
     ]),
     Goal(
-        id: 'rheumathoid_arthritis',
-        goal: 'Treat Rheumathoid Arthritis',
+        id: 'rheumatoid_arthritis',
+        goal: 'Treat Rheumatoid Arthritis',
         suggestedInterventions: [
           Intervention(
               id: 'omega_3',
               name: "Omega-3 supplement",
               description:
-                  "Omega-3 supplement has been proven to help Rheumathoid Arthritis related joint pains.",
+                  "Omega-3 supplement has been proven to help Rheumatoid Arthritis related joint pains.",
               instructions: "Take one dose of omega-3 supplement."),
           Intervention(
               id: 'olive_oil',

@@ -20,7 +20,7 @@ class TrialScheduleAdapter extends TypeAdapter<TrialSchedule> {
       ..phaseOrder = fields[0] as PhaseOrder
       ..phaseDuration = fields[1] as int
       ..phaseSequence = (fields[2] as List)?.cast<String>()
-      ..numberOfCycles = fields[3] as int;
+      ..numberOfPhasePairs = fields[3] as int;
   }
 
   @override
@@ -34,7 +34,7 @@ class TrialScheduleAdapter extends TypeAdapter<TrialSchedule> {
       ..writeByte(2)
       ..write(obj.phaseSequence)
       ..writeByte(3)
-      ..write(obj.numberOfCycles);
+      ..write(obj.numberOfPhasePairs);
   }
 
   @override
@@ -58,7 +58,7 @@ TrialSchedule _$TrialScheduleFromJson(Map<String, dynamic> json) {
     ..phaseDuration = json['phaseDuration'] as int
     ..phaseSequence =
         (json['phaseSequence'] as List)?.map((e) => e as String)?.toList()
-    ..numberOfCycles = json['numberOfCycles'] as int;
+    ..numberOfPhasePairs = json['numberOfCycles'] as int;
 }
 
 Map<String, dynamic> _$TrialScheduleToJson(TrialSchedule instance) =>
@@ -66,7 +66,7 @@ Map<String, dynamic> _$TrialScheduleToJson(TrialSchedule instance) =>
       'phaseOrder': _$PhaseOrderEnumMap[instance.phaseOrder],
       'phaseDuration': instance.phaseDuration,
       'phaseSequence': instance.phaseSequence,
-      'numberOfCycles': instance.numberOfCycles,
+      'numberOfCycles': instance.numberOfPhasePairs,
     };
 
 T _$enumDecode<T>(

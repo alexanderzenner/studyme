@@ -17,7 +17,7 @@ class TrialSchedule extends HiveObject {
   List<String> phaseSequence;
 
   @HiveField(3)
-  int numberOfCycles;
+  int numberOfPhasePairs;
 
   int get numberOfPhases => phaseSequence.length;
 
@@ -26,7 +26,7 @@ class TrialSchedule extends HiveObject {
   TrialSchedule.createDefault() {
     this.phaseOrder = PhaseOrder.alternating;
     this.phaseDuration = 7;
-    this.numberOfCycles = 2;
+    this.numberOfPhasePairs = 2;
     _updatePhaseSequence();
   }
 
@@ -34,7 +34,7 @@ class TrialSchedule extends HiveObject {
       : phaseOrder = schedule.phaseOrder,
         phaseDuration = schedule.phaseDuration,
         phaseSequence = schedule.phaseSequence,
-        numberOfCycles = schedule.numberOfCycles;
+        numberOfPhasePairs = schedule.numberOfPhasePairs;
 
   clone() {
     return TrialSchedule.clone(this);
@@ -48,7 +48,7 @@ class TrialSchedule extends HiveObject {
   }
 
   updateNumberOfCycles(int newNumberOfCycles) {
-    numberOfCycles = newNumberOfCycles;
+    numberOfPhasePairs = newNumberOfCycles;
     _updatePhaseSequence();
   }
 
@@ -56,7 +56,7 @@ class TrialSchedule extends HiveObject {
     List<String> pair = ['a', 'b'];
     List<String> newPhaseSequence = [];
 
-    for (int i = 0; i < numberOfCycles; i++) {
+    for (int i = 0; i < numberOfPhasePairs; i++) {
       newPhaseSequence.addAll(pair);
       if (phaseOrder == PhaseOrder.counterbalanced) {
         pair = pair.reversed.toList();
