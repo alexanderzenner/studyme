@@ -58,7 +58,7 @@ TrialSchedule _$TrialScheduleFromJson(Map<String, dynamic> json) {
     ..phaseDuration = json['phaseDuration'] as int
     ..phaseSequence =
         (json['phaseSequence'] as List)?.map((e) => e as String)?.toList()
-    ..numberOfPhasePairs = json['numberOfCycles'] as int;
+    ..numberOfPhasePairs = json['numberOfPhasePairs'] as int;
 }
 
 Map<String, dynamic> _$TrialScheduleToJson(TrialSchedule instance) =>
@@ -66,7 +66,7 @@ Map<String, dynamic> _$TrialScheduleToJson(TrialSchedule instance) =>
       'phaseOrder': _$PhaseOrderEnumMap[instance.phaseOrder],
       'phaseDuration': instance.phaseDuration,
       'phaseSequence': instance.phaseSequence,
-      'numberOfCycles': instance.numberOfPhasePairs,
+      'numberOfPhasePairs': instance.numberOfPhasePairs,
     };
 
 T _$enumDecode<T>(
