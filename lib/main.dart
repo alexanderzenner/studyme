@@ -13,7 +13,6 @@ import 'models/app_state/app_state.dart';
 import 'models/app_state/log_data.dart';
 import 'models/intervention.dart';
 import 'models/log/trial_log.dart';
-import 'models/measure/automatic_measure.dart';
 import 'models/measure/keyboard_measure.dart';
 import 'models/measure/list_item.dart';
 import 'models/measure/list_measure.dart';
@@ -63,7 +62,6 @@ _setupHive() async {
   Hive.registerAdapter<ListItem>(ListItemAdapter());
   Hive.registerAdapter<ListMeasure>(ListMeasureAdapter());
   Hive.registerAdapter<ScaleMeasure>(ScaleMeasureAdapter());
-  Hive.registerAdapter<AutomaticMeasure>(AutomaticMeasureAdapter());
 
   Hive.registerAdapter<TrialLog>(TrialLogAdapter());
   Hive.registerAdapter<CompletedTaskLog>(CompletedTaskLogAdapter());

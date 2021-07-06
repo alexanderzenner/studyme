@@ -10,7 +10,6 @@ import 'package:studyme/util/time_of_day_extension.dart';
 
 import './measure/measure.dart';
 import 'intervention.dart';
-import 'measure/automatic_measure.dart';
 import 'goal.dart';
 
 part 'trial.g.dart';
@@ -78,10 +77,6 @@ class Trial extends HiveObject {
     }
 
     return _tasks;
-  }
-
-  List<AutomaticMeasure> get syncedMeasures {
-    return measures.whereType<AutomaticMeasure>().toList();
   }
 
   Trial()

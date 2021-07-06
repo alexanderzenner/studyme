@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
-import 'package:studyme/models/measure/automatic_measure.dart';
 import 'package:studyme/models/measure/keyboard_measure.dart';
 import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
@@ -53,8 +52,7 @@ class _MeasureOverviewState extends State<MeasureOverview> {
                                   style: TextStyle(fontSize: 16)),
                               canEdit: measure.canEdit,
                               onTap: () => _editName(measure)),
-                          if (measure is AutomaticMeasure ||
-                              measure is KeyboardMeasure)
+                          if (measure is KeyboardMeasure)
                             EditableListTile(
                               title: Text("Unit"),
                               subtitle: Text(measure.unit,

@@ -1,8 +1,7 @@
-import 'package:health/health.dart';
+import 'package:studyme/models/measure/keyboard_measure.dart';
 import 'package:studyme/models/measure/list_item.dart';
 import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
-import 'package:studyme/models/measure/automatic_measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 
 List<Measure> get defaultMeasures {
@@ -22,51 +21,26 @@ List<Measure> get defaultMeasures {
       ListItem(value: '🙂'),
       ListItem(value: '😃')
     ]),
-    AutomaticMeasure(
-      id: (id++).toString(),
-      name: 'Weight',
-      unit: 'kg',
-      healthDataType: HealthDataType.WEIGHT,
-    ),
-    AutomaticMeasure(
+    KeyboardMeasure(id: (id++).toString(), name: 'Weight', unit: 'kg'),
+    KeyboardMeasure(
       id: (id++).toString(),
       name: 'Heart Rate',
       unit: 'bpm',
-      healthDataType: HealthDataType.HEART_RATE,
     ),
-    AutomaticMeasure(
-      id: (id++).toString(),
-      name: 'Blood Glucose',
-      unit: 'mg/dL',
-      healthDataType: HealthDataType.BLOOD_GLUCOSE,
-    ),
-    AutomaticMeasure(
+    KeyboardMeasure(
+        id: (id++).toString(), name: 'Blood Glucose', unit: 'mg/dL'),
+    KeyboardMeasure(
       id: (id++).toString(),
       name: 'Blood Oxygen',
       unit: '%',
-      healthDataType: HealthDataType.BLOOD_OXYGEN,
     ),
-    AutomaticMeasure(
-      id: (id++).toString(),
-      name: 'Blood Pressure Diastolic',
-      unit: 'mmHg',
-      healthDataType: HealthDataType.BLOOD_PRESSURE_DIASTOLIC,
-    ),
-    AutomaticMeasure(
-      id: (id++).toString(),
-      name: 'Blood Pressure Systolic',
-      unit: 'mmHg',
-      healthDataType: HealthDataType.BLOOD_PRESSURE_SYSTOLIC,
-    ),
-    AutomaticMeasure(
-        id: (id++).toString(),
-        name: 'Body Temperature',
-        unit: '°C',
-        healthDataType: HealthDataType.BODY_TEMPERATURE),
-    AutomaticMeasure(
-        id: (id++).toString(),
-        name: 'Body Fat Percentage',
-        unit: '%',
-        healthDataType: HealthDataType.BODY_FAT_PERCENTAGE),
+    KeyboardMeasure(
+        id: (id++).toString(), name: 'Blood Pressure Diastolic', unit: 'mmHg'),
+    KeyboardMeasure(
+        id: (id++).toString(), name: 'Blood Pressure Systolic', unit: 'mmHg'),
+    KeyboardMeasure(
+        id: (id++).toString(), name: 'Body Temperature', unit: '°C'),
+    KeyboardMeasure(
+        id: (id++).toString(), name: 'Body Fat Percentage', unit: '%'),
   ];
 }
