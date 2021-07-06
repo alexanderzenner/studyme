@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/app_state.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../routes.dart';
 
@@ -173,7 +174,8 @@ class _OnboardingState extends State<Onboarding> {
                               OutlinedButton.icon(
                                 icon: Icon(Icons.assignment_outlined),
                                 label: Text('Terms of Use'),
-                                onPressed: _showTerms,
+                                onPressed: () => launch(
+                                    "https://docs.google.com/document/d/15NSQPQYu0oY6yhMd2wFnpocI6oGjiqnCFZeOd1tzkY4/edit?usp=sharing"),
                               ),
                               SwitchListTile(
                                 title: Text(
@@ -189,7 +191,8 @@ class _OnboardingState extends State<Onboarding> {
                               OutlinedButton.icon(
                                 icon: Icon(Icons.privacy_tip_outlined),
                                 label: Text('Privacy Policy'),
-                                onPressed: _showPrivacy,
+                                onPressed: () => launch(
+                                    'https://docs.google.com/document/d/1tD9553q0K3XM3O6MnY2yVfyYj9J9b9KdzZP-D7f9SVw/edit?usp=sharing'),
                               ),
                               SwitchListTile(
                                 title: Text(
@@ -204,9 +207,17 @@ class _OnboardingState extends State<Onboarding> {
                               SizedBox(height: 70),
                               OutlinedButton.icon(
                                 icon: Icon(Icons.assignment_outlined),
-                                label: Text('OSS Acknowledgments'),
-                                onPressed: _showAcknowledgments,
+                                label: Text('Imprint'),
+                                onPressed: () => launch(
+                                    'https://docs.google.com/document/d/1W8YprftDBnCa3yhqAWbauejVi7ZK4JREfPJ0JysMhHU/edit?usp=sharing'),
                               ),
+                              SizedBox(height: 10),
+                              OutlinedButton.icon(
+                                icon: Icon(Icons.assignment_outlined),
+                                label: Text('Acknowledgments'),
+                                onPressed: () => launch(
+                                    'https://docs.google.com/document/d/1zJxGlYAMa7MEUpzC64utJImluO5TJMyRt4ApzzTcH-k/edit?usp=sharing'),
+                              )
                             ],
                           )
                         ],
@@ -286,112 +297,5 @@ class _OnboardingState extends State<Onboarding> {
     Provider.of<AppData>(context, listen: false)
         .saveAppState(AppState.CREATING_DETAILS);
     Navigator.pushReplacementNamed(context, Routes.creator);
-  }
-
-  _showAcknowledgments() {
-    _showDialog(Text("Open-source Software Acknowledgements"), [
-      Text(
-          'The following are the names of and links to the open-source software and packages we used inside this app'),
-      Text('\n'),
-      Text('Dart programming language (https://dart.dev/)'),
-      Text('\n'),
-      Text('Flutter UI Toolkit (https://flutter.dev/)'),
-      Text('\n'),
-      Text(
-          'scrollable_positioned_list package (https://pub.dev/packages/scrollable_positioned_list)'),
-      Text('\n'),
-      Text(
-          'flutter_local_notifications package (https://pub.dev/packages/flutter_local_notifications)'),
-      Text('\n'),
-      Text(
-          'json_serializable package (https://pub.dev/packages/json_serializable)'),
-      Text('\n'),
-      Text('intl package (https://pub.dev/packages/intl)'),
-      Text('\n'),
-      Text('health package (https://pub.dev/packages/health)'),
-      Text('\n'),
-      Text('uuid package (https://pub.dev/packages/uuid)'),
-      Text('\n'),
-      Text('provider package (https://pub.dev/packages/provider)'),
-      Text('\n'),
-      Text(
-          'flutter_native_timezone package (https://pub.dev/packages/flutter_native_timezone)'),
-      Text('\n'),
-      Text('hive_flutter package (https://pub.dev/packages/hive_flutter)'),
-      Text('\n'),
-      Text('hive package (https://pub.dev/packages/hive)'),
-      Text('\n'),
-      Text('charts_flutter package (https://pub.dev/packages/charts_flutter)'),
-    ]);
-  }
-
-  _showTerms() {
-    _showDialog(Text("Terms of Use"), [
-      Text(
-          'The StudyMe app (in the following refered to as "StudyMe") is a research prototype and is used to research what experiments people are interested in and what type of assistance they require in setting up an experiment.'),
-      Text(''),
-      Text(
-          'StudyMe does not provide medical advice. Any suggestion made by StudyMe have to be thoroughly reviewed by you and your doctor. Consult the experiments you want to conduct with your doctor before starting them. If you have any doubts or concerns now or in future, contact and seek advice from your doctor.'),
-      Text(''),
-      Text(
-          'All responsibility and liability for the experiments created in StudyMe lies with you, the user of StudyMe. The creators of StudyMe are not liable for any misuse or harm caused to you or others while using StudyMe.'),
-      Text(''),
-      Text(
-          'The creators of StudyMe reserve the right to change functionalities of StudyMe at any time.'),
-      Text(''),
-      Text('You have to be 18 years or older in order to use StudyMe.')
-    ]);
-  }
-
-  _showPrivacy() {
-    _showDialog(Text("Privacy Policy"), [
-      Text(
-          'All experiments and data created or added inside the StudyMe app (in the following referred to as "StudyMe") are stored on device only.'),
-      Text(''),
-      Text(
-          'The creators of StudyMe usually (see exception 1 below) do not have any access to your data and can not see who you are or when and how you use the app.'),
-      Text(''),
-      Text('*Optional* Exception 1: Sharing created experiments through survey',
-          style: TextStyle(fontWeight: FontWeight.bold)),
-      Text(
-          'If you are using the app as part of one of the surveys related to the research behind StudyMe, you may be asked to share your created experiments or data.'),
-      Text(
-          'In this case you copy the data manually and paste it into the respective survey.'),
-      Text(
-          'When doing so, you agree to the terms of the respective survey on how your data is handled.'),
-      Text(
-          'If you decide to share your data with any other party, the creators of StudyMe are not responsible for any harm or misuse that might incur.'),
-      Text(
-          'The shared data includes any information you entered when setting up an experiment together with timestamps on when you completed different steps within the app.'),
-      Text(
-          'The shared data does not include any personally identifiable information, as the app does not ask for it, unless you enter such information on purpose in one of the fields.'),
-      Text(''),
-      Text(
-          '*Optional* Exception 2: Integrating with Apple Health or Google Fit third-party apps',
-          style: TextStyle(fontWeight: FontWeight.bold)),
-      Text(
-          'StudyMe gives you the option to automatically read data from third-party apps provided by Apple Inc. or Google LLC. When you use these apps you agree to their privacy policies independently to StudyMe.'),
-      Text(
-          'When you decide to automatically read data from one of these apps, their providers are able to collect information on when you use StudyMe and what data is read by StudyMe. However, StudyMe does not write back any data, so any data you add inside StudyMe is saved inside StudyMe only.'),
-    ]);
-  }
-
-  _showDialog(Widget title, List<Widget> content) {
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-                title: title,
-                content: Container(
-                  width: double.maxFinite,
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: content,
-                  ),
-                ),
-                actions: [
-                  TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text("Close")),
-                ]));
   }
 }
