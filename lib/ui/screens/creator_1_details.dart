@@ -18,6 +18,25 @@ class CreatorDetails extends StatelessWidget {
         appBar: AppBar(
           title: Text('Experiment Details'),
           brightness: Brightness.dark,
+          actions: <Widget>[
+            PopupMenuButton<String>(
+              onSelected: (String result) {
+                if (result == 'onboarding') {
+                  Navigator.pushReplacementNamed(context, Routes.onboarding);
+                }
+              },
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                PopupMenuItem<String>(
+                  value: 'onboarding',
+                  child: Row(children: [
+                    Icon(Icons.repeat, color: Colors.black),
+                    SizedBox(width: 8),
+                    Text('Repeat app intro')
+                  ]),
+                ),
+              ],
+            )
+          ],
         ),
         body: SafeArea(
           child: SingleChildScrollView(
@@ -44,14 +63,6 @@ class CreatorDetails extends StatelessWidget {
                         onPressed: () =>
                             _navigateToCreatorPhases(context, model))
                   ],
-                  SizedBox(height: 60),
-                  TextButton(
-                    child: Text('Repeat app onboarding'),
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(
-                          context, Routes.onboarding);
-                    },
-                  ),
                 ]),
               ),
             ),
