@@ -175,7 +175,7 @@ class _OnboardingState extends State<Onboarding> {
                                 icon: Icon(Icons.assignment_outlined),
                                 label: Text('Terms of Use'),
                                 onPressed: () => launch(
-                                    "https://docs.google.com/document/d/15NSQPQYu0oY6yhMd2wFnpocI6oGjiqnCFZeOd1tzkY4/edit?usp=sharing"),
+                                    "https://www13.hpi.uni-potsdam.de/fileadmin/user_upload/fachgebiete/lippert/studyme/Terms_of_Use.pdf"),
                               ),
                               SwitchListTile(
                                 title: Text(
@@ -192,7 +192,7 @@ class _OnboardingState extends State<Onboarding> {
                                 icon: Icon(Icons.privacy_tip_outlined),
                                 label: Text('Privacy Policy'),
                                 onPressed: () => launch(
-                                    'https://docs.google.com/document/d/1tD9553q0K3XM3O6MnY2yVfyYj9J9b9KdzZP-D7f9SVw/edit?usp=sharing'),
+                                    'https://www13.hpi.uni-potsdam.de/fileadmin/user_upload/fachgebiete/lippert/studyme/Privacy_Policy.pdf'),
                               ),
                               SwitchListTile(
                                 title: Text(
@@ -209,14 +209,14 @@ class _OnboardingState extends State<Onboarding> {
                                 icon: Icon(Icons.assignment_outlined),
                                 label: Text('Imprint'),
                                 onPressed: () => launch(
-                                    'https://docs.google.com/document/d/1W8YprftDBnCa3yhqAWbauejVi7ZK4JREfPJ0JysMhHU/edit?usp=sharing'),
+                                    'https://www13.hpi.uni-potsdam.de/fileadmin/user_upload/fachgebiete/lippert/studyme/Imprint.pdf'),
                               ),
                               SizedBox(height: 10),
                               OutlinedButton.icon(
                                 icon: Icon(Icons.assignment_outlined),
                                 label: Text('Acknowledgments'),
                                 onPressed: () => launch(
-                                    'https://docs.google.com/document/d/1zJxGlYAMa7MEUpzC64utJImluO5TJMyRt4ApzzTcH-k/edit?usp=sharing'),
+                                    'https://www13.hpi.uni-potsdam.de/fileadmin/user_upload/fachgebiete/lippert/studyme/Acknowledgments.pdf'),
                               )
                             ],
                           )
