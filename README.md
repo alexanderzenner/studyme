@@ -4,7 +4,7 @@ StudyMe lets you create and run your own experiments to systematically try diffe
 ## App Stores
 Feel free to download the app on the [Google Play Store](https://play.google.com/store/apps/details?id=health.studyu.me).
 
-## Publications
+## Publication / Citation
 More information on the scientific background and a detailed description of the StudyMe app is available at:
 
 Zenner AM, Böttinger E, Konigorski S (2021). StudyMe: A New Mobile App For User-Centric N-of-1 Trials. arXiv:[TODO-Archive-id]. [TODO-Archive-link].
