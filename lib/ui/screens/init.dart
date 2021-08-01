@@ -3,7 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
 import 'package:studyme/models/app_state/app_state.dart';
+import 'package:studyme/models/app_state/log_data.dart';
 import 'package:studyme/routes.dart';
+import 'package:studyme/util/health_connector.dart';
 
 class Init extends StatefulWidget {
   @override
@@ -30,6 +32,11 @@ class _InitState extends State<Init> {
         state == AppState.CREATING_PHASES) {
       Navigator.pushReplacementNamed(context, Routes.creator);
     } else if (state == AppState.DOING) {
+      // sync measures
+      HealthConnector().syncMeasures(
+          appData.trial,
+          Provider.of<LogData>(context, listen: false)
+              .checkForDuplicatesAndAdd);
       // schedule notifications for next day
       appData.scheduleNotificationsFor(DateTime.now().add(Duration(days: 1)));
       Navigator.pushReplacementNamed(context, Routes.dashboard);

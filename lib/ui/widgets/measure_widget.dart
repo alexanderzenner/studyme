@@ -3,10 +3,12 @@ import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/keyboard_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
+import 'package:studyme/models/measure/automatic_measure.dart';
 
 import 'measure_list_widget.dart';
 import 'measure_keyboard_widget.dart';
 import 'measure_scale_widget.dart';
+import 'measure_automatic_widget.dart';
 
 class MeasureWidget extends StatelessWidget {
   final Measure measure;
@@ -30,6 +32,9 @@ class MeasureWidget extends StatelessWidget {
         return ListMeasureWidget(measure, updateValue);
       case ScaleMeasure:
         return ScaleMeasureWidget(measure, updateValue);
+      case AutomaticMeasure:
+        return AutomaticMeasureWidget(
+            measure: measure, confirmed: confirmed, setConfirmed: setConfirmed);
       default:
         return Text('HI');
     }

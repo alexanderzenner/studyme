@@ -30,6 +30,7 @@ dependencies:
   charts_flutter: ^0.9.0
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
+  health: ^3.0.1+1
   scrollable_positioned_list: ^0.1.9
   flutter_local_notifications: ^3.0.3
   flutter_native_timezone: ^1.0.4

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studyme/models/app_state/app_data.dart';
+import 'package:studyme/models/measure/automatic_measure.dart';
 import 'package:studyme/models/measure/keyboard_measure.dart';
 import 'package:studyme/models/measure/list_measure.dart';
 import 'package:studyme/models/measure/measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/ui/screens/schedule_editor.dart';
 import 'package:studyme/util/string_extension.dart';
+
+import 'measure_editor_automatic_type.dart';
 
 class MeasurePreview extends StatelessWidget {
   final Measure measure;
@@ -28,7 +31,8 @@ class MeasurePreview extends StatelessWidget {
                     subtitle:
                         Text(_measure.name, style: TextStyle(fontSize: 16)),
                   ),
-                  if (_measure is KeyboardMeasure)
+                  if (_measure is AutomaticMeasure ||
+                      _measure is KeyboardMeasure)
                     ListTile(
                       title: Text("Unit"),
                       subtitle:
@@ -44,6 +48,15 @@ class MeasurePreview extends StatelessWidget {
                             SizedBox(width: 5),
                             Text(_measure.type.capitalize(),
                                 style: TextStyle(fontSize: 16)),
+                            if (_measure is AutomaticMeasure) ...[
+                              SizedBox(width: 5),
+                              Text('/', style: TextStyle(fontSize: 16)),
+                              SizedBox(width: 5),
+                              Icon(KeyboardMeasure.icon),
+                              SizedBox(width: 5),
+                              Text(KeyboardMeasure.measureType.capitalize(),
+                                  style: TextStyle(fontSize: 16))
+                            ]
                           ],
                         ),
                       ],
@@ -81,13 +94,22 @@ class MeasurePreview extends StatelessWidget {
       Navigator.pushNamedAndRemoveUntil(context, '/creator', (r) => false);
     };
 
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ScheduleEditor(
-              title: measure.name,
-              objectWithSchedule: measure,
-              onSave: saveFunction),
-        ));
+    if (measure is AutomaticMeasure) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MeasureEditorAutomaticType(
+                measure: measure, onSave: saveFunction),
+          ));
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ScheduleEditor(
+                title: measure.name,
+                objectWithSchedule: measure,
+                onSave: saveFunction),
+          ));
+    }
   }
 }
