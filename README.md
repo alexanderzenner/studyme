@@ -5,12 +5,10 @@ StudyMe lets you create and run your own experiments to systematically try diffe
 Feel free to download the app on the [Google Play Store](https://play.google.com/store/apps/details?id=health.studyu.me).
 
 ## Publication / Citation
-More information on the scientific background and a detailed description of the StudyMe app is available at:
-
-Zenner AM, Böttinger E, Konigorski S (2021). StudyMe: A New Mobile App For User-Centric N-of-1 Trials. arXiv:[TODO-Archive-id]. [TODO-Archive-link].
+Read our paper to learn about the scientific background and to get a detailed description of the app at: https://doi.org/10.1186/s13063-022-06893-7
 
 ## Acknowledgments
-The app was developed by [Alexander Zenner](https://zenner.org) as part of his Master's thesis at the [Hasso Plattner Institute](https://hpi.de), supervised by Dr. Stefan Konigorski and Prof. Dr. Erwin Böttinger.
+The app was developed by Alexander Zenner as part of his Master's thesis at the [Hasso Plattner Institute](https://hpi.de), supervised by Dr. Stefan Konigorski and Prof. Dr. Erwin Böttinger.
 
 ## Coding Setup
 - Follow [these instructions](https://flutter.dev/docs/get-started/install) to set up Flutter
