@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:studyme/models/measure/automatic_measure.dart';
 import 'package:studyme/models/measure/scale_measure.dart';
 import 'package:studyme/models/mixins/has_schedule.dart';
 import 'package:studyme/models/task/measure_task.dart';
@@ -18,6 +19,7 @@ abstract class Measure with HasSchedule {
     ListMeasure.measureType: (json) => ListMeasure.fromJson(json),
     KeyboardMeasure.measureType: (json) => KeyboardMeasure.fromJson(json),
     ScaleMeasure.measureType: (json) => ScaleMeasure.fromJson(json),
+    AutomaticMeasure.measureType: (json) => AutomaticMeasure.fromJson(json),
   };
 
   @HiveField(0)
@@ -58,6 +60,8 @@ abstract class Measure with HasSchedule {
         return ListMeasure.icon;
       case ScaleMeasure:
         return ScaleMeasure.icon;
+      case AutomaticMeasure:
+        return AutomaticMeasure.icon;
       default:
         return null;
     }
